@@ -112,7 +112,8 @@ These were proposed during discovery and you approved them.
 | D5 | Visual direction is an even blend: a naturalist's archive inside a classical academy. | Both aesthetics appealed to you; refine as we design. |
 | D6 | The Pokédex includes every Pokémon, with a competitive view as the default and a toggle for all. | Middle evolutions can be competitive (Eviolite); inclusion costs little. |
 | D7 | The battle simulator is a scripted animation stage, not a rules engine. | It exists to explore animation (R5). |
-| D8 | Planning documents live as editable docs; CLAUDE.md is a Markdown file in the repository. | Docs are easy to review and comment on; CLAUDE.md must sit with the code. |
+| D8 | The repository is the master copy of all documentation: planning documents in `docs/` and CLAUDE.md at the root, all Markdown. Drafts may be reviewed elsewhere, but only the committed version is in force. | Both the web chat and the terminal sessions read the repository, so it is the only shared memory. |
+| D9 | Monorepo: frontend and backend share this repository. Angular lives in `frontend/`; the Go API (`backend/`) and its OpenAPI contract (`api/`) are added in Phase 5. Each part is self-contained and they communicate only through the API contract. | Single developer; one CLAUDE.md and one `docs/`; the API contract changes with both sides in one commit. |
 
 ## Assumptions
 
@@ -142,7 +143,6 @@ None of these block the vision; each is listed with the latest point at which it
 | Q6 | Login approach for the Go backend (passwords, magic links, or a third-party sign-in). | Accounts phase | Deferred by D4. |
 | Q7 | Where to host, and which free tier. | Before first deployment | Free tiers change; research at the time. |
 | Q8 | AI assistant model source: free hosted tier or a small local model. | AI phase | Deferred by R6. |
-| Q9 | Repository layout: one repo for frontend and backend, or separate repos. | Architecture doc |  |
 
 ## Constraints
 
@@ -197,5 +197,7 @@ Newest first. Each entry links back to a decision above.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-10-29 | D9 approved: monorepo; closes Q9 | Repository layout discussion |
+| 2026-10-29 | D8 revised: the repository is the master copy of documentation | Web and terminal workflow discussion |
 | 2026-10-29 | D1–D8 recorded for review in Draft 1 | Discovery rounds 2 and 3 |
 | 2026-10-29 | Requirements R1–R15 confirmed | Discovery rounds 1 to 3 |

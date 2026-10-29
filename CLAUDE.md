@@ -28,7 +28,8 @@ project until the architecture document is approved. Documentation work is allow
 - Battle simulator: a scripted animation stage (GSAP + PixiJS), not a rules engine.
 - Pokédex: all Pokémon included; competitive view by default, toggle for all.
 - Budget: free and open-source tools, data and hosting only.
-- Repository layout: monorepo (`frontend/`, later `backend/` and `api/`) — **proposed as D9, pending approval**.
+- Repository layout (D9): monorepo. Angular lives in `frontend/`; the Go API in `backend/` and its
+  OpenAPI contract in `api/` arrive in Phase 5. Each part is self-contained and they share nothing but the API contract.
 
 ## Working rules
 
