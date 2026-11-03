@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1 — approved 2026-11-02** · Owner: @Alex
+**Version 1.1 — approved 2026-11-03** · Owner: @Alex
 
 ## Document status
 
-Version 1, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.1, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -60,9 +60,9 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 | U5 | See my team's shared weaknesses, type coverage, speed tiers and doubles essentials | Team analysis | 2 |
 | U6 | Import and export teams in Showdown text format | Team builder | 2 |
 | U7 | Save teams in my browser and find them later | Persistence | 2 |
-| U8 | Watch an animated two-Pokémon scene with ball, entrance, attack and effects | Animation lab | 3 |
-| U9 | See the most common sets for a Pokémon in the current format | Usage data | 4 |
-| U10 | Calculate damage between two Pokémon | Calculator | 4 |
+| U8 | See the most common sets for a Pokémon in the current format | Usage data | 3 |
+| U9 | Calculate damage between Pokémon, including doubles conditions | Calculator | 3 |
+| U10 | Watch an animated doubles scene with balls, entrances, attacks and effects | Animation lab | 4 |
 | U11 | Sign in and have my teams on any device | Accounts | 5 |
 | U12 | Test my knowledge with a quiz or puzzle | Quiz | 6 |
 | U13 | Ask an assistant to critique my team with evidence | AI assistant | 6 |
@@ -102,6 +102,7 @@ These come directly from the owner's answers in discovery.
 | R16 | The Pokédex entry must be extensible: new sections can be added later without redesigning the page. |
 | R17 | Competitive data follows the current official VGC regulation and must be easy to update when the regulation changes. |
 | R18 | All assets (fonts, textures, icons, artwork) must be free-licensed. |
+| R19 | The battle stage shows the official doubles format: two Pokémon per side. |
 
 ## Approved decisions
 
@@ -119,7 +120,7 @@ These come directly from the owner's answers in discovery.
 | D10 | MVP Pokédex entry: base stats, types, abilities, weaknesses and resistances, evolution chain, and learnable moves, laid out as independent sections (R16). | The core of a useful entry; more sections arrive later. |
 | D11 | A National Pokédex number defines a Pokémon. Entries sharing a number (regional forms, Megas, other variants) are forms of one Pokémon, shown in one entry with a form selector. | A simple, unambiguous rule for the data model. |
 | D12 | The competitive view shows all fully evolved Pokémon plus competitively relevant middle evolutions. "Show all" reveals the rest. | Keeps the full Pokédex in focus without depending on legality data in Phase 1. |
-| D13 | MVP team analysis: shared weaknesses and resistances, offensive coverage, speed tiers, and doubles essentials (speed control, Fake Out, Intimidate, redirection, spread moves). Common sets move to Phase 4 with usage data. | The first useful version arrives sooner; usage data needs its own research. |
+| D13 | MVP team analysis: shared weaknesses and resistances, offensive coverage, speed tiers, and doubles essentials (speed control, Fake Out, Intimidate, redirection, spread moves). Common sets come with usage data in Phase 3. | The first useful version arrives sooner; usage data needs its own research. |
 | D14 | Presenters start simple (portrait and introduction) and grow later. | Low cost; a natural first GSAP use. |
 | D15 | The quiz section stays as a Phase 6 candidate. | Not core to the MVP. |
 | D16 | Technical baseline: Angular 22, npm, prerendered pages, SCSS, plain signal-based services for state (NgRx only if a real need appears), and Angular's default tooling (Vitest, ESLint, Prettier; Playwright for end-to-end tests). | Simple, standard, fits static hosting. |
@@ -129,6 +130,13 @@ These come directly from the owner's answers in discovery.
 | D20 | Accessibility target: WCAG 2.2 AA, and full respect for the reduced-motion setting. | Cheap if designed in early, expensive to retrofit; motion is central to the site. |
 | D21 | Process: the owner makes every commit, straight to `main`; Claude never commits or pushes. CI runs lint, tests and build from Phase 0. Work is tracked in `docs/progress.md` and GitHub Issues/Projects. | Solo developer; CI still checks every push. |
 | D22 | Documentation, code, comments and commit messages are in English. Only the README is bilingual. | One version of the truth; no drift between translations. |
+| D23 | Phase order: competitive data and calculator in Phase 3, Animation Lab in Phase 4. | Competitive tools matter more and build on Phases 1–2; the lab can then show real damage from the calculator. |
+| D24 | The home page is the academy entrance, presenting the site's features as halls. | Fits the identity and introduces every presenter. |
+| D25 | Search exists twice: a global search across all data, and filters within each list. | Quick lookup and deep browsing serve different needs. |
+| D26 | Moves, abilities and items have their own detail pages, not only lists. | Cheap with prerendering; good for linking and search. |
+| D27 | Team rules (species, items, legality, learnsets, spreads) produce warnings and never block editing or saving. | Lets the user experiment and import any team. |
+| D28 | Every Pokémon entry offers "add to team" once the Strategy Hall exists. | Core to the lookup-to-analysis flow. |
+| D29 | The Animation Lab uses a doubles layout (R19) and starts with a fixed demo scene before adding choices. | Matches official play; a demo is the simplest start for a learning lab. Owner had no preference on the demo. |
 
 ## Assumptions
 
@@ -173,12 +181,12 @@ Approved with version 1. The roadmap document adds milestones and acceptance cri
 1. **Phase 0: Foundations.** Angular project in `frontend/`, Spanish and English builds, design tokens with light and dark themes, layout shell, data pipeline producing static files, CI, and a first presenter.
 2. **Phase 1: MVP, the Archive.** Pokédex (Pokémon, moves, abilities, items) with the competitive and full views, forms, search and filters.
 3. **Phase 2: The Strategy Hall.** Team builder with Showdown import and export, local saving, and team analysis (D13).
-4. **Phase 3: The Animation Lab.** Scripted battle stage in PixiJS and GSAP: ball throw, entrance, attack, effects, HP bar.
-5. **Phase 4: Deeper analysis.** Usage data and common sets, damage calculator, trends, common partners and matchups.
+4. **Phase 3: Competitive data.** Usage data and common sets, damage calculator, speed benchmarks, trends.
+5. **Phase 4: The Animation Lab.** Scripted doubles battle stage in PixiJS and GSAP: ball throws, entrances, attacks, effects, HP bars, with real damage from the calculator.
 6. **Phase 5: Accounts.** Go backend with sign-in and team sync, layered on the local-first data.
 7. **Phase 6: Extras.** Quiz or puzzle section, then the AI assistant.
 
-Why this order: the Archive's data is the foundation everything else reads. The team builder gives the most value per hour. The lab is the most fun, but it depends on Pokémon data and assets being in place.
+Why this order: the Archive's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the lab (D23). The lab comes last among the core phases, so it can use the data, assets and calculator already in place.
 
 ## Glossary
 
@@ -208,6 +216,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-03 | Version 1.1: D23 (phase swap) and D24–D29 approved; R19 added; module spec drafted | Module spec discussion |
 | 2026-11-02 | Version 1 approved; assumptions A1–A7 and phase order approved | Discovery round 4 |
 | 2026-11-02 | D10–D22 approved; R16–R18 added; open questions moved to `00-decision-map.md` | Discovery round 4 |
 | 2026-10-29 | D9 approved: monorepo; closes Q9 | Repository layout discussion |

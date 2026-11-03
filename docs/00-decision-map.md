@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-02
+Last updated: 2026-11-03
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -10,11 +10,11 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 8 | 0 |
+| A. Discovery and module spec | 15 | 0 |
 | B. Architecture (before `ng new`) | 7 | 1 |
-| C. Data strategy | 2 | 4 |
+| C. Data strategy | 2 | 6 |
 | D. Design spec | 2 | 4 |
-| E. Later phases | 0 | 8 |
+| E. Later phases | 0 | 6 |
 | F. Working process | 4 | 0 |
 
 ## A. Discovery and module spec
@@ -29,6 +29,13 @@ Every product and technical decision, grouped by when it must be made. This file
 | Q14 | Presenter behavior | Product | Decided → D14 |
 | Q4 | Quiz section scope and phase | Product | Decided → D15 |
 | Q9 | Repository layout | Technical | Decided → D9 |
+| Q40 | Phase order of competitive data and Animation Lab | Product | Decided → D23 |
+| Q41 | Home page | Product | Decided → D24 |
+| Q42 | Global search and list filters | Product | Decided → D25 |
+| Q43 | Detail pages for moves, abilities and items | Product | Decided → D26 |
+| Q44 | Team rule validation | Product | Decided → D27 |
+| Q45 | "Add to team" from the Pokédex | Product | Decided → D28 |
+| Q46 | Animation Lab layout and first version | Product | Decided → D29 |
 
 ## B. Architecture (before `ng new`)
 
@@ -53,6 +60,8 @@ Every product and technical decision, grouped by when it must be made. This file
 | Q24 | Data refresh process | Technical | Decided → D18 (by hand) |
 | Q25 | Static file layout | Technical | Decided → D18 (split files) |
 | Q26 | Browser storage | Technical | **Open.** Recommendation: localStorage for small preferences, IndexedDB (via Dexie) for teams, a service worker for offline data later. Explore in Phase 2. |
+| Q32 | Usage statistics source and its license (common sets, D13) | Research | **Open.** Moved forward by D23: needed for Phase 3. |
+| Q33 | Damage calculator library | Research | **Open.** Moved forward by D23: needed for Phase 3. |
 
 ## D. Design spec (before the Phase 0 shell)
 
@@ -69,9 +78,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | ID | Decision | When |
 | --- | --- | --- |
-| Q5 | Battle stage: real damage numbers or scripted values | Phase 3 |
-| Q32 | Usage statistics source and its license (needed for common sets, D13) | Phase 4 |
-| Q33 | Damage calculator library | Phase 4 |
+| Q5 | Battle stage: real damage numbers or scripted values (LAB-F04 proposes real values from the calculator) | Phase 4 |
 | Q6 | Login method | Phase 5 |
 | Q34 | Go web framework and database | Phase 5 |
 | Q7 | Hosting for frontend and backend, on free tiers | First deployment |
