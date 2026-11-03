@@ -17,7 +17,8 @@ project until the architecture document is approved. Documentation work is allow
 
 - `docs/01-vision-and-requirements.md` — requirements (R), approved decisions (D), assumptions (A), phases.
 - `docs/00-decision-map.md` — every open question (Q), grouped by when it must be decided.
-- Other `docs/` files as they are added (modules, architecture, data and AI, design, roadmap, milestones).
+- `docs/02-functional-modules.md` — what each module does: feature IDs (`ARC-F03`…), rules, acceptance criteria.
+- Other `docs/` files as they are added (data strategy, architecture, design, roadmap, milestones).
 - If code, docs and this file disagree, stop and ask. Never resolve a conflict silently.
 
 ## Key decisions (summary — the docs are authoritative)
@@ -32,7 +33,8 @@ project until the architecture document is approved. Documentation work is allow
   Game data comes already translated from the source. Images are linked, never stored in the repo.
 - Pokédex (D6, D10–D12): every Pokémon; a National Pokédex number defines a Pokémon and forms are grouped
   under it. Default view: fully evolved plus relevant middle evolutions. Entry sections are independent and
-  extensible.
+  extensible. Learnsets cover every game, marking current-game moves; teams choose a Free or Current
+  regulation format (D32). Team rules only warn, never block (D27).
 - Persistence (D3, D4): local-first in the browser; accounts and sync later via the Go backend.
 - Battle stage (D7): scripted animation (GSAP + PixiJS), not a rules engine.
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.

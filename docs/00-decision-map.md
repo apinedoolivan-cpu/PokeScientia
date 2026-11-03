@@ -10,7 +10,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 15 | 0 |
+| A. Discovery and module spec | 20 | 0 |
 | B. Architecture (before `ng new`) | 7 | 1 |
 | C. Data strategy | 2 | 6 |
 | D. Design spec | 2 | 4 |
@@ -36,6 +36,11 @@ Every product and technical decision, grouped by when it must be made. This file
 | Q44 | Team rule validation | Product | Decided → D27 |
 | Q45 | "Add to team" from the Pokédex | Product | Decided → D28 |
 | Q46 | Animation Lab layout and first version | Product | Decided → D29 |
+| Q47 | Bilingual search | Product | Decided → D30 |
+| Q48 | Which items the Archive shows | Product | Decided → D31 |
+| Q49 | Learnset scope and team formats | Product | Decided → D32 |
+| Q50 | Competitive middle evolutions list | Product | Decided → D33 |
+| Q51 | Team saving | Product | Decided → D34 |
 
 ## B. Architecture (before `ng new`)
 
@@ -54,7 +59,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | ID | Decision | Kind | Status |
 | --- | --- | --- | --- |
-| Q1 | Specific data sources, which is master for what, and their licenses | Research | **Open.** A mix of sources is decided (D18); the exact sources are pending research. |
+| Q1 | Specific data sources, which is master for what, and their licenses | Research | **Open.** A mix of sources is decided (D18); the exact sources are pending research. Must confirm learnsets from every game with a current-game flag (D32) and item categories (D31). |
 | Q22 | Current official VGC game, its mechanics, and how regulation updates are applied | Research | **Open.** Requirement R17. |
 | Q23 | Image sources and whether linking to them is reliable and allowed | Research | **Open.** Linking is decided (D18). |
 | Q24 | Data refresh process | Technical | Decided → D18 (by hand) |

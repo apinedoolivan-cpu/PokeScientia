@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.1 — approved 2026-11-03** · Owner: @Alex
+**Version 1.2 — approved 2026-11-03** · Owner: @Alex
 
 ## Document status
 
-Version 1.1, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.2, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -137,6 +137,11 @@ These come directly from the owner's answers in discovery.
 | D27 | Team rules (species, items, legality, learnsets, spreads) produce warnings and never block editing or saving. | Lets the user experiment and import any team. |
 | D28 | Every Pokémon entry offers "add to team" once the Strategy Hall exists. | Core to the lookup-to-analysis flow. |
 | D29 | The Animation Lab uses a doubles layout (R19) and starts with a fixed demo scene before adding choices. | Matches official play; a demo is the simplest start for a learning lab. Owner had no preference on the demo. |
+| D30 | Search matches names in Spanish and English, ignoring accents and capitals; both names lead to the same page. | Competitive resources use English names; small cost (an index of about 3,000 entries). |
+| D31 | The Archive shows items with a competitive purpose; all items keep their category so other groups can be shown later. | No value in items that do nothing in battle, without closing the door. |
+| D32 | Learnsets include every move a Pokémon has learned in any game, marking those available in the current game. Each team chooses a format: Free (no legality warnings) or Current regulation (with warnings). | All Pokémon are equal and sets don't depend on game availability, unless the user asks for that check. |
+| D33 | Competitive middle evolutions are a short list maintained by hand. | Simple and precise; changes rarely. |
+| D34 | Teams autosave in the browser; there is no Save button. | Nothing is lost by accident. |
 
 ## Assumptions
 
@@ -216,6 +221,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-03 | Version 1.2: D30–D34 approved; functional module spec approved as v1 | Module spec review |
 | 2026-11-03 | Version 1.1: D23 (phase swap) and D24–D29 approved; R19 added; module spec drafted | Module spec discussion |
 | 2026-11-02 | Version 1 approved; assumptions A1–A7 and phase order approved | Discovery round 4 |
 | 2026-11-02 | D10–D22 approved; R16–R18 added; open questions moved to `00-decision-map.md` | Discovery round 4 |

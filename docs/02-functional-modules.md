@@ -1,14 +1,14 @@
 # Pokescientia — Functional Module Specification
 
-**Draft 1 for review** · 2026-11-03 · Owner: @Alex
+**Version 1 — approved 2026-11-03** · Owner: @Alex
 
 ## Document status
 
-Draft 1. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
-- Statements marked **Assumption** are proposals made while drafting. Confirm or correct them in review.
+- Changes are made by editing this file and recording the decision in the vision doc's Decision log.
 - Detail follows the phase: Phases 0–2 in full, Phase 3 in medium detail, Phases 4–6 as outlines. Later modules are detailed when their phase approaches.
 
 ### Feature IDs
@@ -51,7 +51,7 @@ These rules apply to every module and are not repeated in module sections.
 | --- | --- | --- |
 | X-01 | Languages | The whole interface exists in Spanish (default) and English (D1). Switching language keeps the current page by swapping the `/es/` or `/en/` prefix (D17). |
 | X-02 | Game data language | Names and descriptions appear in the active language (D2). If a Spanish text is missing, the English text is shown and marked. |
-| X-03 | Bilingual search | Any search box matches names in **both** languages, so "Lanzallamas" and "Flamethrower" find the same move. **Assumption.** |
+| X-03 | Bilingual search | Any search box matches names in **both** languages, ignoring accents and capitals, so "Lanzallamas", "flamethrower" and "lanzallamas" find the same move. Results show the active-language name with the other name beside it, and open the same page (D30). |
 | X-04 | Themes | Light and dark themes (D19). The default follows the operating system; a manual choice is remembered. |
 | X-05 | Accessibility | WCAG 2.2 AA (D20): full keyboard use, visible focus, labels for screen readers, 4.5:1 text contrast, type information never shown by color alone. |
 | X-06 | Reduced motion | With `prefers-reduced-motion` on, large motion becomes fades or is skipped; nothing essential depends on animation (D20). |
@@ -128,10 +128,10 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F01 | **Pokémon and forms**, all generations: National Pokédex number, English ID, names (es/en), forms grouped under their number (D11), types, base stats, abilities (including hidden), height and weight, evolution chain with conditions, image URL, flags "fully evolved" and "competitive view". | 0 |
 | DAT-F02 | **Moves**: ID, names and descriptions (es/en), type, category, power, accuracy, PP, priority, **target** (single, both foes, all others…; essential for doubles), and flags such as contact or sound. | 0 |
 | DAT-F03 | **Abilities**: ID, names and descriptions (es/en). | 0 |
-| DAT-F04 | **Items**: ID, names and descriptions (es/en), category. Only items that can be held in battle. **Assumption.** | 0 |
-| DAT-F05 | **Learnsets**: the moves each Pokémon or form can learn. **Assumption:** the learnset of the current VGC game; for Pokémon not in that game, the latest game they appeared in, and the page says which game. | 0 |
+| DAT-F04 | **Items**: ID, names and descriptions (es/en), category. The Archive shows items with a competitive purpose; every item keeps its category, so other groups can be shown later by changing a filter (D31). | 0 |
+| DAT-F05 | **Learnsets**: every move each Pokémon or form has learned in any game, with a flag for moves available in the current VGC game (D32). Per-game detail is kept if the sources provide it (data strategy). | 0 |
 | DAT-F06 | **Type chart** of the current generation. | 0 |
-| DAT-F07 | **Competitive middle evolutions**: a short, hand-maintained list (e.g. Porygon2, Dusclops) included in the competitive view (D12). **Assumption.** | 0 |
+| DAT-F07 | **Competitive middle evolutions**: a short, hand-maintained list (e.g. Porygon2, Dusclops) included in the competitive view (D12, D33). | 0 |
 | DAT-F08 | **Regulation data**: which Pokémon and forms are legal in the current VGC regulation, plus the format rules (level, team size, clauses). Kept in one file that is easy to update (R17). | 2 |
 | DAT-F09 | **Data version**: the date the data was built and the game it reflects, shown in About. | 0 |
 | DAT-F10 | **Search index**: names in both languages for every Pokémon, form, move, ability and item. | 1 |
@@ -149,7 +149,7 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 ### Acceptance criteria
 
 - **DAT-F01** *Given* the pipeline has run, *then* every Pokémon from #1 to the latest has an entry with Spanish and English names, and Ninetales has two forms (standard and Alolan) under number 38.
-- **DAT-F05** *Given* the pipeline has run, *then* every form has a learnset and a label of the game it comes from.
+- **DAT-F05** *Given* the pipeline has run, *then* every form has a learnset, and each move in it says whether it is available in the current VGC game.
 - **DAT-F09** *Given* the pipeline has run, *then* the data version file contains the build date and the source game.
 - **General** *Given* the pipeline runs twice with the same sources, *then* the output files are identical.
 
@@ -175,7 +175,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F04 | **Form selector.** Switches all sections to the selected form; each form has its own URL (e.g. `/pokedex/ninetales-alola`). | 1 |
 | ARC-F05 | **Previous and next** entry by National Pokédex number. | 1 |
 | ARC-F06 | **Moves list** with filters (type, category, name, and a "spread moves" filter) and sorting. | 1 |
-| ARC-F07 | **Move detail page.** All move data and description, and the Pokémon that can learn it. | 1 |
+| ARC-F07 | **Move detail page.** All move data and description, and the Pokémon that can learn it, marking those that learn it in the current game. | 1 |
 | ARC-F08 | **Abilities list and detail page.** Description and the Pokémon that have it (regular or hidden). | 1 |
 | ARC-F09 | **Items list and detail page.** Description and category. | 1 |
 | ARC-F10 | **Type chart page.** Full 18×18 chart; pick one or two defending types to see what hits them. | 1 |
@@ -191,7 +191,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | Abilities | Each ability with a short description and a link to its page; hidden ability marked |
 | Type effectiveness | Weaknesses (×4, ×2), resistances (×½, ×¼) and immunities. A note appears when an ability can change them (e.g. Levitate). |
 | Evolution chain | Every stage with its condition (level, item, trade…), each linking to its entry |
-| Learnable moves | Table of moves with type, category, power, accuracy and how it is learned; filterable and sortable; labelled with the game the learnset comes from (DAT-F05) |
+| Learnable moves | Every move the Pokémon has learned in any game, with type, category, power, accuracy and how it is learned; moves available in the current game are marked, and a filter shows only those (D32); filterable and sortable |
 
 ### Rules
 
@@ -235,8 +235,8 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | --- | --- | --- |
 | STR-F01 | **Team library.** List of saved teams (name, the six Pokémon, last edited). Create, rename, duplicate and delete (delete can be undone). | 2 |
 | STR-F02 | **Team editor.** Up to six slots. Each slot: Pokémon and form, ability, held item, four moves, nature, stat spread, and the battle mechanic fields of the current game. Final stats at level 50 are calculated and shown. **Provisional:** spread and mechanic fields depend on the Q22 research. | 2 |
-| STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices come from the Pokémon's learnset. | 2 |
-| STR-F04 | **Rule warnings** (D27). Warnings for duplicate species, duplicate items, Pokémon not legal in the regulation, moves not learnable, impossible abilities and invalid spreads. Warnings never block editing or saving. | 2 |
+| STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices are every move the Pokémon has ever learned; in the regulation format, moves not available in the current game are marked. | 2 |
+| STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon or moves not legal in the current regulation. Warnings never block editing or saving. | 2 |
 | STR-F05 | **Import from Showdown text.** Lines that can't be read are reported; the rest is imported. | 2 |
 | STR-F06 | **Export to Showdown text**, with one-click copy. | 2 |
 | STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
@@ -246,7 +246,8 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | STR-F11 | **Doubles essentials.** For each category (speed control, Fake Out, Intimidate, redirection, spread moves, Protect, priority) whether the team has it and which members provide it (DAT-F11). | 2 |
 | STR-F12 | **Add from Archive.** Receives a Pokémon from ARC-F11 into a new or existing team (D28). | 2 |
 | STR-F13 | **Live analysis.** All analyses update immediately as the team changes. | 2 |
-| STR-F14 | **Autosave.** Changes are saved in the browser automatically; no "Save" button. **Assumption.** | 2 |
+| STR-F14 | **Autosave.** Changes are saved in the browser automatically; no "Save" button (D34). | 2 |
+| STR-F17 | **Team format** (D32). Each team is either **Free** (all Pokémon, every move ever learned, no legality warnings) or **Current regulation** (the same choices, plus the regulation warnings in STR-F04). New teams use the current regulation; the format can be changed at any time. | 2 |
 | STR-F15 | **Benchmarks.** Speed tiers compared against popular threats in the regulation. | 3 |
 | STR-F16 | **Fill from common set.** Fill a slot with a common set from usage data. | 3 |
 
@@ -254,6 +255,7 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 
 - A team has at most six Pokémon; analysis works with any number from one to six.
 - Format rules (level 50, species clause, item clause, legality) come from the regulation data (DAT-F08), not from code, so a new regulation needs only a data update (R17).
+- Game availability never limits what can be built; it only adds warnings, and only in the regulation format (D27, D32).
 - Analysis covers all six members. In VGC you bring six and choose four per game; choosing four is not modeled.
 - Teams live only in this browser until accounts exist (D3). The backup (STR-F07) is how they move between devices.
 - The analysis functions are independent of the screens, so the calculator (M4) and the AI assistant (M8) can reuse them.
@@ -269,7 +271,8 @@ Receives Pokémon from M2. Feeds teams to M4 (calculator) and later M6 (sync) an
 ### Acceptance criteria
 
 - **STR-F01** *Given* I delete a team, *when* I choose "Undo" in the message that appears, *then* the team is back unchanged.
-- **STR-F04** *Given* two members hold Sitrus Berry, *then* a duplicate-item warning appears on both, and I can still keep editing and the team is still saved.
+- **STR-F04** *Given* a team in the regulation format where two members hold Sitrus Berry, *then* a duplicate-item warning appears on both, and I can still keep editing and the team is still saved.
+- **STR-F17** *Given* the same team, *when* I switch it to the Free format, *then* the duplicate-item and legality warnings disappear, while a move the Pokémon can never learn is still flagged.
 - **STR-F05** *Given* valid Showdown text for six Pokémon, *when* I import it, *then* the team has the same Pokémon, items, abilities, moves, natures and spreads. *Given* one line has an unknown move, *then* that line is reported and the rest is imported.
 - **STR-F05/F06** *Given* a team, *when* I export it and import the text again, *then* the result is identical to the original.
 - **STR-F08** *Given* a team with three Pokémon weak to Ground and none resistant or immune, *then* Ground is highlighted as a shared weakness. *When* I add a Levitate Pokémon, *then* it counts as immune to Ground.
@@ -329,7 +332,7 @@ Q32 (usage data source and license), Q33 (calculator library). Both are research
 | --- | --- | --- |
 | LAB-F01 | **Doubles stage.** Two Pokémon per side on a battle field (D29). | 4 |
 | LAB-F02 | **Battle sequence:** ball throw, entrance of all four Pokémon, a move, hit effect, HP bar change, optional faint. | 4 |
-| LAB-F03 | **First version: a fixed demo scene.** Later, choosing the Pokémon and moves (D29). | 4 |
+| LAB-F03 | **First version: a fixed demo scene.** Later, choosing the Pokémon and moves (D29). Other ideas (scene editor, timeline, camera moves) are explored when Phase 4 is specified. | 4 |
 | LAB-F04 | **Real damage values** from the calculator (M4), closing Q5. | 4 |
 | LAB-F05 | **Playback controls:** play, pause, replay, speed. A calm version for reduced motion (X-06). | 4 |
 | LAB-F06 | **Effect library** by move type and category (generic effects per type, not one per move). | 4 |
@@ -373,15 +376,15 @@ Q32 (usage data source and license), Q33 (calculator library). Both are research
 
 ---
 
-## Assumptions introduced in this draft
+## Review decisions
 
-Confirm or correct each in review.
+The assumptions in Draft 1 were reviewed on 2026-11-03.
 
-| Where | Assumption |
+| Where | Outcome |
 | --- | --- |
-| X-03 | Search matches names in both languages. |
-| DAT-F04 | The Archive lists only items that can be held in battle. |
-| DAT-F05 | Learnsets come from the current VGC game, or the latest game the Pokémon appeared in, labelled. |
-| DAT-F07 | Competitive middle evolutions are a short hand-maintained list. |
-| STR-F14 | Teams autosave; there is no "Save" button. |
-| LAB-F03 | The lab starts with a fixed demo scene, then adds choices (owner had no preference). |
+| X-03 | Bilingual search kept (D30). |
+| DAT-F04 | Battle items by default; categories kept to allow other items later (D31). |
+| DAT-F05, ARC-F03, STR-F17 | Learnsets cover every game; teams choose Free or Current regulation format (D32). Replaces the "current game only" assumption. |
+| DAT-F07 | Hand-maintained list of competitive middle evolutions kept (D33). |
+| STR-F14 | Autosave kept (D34). |
+| LAB-F03 | Fixed demo first kept (D29); further ideas explored before Phase 4. |
