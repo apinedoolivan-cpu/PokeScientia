@@ -19,6 +19,8 @@ project until the architecture document is approved. Documentation work is allow
 - `docs/00-decision-map.md` — every open question (Q), grouped by when it must be decided.
 - `docs/02-functional-modules.md` — what each module does: feature IDs (`ARC-F03`…), rules, acceptance criteria.
 - `docs/03-data-strategy.md` — data sources, licenses, images, regulation updates, calculator and storage choices.
+- `docs/04-architecture.md` — repository and code structure, layer rules, pipeline, i18n, rendering, testing,
+  CI, coding guidelines, Phase 0 setup.
 - Other `docs/` files as they are added (data strategy, architecture, design, roadmap, milestones).
 - If code, docs and this file disagree, stop and ask. Never resolve a conflict silently.
 
@@ -43,6 +45,11 @@ project until the architecture document is approved. Documentation work is allow
   extensible. Learnsets cover every game, marking current-game moves; teams choose a Free or Current
   regulation format (D32). Team rules only warn, never block (D27).
 - Persistence (D3, D4): local-first in the browser; accounts and sync later via the Go backend.
+- Architecture (D45–D54): `pipeline/` (own package; manual files in `pipeline/manual/`) writes committed JSON
+  to `frontend/public/data/`. Every page prerendered (`outputMode: static`), Spanish source under `/es/`, English
+  under `/en/`, XLIFF translations, root redirect page. Zoneless + OnPush: everything on screen is a signal.
+  `domain/` never imports Angular; pages use only our `ui/` components on Angular CDK. Follow the layer rules and
+  coding guidelines in `docs/04-architecture.md`. Node 26 LTS.
 - Battle stage (D7): scripted animation (GSAP + PixiJS), not a rules engine.
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Budget: free and open-source tools, data, assets and hosting only.
@@ -66,6 +73,8 @@ project until the architecture document is approved. Documentation work is allow
 ## Language (D22)
 
 - Code, comments, commit messages and `docs/`: English. Only the README is bilingual.
+- Commit messages (D53): Conventional Commits, `type(scope): description`, with the feature ID when
+  implementing one (e.g. `feat(arc): ARC-F04 add form selector`). Rules in `.github/commit-instructions.md`.
 - User-facing UI text: Spanish first, with English translations.
 
 ## Session routine

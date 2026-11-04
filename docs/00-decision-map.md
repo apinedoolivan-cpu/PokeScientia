@@ -11,7 +11,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | Stage | Decided | Open |
 | --- | --- | --- |
 | A. Discovery and module spec | 20 | 0 |
-| B. Architecture (before `ng new`) | 7 | 1 |
+| B. Architecture (before `ng new`) | 17 | 2 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 2 | 4 |
 | E. Later phases | 0 | 6 |
@@ -55,7 +55,18 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q19 | State management | Technical | Decided → D16 (plain signal services) |
 | Q20 | URL design | Technical | Decided → D17 |
 | Q21 | Testing, lint and format tooling | Technical | Decided → D16 (Angular defaults) |
-| Q2 | UI approach: Material + CDK, custom, or Tailwind | Technical + design | **Open.** Recommendation: CDK plus custom components behind our own wrappers and tokens, which keeps the choice reversible. Decide in the design spec, before the Phase 0 shell. |
+| Q52 | Location of the data pipeline | Technical | Decided → D45 |
+| Q53 | Generated data committed or generated in CI | Technical | Decided → D46 |
+| Q54 | Which pages are prerendered | Technical | Decided → D47 |
+| Q55 | Location of domain logic | Technical | Decided → D48 |
+| Q56 | Translation file format | Technical | Decided → D50 |
+| Q57 | Root address and language redirect | Technical | Decided → D51 |
+| Q58 | Change detection | Technical | Decided → D52 |
+| Q59 | Commit message convention | Technical | Decided → D53 |
+| Q60 | Node version | Technical | Decided → D54 |
+| Q61 | GSAP's proprietary license versus R7 ("open-source material only") | Product | **Open.** See A11 in [`04-architecture.md`](04-architecture.md). Recommendation: keep GSAP and reword R7. |
+| Q62 | Angular's AI configuration files (`--ai-config`) | Technical | **Open.** See A12 in [`04-architecture.md`](04-architecture.md). Recommendation: `claude-code,vscode`. |
+| Q2 | UI approach: Material + CDK, custom, or Tailwind | Technical + design | Decided → D49 (CDK plus our own components) |
 
 ## C. Data strategy (Phase 0)
 

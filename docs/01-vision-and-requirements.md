@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.3 — approved 2026-11-04** · Owner: @Alex
+**Version 1.4 — approved 2026-11-04** · Owner: @Alex
 
 ## Document status
 
-Version 1.3, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.4, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -152,6 +152,16 @@ These come directly from the owner's answers in discovery.
 | D42 | `@smogon/calc` is the damage engine. Pokescientia builds its own calculator on top: all rolls, KO chances, matchup grid, scenarios, roll charts, combined damage, accuracy-adjusted chances, one against many, and a formula explainer. Stat formulas are our own code. | Proven, maintained mechanics; our effort goes into analysis and presentation. |
 | D43 | Browser storage: localStorage for preferences; IndexedDB through Dexie for teams, with persistent storage requested. | Right tool for each kind of data; backups remain the safety net. |
 | D44 | A hand-maintained file supplies official Spanish names missing from the sources; anything still missing falls back to English, marked and reported by the build. | The newest content often lacks Spanish in PokéAPI. |
+| D45 | The data pipeline lives in its own `pipeline/` folder with its own `package.json`; hand-maintained files live in `pipeline/manual/`. | The website and the build tool keep separate dependencies. |
+| D46 | Generated data is committed to `frontend/public/data/` after each manual pipeline run. | CI never depends on external sources; Git shows what each refresh changed. |
+| D47 | Every page is prerendered, including every Pokémon, move, ability and item, in both languages. | Instant, shareable, indexable pages on static hosting. |
+| D48 | Domain logic (formulas, analyses, parsers, calculator wrappers) lives in `frontend/src/app/domain/` and never imports Angular. | Testable and movable into a package later, without premature setup. |
+| D49 | The UI is built from our own components on Angular CDK; pages use only our components. Closes Q2. | The academy identity needs custom visuals; CDK gives accessible behavior; the choice stays reversible. |
+| D50 | Translation files use XLIFF, with a meaning and description for each text. | Context helps when translating short or ambiguous texts. |
+| D51 | A static root page sends visitors to their saved language, otherwise their browser's language, otherwise Spanish. | Static hosting has no server to choose a language. |
+| D52 | Change detection is zoneless with OnPush (Angular 22 defaults); anything that changes on screen is a signal. | Fits D16 and makes pages faster. |
+| D53 | Commit messages follow Conventional Commits with feature IDs; Copilot's commit message generation is configured with `.github/commit-instructions.md`. | Readable history linked to the spec, using the owner's existing workflow. |
+| D54 | Node 26 LTS, recorded in `.nvmrc` and in `engines`. | Current LTS, supported by Angular 22; same version locally and in CI. |
 
 ## Assumptions
 
@@ -231,6 +241,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-04 | Version 1.4: D45–D54 approved from the architecture review | Architecture review |
 | 2026-11-04 | Version 1.3: D35–D44 approved from the data strategy; R18 reworded | Data strategy review |
 | 2026-11-03 | Version 1.2: D30–D34 approved; functional module spec approved as v1 | Module spec review |
 | 2026-11-03 | Version 1.1: D23 (phase swap) and D24–D29 approved; R19 added; module spec drafted | Module spec discussion |
