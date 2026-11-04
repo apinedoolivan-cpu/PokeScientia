@@ -18,6 +18,7 @@ project until the architecture document is approved. Documentation work is allow
 - `docs/01-vision-and-requirements.md` — requirements (R), approved decisions (D), assumptions (A), phases.
 - `docs/00-decision-map.md` — every open question (Q), grouped by when it must be decided.
 - `docs/02-functional-modules.md` — what each module does: feature IDs (`ARC-F03`…), rules, acceptance criteria.
+- `docs/03-data-strategy.md` — data sources, licenses, images, regulation updates, calculator and storage choices.
 - Other `docs/` files as they are added (data strategy, architecture, design, roadmap, milestones).
 - If code, docs and this file disagree, stop and ask. Never resolve a conflict silently.
 
@@ -29,8 +30,14 @@ project until the architecture document is approved. Documentation work is allow
 - i18n (D1, D17): `@angular/localize`, one build per language under `/es/` and `/en/`; Spanish is the source
   language. Path words are identical in both languages; resources use stable English IDs
   (`/es/pokedex/charizard`). Localized names are display-only.
-- Data (D2, D18): mixed open sources processed at build time into split static files, refreshed by hand.
-  Game data comes already translated from the source. Images are linked, never stored in the repo.
+- Data (D2, D18, D36–D44): built at build time into split static files, refreshed by hand. Showdown data
+  (`@pkmn`) is master for mechanics; PokéAPI raw files for names, descriptions and encyclopedic data; one master
+  per field. Public IDs are PokéAPI-style (`ninetales-alola`). Missing Spanish comes from an overrides file, else
+  English, marked. Images are linked from PokéAPI's sprite repo, pinned to a commit; never stored, never from
+  Showdown's sprite server.
+- Current game (D35): Pokémon Champions; the current regulation is set in one regulation file. Teams choose
+  Stat Points (default) or EVs/IVs (D38); damage always uses Champions mechanics via `@smogon/calc` (D42).
+  Stat formulas are our own code, tested against `@smogon/calc`.
 - Pokédex (D6, D10–D12): every Pokémon; a National Pokédex number defines a Pokémon and forms are grouped
   under it. Default view: fully evolved plus relevant middle evolutions. Entry sections are independent and
   extensible. Learnsets cover every game, marking current-game moves; teams choose a Free or Current

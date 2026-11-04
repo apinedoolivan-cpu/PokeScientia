@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-03
+Last updated: 2026-11-04
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -12,10 +12,12 @@ Every product and technical decision, grouped by when it must be made. This file
 | --- | --- | --- |
 | A. Discovery and module spec | 20 | 0 |
 | B. Architecture (before `ng new`) | 7 | 1 |
-| C. Data strategy | 2 | 6 |
+| C. Data strategy | 8 | 0 |
 | D. Design spec | 2 | 4 |
 | E. Later phases | 0 | 6 |
 | F. Working process | 4 | 0 |
+
+Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
 
 ## A. Discovery and module spec
 
@@ -59,14 +61,14 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | ID | Decision | Kind | Status |
 | --- | --- | --- | --- |
-| Q1 | Specific data sources, which is master for what, and their licenses | Research | **Open.** A mix of sources is decided (D18); the exact sources are pending research. Must confirm learnsets from every game with a current-game flag (D32) and item categories (D31). |
-| Q22 | Current official VGC game, its mechanics, and how regulation updates are applied | Research | **Open.** Requirement R17. |
-| Q23 | Image sources and whether linking to them is reliable and allowed | Research | **Open.** Linking is decided (D18). |
+| Q1 | Specific data sources, which is master for what, and their licenses | Research | Decided → D36 (sources), D37 (IDs), D44 (Spanish overrides) |
+| Q22 | Current official VGC game, its mechanics, and how regulation updates are applied | Research | Decided → D35 (Pokémon Champions), D38 (stat systems), D39 (learnsets) |
+| Q23 | Image sources and whether linking to them is reliable and allowed | Research | Decided → D40 |
 | Q24 | Data refresh process | Technical | Decided → D18 (by hand) |
 | Q25 | Static file layout | Technical | Decided → D18 (split files) |
-| Q26 | Browser storage | Technical | **Open.** Recommendation: localStorage for small preferences, IndexedDB (via Dexie) for teams, a service worker for offline data later. Explore in Phase 2. |
-| Q32 | Usage statistics source and its license (common sets, D13) | Research | **Open.** Moved forward by D23: needed for Phase 3. |
-| Q33 | Damage calculator library | Research | **Open.** Moved forward by D23: needed for Phase 3. |
+| Q26 | Browser storage | Technical | Decided → D43 |
+| Q32 | Usage statistics source and its license (common sets, D13) | Research | Decided → D41 |
+| Q33 | Damage calculator library | Research | Decided → D42 |
 
 ## D. Design spec (before the Phase 0 shell)
 
@@ -98,3 +100,11 @@ Every product and technical decision, grouped by when it must be made. This file
 | Q37 | Continuous integration | Decided → D21 (lint, tests, build from Phase 0) |
 | Q38 | Task tracking | Decided → D21 (`docs/progress.md` and GitHub Issues/Projects) |
 | Q39 | Documentation language | Decided → D22 (English; README bilingual) |
+
+## G. Parked ideas
+
+Ideas discussed and deliberately set aside. Nothing is built for them now. A parked idea is reopened only by the owner; when reopened, it becomes a module or open questions above.
+
+| ID | Idea | Parked on | Why parked | If reopened |
+| --- | --- | --- | --- | --- |
+| P1 | **Fakémon**: fan-made Pokémon shown in the platform, fully separated from official Pokémon (own section and IDs, always labelled fan-made). No competitive section. | 2026-11-04 | Copyright of fan creations made by others, and their artwork would have to be stored, unlike official images (D18). | Scope ceiling: official types and rules, plus at most custom moves and abilities. New types or rules are excluded. Estimated size: one milestone plus content work, mostly adding data. Kept cheap by the architecture guidelines: types read from data, IDs treated as opaque text, entry sections receive their data, image URLs come from data. |

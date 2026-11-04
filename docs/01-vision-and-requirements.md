@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.2 — approved 2026-11-03** · Owner: @Alex
+**Version 1.3 — approved 2026-11-04** · Owner: @Alex
 
 ## Document status
 
-Version 1.2, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.3, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -101,7 +101,7 @@ These come directly from the owner's answers in discovery.
 | R15 | Interest in GSAP for UI motion and PixiJS for 2D rendering. |
 | R16 | The Pokédex entry must be extensible: new sections can be added later without redesigning the page. |
 | R17 | Competitive data follows the current official VGC regulation and must be easy to update when the regulation changes. |
-| R18 | All assets (fonts, textures, icons, artwork) must be free-licensed. |
+| R18 | All assets we add (fonts, icons, textures, our own artwork) must be free-licensed. Official Pokémon images are not free-licensed: they are used as fan content, credited, from the chosen sources (D40). |
 | R19 | The battle stage shows the official doubles format: two Pokémon per side. |
 
 ## Approved decisions
@@ -142,6 +142,16 @@ These come directly from the owner's answers in discovery.
 | D32 | Learnsets include every move a Pokémon has learned in any game, marking those available in the current game. Each team chooses a format: Free (no legality warnings) or Current regulation (with warnings). | All Pokémon are equal and sets don't depend on game availability, unless the user asks for that check. |
 | D33 | Competitive middle evolutions are a short list maintained by hand. | Simple and precise; changes rarely. |
 | D34 | Teams autosave in the browser; there is no Save button. | Nothing is lost by accident. |
+| D35 | The current official game is Pokémon Champions (Regulation Set M-C until 2026-12-02). The current regulation is set in a single regulation file. | Researched in the data strategy; one place to change when regulations change (R17). |
+| D36 | Data sources: Showdown data (`@pkmn` packages) is master for mechanics; PokéAPI raw data files are master for names, descriptions and encyclopedic data. Each field has exactly one master. | Showdown has the mechanics but no Spanish; PokéAPI has Spanish but weaker mechanics. |
+| D37 | Public IDs use PokéAPI's hyphenated style (`ninetales-alola`); Showdown IDs are stored internally; a mapping file covers exceptions. | Readable URLs that match image file names. |
+| D38 | Each team chooses its stat system: Stat Points (Champions; default) or EVs and IVs (earlier games). A converter shows spreads in both systems. Damage always uses Champions mechanics. | Supports official play and older builds; the conversion is exact in most cases. |
+| D39 | Learnsets keep detail per generation and method. A move is "available in the current game" when it is in the Champions learnset. | Enough for D32, with smaller data. |
+| D40 | Images are linked from PokéAPI's sprite repository through `raw.githubusercontent.com`, pinned to a commit, with original placeholders when an image fails. Showdown's sprite server and jsDelivr are not used. | The address PokéAPI gives to applications; no hosting needed (D18). |
+| D41 | Usage statistics come from Smogon's monthly aggregated statistics for Showdown's Champions VGC format. Smogon's written sets and analyses are not used. | Aggregated statistics are public domain; written content is copyrighted. |
+| D42 | `@smogon/calc` is the damage engine. Pokescientia builds its own calculator on top: all rolls, KO chances, matchup grid, scenarios, roll charts, combined damage, accuracy-adjusted chances, one against many, and a formula explainer. Stat formulas are our own code. | Proven, maintained mechanics; our effort goes into analysis and presentation. |
+| D43 | Browser storage: localStorage for preferences; IndexedDB through Dexie for teams, with persistent storage requested. | Right tool for each kind of data; backups remain the safety net. |
+| D44 | A hand-maintained file supplies official Spanish names missing from the sources; anything still missing falls back to English, marked and reported by the build. | The newest content often lacks Spanish in PokéAPI. |
 
 ## Assumptions
 
@@ -153,7 +163,7 @@ Approved with version 1. Revisit any that stops holding.
 | A2 | Angular 22, the current major. | Confirmed by D16 |
 | A3 | Competitive analysis targets the current official VGC regulation only; older formats are not analyzed. | Approved; see R17 |
 | A4 | Pokémon data is pre-processed at build time into static files, not queried live. | Confirmed by D18 |
-| A5 | Pokémon sprites and artwork come from open community sources, linked and credited. | Approved; sources pending research |
+| A5 | Pokémon sprites and artwork come from open community sources, linked and credited. | Confirmed by D40 |
 | A6 | The whole app stays free to host, on static hosting until the Go backend arrives. | Approved |
 | A7 | Work happens in short sessions that start from CLAUDE.md and these docs. | Approved |
 
@@ -175,7 +185,7 @@ The two hard limits are zero budget and respect for Pokémon intellectual proper
 - A visible disclaimer states that the site is an unofficial fan project.
 - Pokémon artwork is never redrawn or imitated; it comes only from the sources we choose. Original work (UI, effects, academy art) is ours.
 
-**Licenses to verify:** the code license of the Showdown-derived libraries, PokéAPI's terms, the terms of any sprite source (including whether linking is allowed), usage statistics sources, and the license of every font, icon set and texture.
+**Licenses:** data, image and library licenses were verified in [`03-data-strategy.md`](03-data-strategy.md). Every font, icon set and texture we add must still be checked when chosen (R18).
 
 **Effort.** One developer working in sessions. Each phase must deliver something usable on its own.
 
@@ -221,6 +231,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-04 | Version 1.3: D35–D44 approved from the data strategy; R18 reworded | Data strategy review |
 | 2026-11-03 | Version 1.2: D30–D34 approved; functional module spec approved as v1 | Module spec review |
 | 2026-11-03 | Version 1.1: D23 (phase swap) and D24–D29 approved; R19 added; module spec drafted | Module spec discussion |
 | 2026-11-02 | Version 1 approved; assumptions A1–A7 and phase order approved | Discovery round 4 |

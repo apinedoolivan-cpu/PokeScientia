@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1 — approved 2026-11-03** · Owner: @Alex
+**Version 1.1 — approved 2026-11-04** · Owner: @Alex
 
 ## Document status
 
-Version 1, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.1, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -125,14 +125,14 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 
 | ID | Data | Phase |
 | --- | --- | --- |
-| DAT-F01 | **Pokémon and forms**, all generations: National Pokédex number, English ID, names (es/en), forms grouped under their number (D11), types, base stats, abilities (including hidden), height and weight, evolution chain with conditions, image URL, flags "fully evolved" and "competitive view". | 0 |
+| DAT-F01 | **Pokémon and forms**, all generations: National Pokédex number, English ID (PokéAPI style, D37), names (es/en), forms grouped under their number (D11), types, base stats, abilities (including hidden), height and weight, evolution chain with conditions, image URL, flags "fully evolved" and "competitive view". | 0 |
 | DAT-F02 | **Moves**: ID, names and descriptions (es/en), type, category, power, accuracy, PP, priority, **target** (single, both foes, all others…; essential for doubles), and flags such as contact or sound. | 0 |
 | DAT-F03 | **Abilities**: ID, names and descriptions (es/en). | 0 |
 | DAT-F04 | **Items**: ID, names and descriptions (es/en), category. The Archive shows items with a competitive purpose; every item keeps its category, so other groups can be shown later by changing a filter (D31). | 0 |
-| DAT-F05 | **Learnsets**: every move each Pokémon or form has learned in any game, with a flag for moves available in the current VGC game (D32). Per-game detail is kept if the sources provide it (data strategy). | 0 |
+| DAT-F05 | **Learnsets**: every move each Pokémon or form has learned in any game, with the generations and methods, and a flag for moves available in the current game (D32, D39). | 0 |
 | DAT-F06 | **Type chart** of the current generation. | 0 |
 | DAT-F07 | **Competitive middle evolutions**: a short, hand-maintained list (e.g. Porygon2, Dusclops) included in the competitive view (D12, D33). | 0 |
-| DAT-F08 | **Regulation data**: which Pokémon and forms are legal in the current VGC regulation, plus the format rules (level, team size, clauses). Kept in one file that is easy to update (R17). | 2 |
+| DAT-F08 | **Regulation data**: which Pokémon and forms are legal in the current VGC regulation, plus the format rules (level, team size, clauses, Mega Evolution). The current regulation is named in one file that is easy to update (R17, D35). | 2 |
 | DAT-F09 | **Data version**: the date the data was built and the game it reflects, shown in About. | 0 |
 | DAT-F10 | **Search index**: names in both languages for every Pokémon, form, move, ability and item. | 1 |
 | DAT-F11 | **Doubles move categories**: hand-maintained lists of moves for speed control, redirection, Fake Out, Protect-like moves, etc., used by STR-F11. | 2 |
@@ -142,7 +142,8 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 
 - Every entity has a stable English ID, used in URLs and references (D17).
 - Data is split into small files loaded on demand (D18). A Pokémon page never loads the whole Pokédex.
-- Images are referenced by URL, never stored in the repository (D18).
+- Images are referenced by URL, never stored in the repository (D18, D40).
+- Each field comes from exactly one source (D36). Spanish gaps are filled from the overrides file or fall back to English, and the build reports them (D44).
 - Refreshing the data is a single, documented command run by hand (D18). Running it twice with the same sources gives the same files.
 - Hand-maintained lists (DAT-F07, DAT-F08, DAT-F11) live in the repository as small, readable files.
 
@@ -234,10 +235,10 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | ID | Feature | Phase |
 | --- | --- | --- |
 | STR-F01 | **Team library.** List of saved teams (name, the six Pokémon, last edited). Create, rename, duplicate and delete (delete can be undone). | 2 |
-| STR-F02 | **Team editor.** Up to six slots. Each slot: Pokémon and form, ability, held item, four moves, nature, stat spread, and the battle mechanic fields of the current game. Final stats at level 50 are calculated and shown. **Provisional:** spread and mechanic fields depend on the Q22 research. | 2 |
+| STR-F02 | **Team editor.** Up to six slots. Each slot: Pokémon and form, ability, held item (including Mega Stones), four moves, nature, and stat spread in the team's stat system (STR-F18). Level is always 50. Final stats are calculated and shown. | 2 |
 | STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices are every move the Pokémon has ever learned; in the regulation format, moves not available in the current game are marked. | 2 |
 | STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon or moves not legal in the current regulation. Warnings never block editing or saving. | 2 |
-| STR-F05 | **Import from Showdown text.** Lines that can't be read are reported; the rest is imported. | 2 |
+| STR-F05 | **Import from Showdown text.** Lines that can't be read are reported; the rest is imported. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. | 2 |
 | STR-F06 | **Export to Showdown text**, with one-click copy. | 2 |
 | STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
 | STR-F08 | **Defensive analysis.** For each of the 18 attacking types: how many members are weak, resistant or immune; shared weaknesses are highlighted. Abilities that grant immunity (e.g. Levitate, Flash Fire) are counted. | 2 |
@@ -250,12 +251,15 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | STR-F17 | **Team format** (D32). Each team is either **Free** (all Pokémon, every move ever learned, no legality warnings) or **Current regulation** (the same choices, plus the regulation warnings in STR-F04). New teams use the current regulation; the format can be changed at any time. | 2 |
 | STR-F15 | **Benchmarks.** Speed tiers compared against popular threats in the regulation. | 3 |
 | STR-F16 | **Fill from common set.** Fill a slot with a common set from usage data. | 3 |
+| STR-F18 | **Stat system per team** (D38). Stat Points (66 total, 32 per stat, IVs fixed at 31; default) or EVs and IVs (510 total, 252 per stat, IVs 0–31). Changing the system converts every spread (STR-F19). | 2 |
+| STR-F19 | **Spread converter.** Shows a spread in both systems side by side (`EVs = 8 × SP − 4`). Stat Points to EVs is exact; EVs to Stat Points warns when an IV isn't 31 or the total exceeds 66, and asks which stat to trim. Available inside the editor and as a standalone tool. | 2 |
 
 ### Rules
 
 - A team has at most six Pokémon; analysis works with any number from one to six.
 - Format rules (level 50, species clause, item clause, legality) come from the regulation data (DAT-F08), not from code, so a new regulation needs only a data update (R17).
 - Game availability never limits what can be built; it only adds warnings, and only in the regulation format (D27, D32).
+- Spreads are always valid for the team's stat system: at most 66 Stat Points (32 per stat), or at most 510 EVs (252 per stat).
 - Analysis covers all six members. In VGC you bring six and choose four per game; choosing four is not modeled.
 - Teams live only in this browser until accounts exist (D3). The backup (STR-F07) is how they move between devices.
 - The analysis functions are independent of the screens, so the calculator (M4) and the AI assistant (M8) can reuse them.
@@ -277,11 +281,13 @@ Receives Pokémon from M2. Feeds teams to M4 (calculator) and later M6 (sync) an
 - **STR-F05/F06** *Given* a team, *when* I export it and import the text again, *then* the result is identical to the original.
 - **STR-F08** *Given* a team with three Pokémon weak to Ground and none resistant or immune, *then* Ground is highlighted as a shared weakness. *When* I add a Levitate Pokémon, *then* it counts as immune to Ground.
 - **STR-F10** *Given* a member with 100 final Speed, *when* I open the Tailwind view, *then* it shows 200.
+- **STR-F19** *Given* a Stat Point spread of 32 Atk / 2 Def / 32 Spe, *when* I convert it to EVs, *then* it shows 252 Atk / 12 Def / 252 Spe, and the final stats are identical. *Given* 252 HP / 252 Atk / 4 Spe, *then* it converts to 32 / 32 / 1 with no warning.
+- **STR-F18** *Given* a team in EVs, *when* I switch it to Stat Points, *then* every spread is converted and any inexact conversion is flagged on its member.
 - **STR-F11** *Given* a team with Tailwind on one member and no Fake Out, *then* speed control shows as covered by that member and Fake Out shows as missing.
 - **STR-F14** *Given* I edit a team and reload the page, *then* my changes are still there.
 - **STR-F12** *Given* the Garchomp entry, *when* I choose "Add to team" and pick a team with a free slot, *then* Garchomp appears in that team.
 
-**Testing approach:** unit tests for stat calculation, every analysis and the Showdown parser (including round-trip tests with real exported teams); end-to-end tests for building, importing, exporting and reloading a team.
+**Testing approach:** unit tests for stat calculation in both systems (checked against `@smogon/calc`), the converter, every analysis and the Showdown parser (including round-trip tests with real exported teams); end-to-end tests for building, importing, exporting and reloading a team.
 
 ### Out of scope
 
@@ -299,26 +305,35 @@ Team sharing by link (needs M6), team-preview simulation (choosing four of six),
 | --- | --- | --- |
 | CMP-F01 | **Usage overview.** Most used Pokémon in the current regulation, with usage rank and percentage. | 3 |
 | CMP-F02 | **Common sets.** For each Pokémon: most used moves, items, abilities, spreads and teammates. Shown in the entry (ARC-F12) and usable to fill a team slot (STR-F16). | 3 |
-| CMP-F03 | **Damage calculator.** Attacker against one or two defenders, with doubles conditions: spread-move reduction, weather, terrain, screens, Helping Hand, stat changes and the current game's battle mechanic. Result as a damage range in % and the chance to knock out. | 3 |
+| CMP-F03 | **Damage calculator** (D42). Attacker against one or two defenders, with the full doubles field: spread-move reduction, weather, terrain, screens, Helping Hand, Friend Guard, Tailwind, Ruin abilities and more; boosts, status, current HP, critical hits. Shows **all 16 rolls**, the % range, and the KO chance (OHKO, 2HKO…) including hazards and end-of-turn effects. | 3 |
 | CMP-F04 | **Calculator from a team.** Load attackers or defenders straight from a saved team. | 3 |
 | CMP-F05 | **Speed benchmarks** feeding STR-F15. | 3 |
 | CMP-F06 | **Usage trends** over time, if the data source allows it. | 3 (stretch) |
+| CMP-F07 | **Matchup grid.** Two Pokémon, all four moves each way, in one view. | 3 |
+| CMP-F08 | **Scenario comparison.** The same attack under several conditions side by side (e.g. with or without Intimidate, Helping Hand, screens, a critical hit). | 3 |
+| CMP-F09 | **Roll distribution chart** for any result. | 3 |
+| CMP-F10 | **Combined damage.** Two attackers hitting the same target in one turn, with the exact combined KO chance. | 3 |
+| CMP-F11 | **Accuracy-adjusted KO chance**, combining the KO chance with the move's accuracy. | 3 |
+| CMP-F12 | **One against many.** One attack against the most-used Pokémon of the regulation. | 3 |
+| CMP-F13 | **Formula explainer.** A step-by-step page showing how stats and damage are calculated for a chosen example. | 3 (stretch) |
 
 ### Rules
 
 - Usage data always shows its source, the period it covers and the format.
-- Damage calculation uses an established open-source calculator library (Q33); we don't write our own formulas.
+- Damage comes from `@smogon/calc` (D42). Combined damage, accuracy adjustments and charts are our own calculations on top of its rolls.
+- Mechanics are always the current game's (Champions), whatever the team's stat system (D38).
 
 ### Open questions
 
-Q32 (usage data source and license), Q33 (calculator library). Both are researched in the data strategy document.
+None. Usage data (D41) and the calculator (D42) were decided in the data strategy. The exact format of the usage data files is confirmed when Phase 3 starts.
 
 ### Acceptance criteria (outline)
 
 - **CMP-F03** *Given* a well-known matchup with published results, *then* our result matches the reference calculator within its rounding.
 - **CMP-F02** *Given* usage data is loaded, *then* each common-set panel names its source and period.
+- **CMP-F10** *Given* two attackers that each have a 50% chance to deal at least half of a target's HP, *then* the combined KO chance equals the probability computed from all pairs of their rolls.
 
-**Testing approach:** comparison tests against the reference calculator for a set of known matchups; validation tests on the usage data files.
+**Testing approach:** comparison tests against the reference calculator for a set of known matchups; unit tests for combined and accuracy-adjusted probabilities; validation tests on the usage data files.
 
 ---
 
