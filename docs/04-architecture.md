@@ -269,13 +269,14 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 
 ### Commit messages (D53)
 
-**Conventional Commits** with feature IDs: `type(scope): description`.
+**Conventional Commits** with feature IDs: `type(scope): summary`, plus a bulleted body when needed.
 
 | Part | Values |
 | --- | --- |
 | type | `feat`, `fix`, `docs`, `test`, `refactor`, `style`, `chore`, `data`, `ci` |
 | scope | `shell`, `arc`, `str`, `cmp`, `lab`, `domain`, `ui`, `pipeline`, `i18n`, `docs` |
-| description | Imperative, lowercase; include the feature ID when implementing one |
+| summary | Imperative, lowercase, specific (never just "update" or "improve"); include the feature ID when implementing one |
+| body | Required when several areas, or any decision, requirement or version, change: one bullet per area with IDs and versions |
 
 Examples: `feat(arc): ARC-F04 add form selector` · `data: refresh for Regulation M-D` · `docs: architecture v1`.
 

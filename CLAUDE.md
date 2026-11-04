@@ -77,8 +77,10 @@ project until the architecture document is approved. Documentation work is allow
 ## Language (D22)
 
 - Code, comments, commit messages and `docs/`: English. Only the README is bilingual.
-- Commit messages (D53): Conventional Commits, `type(scope): description`, with the feature ID when
-  implementing one (e.g. `feat(arc): ARC-F04 add form selector`). Rules in `.github/commit-instructions.md`.
+- Commit messages (D53): Conventional Commits, `type(scope): summary`, with the feature ID when implementing
+  one (e.g. `feat(arc): ARC-F04 add form selector`). The summary names the main change specifically (no vague
+  "update/improve"); a bulleted body with IDs and versions is required when several areas or any decision
+  change. Full rules in `.github/commit-instructions.md`.
 - User-facing UI text: Spanish first, with English translations.
 
 ## Session routine
