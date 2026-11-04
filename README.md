@@ -22,7 +22,7 @@ están en [`docs/`](docs/) (en inglés).
 ### Tecnología (prevista)
 
 Angular y TypeScript · `@angular/localize` · GSAP · PixiJS · almacenamiento local · backend en Go (más adelante).
-Construido solo con herramientas y datos gratuitos y de código abierto.
+Construido solo con herramientas y datos gratuitos, preferentemente de código abierto.
 
 ### Aviso
 
@@ -50,7 +50,7 @@ Planning phase. No application code yet. See [`docs/`](docs/) for the vision, re
 ### Tech (planned)
 
 Angular and TypeScript · `@angular/localize` · GSAP · PixiJS · local-first storage · Go backend (later).
-Built only with free and open-source tools and data.
+Built only with free tools and data, preferably open source.
 
 ### Disclaimer
 

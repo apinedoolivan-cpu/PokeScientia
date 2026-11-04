@@ -11,10 +11,10 @@ Every product and technical decision, grouped by when it must be made. This file
 | Stage | Decided | Open |
 | --- | --- | --- |
 | A. Discovery and module spec | 20 | 0 |
-| B. Architecture (before `ng new`) | 17 | 2 |
+| B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 2 | 4 |
-| E. Later phases | 0 | 6 |
+| E. Later phases | 0 | 7 |
 | F. Working process | 4 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
@@ -64,8 +64,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q58 | Change detection | Technical | Decided → D52 |
 | Q59 | Commit message convention | Technical | Decided → D53 |
 | Q60 | Node version | Technical | Decided → D54 |
-| Q61 | GSAP's proprietary license versus R7 ("open-source material only") | Product | **Open.** See A11 in [`04-architecture.md`](04-architecture.md). Recommendation: keep GSAP and reword R7. |
-| Q62 | Angular's AI configuration files (`--ai-config`) | Technical | **Open.** See A12 in [`04-architecture.md`](04-architecture.md). Recommendation: `claude-code,vscode`. |
+| Q61 | GSAP's proprietary license versus R7 ("open-source material only") | Product | Decided → D56 (keep GSAP; R7 reworded) |
+| Q62 | Angular's AI configuration files (`--ai-config`) | Technical | Decided → D55 |
 | Q2 | UI approach: Material + CDK, custom, or Tailwind | Technical + design | Decided → D49 (CDK plus our own components) |
 
 ## C. Data strategy (Phase 0)
@@ -96,6 +96,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 
 | ID | Decision | When |
 | --- | --- | --- |
+| Q63 | Three.js 3D experiments (3D academy entrance, 2.5D Lab effects), original content only | Phase 4 |
 | Q5 | Battle stage: real damage numbers or scripted values (LAB-F04 proposes real values from the calculator) | Phase 4 |
 | Q6 | Login method | Phase 5 |
 | Q34 | Go web framework and database | Phase 5 |

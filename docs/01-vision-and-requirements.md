@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.4 — approved 2026-11-04** · Owner: @Alex
+**Version 1.6 — approved 2026-11-04** · Owner: @Alex
 
 ## Document status
 
-Version 1.4, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.6, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -90,7 +90,7 @@ These come directly from the owner's answers in discovery.
 | R4 | Pokémon knowledge is the core; competitive play, mainly official doubles (VGC), is the main lens. Singles is secondary. |
 | R5 | The battle simulator is a low-stakes space to explore animation, not a serious feature. |
 | R6 | The AI agent is low priority. |
-| R7 | Free resources and open-source material only. |
+| R7 | Free resources only. Open-source material is preferred; free proprietary tools are allowed only when explicitly approved and recorded as a decision (currently GSAP, D56). |
 | R8 | Built for the owner first, but deployable online later. |
 | R9 | Bilingual: Spanish primary, English secondary. |
 | R10 | Pokédex covers all generations, with a competitive emphasis. |
@@ -162,6 +162,8 @@ These come directly from the owner's answers in discovery.
 | D52 | Change detection is zoneless with OnPush (Angular 22 defaults); anything that changes on screen is a signal. | Fits D16 and makes pages faster. |
 | D53 | Commit messages follow Conventional Commits with feature IDs; Copilot's commit message generation is configured with `.github/commit-instructions.md`. | Readable history linked to the spec, using the owner's existing workflow. |
 | D54 | Node 26 LTS, recorded in `.nvmrc` and in `engines`. | Current LTS, supported by Angular 22; same version locally and in CI. |
+| D55 | Angular's official AI guidelines are generated for Claude Code and Copilot (`--ai-config claude-code --ai-config vscode`) and arranged at the repository root; the root `CLAUDE.md` and `docs/` stay authoritative. | Claude Code (in VS Code's terminal) writes the code; Angular's guidelines keep it idiomatic. |
+| D56 | The animation stack is 2D: GSAP (free, proprietary license) for interface motion and choreography, PixiJS for the Lab's stage. Three.js is a Phase 4 exploration option for original 3D content only (Q63). | GSAP has the richest timelines and plugins; our Pokémon images are 2D. |
 
 ## Assumptions
 
@@ -185,7 +187,7 @@ All open questions are tracked in [`00-decision-map.md`](00-decision-map.md), gr
 
 The two hard limits are zero budget and respect for Pokémon intellectual property.
 
-**Budget.** Every tool, library, data source, asset and host must be free or open source (R7, R18). Any feature that would need paid capacity is redesigned or postponed.
+**Budget.** Every tool, library, data source, asset and host must be free; open source is preferred, and any free proprietary tool needs explicit approval (R7, R18). Any feature that would need paid capacity is redesigned or postponed.
 
 **Intellectual property.** Pokémon names, artwork, sprites, music and logos belong to Nintendo, Game Freak and The Pokémon Company. As a non-commercial fan project, Pokescientia follows these rules:
 
@@ -241,6 +243,8 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-04 | Version 1.6: D56 approved; R7 reworded; architecture approved as v1 | Architecture review |
+| 2026-11-04 | Version 1.5: D55 approved (AI guidelines) | Architecture review |
 | 2026-11-04 | Version 1.4: D45–D54 approved from the architecture review | Architecture review |
 | 2026-11-04 | Version 1.3: D35–D44 approved from the data strategy; R18 reworded | Data strategy review |
 | 2026-11-03 | Version 1.2: D30–D34 approved; functional module spec approved as v1 | Module spec review |

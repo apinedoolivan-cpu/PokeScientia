@@ -22,6 +22,8 @@ project until the architecture document is approved. Documentation work is allow
 - `docs/04-architecture.md` — repository and code structure, layer rules, pipeline, i18n, rendering, testing,
   CI, coding guidelines, Phase 0 setup.
 - Other `docs/` files as they are added (data strategy, architecture, design, roadmap, milestones).
+- `frontend/CLAUDE.md` (from Phase 0): Angular's official best practices for code in `frontend/`. This root
+  file and `docs/` win on any conflict (D55).
 - If code, docs and this file disagree, stop and ask. Never resolve a conflict silently.
 
 ## Key decisions (summary — the docs are authoritative)
@@ -50,9 +52,11 @@ project until the architecture document is approved. Documentation work is allow
   under `/en/`, XLIFF translations, root redirect page. Zoneless + OnPush: everything on screen is a signal.
   `domain/` never imports Angular; pages use only our `ui/` components on Angular CDK. Follow the layer rules and
   coding guidelines in `docs/04-architecture.md`. Node 26 LTS.
-- Battle stage (D7): scripted animation (GSAP + PixiJS), not a rules engine.
+- Animation (D7, D56): 2D stack. GSAP for interface motion and timelines; PixiJS for the Lab's scripted stage
+  (not a rules engine). Three.js is only a Phase 4 exploration option (Q63).
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
-- Budget: free and open-source tools, data, assets and hosting only.
+- Budget (R7): free tools, data, assets and hosting only; open source preferred; free proprietary tools only
+  when approved as a decision (GSAP, D56).
 
 ## Working rules
 

@@ -1,14 +1,13 @@
 # Pokescientia — Technical Architecture
 
-**Draft 1 for review** · 2026-11-04 · Owner: @Alex
+**Version 1 — approved 2026-11-04** · Owner: @Alex
 
 ## Document status
 
-Draft 1. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
-- Decisions A1–A10 from the review are recorded as **D45–D54** (section 16).
-- Two items are **open** and need the owner's answer: **A11** (GSAP's license) and **A12** (Angular's AI configuration files).
+- Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
 
 ## 1. System overview
 
@@ -228,12 +227,13 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 | Tool | Used for | Loaded |
 | --- | --- | --- |
 | CSS transitions | Small state changes (hover, focus, theme switch) | Always |
-| GSAP | Interface motion: presenter entrances, hall transitions, list choreography | Where used |
-| PixiJS (MIT) | The Animation Lab's battle stage (WebGL) | Only in `/lab` |
+| GSAP (free, proprietary license, D56) | Interface motion and choreography: presenter entrances, hall transitions, list choreography, and the Lab's timelines (it also animates PixiJS objects) | Where used |
+| PixiJS (MIT) | The Animation Lab's 2D battle stage (WebGL/WebGPU) | Only in `/lab` |
 
 - A `MotionService` in `core/` exposes a signal for `prefers-reduced-motion`. **Every** animation checks it; with reduced motion, motion becomes a fade or is skipped (X-06).
 - Animations never hold essential information; the page must work with them off.
-- **Open item A11:** GSAP is free but under a proprietary license (section 16).
+- The stack is **2D** (D56): Pokémon images are 2D (D40), and official 3D models can't be used.
+- **Exploration option (Q63, Phase 4):** Three.js (MIT, 3D) for experiments with original content only, such as a 3D academy entrance or 2.5D camera effects in the Lab. Evaluated when Phase 4 is specified; not part of the core stack.
 
 ## 10. Persistence (Phase 2, D3, D43)
 
@@ -291,6 +291,27 @@ Examples: `feat(arc): ARC-F04 add form selector` · `data: refresh for Regulatio
 
 The same rules are in CLAUDE.md, so Claude in the terminal suggests messages in the same style.
 
+### AI guidelines (D55)
+
+The owner writes code with **Claude Code in VS Code's integrated terminal**, started from the repository root, and uses **Copilot** in VS Code for commit messages and chat. Each tool reads its own instruction files:
+
+| File | Written by | Read by | Contents |
+| --- | --- | --- | --- |
+| `CLAUDE.md` (root) | Us | Claude Code, always | Project rules, decisions, pointers to `docs/`. **Authoritative.** |
+| `frontend/CLAUDE.md` | `ng new --ai-config claude-code` | Claude Code, when working on files in `frontend/` | Angular's official best practices (about 60 lines: standalone components, signals, `input()`/`output()`, native control flow, Signal Forms, `inject()`, WCAG AA and axe checks) |
+| `.mcp.json` (root) | Generated in `frontend/`, moved to the root | Claude Code | Angular CLI's MCP server (`npx @angular/cli mcp`), which gives Claude Angular-specific tools and documentation |
+| `AGENTS.md` (root) | Generated in `frontend/`, moved to the root, plus a short header we add | Copilot chat | Angular's best practices, preceded by: "Project rules are in `CLAUDE.md` and `docs/`; they win on conflict." |
+| `.vscode/mcp.json` (root) | Generated in `frontend/.vscode/`, moved to the root | Copilot in VS Code | The same Angular MCP server |
+| `.github/commit-instructions.md` | Us | Copilot commit messages | Section above |
+
+Why files move: both tools read their configuration from the folder that is opened or where they start (the repository root), so files generated inside `frontend/` would otherwise be ignored. `frontend/CLAUDE.md` stays where it is, because Claude Code reads nested `CLAUDE.md` files when it works in that folder, which is exactly where Angular's rules apply.
+
+Rules:
+
+- The root `CLAUDE.md` and `docs/` win over any generated guideline. If a generated rule contradicts a decision, the generated file is edited and the change noted in the decision log.
+- Phase 0 checks that each tool actually loads its files, and that the MCP server finds the Angular project when started from the root. Paths are adjusted if not.
+- When Angular publishes new recommendations, the generated files can be regenerated (`ng generate ai-config`) and compared.
+
 ### CI (GitHub Actions)
 
 On every push to `main`:
@@ -333,7 +354,7 @@ The steps that start Phase 0, after this document and the design document are ap
 2. From the repository root, create the Angular project in `frontend/`:
 
    ```bash
-   npx @angular/cli@22 new pokescientia --directory frontend --style scss --ssr --routing --prefix ps --skip-git --package-manager npm --ai-config none
+   npx @angular/cli@22 new pokescientia --directory frontend --style scss --ssr --routing --prefix ps --skip-git --package-manager npm --ai-config claude-code --ai-config vscode
    ```
 
    | Option | Why |
@@ -345,20 +366,21 @@ The steps that start Phase 0, after this document and the design document are ap
    | `--prefix ps` | Component names start with `ps-` (`ps-button`) |
    | `--skip-git` | The repository already exists |
    | `--package-manager npm` | D16 |
-   | `--ai-config none` | **Open item A12** (section 16) |
+   | `--ai-config claude-code --ai-config vscode` | Angular's official AI guidelines for Claude Code and Copilot (D55, section 12) |
 
    Defaults kept: standalone components, zoneless with OnPush (D52), Vitest, strict TypeScript, 2025 file naming.
 3. Set `outputMode: "static"` and the i18n configuration (Spanish source under `/es/`, English under `/en/`) in `angular.json`; add `@angular/localize`.
 4. Add ESLint (`ng add angular-eslint`), Prettier, Playwright and axe.
 5. Create `pipeline/` with its own `package.json`, and the hand-maintained files in `pipeline/manual/`.
 6. Add `.github/commit-instructions.md`, `.vscode/settings.json` and `.github/workflows/ci.yml`.
+6b. Arrange the AI guidelines as described in section 12 (move the MCP configurations to the repository root, create the root `AGENTS.md`, and check that both tools load them).
 7. **Spike** (a short experiment, kept or discarded): prerender a few hundred test pages in both languages, measuring build time and size, and confirm how the data service reads data during the build and during hydration. Results are written into this document before the Archive is built.
 
 The roadmap document turns these steps into Phase 0 milestones.
 
 ## 16. Decisions
 
-### Approved in review (2026-11-04)
+Approved in review on 2026-11-04.
 
 | Review | Decision | Summary |
 | --- | --- | --- |
@@ -372,18 +394,8 @@ The roadmap document turns these steps into Phase 0 milestones.
 | A8 | D52 | Zoneless change detection with OnPush (Angular 22 defaults) |
 | A9 | D53 | Conventional Commits with feature IDs; Copilot configured through `.github/commit-instructions.md` |
 | A10 | D54 | Node 26 LTS, recorded in `.nvmrc` and `engines` |
-
-### Open
-
-**A11. GSAP's license and R7.** GSAP (v3.15) is free for all uses, but under Webflow's "Standard 'no charge' license", which is **proprietary**, not open source. Its main restriction (building no-code animation tools that compete with Webflow) doesn't affect Pokescientia. R7 says "free resources and open-source material only".
-
-- **(a)** Keep GSAP and reword R7: "free to use; open source preferred; free proprietary tools allowed when explicitly approved (GSAP)". *(recommended: GSAP is a stated interest, R15)*
-- **(b)** Replace GSAP with an MIT-licensed library (such as Motion or anime.js) or the browser's Web Animations API.
-
-**A12. Angular's AI configuration files.** `ng new` can generate Angular's best-practice instructions and an Angular CLI MCP server configuration for AI tools: `claude-code` writes `frontend/CLAUDE.md` and `frontend/.mcp.json`; `vscode` writes `frontend/AGENTS.md` and `frontend/.vscode/mcp.json`.
-
-- **(a)** `--ai-config none`: our root CLAUDE.md and docs stay the only instructions.
-- **(b)** `--ai-config claude-code,vscode`: adds Angular's official best practices for Claude and Copilot, reviewed after generation so they don't contradict our documents; the root CLAUDE.md stays authoritative. *(recommended)*
+| A11 | D56 | Keep GSAP (free, proprietary license) with PixiJS as the 2D animation stack; R7 reworded to allow explicitly approved free proprietary tools |
+| A12 | D55 | Generate Angular's AI guidelines for Claude Code and Copilot; arrange them at the root as in section 12; root `CLAUDE.md` stays authoritative |
 
 ## Sources
 
@@ -394,6 +406,8 @@ Checked on 2026-11-04.
 - [Angular CLI repository](https://github.com/angular/angular-cli) (commit `12a7d2a`): `ng new` and application schematics (defaults: standalone, zoneless, Vitest, SCSS option, `--ssr`, `--ai-config`)
 - [What's new in Angular v22 — Code with Ahsan](https://blog.codewithahsan.dev/whats-new-angular-v22/) and [Angular 22 key features — Angular.love](https://angular.love/angular-22-key-features-and-changes): zoneless and OnPush defaults, Signal Forms stable
 - [Node.js 26.13.0 "Lithium" reaches LTS — LinuxCompatible](https://www.linuxcompatible.org/story/nodejs-26130-lithium-reaches-lts-support-through-april-2029/)
+- npm registry: `three` 0.187.0 (MIT), `motion` 14.9.1 (MIT), `animejs` 4.5.0 (MIT), compared as alternatives
 - [GSAP Standard "No Charge" license — ScanCode LicenseDB](https://scancode-licensedb.aboutcode.org/gsap-standard-no-charge-2025.html)
+- Angular's best practices for AI tools: `packages/core/resources/best-practices.md` in the [Angular repository](https://github.com/angular/angular), and the `ai-config` schematic in the [Angular CLI repository](https://github.com/angular/angular-cli)
 - [Custom instructions in VS Code — VS Code blog](https://code.visualstudio.com/blogs/2025/03/26/custom-instructions) and [Commit messages with Copilot — Tim Deschryver](https://timdeschryver.dev/blog/gain-control-over-commit-messages-generated-by-github-copilot)
 - Pokémon Showdown data (commit `62597d9`): entity counts and learnset size estimate

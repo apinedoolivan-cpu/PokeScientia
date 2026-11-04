@@ -347,7 +347,7 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 | --- | --- | --- |
 | LAB-F01 | **Doubles stage.** Two Pokémon per side on a battle field (D29). | 4 |
 | LAB-F02 | **Battle sequence:** ball throw, entrance of all four Pokémon, a move, hit effect, HP bar change, optional faint. | 4 |
-| LAB-F03 | **First version: a fixed demo scene.** Later, choosing the Pokémon and moves (D29). Other ideas (scene editor, timeline, camera moves) are explored when Phase 4 is specified. | 4 |
+| LAB-F03 | **First version: a fixed demo scene.** Later, choosing the Pokémon and moves (D29). Other ideas (scene editor, timeline, camera moves, Three.js 3D or 2.5D effects with original content, Q63) are explored when Phase 4 is specified. | 4 |
 | LAB-F04 | **Real damage values** from the calculator (M4), closing Q5. | 4 |
 | LAB-F05 | **Playback controls:** play, pause, replay, speed. A calm version for reduced motion (X-06). | 4 |
 | LAB-F06 | **Effect library** by move type and category (generic effects per type, not one per move). | 4 |
