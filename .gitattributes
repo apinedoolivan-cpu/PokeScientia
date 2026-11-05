@@ -1,0 +1,16 @@
+# Line endings: store and check out text files with LF (Linux style) on every system,
+# so Windows editors never make whole files appear changed.
+* text=auto eol=lf
+
+# Binary files: never touch their contents.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+*.pdf binary

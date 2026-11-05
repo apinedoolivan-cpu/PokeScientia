@@ -73,6 +73,8 @@ project until the architecture document is approved. Documentation work is allow
 - The owner makes every commit, straight to `main`. Claude never commits, pushes, or rewrites history;
   it prepares changes and the owner reviews and commits them.
 - Commit the lockfile (`package-lock.json`). Never commit secrets or `.env` files.
+- Git practices (D57, `docs/04-architecture.md` section 12): one logical change per commit, never force-push
+  `main`, keep CI green, tag each phase. Experiment branches are optional.
 
 ## Language (D22)
 

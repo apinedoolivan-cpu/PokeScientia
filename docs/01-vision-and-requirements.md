@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.6 — approved 2026-11-04** · Owner: @Alex
+**Version 1.7 — approved 2026-11-05** · Owner: @Alex
 
 ## Document status
 
-Version 1.6, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.7, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -164,6 +164,7 @@ These come directly from the owner's answers in discovery.
 | D54 | Node 26 LTS, recorded in `.nvmrc` and in `engines`. | Current LTS, supported by Angular 22; same version locally and in CI. |
 | D55 | Angular's official AI guidelines are generated for Claude Code and Copilot (`--ai-config claude-code --ai-config vscode`) and arranged at the repository root; the root `CLAUDE.md` and `docs/` stay authoritative. | Claude Code (in VS Code's terminal) writes the code; Angular's guidelines keep it idiomatic. |
 | D56 | The animation stack is 2D: GSAP (free, proprietary license) for interface motion and choreography, PixiJS for the Lab's stage. Three.js is a Phase 4 exploration option for original 3D content only (Q63). | GSAP has the richest timelines and plugins; our Pokémon images are 2D. |
+| D57 | Git practices for a solo developer: review generated messages before committing, one logical change per commit, push regularly, no force-push to `main`, keep CI green, tag each phase (`v0.x.0`), link commits to issues, LF line endings via `.gitattributes`. Experiment branches are optional. | Professional habits that cost little and keep the history useful, without adding a branching workflow. |
 
 ## Assumptions
 
@@ -243,6 +244,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-05 | Version 1.7: D57 approved (Git practices); commit message rules strengthened (D53) | Git practices discussion |
 | 2026-11-04 | Version 1.6: D56 approved; R7 reworded; architecture approved as v1 | Architecture review |
 | 2026-11-04 | Version 1.5: D55 approved (AI guidelines) | Architecture review |
 | 2026-11-04 | Version 1.4: D45–D54 approved from the architecture review | Architecture review |
