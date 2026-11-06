@@ -132,7 +132,7 @@ Package versions and the PokéAPI commit are pinned, so the same inputs always g
 | --- | --- | --- |
 | Official artwork (about 1,540, including forms) | Large, high-quality illustrations | Pokédex entry header, presenters, academy entrance |
 | Default sprites | Small 96×96 in-game sprites | Lists, search results, team slots: light and fast |
-| Animated battle sprites, **front and back** (about 1,470 each) | Animated images | Animation Lab (Phase 4): front for the opponent, back for your side |
+| Animated battle sprites, **front and back** (about 1,470 each) | Animated images | Battle stage, COLOSSEUM (Phase 4): front for the opponent, back for your side |
 | HOME renders | 3D-style renders, with shiny and female variants | Optional alternative to artwork |
 | Per-game sprites | Sprites from each generation's games | Possible future entry section (R16) |
 | Item sprites and type icons | Small icons | Item lists, type badges |

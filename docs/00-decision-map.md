@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-04
+Last updated: 2026-11-06
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -13,7 +13,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | A. Discovery and module spec | 20 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
-| D. Design spec | 2 | 4 |
+| D. Design spec | 7 | 4 |
 | E. Later phases | 0 | 7 |
 | F. Working process | 4 | 0 |
 
@@ -31,15 +31,15 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q14 | Presenter behavior | Product | Decided → D14 |
 | Q4 | Quiz section scope and phase | Product | Decided → D15 |
 | Q9 | Repository layout | Technical | Decided → D9 |
-| Q40 | Phase order of competitive data and Animation Lab | Product | Decided → D23 |
+| Q40 | Phase order of competitive data and the battle stage | Product | Decided → D23 |
 | Q41 | Home page | Product | Decided → D24 |
 | Q42 | Global search and list filters | Product | Decided → D25 |
 | Q43 | Detail pages for moves, abilities and items | Product | Decided → D26 |
 | Q44 | Team rule validation | Product | Decided → D27 |
 | Q45 | "Add to team" from the Pokédex | Product | Decided → D28 |
-| Q46 | Animation Lab layout and first version | Product | Decided → D29 |
+| Q46 | Battle stage layout and first version | Product | Decided → D29 |
 | Q47 | Bilingual search | Product | Decided → D30 |
-| Q48 | Which items the Archive shows | Product | Decided → D31 |
+| Q48 | Which items the Pokédex shows | Product | Decided → D31 |
 | Q49 | Learnset scope and team formats | Product | Decided → D32 |
 | Q50 | Competitive middle evolutions list | Product | Decided → D33 |
 | Q51 | Team saving | Product | Decided → D34 |
@@ -85,18 +85,23 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 
 | ID | Decision | Kind | Status |
 | --- | --- | --- | --- |
-| Q3 | Presenter cast per section | Product | **Open.** Starting ideas: Alakazam or Metagross (calculator), Incineroar (competitive), Pikachu or Mew (Pokédex), Zoroark (quiz). |
-| Q27 | Hall names and navigation structure | Product | **Open.** Spanish first, English too. |
-| Q28 | Typography and color palette | Design | **Open.** Free fonts only (R18). |
+| Q3 | Presenter cast per section | Product | **Open.** Tentative cast in [`05-design-and-interaction.md`](05-design-and-interaction.md) §7: Mew or Pikachu (BIBLIOTHECA), Falinks (LEGIO), Alakazam or Metagross (ABACUS), Incineroar (COLOSSEUM), Zoroark (AENIGMA); ATRIUM and ATHENAEUM to decide. |
+| Q27 | Hall names and navigation structure | Product | Decided → D59, D60 |
+| Q28 | Typography and color palette | Design | **Open.** Palette: Foro provisional (D63), final choice after the first real pages. Typography: proposed as DP-2. |
 | Q29 | Source of the academy artwork | Design + research | **Open.** Free-licensed only (R18). |
 | Q30 | Themes | Product | Decided → D19 (light and dark) |
 | Q31 | Accessibility target | Technical | Decided → D20 (WCAG 2.2 AA, reduced motion) |
+| Q64 | Visual direction | Product | Decided → D58 (Roman academy) |
+| Q65 | Pokédex presentation | Product | Decided → D61 (*Historia Naturalis* book) |
+| Q66 | Day and night theme behavior | Product | Decided → D62 |
+| Q67 | Battle hall | Product | Decided → D64 (COLOSSEUM) |
+| Q68 | Design proposals DP-1 to DP-7 (navigation, typography, presenter frame, artwork treatment, page turn, layout, motion) | Design | **Open.** Awaiting review in [`05-design-and-interaction.md`](05-design-and-interaction.md) §15. |
 
 ## E. Later phases
 
 | ID | Decision | When |
 | --- | --- | --- |
-| Q63 | Three.js 3D experiments (3D academy entrance, 2.5D Lab effects), original content only | Phase 4 |
+| Q63 | Three.js 3D experiments (3D academy entrance, 2.5D COLOSSEUM effects), original content only | Phase 4 |
 | Q5 | Battle stage: real damage numbers or scripted values (LAB-F04 proposes real values from the calculator) | Phase 4 |
 | Q6 | Login method | Phase 5 |
 | Q34 | Go web framework and database | Phase 5 |

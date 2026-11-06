@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.1 — approved 2026-11-04** · Owner: @Alex
+**Version 1.2 — approved 2026-11-06** · Owner: @Alex
 
 ## Document status
 
-Version 1.1, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.2, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -21,22 +21,24 @@ Key features have criteria in **Given / When / Then** form. A feature is done wh
 
 ## Module map
 
+Each module is presented as a hall of the Roman academy; the Latin hall names and the book presentation of the Pokédex are defined in [`05-design-and-interaction.md`](05-design-and-interaction.md). Feature IDs keep their original codes.
+
 | ID | Module | Code | Phase | Depends on |
 | --- | --- | --- | --- | --- |
-| M0 | Academy shell | `SHL` | 0 | M1 |
+| M0 | Academy shell · ATRIUM | `SHL` | 0 | M1 |
 | M1 | Data pipeline | `DAT` | 0 | — |
-| M2 | Archive (Pokédex) | `ARC` | 1 | M0, M1 |
-| M3 | Strategy Hall | `STR` | 2 | M0, M1, M2 |
-| M4 | Competitive data and calculator | `CMP` | 3 | M1, M2, M3 |
-| M5 | Animation Lab | `LAB` | 4 | M1, M4 |
+| M2 | Pokédex · BIBLIOTHECA | `ARC` | 1 | M0, M1 |
+| M3 | Teams · LEGIO | `STR` | 2 | M0, M1, M2 |
+| M4 | Calculator and metagame · ABACUS, ATHENAEUM | `CMP` | 3 | M1, M2, M3 |
+| M5 | Battle stage · COLOSSEUM | `LAB` | 4 | M1, M4 |
 | M6 | Accounts | `ACC` | 5 | M3 |
-| M7 | Quiz | `QUZ` | 6 | M1, M2 |
+| M7 | Quiz · AENIGMA | `QUZ` | 6 | M1, M2 |
 | M8 | AI assistant | `AIA` | 6 | M2, M3, M4 |
 
 ```
-M1 Data pipeline ──► M2 Archive ──► M3 Strategy Hall ──► M4 Competitive data & calculator
+M1 Data pipeline ──► M2 Pokédex ──► M3 Teams ──► M4 Calculator & metagame
         │                 │                │                       │
-        │                 │                └──► M6 Accounts        └──► M5 Animation Lab
+        │                 │                └──► M6 Accounts        └──► M5 Battle stage
         │                 └──► M7 Quiz
         └──► M0 Academy shell (hosts every hall)          M8 AI assistant ◄── M2, M3, M4
 ```
@@ -90,9 +92,9 @@ These rules apply to every module and are not repeated in module sections.
 
 ### Rules
 
-- Halls that don't exist yet are not navigable. Whether they appear as "closed doors" or are hidden is decided in the design spec.
+- Halls that don't exist yet are not navigable. At the entrance they appear as closed doors showing their phase (design spec §3).
 - Global search shows at most a handful of results per kind, with a link to the full filtered list.
-- The global search needs the Archive's data, so it arrives with Phase 1. In Phase 0 the search box is not shown.
+- The global search needs the Pokédex's data, so it arrives with Phase 1. In Phase 0 the search box is not shown.
 
 ### Data
 
@@ -105,7 +107,7 @@ Hosts every hall. Global search links into M2.
 ### Acceptance criteria
 
 - **SHL-F01** *Given* I open the site root, *when* the page loads, *then* I see the available halls, each with presenter, name and description, and I can enter each one.
-- **SHL-F03** *Given* the Archive exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
+- **SHL-F03** *Given* the Pokédex exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
 - **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`.
 - **SHL-F07** *Given* I open a URL that doesn't exist, *then* I see the not-found page in my language, with a link to the entrance.
 
@@ -128,7 +130,7 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F01 | **Pokémon and forms**, all generations: National Pokédex number, English ID (PokéAPI style, D37), names (es/en), forms grouped under their number (D11), types, base stats, abilities (including hidden), height and weight, evolution chain with conditions, image URL, flags "fully evolved" and "competitive view". | 0 |
 | DAT-F02 | **Moves**: ID, names and descriptions (es/en), type, category, power, accuracy, PP, priority, **target** (single, both foes, all others…; essential for doubles), and flags such as contact or sound. | 0 |
 | DAT-F03 | **Abilities**: ID, names and descriptions (es/en). | 0 |
-| DAT-F04 | **Items**: ID, names and descriptions (es/en), category. The Archive shows items with a competitive purpose; every item keeps its category, so other groups can be shown later by changing a filter (D31). | 0 |
+| DAT-F04 | **Items**: ID, names and descriptions (es/en), category. The Pokédex shows items with a competitive purpose; every item keeps its category, so other groups can be shown later by changing a filter (D31). | 0 |
 | DAT-F05 | **Learnsets**: every move each Pokémon or form has learned in any game, with the generations and methods, and a flag for moves available in the current game (D32, D39). | 0 |
 | DAT-F06 | **Type chart** of the current generation. | 0 |
 | DAT-F07 | **Competitive middle evolutions**: a short, hand-maintained list (e.g. Porygon2, Dusclops) included in the competitive view (D12, D33). | 0 |
@@ -162,7 +164,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 
 ---
 
-## M2 — Archive (`ARC`) · Phase 1
+## M2 — Pokédex · BIBLIOTHECA (`ARC`) · Phase 1
 
 **Purpose.** The Pokédex: look up any Pokémon, move, ability or item, in Spanish or English, with a competitive emphasis.
 
@@ -207,7 +209,7 @@ Reads DAT-F01 to DAT-F07 and DAT-F10. Writes nothing.
 
 ### Connections
 
-Global search (M0) links here. ARC-F11 sends a Pokémon to the Strategy Hall (M3). M4 adds the competitive section (ARC-F12).
+Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO (M3). M4 adds the competitive section (ARC-F12).
 
 ### Acceptance criteria
 
@@ -226,7 +228,7 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 
 ---
 
-## M3 — Strategy Hall (`STR`) · Phase 2
+## M3 — Teams · LEGIO (`STR`) · Phase 2
 
 **Purpose.** Build VGC teams, keep them in the browser, and understand their strengths and weaknesses.
 
@@ -245,7 +247,7 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | STR-F09 | **Offensive coverage.** Which types the team's damaging moves hit super-effectively, and which types nothing hits super-effectively. | 2 |
 | STR-F10 | **Speed tiers.** Each member's final Speed, ordered, with views for +1, −1, Tailwind and Choice Scarf, and a Trick Room view (reversed order). | 2 |
 | STR-F11 | **Doubles essentials.** For each category (speed control, Fake Out, Intimidate, redirection, spread moves, Protect, priority) whether the team has it and which members provide it (DAT-F11). | 2 |
-| STR-F12 | **Add from Archive.** Receives a Pokémon from ARC-F11 into a new or existing team (D28). | 2 |
+| STR-F12 | **Add from the Pokédex.** Receives a Pokémon from ARC-F11 into a new or existing team (D28). | 2 |
 | STR-F13 | **Live analysis.** All analyses update immediately as the team changes. | 2 |
 | STR-F14 | **Autosave.** Changes are saved in the browser automatically; no "Save" button (D34). | 2 |
 | STR-F17 | **Team format** (D32). Each team is either **Free** (all Pokémon, every move ever learned, no legality warnings) or **Current regulation** (the same choices, plus the regulation warnings in STR-F04). New teams use the current regulation; the format can be changed at any time. | 2 |
@@ -295,7 +297,7 @@ Team sharing by link (needs M6), team-preview simulation (choosing four of six),
 
 ---
 
-## M4 — Competitive data and calculator (`CMP`) · Phase 3
+## M4 — Calculator and metagame · ABACUS, ATHENAEUM (`CMP`) · Phase 3
 
 **Purpose.** Bring real competitive data into the platform: what people actually use, and how much damage attacks do. Medium detail; specified fully before Phase 3 starts.
 
@@ -337,7 +339,7 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 
 ---
 
-## M5 — Animation Lab (`LAB`) · Phase 4
+## M5 — Battle stage · COLOSSEUM (`LAB`) · Phase 4
 
 **Purpose.** A place to explore web animation: a scripted doubles battle stage built with PixiJS and GSAP (D7). Outline; specified fully before Phase 4.
 
@@ -355,7 +357,7 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 ### Rules
 
 - Pokémon images come only from the chosen sources; all effects, fields and UI are original work.
-- The lab is not a rules engine: it plays scripted scenes.
+- The COLOSSEUM is not a rules engine: it plays scripted scenes.
 
 ---
 
@@ -371,7 +373,7 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 
 ---
 
-## M7 — Quiz (`QUZ`) · Phase 6 candidate
+## M7 — Quiz · AENIGMA (`QUZ`) · Phase 6 candidate
 
 **Purpose.** Test Pokémon knowledge in a playful way (D15). Outline; presenter idea: Zoroark.
 
@@ -384,7 +386,7 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 
 **Purpose.** An assistant that critiques teams and answers questions with evidence. Outline; model source: Q8.
 
-- **AIA-F01** Team critique that cites the same analyses the Strategy Hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations.
+- **AIA-F01** Team critique that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations.
 - **AIA-F02** Every claim points to the data it comes from.
 
 **Requirement for earlier phases:** analyses and calculations must be callable without the user interface (see M3 rules), so the assistant can use them later without rewrites.

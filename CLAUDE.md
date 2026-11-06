@@ -21,6 +21,8 @@ project until the architecture document is approved. Documentation work is allow
 - `docs/03-data-strategy.md` — data sources, licenses, images, regulation updates, calculator and storage choices.
 - `docs/04-architecture.md` — repository and code structure, layer rules, pipeline, i18n, rendering, testing,
   CI, coding guidelines, Phase 0 setup.
+- `docs/05-design-and-interaction.md` — identity, halls, colors and tokens, typography, presenters, the
+  Pokédex book, layout, components, motion. Draft: proposals DP-1 to DP-7 await review.
 - Other `docs/` files as they are added (data strategy, architecture, design, roadmap, milestones).
 - `frontend/CLAUDE.md` (from Phase 0): Angular's official best practices for code in `frontend/`. This root
   file and `docs/` win on any conflict (D55).
@@ -52,9 +54,13 @@ project until the architecture document is approved. Documentation work is allow
   under `/en/`, XLIFF translations, root redirect page. Zoneless + OnPush: everything on screen is a signal.
   `domain/` never imports Angular; pages use only our `ui/` components on Angular CDK. Follow the layer rules and
   coding guidelines in `docs/04-architecture.md`. Node 26 LTS.
-- Animation (D7, D56): 2D stack. GSAP for interface motion and timelines; PixiJS for the Lab's scripted stage
+- Animation (D7, D56): 2D stack. GSAP for interface motion and timelines; PixiJS for the COLOSSEUM's scripted stage
   (not a rules engine). Three.js is only a Phase 4 exploration option (Q63).
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
+- Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
+  Metajuego, Coliseo, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,
+  COLOSSEUM, AENIGMA). The Pokédex is the *Historia Naturalis* book with a List view. Themes Día/Noche follow
+  the device by default. Foro palette is provisional; never hardcode colors, use tokens.
 - Budget (R7): free tools, data, assets and hosting only; open source preferred; free proprietary tools only
   when approved as a decision (GSAP, D56).
 

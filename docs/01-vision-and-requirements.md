@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.7 — approved 2026-11-05** · Owner: @Alex
+**Version 1.8 — approved 2026-11-06** · Owner: @Alex
 
 ## Document status
 
-Version 1.7, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.8, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -35,7 +35,7 @@ The project succeeds if it is useful to the owner, fun to build, and teaches som
 1. A Pokédex covering all generations, readable in Spanish and English, with a competitive emphasis.
 2. VGC-oriented tools that answer real questions: what does my team fear, what outspeeds what, how does this matchup look.
 3. A distinctive, polished interface with a recognizable identity and purposeful animation.
-4. An animation lab to freely experiment with GSAP and PixiJS.
+4. A battle stage, the COLOSSEUM, to freely experiment with GSAP and PixiJS.
 5. Hands-on learning: Angular `@angular/localize`, local-first data, and later a Go API.
 6. An architecture that grows one feature at a time without rewrites.
 
@@ -62,7 +62,7 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 | U7 | Save teams in my browser and find them later | Persistence | 2 |
 | U8 | See the most common sets for a Pokémon in the current format | Usage data | 3 |
 | U9 | Calculate damage between Pokémon, including doubles conditions | Calculator | 3 |
-| U10 | Watch an animated doubles scene with balls, entrances, attacks and effects | Animation lab | 4 |
+| U10 | Watch an animated doubles scene with balls, entrances, attacks and effects | Battle stage (COLOSSEUM) | 4 |
 | U11 | Sign in and have my teams on any device | Accounts | 5 |
 | U12 | Test my knowledge with a quiz or puzzle | Quiz | 6 |
 | U13 | Ask an assistant to critique my team with evidence | AI assistant | 6 |
@@ -72,11 +72,11 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 Pokescientia's edge is identity and integration, not data volume.
 
 - **Spanish first.** Most competitive tools are English-only; here Spanish is the default experience.
-- **The academy identity.** A naturalist's archive: marble and columns framing specimen plates, field notes and instruments.
+- **The academy identity.** A Roman academy: marble and travertine halls with Latin inscriptions, and a Pokédex read as a book, the *Historia Naturalis*.
 - **Resident presenters.** Each hall is introduced by a Pokémon whose nature fits it.
 - **Lookup to analysis in one flow.** From a Pokédex entry straight into a team, and from a team straight into its weaknesses.
 - **Doubles first.** Analysis tuned for VGC (speed control, spread moves, partners), not adapted from singles.
-- **Animation as a feature.** Motion is designed, not decorative, and the lab shows off what the web can do.
+- **Animation as a feature.** Motion is designed, not decorative, and the COLOSSEUM shows off what the web can do.
 
 ## Confirmed requirements
 
@@ -96,7 +96,7 @@ These come directly from the owner's answers in discovery.
 | R10 | Pokédex covers all generations, with a competitive emphasis. |
 | R11 | Sessions and user accounts are wanted eventually. |
 | R12 | A backend is a learning goal, possibly in Go, but optional and secondary to the app. |
-| R13 | Visual identity mixes a laboratory and an ancient Greek aesthetic; no retro look. |
+| R13 | Visual identity mixes a laboratory and an ancient Greek aesthetic; no retro look. (Refined by D58: a Roman academy of natural science.) |
 | R14 | Each section is presented by a different Pokémon. |
 | R15 | Interest in GSAP for UI motion and PixiJS for 2D rendering. |
 | R16 | The Pokédex entry must be extensible: new sections can be added later without redesigning the page. |
@@ -112,7 +112,7 @@ These come directly from the owner's answers in discovery.
 | D2 | Game data (names, descriptions) comes translated from the data source, not translated by us. | Official Spanish names exist; translating them ourselves is error-prone. |
 | D3 | Persistence is local-first: teams and preferences live in the browser, with export and import. | Usable from day one with no server. |
 | D4 | Accounts and sync come later through a Go backend. | Learning goal; the backend never blocks the frontend. |
-| D5 | Visual direction is an even blend: a naturalist's archive inside a classical academy. | Both aesthetics appealed; refined in the design spec. |
+| D5 | Visual direction is an even blend: a naturalist's archive inside a classical academy. **Superseded by D58.** | Both aesthetics appealed; refined in the design spec. |
 | D6 | The Pokédex includes every Pokémon, with a competitive view as the default and a toggle for all. | Middle evolutions can be competitive (Eviolite); inclusion costs little. |
 | D7 | The battle simulator is a scripted animation stage, not a rules engine. | It exists to explore animation (R5). |
 | D8 | The repository is the master copy of all documentation: planning documents in `docs/` and CLAUDE.md at the root, all Markdown. Drafts may be reviewed elsewhere, but only the committed version is in force. | Both the web chat and the terminal sessions read the repository, so it is the only shared memory. |
@@ -130,15 +130,15 @@ These come directly from the owner's answers in discovery.
 | D20 | Accessibility target: WCAG 2.2 AA, and full respect for the reduced-motion setting. | Cheap if designed in early, expensive to retrofit; motion is central to the site. |
 | D21 | Process: the owner makes every commit, straight to `main`; Claude never commits or pushes. CI runs lint, tests and build from Phase 0. Work is tracked in `docs/progress.md` and GitHub Issues/Projects. | Solo developer; CI still checks every push. |
 | D22 | Documentation, code, comments and commit messages are in English. Only the README is bilingual. | One version of the truth; no drift between translations. |
-| D23 | Phase order: competitive data and calculator in Phase 3, Animation Lab in Phase 4. | Competitive tools matter more and build on Phases 1–2; the lab can then show real damage from the calculator. |
+| D23 | Phase order: competitive data and calculator in Phase 3, battle stage (now the COLOSSEUM) in Phase 4. | Competitive tools matter more and build on Phases 1–2; the battle stage can then show real damage from the calculator. |
 | D24 | The home page is the academy entrance, presenting the site's features as halls. | Fits the identity and introduces every presenter. |
 | D25 | Search exists twice: a global search across all data, and filters within each list. | Quick lookup and deep browsing serve different needs. |
 | D26 | Moves, abilities and items have their own detail pages, not only lists. | Cheap with prerendering; good for linking and search. |
 | D27 | Team rules (species, items, legality, learnsets, spreads) produce warnings and never block editing or saving. | Lets the user experiment and import any team. |
-| D28 | Every Pokémon entry offers "add to team" once the Strategy Hall exists. | Core to the lookup-to-analysis flow. |
-| D29 | The Animation Lab uses a doubles layout (R19) and starts with a fixed demo scene before adding choices. | Matches official play; a demo is the simplest start for a learning lab. Owner had no preference on the demo. |
+| D28 | Every Pokémon entry offers "add to team" once the teams hall (LEGIO) exists. | Core to the lookup-to-analysis flow. |
+| D29 | The battle stage (now the COLOSSEUM) uses a doubles layout (R19) and starts with a fixed demo scene before adding choices. | Matches official play; a demo is the simplest start for a learning space. Owner had no preference on the demo. |
 | D30 | Search matches names in Spanish and English, ignoring accents and capitals; both names lead to the same page. | Competitive resources use English names; small cost (an index of about 3,000 entries). |
-| D31 | The Archive shows items with a competitive purpose; all items keep their category so other groups can be shown later. | No value in items that do nothing in battle, without closing the door. |
+| D31 | The Pokédex shows items with a competitive purpose; all items keep their category so other groups can be shown later. | No value in items that do nothing in battle, without closing the door. |
 | D32 | Learnsets include every move a Pokémon has learned in any game, marking those available in the current game. Each team chooses a format: Free (no legality warnings) or Current regulation (with warnings). | All Pokémon are equal and sets don't depend on game availability, unless the user asks for that check. |
 | D33 | Competitive middle evolutions are a short list maintained by hand. | Simple and precise; changes rarely. |
 | D34 | Teams autosave in the browser; there is no Save button. | Nothing is lost by accident. |
@@ -163,8 +163,15 @@ These come directly from the owner's answers in discovery.
 | D53 | Commit messages follow Conventional Commits with feature IDs; Copilot's commit message generation is configured with `.github/commit-instructions.md`. | Readable history linked to the spec, using the owner's existing workflow. |
 | D54 | Node 26 LTS, recorded in `.nvmrc` and in `engines`. | Current LTS, supported by Angular 22; same version locally and in CI. |
 | D55 | Angular's official AI guidelines are generated for Claude Code and Copilot (`--ai-config claude-code --ai-config vscode`) and arranged at the repository root; the root `CLAUDE.md` and `docs/` stay authoritative. | Claude Code (in VS Code's terminal) writes the code; Angular's guidelines keep it idiomatic. |
-| D56 | The animation stack is 2D: GSAP (free, proprietary license) for interface motion and choreography, PixiJS for the Lab's stage. Three.js is a Phase 4 exploration option for original 3D content only (Q63). | GSAP has the richest timelines and plugins; our Pokémon images are 2D. |
+| D56 | The animation stack is 2D: GSAP (free, proprietary license) for interface motion and choreography, PixiJS for the COLOSSEUM's stage. Three.js is a Phase 4 exploration option for original 3D content only (Q63). | GSAP has the richest timelines and plugins; our Pokémon images are 2D. |
 | D57 | Git practices for a solo developer: review generated messages before committing, one logical change per commit, push regularly, no force-push to `main`, keep CI green, tag each phase (`v0.x.0`), link commits to issues, LF line endings via `.gitattributes`. Experiment branches are optional. | Professional habits that cost little and keep the history useful, without adding a branching workflow. |
+| D58 | Visual identity: a Roman academy of natural science. Greek learning appears as content, not as a second style. Supersedes D5. | The name is Latin; the codex is Roman; Rome covers both knowledge and competition; Spanish comes from Latin. |
+| D59 | Hall naming: the menu uses plain names in the active language; each hall carries a Latin inscription over its door and as its heading. "Coliseo" is also its own menu label. | Recognizable navigation, atmosphere in the scenery. |
+| D60 | Hall map: ATRIUM (home), BIBLIOTHECA (Pokédex), LEGIO (teams), ABACUS (calculator), ATHENAEUM (metagame), COLOSSEUM (battle stage), AENIGMA (quiz). | Strategy and information halls outnumber spectacle; Latin names work in both languages. |
+| D61 | The Pokédex is the *Historia Naturalis*: nine books (one per region) plus appendices, read as a codex with a thumb index and page turns; a List view is always available; scrolls are ornament only. | Honors Pliny and Aristotle; the codex is the Roman, consultable book. |
+| D62 | Themes are Día (light) and Noche (dark). The default follows the device; a manual choice is remembered; an optional mode follows the time of day. Refines D19. | Day and night as two moods of the same academy. |
+| D63 | Foro (travertine, porphyry, bronze) is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. | Palettes are design tokens, cheap to change. |
+| D64 | The battle stage is the COLOSSEUM (module M5, formerly "Animation Lab"). | The arena is the natural Roman setting for battles; analysis lives in LEGIO and ABACUS. |
 
 ## Assumptions
 
@@ -207,14 +214,14 @@ The two hard limits are zero budget and respect for Pokémon intellectual proper
 Approved with version 1. The roadmap document adds milestones and acceptance criteria.
 
 1. **Phase 0: Foundations.** Angular project in `frontend/`, Spanish and English builds, design tokens with light and dark themes, layout shell, data pipeline producing static files, CI, and a first presenter.
-2. **Phase 1: MVP, the Archive.** Pokédex (Pokémon, moves, abilities, items) with the competitive and full views, forms, search and filters.
-3. **Phase 2: The Strategy Hall.** Team builder with Showdown import and export, local saving, and team analysis (D13).
-4. **Phase 3: Competitive data.** Usage data and common sets, damage calculator, speed benchmarks, trends.
-5. **Phase 4: The Animation Lab.** Scripted doubles battle stage in PixiJS and GSAP: ball throws, entrances, attacks, effects, HP bars, with real damage from the calculator.
+2. **Phase 1: MVP, the BIBLIOTHECA (Pokédex).** Pokédex (Pokémon, moves, abilities, items) with the competitive and full views, forms, search and filters.
+3. **Phase 2: LEGIO (teams).** Team builder with Showdown import and export, local saving, and team analysis (D13).
+4. **Phase 3: ABACUS and ATHENAEUM (calculator and metagame).** Usage data and common sets, damage calculator, speed benchmarks, trends.
+5. **Phase 4: The COLOSSEUM (battle stage).** Scripted doubles battle stage in PixiJS and GSAP: ball throws, entrances, attacks, effects, HP bars, with real damage from the calculator.
 6. **Phase 5: Accounts.** Go backend with sign-in and team sync, layered on the local-first data.
 7. **Phase 6: Extras.** Quiz or puzzle section, then the AI assistant.
 
-Why this order: the Archive's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the lab (D23). The lab comes last among the core phases, so it can use the data, assets and calculator already in place.
+Why this order: the Pokédex's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the battle stage (D23). The COLOSSEUM comes last among the core phases, so it can use the data, assets and calculator already in place.
 
 ## Glossary
 
@@ -236,7 +243,9 @@ Why this order: the Archive's data is the foundation everything else reads. The 
 | GSAP | JavaScript animation library, here for interface motion. |
 | PixiJS | 2D rendering engine using WebGL, here for the battle stage. |
 | Presenter | The resident Pokémon that introduces a section of the site. |
-| Hall | A main section of the academy (for example, the Archive or the Strategy Hall). |
+| Hall | A main section of the academy, shown in the menu by its function and in the hall by its Latin inscription (for example, Pokédex · BIBLIOTHECA). |
+| Inscription | A hall's Latin name, carved over its door and shown as its heading (D59, D60). |
+| *Historia Naturalis* | The Pokédex presented as one work in nine books (*libri*), one per region, plus appendices (D61). |
 
 ## Decision log
 
@@ -244,6 +253,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-06 | Version 1.8: D58–D64 approved (Roman identity, halls, book, themes, palette, battle stage); design spec drafted | Design exploration |
 | 2026-11-05 | Version 1.7: D57 approved (Git practices); commit message rules strengthened (D53) | Git practices discussion |
 | 2026-11-04 | Version 1.6: D56 approved; R7 reworded; architecture approved as v1 | Architecture review |
 | 2026-11-04 | Version 1.5: D55 approved (AI guidelines) | Architecture review |

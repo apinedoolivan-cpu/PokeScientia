@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.1 — approved 2026-11-05** · Owner: @Alex
+**Version 1.2 — approved 2026-11-06** · Owner: @Alex
 
 ## Document status
 
-Version 1.1, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.2, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -64,7 +64,7 @@ PokeScientia/
 
 ### Folder structure
 
-Organized by hall, so each part of the site lives together and loads only when visited.
+Organized by hall, so each part of the site lives together and loads only when visited. Folder and route names use the English menu words; Latin inscriptions are display text only (D59, D60).
 
 ```
 frontend/src/app/
@@ -74,11 +74,13 @@ frontend/src/app/
 │                  ps-type-badge, ps-stat-bar, ps-dialog…
 ├── shell/         layout, header, navigation, global search, presenter area
 └── halls/
-    ├── entrance/     home (SHL-F01)
-    ├── archive/      Pokédex, moves, abilities, items, type chart (M2)
-    ├── strategy/     team library, editor, analysis, converter (M3)
-    ├── competitive/  calculator and usage data (M4, Phase 3)
-    ├── lab/          Animation Lab (M5, Phase 4)
+    ├── atrium/       ATRIUM: home and hall doors (SHL-F01)
+    ├── pokedex/      BIBLIOTHECA: shelf, codex, list, moves, abilities, items, types (M2)
+    ├── teams/        LEGIO: team library, editor, analysis, converter (M3)
+    ├── calculator/   ABACUS: damage calculator (M4, Phase 3)
+    ├── metagame/     ATHENAEUM: usage data and trends (M4, Phase 3)
+    ├── colosseum/    COLOSSEUM: battle stage (M5, Phase 4)
+    ├── quiz/         AENIGMA (M7, later)
     └── about/        About and credits, not-found page
 ```
 
@@ -96,7 +98,7 @@ These rules are enforced by ESLint import restrictions, so a violation fails CI.
 
 - Components are standalone (Angular's default).
 - State lives in **signal-based services** (D16). A hall's state lives in its own service; shared state lives in `core/`.
-- Every hall is **lazy-loaded**: visiting the Pokédex never downloads the Lab.
+- Every hall is **lazy-loaded**: visiting the Pokédex never downloads the COLOSSEUM.
 - Pages read route parameters as English IDs (D17, D37) and ask `core/` data services for data.
 
 ### Change detection: zoneless and OnPush (D52)
@@ -190,19 +192,21 @@ From `pipeline/`: `npm run build-data`. Then review the report and the changes i
 
 ### Routes
 
-Path words are English and identical in both languages (D17). Hall display names (Q27) only affect what's shown, not URLs.
+Path words are English and identical in both languages (D17). Hall names and Latin inscriptions (D59, D60) only affect what's shown, not URLs.
 
 | Route | Content | Rendering |
 | --- | --- | --- |
-| `/` (inside each language) | Academy entrance | Prerendered |
-| `/pokedex`, `/pokedex/:id` | Pokémon list and entries (forms have their own IDs, D37) | Prerendered, every ID |
+| `/` (inside each language) | ATRIUM: academy entrance | Prerendered |
+| `/pokedex`, `/pokedex/:id` | BIBLIOTHECA: shelf and list; entries as codex pages (forms have their own IDs, D37) | Prerendered, every ID |
 | `/moves`, `/moves/:id` | Moves | Prerendered, every ID |
 | `/abilities`, `/abilities/:id` | Abilities | Prerendered, every ID |
 | `/items`, `/items/:id` | Items | Prerendered, every ID |
 | `/types` | Type chart | Prerendered |
-| `/teams`, `/teams/:teamId` | Team library and editor (Phase 2) | Shell prerendered; content in the browser (teams live in IndexedDB) |
-| `/calc` | Calculator (Phase 3) | Prerendered shell |
-| `/lab` | Animation Lab (Phase 4) | Prerendered shell |
+| `/teams`, `/teams/:teamId` | LEGIO: team library and editor (Phase 2) | Shell prerendered; content in the browser (teams live in IndexedDB) |
+| `/calculator` | ABACUS: calculator (Phase 3) | Prerendered shell |
+| `/metagame` | ATHENAEUM: usage data and trends (Phase 3) | Prerendered |
+| `/colosseum` | COLOSSEUM: battle stage (Phase 4) | Prerendered shell |
+| `/quiz` | AENIGMA (later) | Prerendered shell |
 | `/about` | About and credits | Prerendered |
 | `/404` | Not-found page | Prerendered; the host serves it for unknown URLs |
 
@@ -210,7 +214,7 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 
 **Size of the build:** about 3,300 entity pages (≈1,300–1,400 Pokémon and forms, ≈940 moves, ≈310 abilities, ≈540 battle items) × 2 languages ≈ **6,600 HTML pages**, plus a copy of `public/data/` per language. Build output is **not** committed; CI builds it. Angular's documentation warns that large prerenders take time; the Phase 0 spike measures it (section 15).
 
-**Data during prerendering:** pages load their JSON through one data service in `core/`. How that service reads files during the build (from disk) versus in the browser (over HTTP), and how the data is reused when the page hydrates, is validated in the Phase 0 spike before the Archive is built.
+**Data during prerendering:** pages load their JSON through one data service in `core/`. How that service reads files during the build (from disk) versus in the browser (over HTTP), and how the data is reused when the page hydrates, is validated in the Phase 0 spike before the Pokédex is built.
 
 ## 8. Styling (D16, D19, D49)
 
@@ -228,13 +232,13 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 | Tool | Used for | Loaded |
 | --- | --- | --- |
 | CSS transitions | Small state changes (hover, focus, theme switch) | Always |
-| GSAP (free, proprietary license, D56) | Interface motion and choreography: presenter entrances, hall transitions, list choreography, and the Lab's timelines (it also animates PixiJS objects) | Where used |
-| PixiJS (MIT) | The Animation Lab's 2D battle stage (WebGL/WebGPU) | Only in `/lab` |
+| GSAP (free, proprietary license, D56) | Interface motion and choreography: presenter entrances, hall transitions, list choreography, and the COLOSSEUM's timelines (it also animates PixiJS objects) | Where used |
+| PixiJS (MIT) | The COLOSSEUM's 2D battle stage (WebGL/WebGPU) | Only in `/colosseum` |
 
 - A `MotionService` in `core/` exposes a signal for `prefers-reduced-motion`. **Every** animation checks it; with reduced motion, motion becomes a fade or is skipped (X-06).
 - Animations never hold essential information; the page must work with them off.
 - The stack is **2D** (D56): Pokémon images are 2D (D40), and official 3D models can't be used.
-- **Exploration option (Q63, Phase 4):** Three.js (MIT, 3D) for experiments with original content only, such as a 3D academy entrance or 2.5D camera effects in the Lab. Evaluated when Phase 4 is specified; not part of the core stack.
+- **Exploration option (Q63, Phase 4):** Three.js (MIT, 3D) for experiments with original content only, such as a 3D academy entrance or 2.5D camera effects in the COLOSSEUM. Evaluated when Phase 4 is specified; not part of the core stack.
 
 ## 10. Persistence (Phase 2, D3, D43)
 
@@ -323,7 +327,7 @@ The owner works alone and commits straight to `main` (D21). These habits keep th
 3. **Commit often, push regularly.** GitHub is also the backup; unpushed work exists only on one computer.
 4. **Never rewrite pushed history.** No force-push to `main`; a mistake is fixed with a new commit.
 5. **Keep `main` working.** If CI fails, fixing it comes before new work.
-6. **Tag milestones.** The end of each phase gets a version tag (`v0.1.0` after Phase 0, `v0.2.0` after the Archive…), optionally with a GitHub Release listing the changes.
+6. **Tag milestones.** The end of each phase gets a version tag (`v0.1.0` after Phase 0, `v0.2.0` after the Pokédex…), optionally with a GitHub Release listing the changes.
 7. **Link commits to issues.** `closes #12` in a commit body closes that GitHub issue automatically.
 8. **Consistent line endings.** `.gitattributes` stores every text file with LF endings, so Windows editors never make whole files appear changed.
 9. **Experiment branches are optional.** A short-lived branch may be used for a risky experiment (for example, the Phase 0 spike) and deleted if it fails. Not required by the workflow.
@@ -390,7 +394,7 @@ The steps that start Phase 0, after this document and the design document are ap
 5. Create `pipeline/` with its own `package.json`, and the hand-maintained files in `pipeline/manual/`.
 6. Add `.github/commit-instructions.md`, `.vscode/settings.json` and `.github/workflows/ci.yml`.
 6b. Arrange the AI guidelines as described in section 12 (move the MCP configurations to the repository root, create the root `AGENTS.md`, and check that both tools load them).
-7. **Spike** (a short experiment, kept or discarded): prerender a few hundred test pages in both languages, measuring build time and size, and confirm how the data service reads data during the build and during hydration. Results are written into this document before the Archive is built.
+7. **Spike** (a short experiment, kept or discarded): prerender a few hundred test pages in both languages, measuring build time and size, and confirm how the data service reads data during the build and during hydration. Results are written into this document before the Pokédex is built.
 
 The roadmap document turns these steps into Phase 0 milestones.
 
