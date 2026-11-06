@@ -1,4 +1,4 @@
-# PokéScientia
+## PokéScientia
 
 [Español](#español) · [English](#english)
 
