@@ -328,7 +328,7 @@ The owner works alone and commits straight to `main` (D21). These habits keep th
 4. **Never rewrite pushed history.** No force-push to `main`; a mistake is fixed with a new commit.
 5. **Keep `main` working.** If CI fails, fixing it comes before new work.
 6. **Tag milestones.** The end of each phase gets a version tag (`v0.1.0` after Phase 0, `v0.2.0` after the Pokédex…), optionally with a GitHub Release listing the changes.
-7. **Link commits to issues.** `closes #12` in a commit body closes that GitHub issue automatically.
+7. **Track work in the documents.** Milestone checkboxes in `06-roadmap-and-milestones.md` and the session log in `docs/progress.md` (D65); a commit names its feature ID or milestone instead of an issue number.
 8. **Consistent line endings.** `.gitattributes` stores every text file with LF endings, so Windows editors never make whole files appear changed.
 9. **Experiment branches are optional.** A short-lived branch may be used for a risky experiment (for example, the Phase 0 spike) and deleted if it fails. Not required by the workflow.
 
@@ -396,7 +396,7 @@ The steps that start Phase 0, after this document and the design document are ap
 6b. Arrange the AI guidelines as described in section 12 (move the MCP configurations to the repository root, create the root `AGENTS.md`, and check that both tools load them).
 7. **Spike** (a short experiment, kept or discarded): prerender a few hundred test pages in both languages, measuring build time and size, and confirm how the data service reads data during the build and during hydration. Results are written into this document before the Pokédex is built.
 
-The roadmap document turns these steps into Phase 0 milestones.
+[`06-roadmap-and-milestones.md`](06-roadmap-and-milestones.md) turns these steps into Phase 0 milestones M0.1–M0.3.
 
 ## 16. Decisions
 

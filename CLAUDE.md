@@ -23,7 +23,9 @@ project until the architecture document is approved. Documentation work is allow
   CI, coding guidelines, Phase 0 setup.
 - `docs/05-design-and-interaction.md` — identity, halls, colors and tokens, typography, presenters, the
   Pokédex book, layout, components, motion. Draft: proposals DP-1 to DP-7 await review.
-- Other `docs/` files as they are added (data strategy, architecture, design, roadmap, milestones).
+- `docs/06-roadmap-and-milestones.md` — small milestones per phase, definition of done, recurring work. The
+  checkboxes there are the task tracker (D65).
+- `docs/progress.md` — session log.
 - `frontend/CLAUDE.md` (from Phase 0): Angular's official best practices for code in `frontend/`. This root
   file and `docs/` win on any conflict (D55).
 - If code, docs and this file disagree, stop and ask. Never resolve a conflict silently.
@@ -93,5 +95,9 @@ project until the architecture document is approved. Documentation work is allow
 
 ## Session routine
 
-- Start: read this file, `docs/00-decision-map.md`, the relevant `docs/`, and `docs/progress.md` (if present).
-- End: draft a short entry for `docs/progress.md`: what was done, what is next, open issues.
+- Start: read this file, `docs/progress.md` (if present), the current milestone in
+  `docs/06-roadmap-and-milestones.md`, `docs/00-decision-map.md`, and the docs that milestone references.
+- Work on one milestone at a time; restate its scope and propose steps before building. New ideas go to the
+  decision map, not into the current milestone.
+- End: check the definition of done (roadmap section 2) and draft a short entry for `docs/progress.md`:
+  what was done, what is next, open issues. The owner ticks the milestone box and commits.

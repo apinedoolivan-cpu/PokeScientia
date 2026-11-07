@@ -320,6 +320,8 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 
 ### Proposals awaiting approval
 
+Each proposal is decided on a real page at a fixed review point in the roadmap (D67): DP-2, DP-6 and DP-7 in M0.4; DP-1 in M0.6; DP-3 and DP-4 in M0.7; DP-5 in M1.5.
+
 | ID | Proposal | Section |
 | --- | --- | --- |
 | DP-1 | Navigation: top bar on desktop, "Salas" full-screen menu on phones, hall header and breadcrumb | 3 |

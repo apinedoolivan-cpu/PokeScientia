@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.8 — approved 2026-11-06** · Owner: @Alex
+**Version 1.9 — approved 2026-11-07** · Owner: @Alex
 
 ## Document status
 
-Version 1.8, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.9, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -128,7 +128,7 @@ These come directly from the owner's answers in discovery.
 | D18 | Data: a mix of open sources, processed at build time into split static files (loaded on demand), refreshed by hand with a script. Images are linked from their source, not stored in the repository. | Free, fast, small repository; specific sources pending research. |
 | D19 | Light and dark themes, built on design tokens from day one. | Owner preference; tokens make both cheap. |
 | D20 | Accessibility target: WCAG 2.2 AA, and full respect for the reduced-motion setting. | Cheap if designed in early, expensive to retrofit; motion is central to the site. |
-| D21 | Process: the owner makes every commit, straight to `main`; Claude never commits or pushes. CI runs lint, tests and build from Phase 0. Work is tracked in `docs/progress.md` and GitHub Issues/Projects. | Solo developer; CI still checks every push. |
+| D21 | Process: the owner makes every commit, straight to `main`; Claude never commits or pushes. CI runs lint, tests and build from Phase 0. Work is tracked in the documents (revised by D65). | Solo developer; CI still checks every push. |
 | D22 | Documentation, code, comments and commit messages are in English. Only the README is bilingual. | One version of the truth; no drift between translations. |
 | D23 | Phase order: competitive data and calculator in Phase 3, battle stage (now the COLOSSEUM) in Phase 4. | Competitive tools matter more and build on Phases 1–2; the battle stage can then show real damage from the calculator. |
 | D24 | The home page is the academy entrance, presenting the site's features as halls. | Fits the identity and introduces every presenter. |
@@ -164,7 +164,7 @@ These come directly from the owner's answers in discovery.
 | D54 | Node 26 LTS, recorded in `.nvmrc` and in `engines`. | Current LTS, supported by Angular 22; same version locally and in CI. |
 | D55 | Angular's official AI guidelines are generated for Claude Code and Copilot (`--ai-config claude-code --ai-config vscode`) and arranged at the repository root; the root `CLAUDE.md` and `docs/` stay authoritative. | Claude Code (in VS Code's terminal) writes the code; Angular's guidelines keep it idiomatic. |
 | D56 | The animation stack is 2D: GSAP (free, proprietary license) for interface motion and choreography, PixiJS for the COLOSSEUM's stage. Three.js is a Phase 4 exploration option for original 3D content only (Q63). | GSAP has the richest timelines and plugins; our Pokémon images are 2D. |
-| D57 | Git practices for a solo developer: review generated messages before committing, one logical change per commit, push regularly, no force-push to `main`, keep CI green, tag each phase (`v0.x.0`), link commits to issues, LF line endings via `.gitattributes`. Experiment branches are optional. | Professional habits that cost little and keep the history useful, without adding a branching workflow. |
+| D57 | Git practices for a solo developer: review generated messages before committing, one logical change per commit, push regularly, no force-push to `main`, keep CI green, tag each phase (`v0.x.0`), LF line endings via `.gitattributes`. Experiment branches are optional. | Professional habits that cost little and keep the history useful, without adding a branching workflow. |
 | D58 | Visual identity: a Roman academy of natural science. Greek learning appears as content, not as a second style. Supersedes D5. | The name is Latin; the codex is Roman; Rome covers both knowledge and competition; Spanish comes from Latin. |
 | D59 | Hall naming: the menu uses plain names in the active language; each hall carries a Latin inscription over its door and as its heading. "Coliseo" is also its own menu label. | Recognizable navigation, atmosphere in the scenery. |
 | D60 | Hall map: ATRIUM (home), BIBLIOTHECA (Pokédex), LEGIO (teams), ABACUS (calculator), ATHENAEUM (metagame), COLOSSEUM (battle stage), AENIGMA (quiz). | Strategy and information halls outnumber spectacle; Latin names work in both languages. |
@@ -172,6 +172,9 @@ These come directly from the owner's answers in discovery.
 | D62 | Themes are Día (light) and Noche (dark). The default follows the device; a manual choice is remembered; an optional mode follows the time of day. Refines D19. | Day and night as two moods of the same academy. |
 | D63 | Foro (travertine, porphyry, bronze) is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. | Palettes are design tokens, cheap to change. |
 | D64 | The battle stage is the COLOSSEUM (module M5, formerly "Animation Lab"). | The arena is the natural Roman setting for battles; analysis lives in LEGIO and ABACUS. |
+| D65 | Work is tracked in the documents: milestone checkboxes in `06-roadmap-and-milestones.md` and a session log in `docs/progress.md`. GitHub Issues and Projects are not used for now. Revises the tracking part of D21. | One person, one branch; Git workflow learning is out of scope. Can be revisited if the project demands it. |
+| D66 | Milestones are small (about 4–12 hours each, ending in a committed, working state) and estimated in hours, never dates. | No deadline; about 14 variable hours a week; small steps keep progress visible. |
+| D67 | Design proposals DP-1 to DP-7 are decided at fixed review points in Phase 0 and Phase 1: DP-2, DP-6, DP-7 in M0.4; DP-1 in M0.6; DP-3, DP-4 in M0.7; DP-5 in M1.5. | Each proposal is judged on a real page instead of in the abstract. |
 
 ## Assumptions
 
@@ -211,7 +214,7 @@ The two hard limits are zero budget and respect for Pokémon intellectual proper
 
 ## Scope and phases
 
-Approved with version 1. The roadmap document adds milestones and acceptance criteria.
+Approved with version 1. Milestones for each phase are in [`06-roadmap-and-milestones.md`](06-roadmap-and-milestones.md).
 
 1. **Phase 0: Foundations.** Angular project in `frontend/`, Spanish and English builds, design tokens with light and dark themes, layout shell, data pipeline producing static files, CI, and a first presenter.
 2. **Phase 1: MVP, the BIBLIOTHECA (Pokédex).** Pokédex (Pokémon, moves, abilities, items) with the competitive and full views, forms, search and filters.
@@ -253,6 +256,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-07 | Version 1.9: D65–D67 approved (tracking in the documents, small milestones, design review points); roadmap drafted | Roadmap discussion |
 | 2026-11-06 | Version 1.8: D58–D64 approved (Roman identity, halls, book, themes, palette, battle stage); design spec drafted | Design exploration |
 | 2026-11-05 | Version 1.7: D57 approved (Git practices); commit message rules strengthened (D53) | Git practices discussion |
 | 2026-11-04 | Version 1.6: D56 approved; R7 reworded; architecture approved as v1 | Architecture review |

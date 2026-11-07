@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-06
+Last updated: 2026-11-07
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -15,7 +15,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
 | E. Later phases | 0 | 7 |
-| F. Working process | 4 | 0 |
+| F. Working process | 5 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
 
@@ -95,7 +95,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q65 | Pokédex presentation | Product | Decided → D61 (*Historia Naturalis* book) |
 | Q66 | Day and night theme behavior | Product | Decided → D62 |
 | Q67 | Battle hall | Product | Decided → D64 (COLOSSEUM) |
-| Q68 | Design proposals DP-1 to DP-7 (navigation, typography, presenter frame, artwork treatment, page turn, layout, motion) | Design | **Open.** Awaiting review in [`05-design-and-interaction.md`](05-design-and-interaction.md) §15. |
+| Q68 | Design proposals DP-1 to DP-7 (navigation, typography, presenter frame, artwork treatment, page turn, layout, motion) | Design | **Open.** Reviewed at fixed points in Phase 0 and Phase 1 (D67, [`06-roadmap-and-milestones.md`](06-roadmap-and-milestones.md)). |
 
 ## E. Later phases
 
@@ -115,7 +115,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | --- | --- | --- |
 | Q36 | Branching | Decided → D21 (owner commits straight to `main`) |
 | Q37 | Continuous integration | Decided → D21 (lint, tests, build from Phase 0) |
-| Q38 | Task tracking | Decided → D21 (`docs/progress.md` and GitHub Issues/Projects) |
+| Q38 | Task tracking | Decided → D65 (milestone checkboxes in the roadmap and `docs/progress.md`; no GitHub Issues for now) |
+| Q69 | Milestone size and scheduling | Decided → D66 (small milestones, hours not dates) |
 | Q39 | Documentation language | Decided → D22 (English; README bilingual) |
 
 ## G. Parked ideas
