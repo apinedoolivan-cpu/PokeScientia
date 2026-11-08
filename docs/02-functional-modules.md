@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.2 — approved 2026-11-06** · Owner: @Alex
+**Version 1.3 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Version 1.2, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.3, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -13,7 +13,7 @@ Version 1.2, approved. Describes **what** each module does, from the user's poin
 
 ### Feature IDs
 
-Every feature has a stable ID: `<MODULE>-F<number>` (for example `ARC-F03`). Milestones, GitHub Issues and commit messages refer to these IDs. IDs are never reused; a removed feature keeps its ID with the status "Removed".
+Every feature has a stable ID: `<MODULE>-F<number>` (for example `ARC-F03`). Milestones, the progress log and commit messages refer to these IDs. IDs are never reused; a removed feature keeps its ID with the status "Removed".
 
 ### Acceptance criteria format
 
@@ -62,12 +62,14 @@ These rules apply to every module and are not repeated in module sections.
 | X-09 | Shareable URLs | Every Pokémon, form, move, ability, item and hall has its own URL with stable English IDs (D17). |
 | X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. |
 | X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
+| X-12 | Active team | One saved team can be the **active team** (D68). It stays selected across halls and visits, appears in a compact strip with its six Pokémon, and every hall that works with teams uses it: LEGIO analyses it, ABACUS loads its members, ATHENAEUM compares the metagame against it, the Pokédex adds to it first. From Phase 2. |
 
 **Acceptance criteria (cross-cutting)**
 
 - *Given* I am on `/es/pokedex/charizard`, *when* I switch to English, *then* I land on `/en/pokedex/charizard` with all interface text in English.
 - *Given* reduced motion is enabled in my OS, *when* I open any hall, *then* no element moves more than a fade or a short opacity change.
 - *Given* I use only the keyboard, *when* I navigate any page, *then* I can reach and operate every control, and focus is always visible.
+- **X-12** *Given* team A is active, *when* I go from LEGIO to ABACUS and reload the page, *then* team A is still active and its six Pokémon appear in the strip.
 
 **Testing approach:** automated accessibility checks (axe) in end-to-end tests on every page type; an end-to-end test of the language switch; visual review of both themes.
 
@@ -230,7 +232,7 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 
 ## M3 — Teams · LEGIO (`STR`) · Phase 2
 
-**Purpose.** Build VGC teams, keep them in the browser, and understand their strengths and weaknesses.
+**Purpose.** Build VGC teams, keep them in the browser, and understand their strengths and weaknesses. The team built here is the one every other hall works with (X-12): calculating damage with your own team is one of the platform's core motivations (R20).
 
 ### Features
 
@@ -240,7 +242,7 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | STR-F02 | **Team editor.** Up to six slots. Each slot: Pokémon and form, ability, held item (including Mega Stones), four moves, nature, and stat spread in the team's stat system (STR-F18). Level is always 50. Final stats are calculated and shown. | 2 |
 | STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices are every move the Pokémon has ever learned; in the regulation format, moves not available in the current game are marked. | 2 |
 | STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon or moves not legal in the current regulation. Warnings never block editing or saving. | 2 |
-| STR-F05 | **Import from Showdown text.** Lines that can't be read are reported; the rest is imported. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. | 2 |
+| STR-F05 | **Import from Showdown text.** Paste the text and the team is created. Lines that can't be read are reported; the rest is imported. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. Available from the team library and from the active-team strip; an imported team becomes the active team. | 2 |
 | STR-F06 | **Export to Showdown text**, with one-click copy. | 2 |
 | STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
 | STR-F08 | **Defensive analysis.** For each of the 18 attacking types: how many members are weak, resistant or immune; shared weaknesses are highlighted. Abilities that grant immunity (e.g. Levitate, Flash Fire) are counted. | 2 |
@@ -251,10 +253,13 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | STR-F13 | **Live analysis.** All analyses update immediately as the team changes. | 2 |
 | STR-F14 | **Autosave.** Changes are saved in the browser automatically; no "Save" button (D34). | 2 |
 | STR-F17 | **Team format** (D32). Each team is either **Free** (all Pokémon, every move ever learned, no legality warnings) or **Current regulation** (the same choices, plus the regulation warnings in STR-F04). New teams use the current regulation; the format can be changed at any time. | 2 |
+| STR-F20 | **Active team** (X-12, D68). Choose the active team from the library or the strip; switch or clear it at any time. The strip shows the six Pokémon, opens the team in LEGIO, and offers to create or import a team when none is active. | 2 |
 | STR-F15 | **Benchmarks.** Speed tiers compared against popular threats in the regulation. | 3 |
 | STR-F16 | **Fill from common set.** Fill a slot with a common set from usage data. | 3 |
 | STR-F18 | **Stat system per team** (D38). Stat Points (66 total, 32 per stat, IVs fixed at 31; default) or EVs and IVs (510 total, 252 per stat, IVs 0–31). Changing the system converts every spread (STR-F19). | 2 |
 | STR-F19 | **Spread converter.** Shows a spread in both systems side by side (`EVs = 8 × SP − 4`). Stat Points to EVs is exact; EVs to Stat Points warns when an IV isn't 31 or the total exceeds 66, and asks which stat to trim. Available inside the editor and as a standalone tool. | 2 |
+| STR-F21 | **Threat list** (D69). The most-used Pokémon of the regulation, each with its most common set, against the team: which members can KO it and how reliably, which members it can KO, and who moves first. Threats no member handles are highlighted. Needs usage data (CMP-F02) and the calculator (CMP-F03). | 3 |
+| STR-F22 | **Calculate from the team** (D69). Each member, and each row of the threat list, has a "Calcular" action that opens ABACUS with that matchup already loaded. | 3 |
 
 ### Rules
 
@@ -263,16 +268,18 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 - Game availability never limits what can be built; it only adds warnings, and only in the regulation format (D27, D32).
 - Spreads are always valid for the team's stat system: at most 66 Stat Points (32 per stat), or at most 510 EVs (252 per stat).
 - Analysis covers all six members. In VGC you bring six and choose four per game; choosing four is not modeled.
+- Deleting the active team leaves no team active; nothing else changes.
+- The threat list uses a neutral field by default (no weather, terrain, boosts or screens) and assembles each threat's set from its most-used item, ability, nature, spread and moves; the set used is always shown.
 - Teams live only in this browser until accounts exist (D3). The backup (STR-F07) is how they move between devices.
 - The analysis functions are independent of the screens, so the calculator (M4) and the AI assistant (M8) can reuse them.
 
 ### Data
 
-Reads Pokémon, moves, abilities, items, learnsets, type chart, regulation data and doubles move categories. Reads and writes teams in browser storage (storage technology: Q26).
+Reads Pokémon, moves, abilities, items, learnsets, type chart, regulation data and doubles move categories; from Phase 3, usage data. Reads and writes teams in browser storage (D43); the active team is remembered as a preference.
 
 ### Connections
 
-Receives Pokémon from M2. Feeds teams to M4 (calculator) and later M6 (sync) and M8 (assistant).
+Receives Pokémon from M2. Provides the active team to every hall (X-12), above all M4 (calculator and metagame), and later M6 (sync) and M8 (assistant).
 
 ### Acceptance criteria
 
@@ -288,18 +295,21 @@ Receives Pokémon from M2. Feeds teams to M4 (calculator) and later M6 (sync) an
 - **STR-F11** *Given* a team with Tailwind on one member and no Fake Out, *then* speed control shows as covered by that member and Fake Out shows as missing.
 - **STR-F14** *Given* I edit a team and reload the page, *then* my changes are still there.
 - **STR-F12** *Given* the Garchomp entry, *when* I choose "Add to team" and pick a team with a free slot, *then* Garchomp appears in that team.
+- **STR-F20** *Given* no team is active, *when* I paste Showdown text from the strip, *then* a new team is created and becomes the active team. *Given* I delete the active team, *then* no team is active and the strip offers to create or import one.
+- **STR-F21** (Phase 3) *Given* usage data and an active team, *then* each listed threat shows its set, the best KO chance any member has against it, and its best KO chance against each member. *Given* a threat that no member can KO in two hits and that outspeeds the whole team, *then* it is highlighted.
+- **STR-F22** (Phase 3) *Given* a member with its item, ability, nature, spread and moves, *when* I choose "Calcular", *then* ABACUS opens with that member as the attacker, identical in every value.
 
 **Testing approach:** unit tests for stat calculation in both systems (checked against `@smogon/calc`), the converter, every analysis and the Showdown parser (including round-trip tests with real exported teams); end-to-end tests for building, importing, exporting and reloading a team.
 
 ### Out of scope
 
-Team sharing by link (needs M6), team-preview simulation (choosing four of six), opponent prediction, and damage calculations (M4).
+Team sharing by link (needs M6), team-preview simulation (choosing four of six), opponent prediction, and importing from PokéPaste links (parked idea P2). Damage calculations live in M4; LEGIO links to them (STR-F22).
 
 ---
 
 ## M4 — Calculator and metagame · ABACUS, ATHENAEUM (`CMP`) · Phase 3
 
-**Purpose.** Bring real competitive data into the platform: what people actually use, and how much damage attacks do. Medium detail; specified fully before Phase 3 starts.
+**Purpose.** Bring real competitive data into the platform: what people actually use, and how much damage attacks do, **above all with the owner's own team** (R20, D69). Medium detail; specified fully before Phase 3 starts.
 
 ### Features
 
@@ -308,7 +318,7 @@ Team sharing by link (needs M6), team-preview simulation (choosing four of six),
 | CMP-F01 | **Usage overview.** Most used Pokémon in the current regulation, with usage rank and percentage. | 3 |
 | CMP-F02 | **Common sets.** For each Pokémon: most used moves, items, abilities, spreads and teammates. Shown in the entry (ARC-F12) and usable to fill a team slot (STR-F16). | 3 |
 | CMP-F03 | **Damage calculator** (D42). Attacker against one or two defenders, with the full doubles field: spread-move reduction, weather, terrain, screens, Helping Hand, Friend Guard, Tailwind, Ruin abilities and more; boosts, status, current HP, critical hits. Shows **all 16 rolls**, the % range, and the KO chance (OHKO, 2HKO…) including hazards and end-of-turn effects. | 3 |
-| CMP-F04 | **Calculator from a team.** Load attackers or defenders straight from a saved team. | 3 |
+| CMP-F04 | **Calculator from a team.** The active team's six members are one click away as attacker, defender or partner (for combined damage), with all their values; any other saved team can be loaded too. Changes made in the calculator never alter the saved team unless saved back on purpose. | 3 |
 | CMP-F05 | **Speed benchmarks** feeding STR-F15. | 3 |
 | CMP-F06 | **Usage trends** over time, if the data source allows it. | 3 (stretch) |
 | CMP-F07 | **Matchup grid.** Two Pokémon, all four moves each way, in one view. | 3 |
@@ -318,12 +328,15 @@ Team sharing by link (needs M6), team-preview simulation (choosing four of six),
 | CMP-F11 | **Accuracy-adjusted KO chance**, combining the KO chance with the move's accuracy. | 3 |
 | CMP-F12 | **One against many.** One attack against the most-used Pokémon of the regulation. | 3 |
 | CMP-F13 | **Formula explainer.** A step-by-step page showing how stats and damage are calculated for a chosen example. | 3 (stretch) |
+| CMP-F14 | **One against the team.** A chosen Pokémon's attacks against each of the active team's six, with damage range and KO chance; and the reverse, each member's best attack against it. | 3 |
+| CMP-F15 | **Your team in the metagame.** On each Pokémon's usage page, a short summary of how it fares against the active team, from the same calculation as the threat list (STR-F21). | 3 |
 
 ### Rules
 
 - Usage data always shows its source, the period it covers and the format.
 - Damage comes from `@smogon/calc` (D42). Combined damage, accuracy adjustments and charts are our own calculations on top of its rolls.
 - Mechanics are always the current game's (Champions), whatever the team's stat system (D38).
+- Team-based calculations (CMP-F04, CMP-F14, CMP-F15, STR-F21) always use the team's exact values; when a value comes from usage data instead, it is labelled.
 
 ### Open questions
 
@@ -334,6 +347,8 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 - **CMP-F03** *Given* a well-known matchup with published results, *then* our result matches the reference calculator within its rounding.
 - **CMP-F02** *Given* usage data is loaded, *then* each common-set panel names its source and period.
 - **CMP-F10** *Given* two attackers that each have a 50% chance to deal at least half of a target's HP, *then* the combined KO chance equals the probability computed from all pairs of their rolls.
+- **CMP-F04** *Given* an active team, *when* I open ABACUS, *then* its six members can be placed on either side with one click each, and editing them in the calculator does not change the saved team.
+- **CMP-F14** *Given* a chosen Pokémon and an active team, *then* every one of its damaging moves shows a damage range and KO chance against each of the six members.
 
 **Testing approach:** comparison tests against the reference calculator for a set of known matchups; unit tests for combined and accuracy-adjusted probabilities; validation tests on the usage data files.
 

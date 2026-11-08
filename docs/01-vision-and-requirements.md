@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.10 — approved 2026-11-08** · Owner: @Alex
+**Version 1.11 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Version 1.10, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.11, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -33,7 +33,7 @@ The project succeeds if it is useful to the owner, fun to build, and teaches som
 **Goals**
 
 1. A Pokédex covering all generations, readable in Spanish and English, with a competitive emphasis.
-2. VGC-oriented tools that answer real questions: what does my team fear, what outspeeds what, how does this matchup look.
+2. VGC-oriented tools that answer real questions: what does my team fear, what outspeeds what, how does this matchup look, and what do the calcs say **for my own team** against the metagame.
 3. A distinctive, polished interface with a recognizable identity and purposeful animation.
 4. A battle stage, the COLOSSEUM, to freely experiment with GSAP and PixiJS.
 5. Hands-on learning: Angular `@angular/localize`, local-first data, and later a Go API.
@@ -62,6 +62,8 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 | U7 | Save teams in my browser and find them later | Persistence | 2 |
 | U8 | See the most common sets for a Pokémon in the current format | Usage data | 3 |
 | U9 | Calculate damage between Pokémon, including doubles conditions | Calculator | 3 |
+| U14 | Keep one team active while I move between halls, and import it by pasting Showdown text | Team builder | 2 |
+| U15 | Run calcs with my own team: its members against any Pokémon, and the most-used threats against my team | Calculator and metagame | 3 |
 | U10 | Watch an animated doubles scene with balls, entrances, attacks and effects | Battle stage (COLOSSEUM) | 4 |
 | U11 | Sign in and have my teams on any device | Accounts | 5 |
 | U12 | Test my knowledge with a quiz or puzzle | Quiz | 6 |
@@ -75,6 +77,7 @@ Pokescientia's edge is identity and integration, not data volume.
 - **The academy identity.** A Roman academy: marble and travertine halls with Latin inscriptions, and a Pokédex read as a book, the *Historia Naturalis*.
 - **Resident presenters.** Each hall is introduced by a Pokémon whose nature fits it.
 - **Lookup to analysis in one flow.** From a Pokédex entry straight into a team, and from a team straight into its weaknesses.
+- **Your team everywhere.** The active team follows you through the academy: analysed in LEGIO, calculated in ABACUS, measured against the metagame in ATHENAEUM.
 - **Doubles first.** Analysis tuned for VGC (speed control, spread moves, partners), not adapted from singles.
 - **Animation as a feature.** Motion is designed, not decorative, and the COLOSSEUM shows off what the web can do.
 
@@ -103,6 +106,7 @@ These come directly from the owner's answers in discovery.
 | R17 | Competitive data follows the current official VGC regulation and must be easy to update when the regulation changes. |
 | R18 | All assets we add (fonts, icons, textures, our own artwork) must be free-licensed. Official Pokémon images are not free-licensed: they are used as fan content, credited, from the chosen sources (D40). |
 | R19 | The battle stage shows the official doubles format: two Pokémon per side. |
+| R20 | Doing damage calculations with the owner's own team is a core motivation of the project. A team built in the platform is available in every hall, and the calculator and metagame tools work directly from it. |
 
 ## Approved decisions
 
@@ -175,6 +179,9 @@ These come directly from the owner's answers in discovery.
 | D65 | Work is tracked in the documents: milestone checkboxes in `06-roadmap-and-milestones.md` and a session log in `docs/progress.md`. GitHub Issues and Projects are not used for now. Revises the tracking part of D21. | One person, one branch; Git workflow learning is out of scope. Can be revisited if the project demands it. |
 | D66 | Milestones are small (about 4–12 hours each, ending in a committed, working state) and estimated in hours, never dates. | No deadline; about 14 variable hours a week; small steps keep progress visible. |
 | D67 | Design proposals DP-1 to DP-7 are decided at fixed review points in Phase 0 and Phase 1: DP-2, DP-6, DP-7 in M0.4; DP-1 in M0.6; DP-3, DP-4 in M0.7; DP-5 in M1.5. | Each proposal is judged on a real page instead of in the abstract. |
+| D68 | **Active team** (X-12, STR-F20): one saved team stays selected across halls and visits, shown in a compact strip; importing Showdown text creates a team and makes it active. Built in Phase 2. | Teams must be usable outside LEGIO without reloading them in each hall (R20). |
+| D69 | **Team-centered calculation** (R20): the calculator loads the active team's members in one click (CMP-F04); new features STR-F21 (threat list), STR-F22 (calculate from the team), CMP-F14 (one against the team) and CMP-F15 (your team in the metagame). Phase 3 starts with ABACUS, before the usage data. | Calcs with one's own team are why the project exists; starting Phase 3 with them delivers that first. |
+| D70 | Import from and export to PokéPaste links is parked (P2). Showdown text import and export stay. | Showdown text is the format everyone uses; PokéPaste is a nice extra. |
 
 ## Assumptions
 
@@ -218,8 +225,8 @@ Approved with version 1. Milestones for each phase are in [`06-roadmap-and-miles
 
 1. **Phase 0: Foundations.** Angular project in `frontend/`, Spanish and English builds, design tokens with light and dark themes, layout shell, data pipeline producing static files, CI, and a first presenter.
 2. **Phase 1: MVP, the BIBLIOTHECA (Pokédex).** Pokédex (Pokémon, moves, abilities, items) with the competitive and full views, forms, search and filters.
-3. **Phase 2: LEGIO (teams).** Team builder with Showdown import and export, local saving, and team analysis (D13).
-4. **Phase 3: ABACUS and ATHENAEUM (calculator and metagame).** Usage data and common sets, damage calculator, speed benchmarks, trends.
+3. **Phase 2: LEGIO (teams).** Team builder with Showdown import and export, local saving, the active team that follows you between halls, and team analysis (D13, D68).
+4. **Phase 3: ABACUS and ATHENAEUM (calculator and metagame).** Damage calculator working from the active team first, then usage data and common sets, the threat list, speed benchmarks, trends.
 5. **Phase 4: The COLOSSEUM (battle stage).** Scripted doubles battle stage in PixiJS and GSAP: ball throws, entrances, attacks, effects, HP bars, with real damage from the calculator.
 6. **Phase 5: Accounts.** Go backend with sign-in and team sync, layered on the local-first data.
 7. **Phase 6: Extras.** Quiz or puzzle section, then the AI assistant.
@@ -256,6 +263,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-08 | Version 1.11: R20 added; D68–D70 approved (active team, team-centered calculation, PokéPaste parked); modules v1.3, roadmap v1.1 | Team and calculator review |
 | 2026-11-08 | Version 1.10: design spec (`05`) and roadmap (`06`) approved as v1; DP-1 to DP-7 stay open (D67). Planning closed; Phase 0 starts with M0.1 | Final planning review |
 | 2026-11-07 | Version 1.9: D65–D67 approved (tracking in the documents, small milestones, design review points); roadmap drafted | Roadmap discussion |
 | 2026-11-06 | Version 1.8: D58–D64 approved (Roman identity, halls, book, themes, palette, battle stage); design spec drafted | Design exploration |

@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.2 — approved 2026-11-06** · Owner: @Alex
+**Version 1.3 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Version 1.2, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.3, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -98,6 +98,8 @@ These rules are enforced by ESLint import restrictions, so a violation fails CI.
 
 - Components are standalone (Angular's default).
 - State lives in **signal-based services** (D16). A hall's state lives in its own service; shared state lives in `core/`.
+- **The active team** (X-12, D68) is shared state: an `ActiveTeamService` in `core/` holds the selected team as a signal, reading it through `TeamRepository`. Every hall reads it from there, never from `halls/teams/`, so the layer rules hold. The strip that shows it is a `ui/` component placed by `shell/`.
+- **Opening a calculation from another hall** (STR-F22) navigates to `/calculator` with query parameters naming the team, the member and the side (for example `?team=…&attacker=2`); ABACUS reads them and loads the values from `core/`.
 - Every hall is **lazy-loaded**: visiting the Pokédex never downloads the COLOSSEUM.
 - Pages read route parameters as English IDs (D17, D37) and ask `core/` data services for data.
 
@@ -125,6 +127,7 @@ In practice, the rule for us is simple: **anything that changes on screen is hel
 | Team analysis | Defensive, offensive, speed tiers, doubles essentials, rule warnings | STR-F04, STR-F08–F11 |
 | Showdown text | Parse and write team texts | STR-F05, STR-F06 |
 | Damage (Phase 3) | Wrappers around `@smogon/calc`; combined and accuracy-adjusted probabilities | CMP-F03, CMP-F07–F13 |
+| Team against the metagame (Phase 3) | Threat list and one-against-the-team: every member against a list of sets, built on the damage wrappers and speed formulas | STR-F21, CMP-F14, CMP-F15 |
 
 Rules:
 
@@ -247,7 +250,7 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 - Every team stores its format (STR-F17) and stat system (STR-F18).
 - Persistent storage is requested on first save (D43).
 - **Backup format** (STR-F07): a JSON file with a format version, the export date and the teams.
-- Preferences (language, theme, dismissed presenters) use localStorage through a `PreferencesService`, with safe defaults if storage is unavailable.
+- Preferences (language, theme, dismissed presenters, **active team ID**) use localStorage through a `PreferencesService`, with safe defaults if storage is unavailable. If the stored active team no longer exists, no team is active.
 
 ## 11. Testing
 
@@ -417,6 +420,7 @@ Approved in review on 2026-11-04.
 | A11 | D56 | Keep GSAP (free, proprietary license) with PixiJS as the 2D animation stack; R7 reworded to allow explicitly approved free proprietary tools |
 | A12 | D55 | Generate Angular's AI guidelines for Claude Code and Copilot; arrange them at the root as in section 12; root `CLAUDE.md` stays authoritative |
 | — | D57 | Git practices for a solo developer (section 12) and `.gitattributes` with LF line endings; experiment branches optional |
+| — | D68, D69 | Active team as shared state in `core/` (`ActiveTeamService`), its ID kept in preferences; calculations opened from other halls through `/calculator` query parameters (section 3) |
 
 ## Sources
 

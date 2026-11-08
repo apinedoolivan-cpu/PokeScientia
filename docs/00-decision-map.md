@@ -10,7 +10,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 20 | 0 |
+| A. Discovery and module spec | 22 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
@@ -43,6 +43,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q49 | Learnset scope and team formats | Product | Decided → D32 |
 | Q50 | Competitive middle evolutions list | Product | Decided → D33 |
 | Q51 | Team saving | Product | Decided → D34 |
+| Q70 | Teams across halls and calculations with one's own team | Product | Decided → D68, D69 |
+| Q71 | PokéPaste links | Product | Parked → D70, P2 |
 
 ## B. Architecture (before `ng new`)
 
@@ -126,3 +128,4 @@ Ideas discussed and deliberately set aside. Nothing is built for them now. A par
 | ID | Idea | Parked on | Why parked | If reopened |
 | --- | --- | --- | --- | --- |
 | P1 | **Fakémon**: fan-made Pokémon shown in the platform, fully separated from official Pokémon (own section and IDs, always labelled fan-made). No competitive section. | 2026-11-04 | Copyright of fan creations made by others, and their artwork would have to be stored, unlike official images (D18). | Scope ceiling: official types and rules, plus at most custom moves and abilities. New types or rules are excluded. Estimated size: one milestone plus content work, mostly adding data. Kept cheap by the architecture guidelines: types read from data, IDs treated as opaque text, entry sections receive their data, image URLs come from data. |
+| P2 | **PokéPaste links**: import a team by pasting a `pokepast.es` link (its `/json` and `/raw` views allow reading from any website), and export a team to a new paste through PokéPaste's public form. | 2026-11-08 | Less used than plain Showdown text, which is already imported and exported (STR-F05, STR-F06). | Small: reuses the Showdown importer; the paste's title becomes the team name. Credit PokéPaste on About. |

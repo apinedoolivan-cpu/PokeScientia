@@ -1,356 +1,422 @@
-# Pokescientia — Roadmap and Milestones
+# Pokescientia — Functional Module Specification
 
-**Version 1 — approved 2026-11-08** · Owner: @Alex
+**Version 1.3 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Version 1, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
-
-- Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
-- Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
-- Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12).
-
-## 1. Planning principles
-
-1. **No deadlines.** Pokescientia is a personal project for practicing how to run a full project professionally. Effort is estimated in **hours of work**, never dates.
-2. **Small milestones** (D66). Each one is roughly **4–12 hours**: one to four sessions at the owner's usual pace of about 2–3 hours a day. Each ends in a **working, committed state**.
-3. **One milestone at a time.** Finish, check the definition of done, commit, then start the next. Within a phase, milestones can be reordered when their dependencies allow.
-4. **Scope stays fixed per milestone.** New ideas go to the decision map (as an open question or a parked idea), not into the current milestone.
-5. **Estimates are rough** and only help to size work. Being slower than an estimate is information, not failure.
-
-## 2. Definition of done
-
-A milestone is done when all of these hold:
-
-- [ ] Its acceptance criteria (from `02-functional-modules.md`, or listed here for technical milestones) pass, as automated tests where possible.
-- [ ] Lint, unit tests and the production build pass locally and in CI.
-- [ ] Every new screen works in **Spanish and English**, in **Día and Noche**, from **360 px** wide, with the **keyboard**, and with **reduced motion** (X-01, X-04–X-07).
-- [ ] No accessibility errors from axe on new screens (D20).
-- [ ] Documents touched by the milestone are updated (new decisions in the vision and decision map).
-- [ ] Committed with Conventional Commits and feature IDs (D53), and an entry added to `docs/progress.md`.
-- [ ] Its box in the phase's **Progress** list is ticked.
-
-## 3. How a milestone runs
-
-1. **Start:** open Claude Code in VS Code's terminal at the repository root. It reads `CLAUDE.md`, `docs/progress.md` and the milestone here.
-2. **Plan:** Claude restates the milestone's scope and proposes steps; the owner approves or adjusts.
-3. **Build:** Claude implements in small steps; the owner reviews each change and runs the app.
-4. **Check:** run the definition of done.
-5. **Close:** the owner commits (Claude may suggest the message), adds the progress entry and ticks the box.
-
-## 4. Overview
-
-| Phase | Hall(s) | Goal | Milestones | Rough effort | Tag |
-| --- | --- | --- | --- | --- | --- |
-| 0 | ATRIUM | Foundations: project, CI, design system, shell, data pipeline | 10 | 60–90 h | `v0.1.0` |
-| 1 | BIBLIOTHECA | The Pokédex as the *Historia Naturalis* | 10 | 70–110 h | `v0.2.0` |
-| 2 | LEGIO | Team building and analysis | 9 | 60–90 h | `v0.3.0` |
-| 3 | ABACUS, ATHENAEUM | Calculator and metagame | 7 | 60–90 h | `v0.4.0` |
-| 4 | COLOSSEUM | Animated battle stage | outline | 50–90 h | `v0.5.0` |
-| 5 | — | Accounts and sync (Go backend) | outline | 70–110 h | `v0.6.0` |
-| 6 | AENIGMA | Quiz, then AI assistant | outline | open | `v0.7.0`+ |
-
-At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing aid, not a schedule.
-
-## 5. Phase 0 — Foundations (ATRIUM) · `v0.1.0`
-
-**Goal:** a working, deployable skeleton. Both languages and themes, CI, the design foundations, the academy shell with its entrance, and real Pokémon data produced by the pipeline. No Pokédex pages yet.
-
-**Progress**
-
-- [ ] M0.1 — Workspace and tooling
-- [ ] M0.2 — Continuous integration
-- [ ] M0.3 — Prerender spike
-- [ ] M0.4 — Design tokens and themes
-- [ ] M0.5 — First components
-- [ ] M0.6 — Academy shell
-- [ ] M0.7 — ATRIUM and the presenter
-- [ ] M0.8 — Pipeline foundation
-- [ ] M0.9 — Pipeline content
-- [ ] M0.10 — Close Phase 0
-
-**Order:** M0.1 → M0.2 → M0.3 come first. After that, two tracks can alternate: the **interface track** (M0.4 → M0.7) and the **data track** (M0.8 → M0.9). M0.10 closes the phase.
-
-### M0.1 — Workspace and tooling · ~6–10 h
-
-- Node 26 LTS and `.nvmrc` (D54); `ng new` with the options in architecture §15 (D16, D52, D55).
-- `outputMode: "static"`; `@angular/localize` with Spanish source under `/es/` and English under `/en/` (D1, D17, D50).
-- ESLint with the layer import rules (architecture §3), Prettier, Vitest; `.vscode/extensions.json`.
-- AI guidelines arranged at the root as in architecture §12 (D55).
-
-**Done when:** a production build produces `/es/` and `/en/` with a placeholder page each; lint and tests pass; Claude Code loads `frontend/CLAUDE.md`; the Angular MCP server works from the root.
-
-### M0.2 — Continuous integration · ~3–5 h
-
-- GitHub Actions workflow: install, lint, unit tests, production build on every push to `main` (D21).
-
-**Done when:** a push shows a green run; a deliberately failing test shows a red one.
-
-### M0.3 — Prerender spike · ~5–8 h
-
-- On an **optional experiment branch** (D57): generate a few hundred test pages per language from sample JSON with `getPrerenderParams`.
-- Measure build time and output size; confirm how the data service reads data during the build and reuses it on hydration (architecture §7).
-
-**Done when:** results and the chosen data-loading approach are written into architecture §7; the experiment is merged or discarded.
-
-### M0.4 — Design tokens and themes · ~6–10 h
-
-- Tokens for Foro, Día and Noche (design §4, D63); the generated type colors.
-- Theme service: follows the device by default, remembers a manual choice, optional time-of-day mode (D62); a `MotionService` for reduced motion.
-- Cinzel and Alegreya Sans self-hosted (architecture §8).
-- **Design review:** decide **DP-2** (typography), **DP-6** (layout) and **DP-7** (motion) on a sample page.
-
-**Done when:** the theme switches and is remembered; axe shows no contrast errors in either mode on the sample page; DP-2, DP-6 and DP-7 are recorded as decisions or revised.
-
-### M0.5 — First components · ~6–10 h
-
-- `ps-button`, `ps-toggle-group`, `ps-inscription`, `ps-type-badge`, `ps-stat-bar`, `ps-notice` (design §10), built on Angular CDK with component tests.
-
-**Done when:** each component works with the keyboard, in both modes, and has tests.
-
-### M0.6 — Academy shell · ~8–12 h
-
-- Header with wordmark, plain-label menu, language switch and theme switch; dentil band; footer with disclaimer (SHL-F02, SHL-F04, SHL-F05, X-11).
-- Root redirect page as a post-build step (D51).
-- About and credits (SHL-F06), not-found page (SHL-F07).
-- **Design review:** decide **DP-1** (navigation, including the phone menu).
-
-**Done when:** SHL-F04 and SHL-F07 acceptance criteria pass; switching language keeps the page (X-01); DP-1 is recorded.
-
-### M0.7 — ATRIUM and the presenter · ~6–10 h
-
-- Entrance with doors for every hall: open or closed with its phase (SHL-F01, design §3).
-- `ps-presenter`: arch, plinth, dismissible introduction (SHL-F08, X-10). First presenter text.
-- **Design review:** decide **DP-3** (presenter frame) and **DP-4** (artwork treatment).
-
-**Done when:** SHL-F01 acceptance criterion passes; the introduction stays dismissed after reload; DP-3 and DP-4 are recorded.
-
-### M0.8 — Pipeline foundation · ~8–12 h
-
-- `pipeline/` package (D45); inputs pinned (`@pkmn` versions, PokéAPI commit, D36).
-- Download cache, ID mapping with `manual/id-mapping` (D37), CAP exclusion, validation and build report; `meta.json` (DAT-F09).
-
-**Done when:** the report shows no unmatched entities; two runs produce identical output (DAT criteria).
-
-### M0.9 — Pipeline content · ~8–12 h
-
-- Output files for DAT-F01 to DAT-F07: Pokémon index and entries with forms, moves, abilities, items, learnsets, type chart.
-- Spanish overrides (D44) and the middle-evolutions list (D33); fallback report.
-
-**Done when:** DAT-F01, DAT-F05 and DAT-F09 acceptance criteria pass; the measured data size is recorded in architecture §5; generated data is committed (D46).
-
-### M0.10 — Close Phase 0 · ~4–6 h
-
-- Playwright end-to-end tests and axe checks for the shell, in both languages and modes, added to CI.
-- Review `docs/progress.md`; update documents; tag `v0.1.0` (D57).
-
-**Done when:** CI runs end-to-end tests green; the tag exists.
-
-## 6. Phase 1 — The Pokédex (BIBLIOTHECA) · `v0.2.0`
-
-**Goal:** the *Historia Naturalis*: every Pokémon, move, ability and item, as a book and as a list, in both languages.
-
-**Progress**
-
-- [ ] M1.1 — Pokédex list
-- [ ] M1.2 — Filters and sorting
-- [ ] M1.3 — The entry: identity and science
-- [ ] M1.4 — Forms and learnsets
-- [ ] M1.5 — The book
-- [ ] M1.6 — Moves
-- [ ] M1.7 — Abilities and items
-- [ ] M1.8 — Type chart
-- [ ] M1.9 — Global search
-- [ ] M1.10 — Close Phase 1
-
-### M1.1 — Pokédex list · ~6–10 h
-
-- Routes and prerender parameters from the generated data (M0.3 approach); data access service.
-- List with the competitive view by default and "show all" (ARC-F01, D12).
-
-**Done when:** ARC-F01 acceptance criterion passes; every Pokémon page is generated at build time.
-
-### M1.2 — Filters and sorting · ~5–8 h
-
-- Type, generation and name filters; sorting; state kept in the URL (ARC-F02).
-
-**Done when:** ARC-F02 acceptance criterion passes.
-
-### M1.3 — The entry: identity and science · ~8–12 h
-
-- Entry sections: header, base stats, abilities, type effectiveness (domain logic with unit tests), evolution chain (ARC-F03); previous and next (ARC-F05).
-
-**Done when:** ARC-F03 acceptance criteria pass (Gengar's matchups, both languages).
-
-### M1.4 — Forms and learnsets · ~6–10 h
-
-- Form selector with form URLs (ARC-F04); learnable moves with generations, methods and the current-game marker (D32, D39).
-
-**Done when:** ARC-F04 acceptance criterion passes (Alolan Ninetales).
-
-### M1.5 — The book · ~10–14 h
-
-- BIBLIOTHECA shelf with nine books and appendices; codex spread; thumb index; Libros/Lista switch; one page at a time on phones (D61, design §8).
-- **Design review:** decide **DP-5** (page turn) with the real animation.
-
-**Done when:** the same entry is reachable as a book page and from the list with the same URL; page turns work with keyboard, swipe and reduced motion; DP-5 is recorded.
-
-### M1.6 — Moves · ~6–8 h
-
-- Moves list with filters including "spread moves" (ARC-F06); move detail page with the Pokémon that learn it (ARC-F07).
-
-**Done when:** ARC-F07 acceptance criterion passes (Lanzallamas).
-
-### M1.7 — Abilities and items · ~6–8 h
-
-- Lists and detail pages (ARC-F08, ARC-F09), linked from the shelf's appendices.
-
-**Done when:** every ability and battle item has a page in both languages.
-
-### M1.8 — Type chart · ~4–6 h
-
-- The 18×18 chart with one or two defending types (ARC-F10).
-
-**Done when:** ARC-F10 acceptance criterion passes.
-
-### M1.9 — Global search · ~6–8 h
-
-- Bilingual, accent-insensitive search across Pokémon, moves, abilities and items (SHL-F03, DAT-F10, X-03).
-
-**Done when:** SHL-F03 acceptance criterion passes in both languages.
-
-### M1.10 — Close Phase 1 · ~4–6 h
-
-- End-to-end tests for the Pokédex flows; performance check of a large list and an entry; data refresh if a new regulation is out (section 10); tag `v0.2.0`.
-
-## 7. Phase 2 — Teams (LEGIO) · `v0.3.0`
-
-**Goal:** build, keep and understand VGC teams in the browser.
-
-**Progress**
-
-- [ ] M2.1 — Stat formulas and converter
-- [ ] M2.2 — Showdown text
-- [ ] M2.3 — Saving and the team library
-- [ ] M2.4 — Team editor
-- [ ] M2.5 — Rule warnings
-- [ ] M2.6 — Type analysis
-- [ ] M2.7 — Speed and doubles essentials
-- [ ] M2.8 — From the Pokédex to the legion
-- [ ] M2.9 — Close Phase 2
-
-### M2.1 — Stat formulas and converter · ~6–8 h
-
-- Domain code for Stat Points and EVs/IVs at level 50, natures, and the converter (STR-F19, D38), tested against `@smogon/calc`.
-
-**Done when:** STR-F19 acceptance criteria pass as unit tests.
-
-### M2.2 — Showdown text · ~6–8 h
-
-- Parser and writer for Showdown team texts (STR-F05, STR-F06), with round-trip tests on real exported teams.
-
-**Done when:** STR-F05 and STR-F06 acceptance criteria pass, including the round trip.
-
-### M2.3 — Saving and the team library · ~8–10 h
-
-- `TeamRepository` on Dexie with schema version 1, autosave, persistent storage (D43, STR-F14); team library with undo on delete (STR-F01); backup export and import (STR-F07).
-
-**Done when:** STR-F01 and STR-F14 acceptance criteria pass.
-
-### M2.4 — Team editor · ~10–14 h
-
-- Six slots with pickers (STR-F02, STR-F03), team format (STR-F17) and stat system (STR-F18); final stats shown.
-
-**Done when:** STR-F17 and STR-F18 acceptance criteria pass.
-
-### M2.5 — Rule warnings · ~5–8 h
-
-- Regulation data (DAT-F08) and non-blocking warnings (STR-F04, D27).
-
-**Done when:** STR-F04 acceptance criterion passes (duplicate Sitrus Berry).
-
-### M2.6 — Type analysis · ~6–8 h
-
-- Defensive and offensive analysis with immunity abilities (STR-F08, STR-F09), updating live (STR-F13).
-
-**Done when:** STR-F08 acceptance criteria pass (Ground and Levitate).
-
-### M2.7 — Speed and doubles essentials · ~6–8 h
-
-- Speed tiers with Tailwind, +1, −1, Choice Scarf and Trick Room (STR-F10); doubles essentials from the move categories (STR-F11, DAT-F11).
-
-**Done when:** STR-F10 and STR-F11 acceptance criteria pass.
-
-### M2.8 — From the Pokédex to the legion · ~3–5 h
-
-- "Añadir a una legión" on entries (ARC-F11, STR-F12, D28).
-
-**Done when:** STR-F12 acceptance criterion passes.
-
-### M2.9 — Close Phase 2 · ~4–6 h
-
-- End-to-end tests for building, importing, exporting and reloading a team; tag `v0.3.0`.
-
-## 8. Phase 3 — Calculator and metagame (ABACUS, ATHENAEUM) · `v0.4.0`
-
-Medium detail; specified fully when Phase 2 closes.
-
-- [ ] **M3.1 — Usage data pipeline** (DAT-F12, D41): confirm Smogon's file format, add it to the pipeline.
-- [ ] **M3.2 — ATHENAEUM** (CMP-F01, CMP-F02, ARC-F12): usage overview and common sets in entries.
-- [ ] **M3.3 — ABACUS core** (CMP-F03, D42): the calculator with all 16 rolls and KO chances.
-- [ ] **M3.4 — ABACUS analysis** (CMP-F07 to CMP-F11): matchup grid, scenarios, roll chart, combined damage, accuracy-adjusted chances.
-- [ ] **M3.5 — Teams meet the metagame** (CMP-F04, CMP-F05, CMP-F12, STR-F15, STR-F16): calculator from a team, benchmarks, one against many, fill from common set.
-- [ ] **M3.6 — Stretch** (CMP-F06, CMP-F13): trends and the formula explainer.
-- [ ] **M3.7 — Close Phase 3** and tag `v0.4.0`.
-
-## 9. Phases 4–6 (outlines)
-
-**Phase 4 — COLOSSEUM (`v0.5.0`).** Specify the stage first (LAB features, Q5, Q63). Then PixiJS setup, the doubles demo scene, the effects library, real damage from ABACUS, playback controls with a reduced-motion version, and the optional Three.js exploration.
-
-**Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7).
-
-**Phase 6 — AENIGMA and the AI assistant (`v0.7.0`+).** Specify each first (QUZ, AIA features, Q8).
-
-**Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI. A natural moment is after Phase 1, when the Pokédex is usable.
-
-## 10. Recurring work
-
-| Task | When | How |
-| --- | --- | --- |
-| **Regulation update** | When a new regulation starts (the next one after M-C begins on 2026-12-02) | Data strategy §6: update `@pkmn` packages, edit the regulation file, run the pipeline, review the report, commit as `data:` (R17) |
-| **Dependency updates** | About once a month | `ng update` for Angular, `npm outdated` for the rest; one commit per update, CI must stay green |
-| **Progress log** | End of every session | One entry in `docs/progress.md` |
-| **Document upkeep** | When a decision changes | Vision, decision map and the affected document in the same commit |
-
-Before the pipeline exists (M0.9), a new regulation needs no work.
-
-### Progress log format
-
-```markdown
-## 2026-11-14 · M0.1 Workspace and tooling
-
-- Done: Angular 22 project in frontend/, both locales building.
-- Next: ESLint import rules.
-- Notes: ng new asked about SSR; chose static output as planned.
+Version 1.3, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+
+- Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
+- Open questions live in [`00-decision-map.md`](00-decision-map.md).
+- Changes are made by editing this file and recording the decision in the vision doc's Decision log.
+- Detail follows the phase: Phases 0–2 in full, Phase 3 in medium detail, Phases 4–6 as outlines. Later modules are detailed when their phase approaches.
+
+### Feature IDs
+
+Every feature has a stable ID: `<MODULE>-F<number>` (for example `ARC-F03`). Milestones, the progress log and commit messages refer to these IDs. IDs are never reused; a removed feature keeps its ID with the status "Removed".
+
+### Acceptance criteria format
+
+Key features have criteria in **Given / When / Then** form. A feature is done when all its criteria pass, ideally as automated tests.
+
+## Module map
+
+Each module is presented as a hall of the Roman academy; the Latin hall names and the book presentation of the Pokédex are defined in [`05-design-and-interaction.md`](05-design-and-interaction.md). Feature IDs keep their original codes.
+
+| ID | Module | Code | Phase | Depends on |
+| --- | --- | --- | --- | --- |
+| M0 | Academy shell · ATRIUM | `SHL` | 0 | M1 |
+| M1 | Data pipeline | `DAT` | 0 | — |
+| M2 | Pokédex · BIBLIOTHECA | `ARC` | 1 | M0, M1 |
+| M3 | Teams · LEGIO | `STR` | 2 | M0, M1, M2 |
+| M4 | Calculator and metagame · ABACUS, ATHENAEUM | `CMP` | 3 | M1, M2, M3 |
+| M5 | Battle stage · COLOSSEUM | `LAB` | 4 | M1, M4 |
+| M6 | Accounts | `ACC` | 5 | M3 |
+| M7 | Quiz · AENIGMA | `QUZ` | 6 | M1, M2 |
+| M8 | AI assistant | `AIA` | 6 | M2, M3, M4 |
+
+```
+M1 Data pipeline ──► M2 Pokédex ──► M3 Teams ──► M4 Calculator & metagame
+        │                 │                │                       │
+        │                 │                └──► M6 Accounts        └──► M5 Battle stage
+        │                 └──► M7 Quiz
+        └──► M0 Academy shell (hosts every hall)          M8 AI assistant ◄── M2, M3, M4
 ```
 
-## 11. Risks
+---
 
-| Risk | Effect | Mitigation |
+## Cross-cutting capabilities
+
+These rules apply to every module and are not repeated in module sections.
+
+| ID | Capability | Rule |
 | --- | --- | --- |
-| Scope creep from new ideas | Milestones never finish | New ideas go to the decision map or parked ideas (principle 4) |
-| Prerendering ~6,600 pages is slow | Long builds | Measured in M0.3 before the Pokédex is built |
-| Design choices keep changing | Rework | Decided at fixed review points (M0.4–M0.7, M1.5); tokens make colors cheap to change |
-| A source changes format, or a regulation adds a mechanic | Pipeline or team builder breaks | Pinned inputs, pipeline validation; mechanics changes become their own milestone |
-| Long breaks between sessions | Lost context | `docs/progress.md` and this checklist are the memory; every session starts from them |
+| X-01 | Languages | The whole interface exists in Spanish (default) and English (D1). Switching language keeps the current page by swapping the `/es/` or `/en/` prefix (D17). |
+| X-02 | Game data language | Names and descriptions appear in the active language (D2). If a Spanish text is missing, the English text is shown and marked. |
+| X-03 | Bilingual search | Any search box matches names in **both** languages, ignoring accents and capitals, so "Lanzallamas", "flamethrower" and "lanzallamas" find the same move. Results show the active-language name with the other name beside it, and open the same page (D30). |
+| X-04 | Themes | Light and dark themes (D19). The default follows the operating system; a manual choice is remembered. |
+| X-05 | Accessibility | WCAG 2.2 AA (D20): full keyboard use, visible focus, labels for screen readers, 4.5:1 text contrast, type information never shown by color alone. |
+| X-06 | Reduced motion | With `prefers-reduced-motion` on, large motion becomes fades or is skipped; nothing essential depends on animation (D20). |
+| X-07 | Responsive | Desktop-first, fully usable from 360 px width (A1). |
+| X-08 | States | Every data view has loading, empty and error states, each with a clear message and, for errors, a way to retry. |
+| X-09 | Shareable URLs | Every Pokémon, form, move, ability, item and hall has its own URL with stable English IDs (D17). |
+| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. |
+| X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
+| X-12 | Active team | One saved team can be the **active team** (D68). It stays selected across halls and visits, appears in a compact strip with its six Pokémon, and every hall that works with teams uses it: LEGIO analyses it, ABACUS loads its members, ATHENAEUM compares the metagame against it, the Pokédex adds to it first. From Phase 2. |
 
-## 12. Decisions
+**Acceptance criteria (cross-cutting)**
 
-Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
+- *Given* I am on `/es/pokedex/charizard`, *when* I switch to English, *then* I land on `/en/pokedex/charizard` with all interface text in English.
+- *Given* reduced motion is enabled in my OS, *when* I open any hall, *then* no element moves more than a fade or a short opacity change.
+- *Given* I use only the keyboard, *when* I navigate any page, *then* I can reach and operate every control, and focus is always visible.
+- **X-12** *Given* team A is active, *when* I go from LEGIO to ABACUS and reload the page, *then* team A is still active and its six Pokémon appear in the strip.
 
-| ID | Decision |
+**Testing approach:** automated accessibility checks (axe) in end-to-end tests on every page type; an end-to-end test of the language switch; visual review of both themes.
+
+---
+
+## M0 — Academy shell (`SHL`) · Phase 0
+
+**Purpose.** The frame of the site: the academy entrance, navigation between halls, global search, and site-wide settings.
+
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| SHL-F01 | **Academy entrance (home).** The site's features presented as halls of the academy, each with its presenter, name and a one-line description. Search is visible from the entrance. | 0 |
+| SHL-F02 | **Hall navigation.** Always available; shows which hall I am in. | 0 |
+| SHL-F03 | **Global search.** One search box in the header, searching Pokémon (with forms), moves, abilities and items; results grouped by kind; opens the detail page. | 1 |
+| SHL-F04 | **Language switch** (X-01). The last choice is remembered and used when visiting the site root. | 0 |
+| SHL-F05 | **Theme switch** (X-04). | 0 |
+| SHL-F06 | **About and credits.** Purpose, unofficial disclaimer, every data and asset source with its license, and the data version (DAT-F09). | 0 |
+| SHL-F07 | **Not-found page**, in the academy style, with a way back. | 0 |
+| SHL-F08 | **Presenter area** in each hall (X-10). | 0 |
+
+### Rules
+
+- Halls that don't exist yet are not navigable. At the entrance they appear as closed doors showing their phase (design spec §3).
+- Global search shows at most a handful of results per kind, with a link to the full filtered list.
+- The global search needs the Pokédex's data, so it arrives with Phase 1. In Phase 0 the search box is not shown.
+
+### Data
+
+Reads the search index (DAT-F10) and the list of halls. Stores language and theme preferences in the browser.
+
+### Connections
+
+Hosts every hall. Global search links into M2.
+
+### Acceptance criteria
+
+- **SHL-F01** *Given* I open the site root, *when* the page loads, *then* I see the available halls, each with presenter, name and description, and I can enter each one.
+- **SHL-F03** *Given* the Pokédex exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
+- **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`.
+- **SHL-F07** *Given* I open a URL that doesn't exist, *then* I see the not-found page in my language, with a link to the entrance.
+
+**Testing approach:** end-to-end tests for navigation, search and settings; unit tests for the search ranking.
+
+### Out of scope
+
+User accounts in the header (M6), notifications, and a site-wide settings page beyond language and theme.
+
+---
+
+## M1 — Data pipeline (`DAT`) · Phase 0
+
+**Purpose.** Produce all the game data the site needs, in Spanish and English, as static files built ahead of time (D18). This section defines **what** data must exist. Sources are chosen in the data strategy; the processing design is in the architecture doc.
+
+### Features
+
+| ID | Data | Phase |
+| --- | --- | --- |
+| DAT-F01 | **Pokémon and forms**, all generations: National Pokédex number, English ID (PokéAPI style, D37), names (es/en), forms grouped under their number (D11), types, base stats, abilities (including hidden), height and weight, evolution chain with conditions, image URL, flags "fully evolved" and "competitive view". | 0 |
+| DAT-F02 | **Moves**: ID, names and descriptions (es/en), type, category, power, accuracy, PP, priority, **target** (single, both foes, all others…; essential for doubles), and flags such as contact or sound. | 0 |
+| DAT-F03 | **Abilities**: ID, names and descriptions (es/en). | 0 |
+| DAT-F04 | **Items**: ID, names and descriptions (es/en), category. The Pokédex shows items with a competitive purpose; every item keeps its category, so other groups can be shown later by changing a filter (D31). | 0 |
+| DAT-F05 | **Learnsets**: every move each Pokémon or form has learned in any game, with the generations and methods, and a flag for moves available in the current game (D32, D39). | 0 |
+| DAT-F06 | **Type chart** of the current generation. | 0 |
+| DAT-F07 | **Competitive middle evolutions**: a short, hand-maintained list (e.g. Porygon2, Dusclops) included in the competitive view (D12, D33). | 0 |
+| DAT-F08 | **Regulation data**: which Pokémon and forms are legal in the current VGC regulation, plus the format rules (level, team size, clauses, Mega Evolution). The current regulation is named in one file that is easy to update (R17, D35). | 2 |
+| DAT-F09 | **Data version**: the date the data was built and the game it reflects, shown in About. | 0 |
+| DAT-F10 | **Search index**: names in both languages for every Pokémon, form, move, ability and item. | 1 |
+| DAT-F11 | **Doubles move categories**: hand-maintained lists of moves for speed control, redirection, Fake Out, Protect-like moves, etc., used by STR-F11. | 2 |
+| DAT-F12 | **Usage statistics** for the current regulation (see M4). | 3 |
+
+### Rules
+
+- Every entity has a stable English ID, used in URLs and references (D17).
+- Data is split into small files loaded on demand (D18). A Pokémon page never loads the whole Pokédex.
+- Images are referenced by URL, never stored in the repository (D18, D40).
+- Each field comes from exactly one source (D36). Spanish gaps are filled from the overrides file or fall back to English, and the build reports them (D44).
+- Refreshing the data is a single, documented command run by hand (D18). Running it twice with the same sources gives the same files.
+- Hand-maintained lists (DAT-F07, DAT-F08, DAT-F11) live in the repository as small, readable files.
+
+### Acceptance criteria
+
+- **DAT-F01** *Given* the pipeline has run, *then* every Pokémon from #1 to the latest has an entry with Spanish and English names, and Ninetales has two forms (standard and Alolan) under number 38.
+- **DAT-F05** *Given* the pipeline has run, *then* every form has a learnset, and each move in it says whether it is available in the current VGC game.
+- **DAT-F09** *Given* the pipeline has run, *then* the data version file contains the build date and the source game.
+- **General** *Given* the pipeline runs twice with the same sources, *then* the output files are identical.
+
+**Testing approach:** validation tests on the generated files (schema checks, no missing IDs or names, references between files resolve); snapshot tests on a few known Pokémon.
+
+### Out of scope
+
+Live querying of external APIs from the browser (A4); data for spin-off games; anime or card-game data.
+
+---
+
+## M2 — Pokédex · BIBLIOTHECA (`ARC`) · Phase 1
+
+**Purpose.** The Pokédex: look up any Pokémon, move, ability or item, in Spanish or English, with a competitive emphasis.
+
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| ARC-F01 | **Pokémon list.** Each item shows image, number, name and types. The competitive view is the default (D12); "Show all" reveals every Pokémon. | 1 |
+| ARC-F02 | **List filters and sorting.** Filter by type (one or two), generation and name; sort by number, name, each base stat and stat total. The view, filters and sort are kept in the URL. | 1 |
+| ARC-F03 | **Pokémon entry.** Independent sections (R16): header, base stats, abilities, type effectiveness, evolution chain, learnable moves (D10). | 1 |
+| ARC-F04 | **Form selector.** Switches all sections to the selected form; each form has its own URL (e.g. `/pokedex/ninetales-alola`). | 1 |
+| ARC-F05 | **Previous and next** entry by National Pokédex number. | 1 |
+| ARC-F06 | **Moves list** with filters (type, category, name, and a "spread moves" filter) and sorting. | 1 |
+| ARC-F07 | **Move detail page.** All move data and description, and the Pokémon that can learn it, marking those that learn it in the current game. | 1 |
+| ARC-F08 | **Abilities list and detail page.** Description and the Pokémon that have it (regular or hidden). | 1 |
+| ARC-F09 | **Items list and detail page.** Description and category. | 1 |
+| ARC-F10 | **Type chart page.** Full 18×18 chart; pick one or two defending types to see what hits them. | 1 |
+| ARC-F11 | **"Add to team" button** on a Pokémon entry (D28). | 2 |
+| ARC-F12 | **Competitive section** in the entry: usage rank and common sets (D13). | 3 |
+
+### Entry sections (ARC-F03)
+
+| Section | Contents |
 | --- | --- |
-| D65 | Work is tracked in the documents: milestone checkboxes in `06-roadmap-and-milestones.md` and a session log in `docs/progress.md`. GitHub Issues and Projects are not used for now (revises the tracking part of D21). |
-| D66 | Milestones are small (about 4–12 hours each, ending in a committed, working state) and estimated in hours, never dates. |
-| D67 | Design proposals DP-1 to DP-7 are decided during Phase 0 and Phase 1 at fixed review points: DP-2, DP-6 and DP-7 in M0.4; DP-1 in M0.6; DP-3 and DP-4 in M0.7; DP-5 in M1.5. |
+| Header | Image, number, name (active language, with the other language shown smaller), types, form selector |
+| Base stats | Six stats with bars, and the total |
+| Abilities | Each ability with a short description and a link to its page; hidden ability marked |
+| Type effectiveness | Weaknesses (×4, ×2), resistances (×½, ×¼) and immunities. A note appears when an ability can change them (e.g. Levitate). |
+| Evolution chain | Every stage with its condition (level, item, trade…), each linking to its entry |
+| Learnable moves | Every move the Pokémon has learned in any game, with type, category, power, accuracy and how it is learned; moves available in the current game are marked, and a filter shows only those (D32); filterable and sortable |
+
+### Rules
+
+- A Pokémon is defined by its National Pokédex number; forms are shown within one entry (D11).
+- The competitive view contains fully evolved Pokémon plus the hand-maintained middle evolutions (D12, DAT-F07).
+- Display names follow the active language; links always use English IDs (D17).
+- New sections can be added to the entry without changing existing ones (R16).
+
+### Data
+
+Reads DAT-F01 to DAT-F07 and DAT-F10. Writes nothing.
+
+### Connections
+
+Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO (M3). M4 adds the competitive section (ARC-F12).
+
+### Acceptance criteria
+
+- **ARC-F01** *Given* I open the Pokédex, *then* I see the competitive view; Charizard and Porygon2 appear and Charmander doesn't. *When* I choose "Show all", *then* Charmander appears.
+- **ARC-F02** *Given* I filter by Fire and sort by Speed, *when* I copy the URL and open it in a new tab, *then* I see the same filtered, sorted list.
+- **ARC-F04** *Given* the Ninetales entry is open, *when* I select the Alolan form, *then* types, stats, abilities and moves change to Alolan Ninetales and the URL becomes `/pokedex/ninetales-alola`.
+- **ARC-F03** *Given* the Gengar entry, *then* the type effectiveness shows Ground as ×2 and Normal and Fighting as immune.
+- **ARC-F07** *Given* the Flamethrower page in Spanish, *then* it is titled "Lanzallamas" and lists Charizard among the Pokémon that learn it.
+- **ARC-F10** *Given* I pick Water and Ground as defending types, *then* Grass shows ×4 and Electric shows ×0.
+
+**Testing approach:** unit tests for type effectiveness and filtering logic; end-to-end tests for list, entry, form switch and detail pages in both languages; prerender check that every entity page is generated.
+
+### Out of scope (for now)
+
+Pokédex flavor text, locations and encounter data, sprites from every game, cries, and side-by-side comparison of Pokémon. Any of them can be added later as a new entry section (R16).
+
+---
+
+## M3 — Teams · LEGIO (`STR`) · Phase 2
+
+**Purpose.** Build VGC teams, keep them in the browser, and understand their strengths and weaknesses. The team built here is the one every other hall works with (X-12): calculating damage with your own team is one of the platform's core motivations (R20).
+
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| STR-F01 | **Team library.** List of saved teams (name, the six Pokémon, last edited). Create, rename, duplicate and delete (delete can be undone). | 2 |
+| STR-F02 | **Team editor.** Up to six slots. Each slot: Pokémon and form, ability, held item (including Mega Stones), four moves, nature, and stat spread in the team's stat system (STR-F18). Level is always 50. Final stats are calculated and shown. | 2 |
+| STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices are every move the Pokémon has ever learned; in the regulation format, moves not available in the current game are marked. | 2 |
+| STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon or moves not legal in the current regulation. Warnings never block editing or saving. | 2 |
+| STR-F05 | **Import from Showdown text.** Paste the text and the team is created. Lines that can't be read are reported; the rest is imported. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. Available from the team library and from the active-team strip; an imported team becomes the active team. | 2 |
+| STR-F06 | **Export to Showdown text**, with one-click copy. | 2 |
+| STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
+| STR-F08 | **Defensive analysis.** For each of the 18 attacking types: how many members are weak, resistant or immune; shared weaknesses are highlighted. Abilities that grant immunity (e.g. Levitate, Flash Fire) are counted. | 2 |
+| STR-F09 | **Offensive coverage.** Which types the team's damaging moves hit super-effectively, and which types nothing hits super-effectively. | 2 |
+| STR-F10 | **Speed tiers.** Each member's final Speed, ordered, with views for +1, −1, Tailwind and Choice Scarf, and a Trick Room view (reversed order). | 2 |
+| STR-F11 | **Doubles essentials.** For each category (speed control, Fake Out, Intimidate, redirection, spread moves, Protect, priority) whether the team has it and which members provide it (DAT-F11). | 2 |
+| STR-F12 | **Add from the Pokédex.** Receives a Pokémon from ARC-F11 into a new or existing team (D28). | 2 |
+| STR-F13 | **Live analysis.** All analyses update immediately as the team changes. | 2 |
+| STR-F14 | **Autosave.** Changes are saved in the browser automatically; no "Save" button (D34). | 2 |
+| STR-F17 | **Team format** (D32). Each team is either **Free** (all Pokémon, every move ever learned, no legality warnings) or **Current regulation** (the same choices, plus the regulation warnings in STR-F04). New teams use the current regulation; the format can be changed at any time. | 2 |
+| STR-F20 | **Active team** (X-12, D68). Choose the active team from the library or the strip; switch or clear it at any time. The strip shows the six Pokémon, opens the team in LEGIO, and offers to create or import a team when none is active. | 2 |
+| STR-F15 | **Benchmarks.** Speed tiers compared against popular threats in the regulation. | 3 |
+| STR-F16 | **Fill from common set.** Fill a slot with a common set from usage data. | 3 |
+| STR-F18 | **Stat system per team** (D38). Stat Points (66 total, 32 per stat, IVs fixed at 31; default) or EVs and IVs (510 total, 252 per stat, IVs 0–31). Changing the system converts every spread (STR-F19). | 2 |
+| STR-F19 | **Spread converter.** Shows a spread in both systems side by side (`EVs = 8 × SP − 4`). Stat Points to EVs is exact; EVs to Stat Points warns when an IV isn't 31 or the total exceeds 66, and asks which stat to trim. Available inside the editor and as a standalone tool. | 2 |
+| STR-F21 | **Threat list** (D69). The most-used Pokémon of the regulation, each with its most common set, against the team: which members can KO it and how reliably, which members it can KO, and who moves first. Threats no member handles are highlighted. Needs usage data (CMP-F02) and the calculator (CMP-F03). | 3 |
+| STR-F22 | **Calculate from the team** (D69). Each member, and each row of the threat list, has a "Calcular" action that opens ABACUS with that matchup already loaded. | 3 |
+
+### Rules
+
+- A team has at most six Pokémon; analysis works with any number from one to six.
+- Format rules (level 50, species clause, item clause, legality) come from the regulation data (DAT-F08), not from code, so a new regulation needs only a data update (R17).
+- Game availability never limits what can be built; it only adds warnings, and only in the regulation format (D27, D32).
+- Spreads are always valid for the team's stat system: at most 66 Stat Points (32 per stat), or at most 510 EVs (252 per stat).
+- Analysis covers all six members. In VGC you bring six and choose four per game; choosing four is not modeled.
+- Deleting the active team leaves no team active; nothing else changes.
+- The threat list uses a neutral field by default (no weather, terrain, boosts or screens) and assembles each threat's set from its most-used item, ability, nature, spread and moves; the set used is always shown.
+- Teams live only in this browser until accounts exist (D3). The backup (STR-F07) is how they move between devices.
+- The analysis functions are independent of the screens, so the calculator (M4) and the AI assistant (M8) can reuse them.
+
+### Data
+
+Reads Pokémon, moves, abilities, items, learnsets, type chart, regulation data and doubles move categories; from Phase 3, usage data. Reads and writes teams in browser storage (D43); the active team is remembered as a preference.
+
+### Connections
+
+Receives Pokémon from M2. Provides the active team to every hall (X-12), above all M4 (calculator and metagame), and later M6 (sync) and M8 (assistant).
+
+### Acceptance criteria
+
+- **STR-F01** *Given* I delete a team, *when* I choose "Undo" in the message that appears, *then* the team is back unchanged.
+- **STR-F04** *Given* a team in the regulation format where two members hold Sitrus Berry, *then* a duplicate-item warning appears on both, and I can still keep editing and the team is still saved.
+- **STR-F17** *Given* the same team, *when* I switch it to the Free format, *then* the duplicate-item and legality warnings disappear, while a move the Pokémon can never learn is still flagged.
+- **STR-F05** *Given* valid Showdown text for six Pokémon, *when* I import it, *then* the team has the same Pokémon, items, abilities, moves, natures and spreads. *Given* one line has an unknown move, *then* that line is reported and the rest is imported.
+- **STR-F05/F06** *Given* a team, *when* I export it and import the text again, *then* the result is identical to the original.
+- **STR-F08** *Given* a team with three Pokémon weak to Ground and none resistant or immune, *then* Ground is highlighted as a shared weakness. *When* I add a Levitate Pokémon, *then* it counts as immune to Ground.
+- **STR-F10** *Given* a member with 100 final Speed, *when* I open the Tailwind view, *then* it shows 200.
+- **STR-F19** *Given* a Stat Point spread of 32 Atk / 2 Def / 32 Spe, *when* I convert it to EVs, *then* it shows 252 Atk / 12 Def / 252 Spe, and the final stats are identical. *Given* 252 HP / 252 Atk / 4 Spe, *then* it converts to 32 / 32 / 1 with no warning.
+- **STR-F18** *Given* a team in EVs, *when* I switch it to Stat Points, *then* every spread is converted and any inexact conversion is flagged on its member.
+- **STR-F11** *Given* a team with Tailwind on one member and no Fake Out, *then* speed control shows as covered by that member and Fake Out shows as missing.
+- **STR-F14** *Given* I edit a team and reload the page, *then* my changes are still there.
+- **STR-F12** *Given* the Garchomp entry, *when* I choose "Add to team" and pick a team with a free slot, *then* Garchomp appears in that team.
+- **STR-F20** *Given* no team is active, *when* I paste Showdown text from the strip, *then* a new team is created and becomes the active team. *Given* I delete the active team, *then* no team is active and the strip offers to create or import one.
+- **STR-F21** (Phase 3) *Given* usage data and an active team, *then* each listed threat shows its set, the best KO chance any member has against it, and its best KO chance against each member. *Given* a threat that no member can KO in two hits and that outspeeds the whole team, *then* it is highlighted.
+- **STR-F22** (Phase 3) *Given* a member with its item, ability, nature, spread and moves, *when* I choose "Calcular", *then* ABACUS opens with that member as the attacker, identical in every value.
+
+**Testing approach:** unit tests for stat calculation in both systems (checked against `@smogon/calc`), the converter, every analysis and the Showdown parser (including round-trip tests with real exported teams); end-to-end tests for building, importing, exporting and reloading a team.
+
+### Out of scope
+
+Team sharing by link (needs M6), team-preview simulation (choosing four of six), opponent prediction, and importing from PokéPaste links (parked idea P2). Damage calculations live in M4; LEGIO links to them (STR-F22).
+
+---
+
+## M4 — Calculator and metagame · ABACUS, ATHENAEUM (`CMP`) · Phase 3
+
+**Purpose.** Bring real competitive data into the platform: what people actually use, and how much damage attacks do, **above all with the owner's own team** (R20, D69). Medium detail; specified fully before Phase 3 starts.
+
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| CMP-F01 | **Usage overview.** Most used Pokémon in the current regulation, with usage rank and percentage. | 3 |
+| CMP-F02 | **Common sets.** For each Pokémon: most used moves, items, abilities, spreads and teammates. Shown in the entry (ARC-F12) and usable to fill a team slot (STR-F16). | 3 |
+| CMP-F03 | **Damage calculator** (D42). Attacker against one or two defenders, with the full doubles field: spread-move reduction, weather, terrain, screens, Helping Hand, Friend Guard, Tailwind, Ruin abilities and more; boosts, status, current HP, critical hits. Shows **all 16 rolls**, the % range, and the KO chance (OHKO, 2HKO…) including hazards and end-of-turn effects. | 3 |
+| CMP-F04 | **Calculator from a team.** The active team's six members are one click away as attacker, defender or partner (for combined damage), with all their values; any other saved team can be loaded too. Changes made in the calculator never alter the saved team unless saved back on purpose. | 3 |
+| CMP-F05 | **Speed benchmarks** feeding STR-F15. | 3 |
+| CMP-F06 | **Usage trends** over time, if the data source allows it. | 3 (stretch) |
+| CMP-F07 | **Matchup grid.** Two Pokémon, all four moves each way, in one view. | 3 |
+| CMP-F08 | **Scenario comparison.** The same attack under several conditions side by side (e.g. with or without Intimidate, Helping Hand, screens, a critical hit). | 3 |
+| CMP-F09 | **Roll distribution chart** for any result. | 3 |
+| CMP-F10 | **Combined damage.** Two attackers hitting the same target in one turn, with the exact combined KO chance. | 3 |
+| CMP-F11 | **Accuracy-adjusted KO chance**, combining the KO chance with the move's accuracy. | 3 |
+| CMP-F12 | **One against many.** One attack against the most-used Pokémon of the regulation. | 3 |
+| CMP-F13 | **Formula explainer.** A step-by-step page showing how stats and damage are calculated for a chosen example. | 3 (stretch) |
+| CMP-F14 | **One against the team.** A chosen Pokémon's attacks against each of the active team's six, with damage range and KO chance; and the reverse, each member's best attack against it. | 3 |
+| CMP-F15 | **Your team in the metagame.** On each Pokémon's usage page, a short summary of how it fares against the active team, from the same calculation as the threat list (STR-F21). | 3 |
+
+### Rules
+
+- Usage data always shows its source, the period it covers and the format.
+- Damage comes from `@smogon/calc` (D42). Combined damage, accuracy adjustments and charts are our own calculations on top of its rolls.
+- Mechanics are always the current game's (Champions), whatever the team's stat system (D38).
+- Team-based calculations (CMP-F04, CMP-F14, CMP-F15, STR-F21) always use the team's exact values; when a value comes from usage data instead, it is labelled.
+
+### Open questions
+
+None. Usage data (D41) and the calculator (D42) were decided in the data strategy. The exact format of the usage data files is confirmed when Phase 3 starts.
+
+### Acceptance criteria (outline)
+
+- **CMP-F03** *Given* a well-known matchup with published results, *then* our result matches the reference calculator within its rounding.
+- **CMP-F02** *Given* usage data is loaded, *then* each common-set panel names its source and period.
+- **CMP-F10** *Given* two attackers that each have a 50% chance to deal at least half of a target's HP, *then* the combined KO chance equals the probability computed from all pairs of their rolls.
+- **CMP-F04** *Given* an active team, *when* I open ABACUS, *then* its six members can be placed on either side with one click each, and editing them in the calculator does not change the saved team.
+- **CMP-F14** *Given* a chosen Pokémon and an active team, *then* every one of its damaging moves shows a damage range and KO chance against each of the six members.
+
+**Testing approach:** comparison tests against the reference calculator for a set of known matchups; unit tests for combined and accuracy-adjusted probabilities; validation tests on the usage data files.
+
+---
+
+## M5 — Battle stage · COLOSSEUM (`LAB`) · Phase 4
+
+**Purpose.** A place to explore web animation: a scripted doubles battle stage built with PixiJS and GSAP (D7). Outline; specified fully before Phase 4.
+
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| LAB-F01 | **Doubles stage.** Two Pokémon per side on a battle field (D29). | 4 |
+| LAB-F02 | **Battle sequence:** ball throw, entrance of all four Pokémon, a move, hit effect, HP bar change, optional faint. | 4 |
+| LAB-F03 | **First version: a fixed demo scene.** Later, choosing the Pokémon and moves (D29). Other ideas (scene editor, timeline, camera moves, Three.js 3D or 2.5D effects with original content, Q63) are explored when Phase 4 is specified. | 4 |
+| LAB-F04 | **Real damage values** from the calculator (M4), closing Q5. | 4 |
+| LAB-F05 | **Playback controls:** play, pause, replay, speed. A calm version for reduced motion (X-06). | 4 |
+| LAB-F06 | **Effect library** by move type and category (generic effects per type, not one per move). | 4 |
+
+### Rules
+
+- Pokémon images come only from the chosen sources; all effects, fields and UI are original work.
+- The COLOSSEUM is not a rules engine: it plays scripted scenes.
+
+---
+
+## M6 — Accounts (`ACC`) · Phase 5
+
+**Purpose.** Sign in and keep teams in sync across devices, through the Go backend (D4). Outline.
+
+- **ACC-F01** Sign in and sign out (method: Q6).
+- **ACC-F02** First sign-in uploads existing local teams; the app keeps working offline and syncs later (D3).
+- **ACC-F03** Conflicts between devices are shown to the user, never silently overwritten.
+- **ACC-F04** Delete my account and all my data.
+- **ACC-F05** Share a team by link.
+
+---
+
+## M7 — Quiz · AENIGMA (`QUZ`) · Phase 6 candidate
+
+**Purpose.** Test Pokémon knowledge in a playful way (D15). Outline; presenter idea: Zoroark.
+
+- **QUZ-F01** Question types built from existing data: silhouettes, type matchups, "which is faster", ability or move identification.
+- **QUZ-F02** Scores kept in the browser.
+
+---
+
+## M8 — AI assistant (`AIA`) · Phase 6 candidate
+
+**Purpose.** An assistant that critiques teams and answers questions with evidence. Outline; model source: Q8.
+
+- **AIA-F01** Team critique that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations.
+- **AIA-F02** Every claim points to the data it comes from.
+
+**Requirement for earlier phases:** analyses and calculations must be callable without the user interface (see M3 rules), so the assistant can use them later without rewrites.
+
+---
+
+## Review decisions
+
+The assumptions in Draft 1 were reviewed on 2026-11-03.
+
+| Where | Outcome |
+| --- | --- |
+| X-03 | Bilingual search kept (D30). |
+| DAT-F04 | Battle items by default; categories kept to allow other items later (D31). |
+| DAT-F05, ARC-F03, STR-F17 | Learnsets cover every game; teams choose Free or Current regulation format (D32). Replaces the "current game only" assumption. |
+| DAT-F07 | Hand-maintained list of competitive middle evolutions kept (D33). |
+| STR-F14 | Autosave kept (D34). |
+| LAB-F03 | Fixed demo first kept (D29); further ideas explored before Phase 4. |

@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1 — approved 2026-11-08** · Owner: @Alex
+**Version 1.1 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Version 1, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.1, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -259,6 +259,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | `ps-hall-door` | Entrance door (open or closed) |
 | `ps-book`, `ps-book-page`, `ps-thumb-index` | The codex and its navigation |
 | `ps-card` | Surfaces such as team slots and panels |
+| `ps-team-strip` | The active team (X-12): six small sprites with the team name, a switch and an import action; compact on phones. Placed by the shell in the halls that use teams; exact placement decided when built (M2.9) |
 | `ps-notice` | Rule warnings and information (non-blocking, D27) |
 | `ps-tabs`, `ps-dialog`, `ps-menu` | CDK-based tabs, dialogs, menus |
 | `ps-roll-strip`, `ps-probability-bars` | ABACUS results (16 rolls, KO chances) |
