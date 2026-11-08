@@ -10,8 +10,9 @@ is the main lens. It is also a learning project: Angular i18n, GSAP/PixiJS anima
 
 ## Current phase
 
-**Discovery / planning.** Do not generate application code, install dependencies, or scaffold the Angular
-project until the architecture document is approved. Documentation work is allowed.
+**Phase 0 — Foundations.** Current milestone: **M0.1 Workspace and tooling** (`docs/06-roadmap-and-milestones.md`).
+Planning is closed (documents 01–06 approved). Code, installs and scaffolding are allowed only within the
+scope of the current milestone. When a milestone is done, the owner ticks it and this line moves to the next.
 
 ## Source of truth
 
@@ -22,7 +23,7 @@ project until the architecture document is approved. Documentation work is allow
 - `docs/04-architecture.md` — repository and code structure, layer rules, pipeline, i18n, rendering, testing,
   CI, coding guidelines, Phase 0 setup.
 - `docs/05-design-and-interaction.md` — identity, halls, colors and tokens, typography, presenters, the
-  Pokédex book, layout, components, motion. Draft: proposals DP-1 to DP-7 await review.
+  Pokédex book, layout, components, motion. Proposals DP-1 to DP-7 are decided at their roadmap review points.
 - `docs/06-roadmap-and-milestones.md` — small milestones per phase, definition of done, recurring work. The
   checkboxes there are the task tracker (D65).
 - `docs/progress.md` — session log.

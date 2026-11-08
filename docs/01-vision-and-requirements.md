@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.9 — approved 2026-11-07** · Owner: @Alex
+**Version 1.10 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Version 1.9, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.10, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -256,6 +256,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-08 | Version 1.10: design spec (`05`) and roadmap (`06`) approved as v1; DP-1 to DP-7 stay open (D67). Planning closed; Phase 0 starts with M0.1 | Final planning review |
 | 2026-11-07 | Version 1.9: D65–D67 approved (tracking in the documents, small milestones, design review points); roadmap drafted | Roadmap discussion |
 | 2026-11-06 | Version 1.8: D58–D64 approved (Roman identity, halls, book, themes, palette, battle stage); design spec drafted | Design exploration |
 | 2026-11-05 | Version 1.7: D57 approved (Git practices); commit message rules strengthened (D53) | Git practices discussion |

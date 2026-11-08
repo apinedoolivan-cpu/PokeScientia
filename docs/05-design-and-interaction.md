@@ -1,13 +1,13 @@
 # Pokescientia — Design and Interaction
 
-**Draft 1 for review** · 2026-11-06 · Owner: @Alex
+**Version 1 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Draft 1. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
-- Items marked **Proposal DP-n** are recommendations for review (section 15). Once approved they become `D` entries.
+- Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
 - The visual reference is the **"Pokescientia — Style Exploration"** design canvas (claude.ai artifact, private to the owner), row 8 "Pokescientia, Roman academy — consolidated set". When this document and the canvas disagree, this document wins.
 
 ## 1. Identity: a Roman academy of natural science

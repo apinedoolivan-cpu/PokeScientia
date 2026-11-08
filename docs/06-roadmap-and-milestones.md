@@ -1,13 +1,14 @@
 # Pokescientia — Roadmap and Milestones
 
-**Draft 1 for review** · 2026-11-07 · Owner: @Alex
+**Version 1 — approved 2026-11-08** · Owner: @Alex
 
 ## Document status
 
-Draft 1. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
+- Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
 - New decisions from this document: **D65–D67** (section 12).
 
 ## 1. Planning principles
