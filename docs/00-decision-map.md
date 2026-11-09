@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-08
+Last updated: 2026-11-09
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -10,7 +10,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 22 | 0 |
+| A. Discovery and module spec | 24 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
@@ -45,6 +45,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q51 | Team saving | Product | Decided → D34 |
 | Q70 | Teams across halls and calculations with one's own team | Product | Decided → D68, D69 |
 | Q71 | PokéPaste links | Product | Parked → D70, P2 |
+| Q72 | Ranking type combinations | Product | Decided → D71 |
+| Q73 | Team coverage: team or member view | Product | Decided → D72 |
 
 ## B. Architecture (before `ng new`)
 

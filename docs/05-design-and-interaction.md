@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.1 — approved 2026-11-08** · Owner: @Alex
+**Version 1.2 — approved 2026-11-09** · Owner: @Alex
 
 ## Document status
 
-Version 1.1, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.2, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -253,6 +253,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | `ps-button`, `ps-toggle-group` | Actions; segmented choices (Libros/Lista, format, stat system) |
 | `ps-search` | Search field with results list (global and per hall) |
 | `ps-type-badge` | Type name with its color (never color alone) |
+| `ps-tier-badge` | Type tier letter (S to F) with an accessible label ("Rango de tipos: B"); its color supports the letter, never replaces it |
 | `ps-stat-bar` | Labelled stat with value and bar |
 | `ps-inscription` | Cinzel heading for halls, plinths and running heads |
 | `ps-presenter` | Arch, artwork, plinth and dismissible introduction |

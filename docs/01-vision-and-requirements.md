@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.11 — approved 2026-11-08** · Owner: @Alex
+**Version 1.12 — approved 2026-11-09** · Owner: @Alex
 
 ## Document status
 
-Version 1.11, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.12, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -182,6 +182,8 @@ These come directly from the owner's answers in discovery.
 | D68 | **Active team** (X-12, STR-F20): one saved team stays selected across halls and visits, shown in a compact strip; importing Showdown text creates a team and makes it active. Built in Phase 2. | Teams must be usable outside LEGIO without reloading them in each hall (R20). |
 | D69 | **Team-centered calculation** (R20): the calculator loads the active team's members in one click (CMP-F04); new features STR-F21 (threat list), STR-F22 (calculate from the team), CMP-F14 (one against the team) and CMP-F15 (your team in the metagame). Phase 3 starts with ABACUS, before the usage data. | Calcs with one's own team are why the project exists; starting Phase 3 with them delivers that first. |
 | D70 | Import from and export to PokéPaste links is parked (P2). Showdown text import and export stay. | Showdown text is the format everyone uses; PokéPaste is a nice extra. |
+| D71 | **Type tiers** (DAT-F13, ARC-F13): every type combination has a tier from the owner's own hand-made list (S, A, B, C, D, F), kept as a hand-maintained data file and shown in every Pokédex entry. It is labelled as the site's own assessment, mixing competitive and general play; no external credit is needed. | No formula can rank type combinations fairly; a considered list is closer to how players judge them. |
+| D72 | **Team and member coverage** (STR-F08, STR-F09): coverage shows the whole team by default; selecting a member shows that member alone. | The team view answers "what does my team fear"; the member view explains where it comes from. |
 
 ## Assumptions
 
@@ -263,6 +265,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-09 | Version 1.12: D71 type tiers, D72 team and member coverage; modules v1.4, roadmap v1.2 | Hall ideas review |
 | 2026-11-08 | Version 1.11: R20 added; D68–D70 approved (active team, team-centered calculation, PokéPaste parked); modules v1.3, roadmap v1.1 | Team and calculator review |
 | 2026-11-08 | Version 1.10: design spec (`05`) and roadmap (`06`) approved as v1; DP-1 to DP-7 stay open (D67). Planning closed; Phase 0 starts with M0.1 | Final planning review |
 | 2026-11-07 | Version 1.9: D65–D67 approved (tracking in the documents, small milestones, design review points); roadmap drafted | Roadmap discussion |

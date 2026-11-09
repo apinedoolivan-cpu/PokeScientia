@@ -48,7 +48,7 @@ PokeScientia/
 ├── .nvmrc                        Node version (D54)
 ├── docs/                         planning documents
 ├── pipeline/                     data pipeline (D45), its own package.json
-│   ├── manual/                   hand-maintained files (D33, D35, D37, D44, DAT-F11)
+│   ├── manual/                   hand-maintained files (D33, D35, D37, D44, DAT-F11, DAT-F13)
 │   ├── src/                      pipeline code (TypeScript)
 │   └── test/                     validation tests
 ├── frontend/                     Angular application, its own package.json

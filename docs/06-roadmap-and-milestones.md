@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.1 — approved 2026-11-08** · Owner: @Alex
+**Version 1.2 — approved 2026-11-09** · Owner: @Alex
 
 ## Document status
 
-Version 1.1, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.2, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72).
 
 ## 1. Planning principles
 
@@ -136,9 +136,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 ### M0.9 — Pipeline content · ~8–12 h
 
 - Output files for DAT-F01 to DAT-F07: Pokémon index and entries with forms, moves, abilities, items, learnsets, type chart.
-- Spanish overrides (D44) and the middle-evolutions list (D33); fallback report.
+- Spanish overrides (D44), the middle-evolutions list (D33) and the type tiers file with its checks (DAT-F13); fallback report.
 
-**Done when:** DAT-F01, DAT-F05 and DAT-F09 acceptance criteria pass; the measured data size is recorded in architecture §5; generated data is committed (D46).
+**Done when:** DAT-F01, DAT-F05, DAT-F09 and DAT-F13 acceptance criteria pass; the measured data size is recorded in architecture §5; generated data is committed (D46).
 
 ### M0.10 — Close Phase 0 · ~4–6 h
 
@@ -179,9 +179,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M1.3 — The entry: identity and science · ~8–12 h
 
-- Entry sections: header, base stats, abilities, type effectiveness (domain logic with unit tests), evolution chain (ARC-F03); previous and next (ARC-F05).
+- Entry sections: header with the type tier (ARC-F13), base stats, abilities, type effectiveness (domain logic with unit tests), evolution chain (ARC-F03); previous and next (ARC-F05).
 
-**Done when:** ARC-F03 acceptance criteria pass (Gengar's matchups, both languages).
+**Done when:** ARC-F03 and ARC-F13 acceptance criteria pass (Gengar's matchups and tier, both languages).
 
 ### M1.4 — Forms and learnsets · ~6–10 h
 
@@ -273,9 +273,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M2.6 — Type analysis · ~6–8 h
 
-- Defensive and offensive analysis with immunity abilities (STR-F08, STR-F09), updating live (STR-F13).
+- Defensive and offensive analysis with immunity abilities (STR-F08, STR-F09), team view and member view (D72), updating live (STR-F13).
 
-**Done when:** STR-F08 acceptance criteria pass (Ground and Levitate).
+**Done when:** STR-F08 and STR-F08/F09 acceptance criteria pass (Ground and Levitate; selecting a member).
 
 ### M2.7 — Speed and doubles essentials · ~6–8 h
 

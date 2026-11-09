@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.3 — approved 2026-11-08** · Owner: @Alex
+**Version 1.4 — approved 2026-11-09** · Owner: @Alex
 
 ## Document status
 
-Version 1.3, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.4, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -141,6 +141,7 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F10 | **Search index**: names in both languages for every Pokémon, form, move, ability and item. | 1 |
 | DAT-F11 | **Doubles move categories**: hand-maintained lists of moves for speed control, redirection, Fake Out, Protect-like moves, etc., used by STR-F11. | 2 |
 | DAT-F12 | **Usage statistics** for the current regulation (see M4). | 3 |
+| DAT-F13 | **Type combination tiers** (D71): the owner's hand-made ranking of all 171 type combinations (18 single types, 153 pairs) in six tiers, S, A, B, C, D and F, kept in `pipeline/manual/type-tiers.csv`. | 0 |
 
 ### Rules
 
@@ -149,13 +150,15 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 - Images are referenced by URL, never stored in the repository (D18, D40).
 - Each field comes from exactly one source (D36). Spanish gaps are filled from the overrides file or fall back to English, and the build reports them (D44).
 - Refreshing the data is a single, documented command run by hand (D18). Running it twice with the same sources gives the same files.
-- Hand-maintained lists (DAT-F07, DAT-F08, DAT-F11) live in the repository as small, readable files.
+- Hand-maintained lists (DAT-F07, DAT-F08, DAT-F11, DAT-F13) live in the repository as small, readable files.
+- The type tier file must contain every combination exactly once, with valid types and tiers; otherwise the build stops. Order doesn't matter: Fire/Flying and Flying/Fire are the same combination.
 
 ### Acceptance criteria
 
 - **DAT-F01** *Given* the pipeline has run, *then* every Pokémon from #1 to the latest has an entry with Spanish and English names, and Ninetales has two forms (standard and Alolan) under number 38.
 - **DAT-F05** *Given* the pipeline has run, *then* every form has a learnset, and each move in it says whether it is available in the current VGC game.
 - **DAT-F09** *Given* the pipeline has run, *then* the data version file contains the build date and the source game.
+- **DAT-F13** *Given* the tier file is missing one combination or lists one twice, *when* the pipeline runs, *then* it stops and names the combination.
 - **General** *Given* the pipeline runs twice with the same sources, *then* the output files are identical.
 
 **Testing approach:** validation tests on the generated files (schema checks, no missing IDs or names, references between files resolve); snapshot tests on a few known Pokémon.
@@ -186,12 +189,13 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F10 | **Type chart page.** Full 18×18 chart; pick one or two defending types to see what hits them. | 1 |
 | ARC-F11 | **"Add to team" button** on a Pokémon entry (D28). | 2 |
 | ARC-F12 | **Competitive section** in the entry: usage rank and common sets (D13). | 3 |
+| ARC-F13 | **Type tier** (D71): every entry shows the tier of its type combination (S to F) next to its types, with a short note that it is the site's own assessment, mixing competitive and general play. Each form shows the tier of its own types. | 1 |
 
 ### Entry sections (ARC-F03)
 
 | Section | Contents |
 | --- | --- |
-| Header | Image, number, name (active language, with the other language shown smaller), types, form selector |
+| Header | Image, number, name (active language, with the other language shown smaller), types with their type tier (ARC-F13), form selector |
 | Base stats | Six stats with bars, and the total |
 | Abilities | Each ability with a short description and a link to its page; hidden ability marked |
 | Type effectiveness | Weaknesses (×4, ×2), resistances (×½, ×¼) and immunities. A note appears when an ability can change them (e.g. Levitate). |
@@ -207,7 +211,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 
 ### Data
 
-Reads DAT-F01 to DAT-F07 and DAT-F10. Writes nothing.
+Reads DAT-F01 to DAT-F07, DAT-F10 and DAT-F13. Writes nothing.
 
 ### Connections
 
@@ -221,6 +225,7 @@ Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO
 - **ARC-F03** *Given* the Gengar entry, *then* the type effectiveness shows Ground as ×2 and Normal and Fighting as immune.
 - **ARC-F07** *Given* the Flamethrower page in Spanish, *then* it is titled "Lanzallamas" and lists Charizard among the Pokémon that learn it.
 - **ARC-F10** *Given* I pick Water and Ground as defending types, *then* Grass shows ×4 and Electric shows ×0.
+- **ARC-F13** *Given* the Gengar entry (Ghost/Poison), *then* its header shows tier B with the note that it is the site's own assessment. *Given* Alolan Ninetales (Ice/Fairy), *then* it shows tier D, while standard Ninetales (Fire) shows tier B.
 
 **Testing approach:** unit tests for type effectiveness and filtering logic; end-to-end tests for list, entry, form switch and detail pages in both languages; prerender check that every entity page is generated.
 
@@ -245,8 +250,8 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | STR-F05 | **Import from Showdown text.** Paste the text and the team is created. Lines that can't be read are reported; the rest is imported. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. Available from the team library and from the active-team strip; an imported team becomes the active team. | 2 |
 | STR-F06 | **Export to Showdown text**, with one-click copy. | 2 |
 | STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
-| STR-F08 | **Defensive analysis.** For each of the 18 attacking types: how many members are weak, resistant or immune; shared weaknesses are highlighted. Abilities that grant immunity (e.g. Levitate, Flash Fire) are counted. | 2 |
-| STR-F09 | **Offensive coverage.** Which types the team's damaging moves hit super-effectively, and which types nothing hits super-effectively. | 2 |
+| STR-F08 | **Defensive analysis.** For each of the 18 attacking types: how many members are weak, resistant or immune; shared weaknesses are highlighted. Abilities that grant immunity (e.g. Levitate, Flash Fire) are counted. Shown for the whole team, with each member's values side by side (D72). | 2 |
+| STR-F09 | **Offensive coverage.** Which types the team's damaging moves hit super-effectively, and which types nothing hits super-effectively. Shown for the whole team, with each member's contribution (D72). | 2 |
 | STR-F10 | **Speed tiers.** Each member's final Speed, ordered, with views for +1, −1, Tailwind and Choice Scarf, and a Trick Room view (reversed order). | 2 |
 | STR-F11 | **Doubles essentials.** For each category (speed control, Fake Out, Intimidate, redirection, spread moves, Protect, priority) whether the team has it and which members provide it (DAT-F11). | 2 |
 | STR-F12 | **Add from the Pokédex.** Receives a Pokémon from ARC-F11 into a new or existing team (D28). | 2 |
@@ -269,6 +274,7 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 - Spreads are always valid for the team's stat system: at most 66 Stat Points (32 per stat), or at most 510 EVs (252 per stat).
 - Analysis covers all six members. In VGC you bring six and choose four per game; choosing four is not modeled.
 - Deleting the active team leaves no team active; nothing else changes.
+- **Team and member view** (D72): coverage (STR-F08, STR-F09) shows the whole team by default. Selecting a member shows that member's own coverage; deselecting returns to the team view.
 - The threat list uses a neutral field by default (no weather, terrain, boosts or screens) and assembles each threat's set from its most-used item, ability, nature, spread and moves; the set used is always shown.
 - Teams live only in this browser until accounts exist (D3). The backup (STR-F07) is how they move between devices.
 - The analysis functions are independent of the screens, so the calculator (M4) and the AI assistant (M8) can reuse them.
@@ -289,6 +295,7 @@ Receives Pokémon from M2. Provides the active team to every hall (X-12), above 
 - **STR-F05** *Given* valid Showdown text for six Pokémon, *when* I import it, *then* the team has the same Pokémon, items, abilities, moves, natures and spreads. *Given* one line has an unknown move, *then* that line is reported and the rest is imported.
 - **STR-F05/F06** *Given* a team, *when* I export it and import the text again, *then* the result is identical to the original.
 - **STR-F08** *Given* a team with three Pokémon weak to Ground and none resistant or immune, *then* Ground is highlighted as a shared weakness. *When* I add a Levitate Pokémon, *then* it counts as immune to Ground.
+- **STR-F08/F09** *Given* no member is selected, *then* coverage shows team totals. *When* I select Garchomp, *then* it shows Garchomp's own weaknesses and the types its moves hit super-effectively; *when* I deselect it, the team view returns.
 - **STR-F10** *Given* a member with 100 final Speed, *when* I open the Tailwind view, *then* it shows 200.
 - **STR-F19** *Given* a Stat Point spread of 32 Atk / 2 Def / 32 Spe, *when* I convert it to EVs, *then* it shows 252 Atk / 12 Def / 252 Spe, and the final stats are identical. *Given* 252 HP / 252 Atk / 4 Spe, *then* it converts to 32 / 32 / 1 with no warning.
 - **STR-F18** *Given* a team in EVs, *when* I switch it to Stat Points, *then* every spread is converted and any inexact conversion is flagged on its member.
