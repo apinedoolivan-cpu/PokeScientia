@@ -14,7 +14,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
-| E. Later phases | 0 | 7 |
+| E. Later phases | 0 | 8 |
 | F. Working process | 5 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
@@ -112,6 +112,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q7 | Hosting for frontend and backend, on free tiers | First deployment |
 | Q35 | Address: free subdomain (a paid domain breaks R7) | First deployment |
 | Q8 | AI model source | Phase 6 |
+| Q74 | **AI assistant presenter.** The assistant needs a figure that fits the Roman academy. **Current leaning: an ancient-automaton figure such as Magearna**, an artificial mind that suits the classical world (Heron of Alexandria's automata, the Antikythera mechanism) and needs no custom form. **Rotom remains a valid option**, as the academy's resident spirit (Roman Lares) or as an openly modern guest, but its electrical nature clashes with the setting. Another Pokémon may still be chosen. Eliminated in the 2026-11-09 review: Metagross, Porygon, Unown, Sigilyph, Chimecho, Bronzong, Lampent, Xatu (Unown suggested for AENIGMA and Xatu for ATHENAEUM instead). | Phase 6 |
 
 ## F. Working process
 

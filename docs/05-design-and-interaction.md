@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.2 — approved 2026-11-09** · Owner: @Alex
+**Version 1.3 — approved 2026-11-09** · Owner: @Alex
 
 ## Document status
 
-Version 1.2, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.3, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -179,9 +179,10 @@ The same frame in every hall: the presenter stands **under a Roman arch**, on a 
 | BIBLIOTHECA | Mew or Pikachu | Mew carries the DNA of all Pokémon; Pikachu is the face of Pokémon |
 | LEGIO | **Falinks** | Designed after a military formation, and it is literally a group of six |
 | ABACUS | Alakazam or Metagross | Calculating minds |
-| ATHENAEUM | To be decided | |
+| ATHENAEUM | To be decided; Xatu suggested | Xatu watches the future, fitting a hall about metagame trends |
 | COLOSSEUM | Incineroar | A wrestler for the arena, and a face of competitive play |
-| AENIGMA | Zoroark | Master of illusions, for riddles |
+| AENIGMA | Zoroark; Unown suggested as alternative | Zoroark: master of illusions. Unown: living ancient script, for riddles |
+| AI assistant (Phase 6) | Leaning: Magearna or a similar ancient-automaton figure; Rotom also valid (Q74) | An artificial mind that belongs in a classical workshop |
 
 ## 8. The Pokédex as a book: *Historia Naturalis* (D61)
 

@@ -265,6 +265,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-09 | Design v1.3: AI assistant presenter recorded as open question Q74 (leaning Magearna, Rotom valid); Xatu and Unown suggested for ATHENAEUM and AENIGMA. No new decisions | Assistant presenter discussion |
 | 2026-11-09 | Version 1.12: D71 type tiers, D72 team and member coverage; modules v1.4, roadmap v1.2 | Hall ideas review |
 | 2026-11-08 | Version 1.11: R20 added; D68–D70 approved (active team, team-centered calculation, PokéPaste parked); modules v1.3, roadmap v1.1 | Team and calculator review |
 | 2026-11-08 | Version 1.10: design spec (`05`) and roadmap (`06`) approved as v1; DP-1 to DP-7 stay open (D67). Planning closed; Phase 0 starts with M0.1 | Final planning review |
