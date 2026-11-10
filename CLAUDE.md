@@ -57,8 +57,10 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   under `/en/`, XLIFF translations, root redirect page. Zoneless + OnPush: everything on screen is a signal.
   `domain/` never imports Angular; pages use only our `ui/` components on Angular CDK. Follow the layer rules and
   coding guidelines in `docs/04-architecture.md`. Node 26 LTS.
-- Animation (D7, D56): 2D stack. GSAP for interface motion and timelines; PixiJS for the COLOSSEUM's scripted stage
-  (not a rules engine). Three.js is only a Phase 4 exploration option (Q63).
+- Animation (D56): 2D stack. GSAP for interface motion and timelines; PixiJS for the COLOSSEUM's stage. Three.js is
+  only a Phase 4 exploration option (Q63).
+- COLOSSEUM (D73–D75): turn-by-turn battle testing in doubles. Turns are resolved by Showdown's engine (`@pkmn/sim`);
+  never write battle rules ourselves.
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
   Metajuego, Coliseo, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,

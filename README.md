@@ -10,7 +10,7 @@ romana de ciencias naturales.
 - **Pokédex (BIBLIOTHECA)**: la *Historia Naturalis*, un libro por región con todas las especies y una vista competitiva por defecto.
 - **Equipos (LEGIO)**: creación y análisis de equipos centrados en dobles oficiales (VGC).
 - **Calculadora y metajuego (ABACUS y ATHENAEUM)**: daño, tiradas y probabilidades de KO; lo más usado y las tendencias.
-- **Coliseo (COLOSSEUM)**: un escenario de combate 2D animado para explorar la animación web.
+- **Coliseo (COLOSSEUM)**: pon a prueba tu equipo turno a turno en dobles: qué hace cada movimiento, qué pasa si eliges la suerte, y un combate contra un rival, todo animado en 2D.
 - **Más adelante**: cuentas con sincronización, un quiz (AENIGMA) y un asistente de IA.
 
 Cada sala de la academia lleva su nombre en latín y la presenta un Pokémon residente.
@@ -40,7 +40,7 @@ natural science.
 - **Pokédex (BIBLIOTHECA)**: the *Historia Naturalis*, one book per region covering every species, with a competitive view by default.
 - **Teams (LEGIO)**: team building and analysis focused on official doubles (VGC).
 - **Calculator and metagame (ABACUS and ATHENAEUM)**: damage, rolls and KO chances; what is used and how it trends.
-- **Colosseum (COLOSSEUM)**: an animated 2D battle stage for exploring web animation.
+- **Colosseum (COLOSSEUM)**: test your team turn by turn in doubles: what every move does, what happens if you choose the luck, and a match against a rival, all animated in 2D.
 - **Later**: accounts with sync, a quiz (AENIGMA) and an AI assistant.
 
 Each hall of the academy carries a Latin name and is introduced by a resident Pokémon.

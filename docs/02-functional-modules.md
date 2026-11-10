@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.4 — approved 2026-11-09** · Owner: @Alex
+**Version 1.5 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.4, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.5, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -363,23 +363,58 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 
 ## M5 — Battle stage · COLOSSEUM (`LAB`) · Phase 4
 
-**Purpose.** A place to explore web animation: a scripted doubles battle stage built with PixiJS and GSAP (D7). Outline; specified fully before Phase 4.
+**Purpose.** Test a team **turn by turn** in a doubles battle (D73). It is not another battle simulator: Showdown already exists. It is a place to study what actually happens in a turn, and why. Two modes:
+
+- **Testing mode:** you control both sides, see what every move does to every target before choosing, decide what chance does (or leave it to real luck), and can rewind and branch.
+- **Real match mode:** you control only your side; the rival plays by itself with a simple, predictable strategy (D75).
+
+Turns are resolved by Showdown's open-source battle engine (D74); Pokescientia builds the analysis, the history and the animated stage around it. Medium detail; specified fully before Phase 4.
 
 ### Features
 
 | ID | Feature | Phase |
 | --- | --- | --- |
-| LAB-F01 | **Doubles stage.** Two Pokémon per side on a battle field (D29). | 4 |
-| LAB-F02 | **Battle sequence:** ball throw, entrance of all four Pokémon, a move, hit effect, HP bar change, optional faint. | 4 |
-| LAB-F03 | **First version: a fixed demo scene.** Later, choosing the Pokémon and moves (D29). Other ideas (scene editor, timeline, camera moves, Three.js 3D or 2.5D effects with original content, Q63) are explored when Phase 4 is specified. | 4 |
-| LAB-F04 | **Real damage values** from the calculator (M4), closing Q5. | 4 |
+| LAB-F01 | **Doubles stage.** Two Pokémon per side on a battle field (R19, D29), drawn with PixiJS. | 4 |
+| LAB-F02 | **Animated turns.** The stage plays each resolved turn: entrances, moves in order, hit effects, HP bar changes, fainting and replacements. | 4 |
+| LAB-F03 | ~~Fixed demo scene~~ **Removed**: replaced by real battles (LAB-F07 onward, D73). | — |
+| LAB-F04 | **Real damage values.** All numbers come from the battle engine and the calculator, never scripted (closes Q5). | 4 |
 | LAB-F05 | **Playback controls:** play, pause, replay, speed. A calm version for reduced motion (X-06). | 4 |
 | LAB-F06 | **Effect library** by move type and category (generic effects per type, not one per move). | 4 |
+| LAB-F07 | **Battle setup.** Your side starts from the active team (X-12) or any saved team. The rival is another saved team, a pasted Showdown team, or a sample team from usage data. Team preview: each side chooses four of its six and the two leads. | 4 |
+| LAB-F08 | **Turn matrix.** Before choosing, every move of each active Pokémon is shown against each possible target: damage range and KO chance (ABACUS), or what the move does if it deals no damage (Protect, Tailwind, Fake Out, stat changes…). | 4 |
+| LAB-F09 | **Play a turn.** Choose an action for each active Pokémon (a move with its target, a switch, or Mega Evolution when available) and resolve the turn with the battle engine: order, damage, effects, fainting and replacements. | 4 |
+| LAB-F10 | **You choose what chance does** (testing mode). Before playing a turn, set the outcome of each random event: damage roll (minimum, average, maximum or a specific roll), critical hit, hit or miss, secondary effects, speed ties. Anything not set is left to **real luck**. | 4 |
+| LAB-F11 | **Turn history.** Every turn is logged: the actions chosen, the order they happened in, damage dealt, effects, and each Pokémon's HP afterwards. Forced outcomes are marked. | 4 |
+| LAB-F12 | **Branching.** Go back to any earlier turn and choose different actions or outcomes; this creates a new branch while the original is kept. Switch between branches to compare them. | 4 |
+| LAB-F13 | **Real match mode.** You choose only your side's actions; the rival chooses automatically with simple, documented rules (D75): the move with the best KO chance or damage according to the calculator, Protect when threatened, speed control when slower. Chance is always real. Open team sheets as in official VGC: the rival's moves, items and abilities are visible; its spreads and natures are not. | 4 |
+| LAB-F14 | **Smarter rival.** A rival that plans ahead and predicts, possibly using the AI assistant (M8). | 6+ |
 
 ### Rules
 
+- The COLOSSEUM **does not implement battle rules itself**: Showdown's battle engine (`@pkmn/sim`, MIT) is the referee (D74). This replaces the earlier rule that the COLOSSEUM only played scripted scenes (D7).
+- Mechanics follow the current game (Champions) as far as the engine supports it; any mechanic it doesn't support is listed as a known limitation on the page.
+- Testing mode controls both sides and allows forced outcomes; real match mode controls one side and never forces outcomes. A tested result is never presented as a real one.
+- Every turn can be read as text in the history; the animation is optional and has a reduced-motion version (X-06).
+- A battle lives in the page while it is open. Saving and sharing battles is not part of the first version.
 - Pokémon images come only from the chosen sources; all effects, fields and UI are original work.
-- The COLOSSEUM is not a rules engine: it plays scripted scenes.
+
+### Data
+
+Reads Pokémon, moves, abilities, items and saved teams; usage data for sample rival teams (Phase 3). Uses the calculator's domain functions (M4) and the battle engine.
+
+### Connections
+
+Receives the active team from M3 (X-12) and damage calculations from M4. A turn or matchup can open ABACUS for a closer look. LAB-F14 may later use M8.
+
+### Acceptance criteria (draft)
+
+- **LAB-F07** *Given* an active team, *when* I start a test, *then* my side shows its six Pokémon and I choose four and the two leads; the rival side works the same way.
+- **LAB-F08** *Given* both sides' leads, *then* each move of each active Pokémon shows a damage range and KO chance against each possible target, or a description of its effect.
+- **LAB-F10** *Given* I set Earthquake's roll to minimum and no critical hit, *when* the turn is played, *then* the history shows exactly the minimum damage of the calculator's range against each target, with spread damage applied, and marks the outcome as forced.
+- **LAB-F12** *Given* three turns have been played, *when* I return to turn 2 and choose different moves, *then* a new branch is created and the original turn 3 can still be viewed.
+- **LAB-F13** *Given* real match mode, *then* the rival's actions are chosen automatically, no outcome can be forced, and the rival's spreads and natures are not shown.
+
+**Testing approach:** unit tests for the setup, the rival's rules and the history and branching logic; tests that compare forced outcomes with the calculator's numbers; end-to-end tests for a full test battle and a real match; the animated stage checked visually and in reduced motion.
 
 ---
 

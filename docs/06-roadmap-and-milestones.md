@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.2 — approved 2026-11-09** · Owner: @Alex
+**Version 1.3 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.2, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.3, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75).
 
 ## 1. Planning principles
 
@@ -47,7 +47,7 @@ A milestone is done when all of these hold:
 | 1 | BIBLIOTHECA | The Pokédex as the *Historia Naturalis* | 10 | 70–110 h | `v0.2.0` |
 | 2 | LEGIO | Team building and analysis; the active team | 10 | 65–100 h | `v0.3.0` |
 | 3 | ABACUS, ATHENAEUM | Calculator with your own team, then metagame | 8 | 70–110 h | `v0.4.0` |
-| 4 | COLOSSEUM | Animated battle stage | outline | 50–90 h | `v0.5.0` |
+| 4 | COLOSSEUM | Turn-by-turn battle testing, animated stage, real match | outline | 120–200 h (the largest phase) | `v0.5.0` |
 | 5 | — | Accounts and sync (Go backend) | outline | 70–110 h | `v0.6.0` |
 | 6 | AENIGMA | Quiz, then AI assistant | outline | open | `v0.7.0`+ |
 
@@ -316,7 +316,14 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 
 ## 9. Phases 4–6 (outlines)
 
-**Phase 4 — COLOSSEUM (`v0.5.0`).** Specify the stage first (LAB features, Q5, Q63). Then PixiJS setup, the doubles demo scene, the effects library, real damage from ABACUS, playback controls with a reduced-motion version, and the optional Three.js exploration.
+**Phase 4 — COLOSSEUM (`v0.5.0`).** The largest phase, on purpose (D73). Specify it fully first (LAB features, Q63), then three parts:
+
+1. **Battle engine spike** (Q75): check `@pkmn/sim` for Champions support, forced outcomes, and saving and restoring states.
+2. **Testing mode, without animation:** battle setup from the active team (LAB-F07), the turn matrix (LAB-F08), playing turns with the engine (LAB-F09), chosen or real chance (LAB-F10), the turn history (LAB-F11) and branching (LAB-F12). Usable as text alone.
+3. **The animated stage:** PixiJS setup, doubles stage, effect library, animated turns and playback controls with a reduced-motion version (LAB-F01, F02, F04–F06); the optional Three.js exploration (Q63).
+4. **Real match mode:** the simple rival (LAB-F13, D75).
+
+The smarter rival (LAB-F14) waits for Phase 6.
 
 **Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7).
 

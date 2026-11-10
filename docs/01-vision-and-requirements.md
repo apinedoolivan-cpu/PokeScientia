@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.12 — approved 2026-11-09** · Owner: @Alex
+**Version 1.13 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.12, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.13, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -35,7 +35,7 @@ The project succeeds if it is useful to the owner, fun to build, and teaches som
 1. A Pokédex covering all generations, readable in Spanish and English, with a competitive emphasis.
 2. VGC-oriented tools that answer real questions: what does my team fear, what outspeeds what, how does this matchup look, and what do the calcs say **for my own team** against the metagame.
 3. A distinctive, polished interface with a recognizable identity and purposeful animation.
-4. A battle stage, the COLOSSEUM, to freely experiment with GSAP and PixiJS.
+4. A battle stage, the COLOSSEUM, to test teams turn by turn in doubles, with full control over each turn, and to experiment with GSAP and PixiJS.
 5. Hands-on learning: Angular `@angular/localize`, local-first data, and later a Go API.
 6. An architecture that grows one feature at a time without rewrites.
 
@@ -64,7 +64,8 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 | U9 | Calculate damage between Pokémon, including doubles conditions | Calculator | 3 |
 | U14 | Keep one team active while I move between halls, and import it by pasting Showdown text | Team builder | 2 |
 | U15 | Run calcs with my own team: its members against any Pokémon, and the most-used threats against my team | Calculator and metagame | 3 |
-| U10 | Watch an animated doubles scene with balls, entrances, attacks and effects | Battle stage (COLOSSEUM) | 4 |
+| U10 | Test my team turn by turn against a rival team: see what every move does, choose what chance does, rewind and branch, and watch each turn animated | Battle stage (COLOSSEUM) | 4 |
+| U16 | Play a match with my team against a rival that decides by itself | Battle stage (COLOSSEUM) | 4 |
 | U11 | Sign in and have my teams on any device | Accounts | 5 |
 | U12 | Test my knowledge with a quiz or puzzle | Quiz | 6 |
 | U13 | Ask an assistant to critique my team with evidence | AI assistant | 6 |
@@ -118,7 +119,7 @@ These come directly from the owner's answers in discovery.
 | D4 | Accounts and sync come later through a Go backend. | Learning goal; the backend never blocks the frontend. |
 | D5 | Visual direction is an even blend: a naturalist's archive inside a classical academy. **Superseded by D58.** | Both aesthetics appealed; refined in the design spec. |
 | D6 | The Pokédex includes every Pokémon, with a competitive view as the default and a toggle for all. | Middle evolutions can be competitive (Eviolite); inclusion costs little. |
-| D7 | The battle simulator is a scripted animation stage, not a rules engine. | It exists to explore animation (R5). |
+| D7 | The battle simulator is a scripted animation stage, not a rules engine. (Revised by D73 and D74.) | It exists to explore animation (R5). |
 | D8 | The repository is the master copy of all documentation: planning documents in `docs/` and CLAUDE.md at the root, all Markdown. Drafts may be reviewed elsewhere, but only the committed version is in force. | Both the web chat and the terminal sessions read the repository, so it is the only shared memory. |
 | D9 | Monorepo: frontend and backend share this repository. Angular lives in `frontend/`; the Go API (`backend/`) and its OpenAPI contract (`api/`) are added in Phase 5. Each part is self-contained and they communicate only through the API contract. | Single developer; one CLAUDE.md and one `docs/`; the API contract changes with both sides in one commit. |
 | D10 | MVP Pokédex entry: base stats, types, abilities, weaknesses and resistances, evolution chain, and learnable moves, laid out as independent sections (R16). | The core of a useful entry; more sections arrive later. |
@@ -140,7 +141,7 @@ These come directly from the owner's answers in discovery.
 | D26 | Moves, abilities and items have their own detail pages, not only lists. | Cheap with prerendering; good for linking and search. |
 | D27 | Team rules (species, items, legality, learnsets, spreads) produce warnings and never block editing or saving. | Lets the user experiment and import any team. |
 | D28 | Every Pokémon entry offers "add to team" once the teams hall (LEGIO) exists. | Core to the lookup-to-analysis flow. |
-| D29 | The battle stage (now the COLOSSEUM) uses a doubles layout (R19) and starts with a fixed demo scene before adding choices. | Matches official play; a demo is the simplest start for a learning space. Owner had no preference on the demo. |
+| D29 | The battle stage (now the COLOSSEUM) uses a doubles layout (R19) and starts with a fixed demo scene before adding choices. | Matches official play; a demo is the simplest start for a learning space. Owner had no preference on the demo. (Demo scene replaced by D73.) |
 | D30 | Search matches names in Spanish and English, ignoring accents and capitals; both names lead to the same page. | Competitive resources use English names; small cost (an index of about 3,000 entries). |
 | D31 | The Pokédex shows items with a competitive purpose; all items keep their category so other groups can be shown later. | No value in items that do nothing in battle, without closing the door. |
 | D32 | Learnsets include every move a Pokémon has learned in any game, marking those available in the current game. Each team chooses a format: Free (no legality warnings) or Current regulation (with warnings). | All Pokémon are equal and sets don't depend on game availability, unless the user asks for that check. |
@@ -175,7 +176,7 @@ These come directly from the owner's answers in discovery.
 | D61 | The Pokédex is the *Historia Naturalis*: nine books (one per region) plus appendices, read as a codex with a thumb index and page turns; a List view is always available; scrolls are ornament only. | Honors Pliny and Aristotle; the codex is the Roman, consultable book. |
 | D62 | Themes are Día (light) and Noche (dark). The default follows the device; a manual choice is remembered; an optional mode follows the time of day. Refines D19. | Day and night as two moods of the same academy. |
 | D63 | Foro (travertine, porphyry, bronze) is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. | Palettes are design tokens, cheap to change. |
-| D64 | The battle stage is the COLOSSEUM (module M5, formerly "Animation Lab"). | The arena is the natural Roman setting for battles; analysis lives in LEGIO and ABACUS. |
+| D64 | The battle stage is the COLOSSEUM (module M5, formerly "Animation Lab"). | The arena is the natural Roman setting for battles; analysis lives in LEGIO and ABACUS. (Rationale revised by D73: the COLOSSEUM now analyses turns too.) |
 | D65 | Work is tracked in the documents: milestone checkboxes in `06-roadmap-and-milestones.md` and a session log in `docs/progress.md`. GitHub Issues and Projects are not used for now. Revises the tracking part of D21. | One person, one branch; Git workflow learning is out of scope. Can be revisited if the project demands it. |
 | D66 | Milestones are small (about 4–12 hours each, ending in a committed, working state) and estimated in hours, never dates. | No deadline; about 14 variable hours a week; small steps keep progress visible. |
 | D67 | Design proposals DP-1 to DP-7 are decided at fixed review points in Phase 0 and Phase 1: DP-2, DP-6, DP-7 in M0.4; DP-1 in M0.6; DP-3, DP-4 in M0.7; DP-5 in M1.5. | Each proposal is judged on a real page instead of in the abstract. |
@@ -184,6 +185,9 @@ These come directly from the owner's answers in discovery.
 | D70 | Import from and export to PokéPaste links is parked (P2). Showdown text import and export stay. | Showdown text is the format everyone uses; PokéPaste is a nice extra. |
 | D71 | **Type tiers** (DAT-F13, ARC-F13): every type combination has a tier from the owner's own hand-made list (S, A, B, C, D, F), kept as a hand-maintained data file and shown in every Pokédex entry. It is labelled as the site's own assessment, mixing competitive and general play; no external credit is needed. | No formula can rank type combinations fairly; a considered list is closer to how players judge them. |
 | D72 | **Team and member coverage** (STR-F08, STR-F09): coverage shows the whole team by default; selecting a member shows that member alone. | The team view answers "what does my team fear"; the member view explains where it comes from. |
+| D73 | **The COLOSSEUM tests teams turn by turn** in doubles, in two modes: a testing mode (both sides controlled, a damage matrix before each turn, chosen or real chance, turn history with branching) and a real match mode (your side only, the rival plays itself). It starts from the active team. Revises D7, D29 and the rationale of D64; Phase 4 becomes the largest phase on purpose. | Showdown already simulates battles; studying what happens in a turn, and why, is what's missing. |
+| D74 | **Turns are resolved by Showdown's open-source battle engine** (`@pkmn/sim`, MIT), running in the browser. Pokescientia builds the analysis, history, branching and animation around it and does not write its own battle rules. Checked at the start of Phase 4: Champions support, forcing outcomes, saving and restoring battle states (Q75). | Correct rules for free, kept up to date by others; effort goes into what is unique. |
+| D75 | **The rival starts simple:** predictable, documented rules based on the calculator. A smarter rival comes later (LAB-F14), possibly with the AI assistant. | A simple rival is enough to practise against and easy to understand; a clever one is a project of its own. |
 
 ## Assumptions
 
@@ -229,7 +233,7 @@ Approved with version 1. Milestones for each phase are in [`06-roadmap-and-miles
 2. **Phase 1: MVP, the BIBLIOTHECA (Pokédex).** Pokédex (Pokémon, moves, abilities, items) with the competitive and full views, forms, search and filters.
 3. **Phase 2: LEGIO (teams).** Team builder with Showdown import and export, local saving, the active team that follows you between halls, and team analysis (D13, D68).
 4. **Phase 3: ABACUS and ATHENAEUM (calculator and metagame).** Damage calculator working from the active team first, then usage data and common sets, the threat list, speed benchmarks, trends.
-5. **Phase 4: The COLOSSEUM (battle stage).** Scripted doubles battle stage in PixiJS and GSAP: ball throws, entrances, attacks, effects, HP bars, with real damage from the calculator.
+5. **Phase 4: The COLOSSEUM (battle stage).** Turn-by-turn testing of a team in doubles, resolved by Showdown's battle engine: damage matrix, chosen or real chance, history with branching; then the animated PixiJS and GSAP stage; then a real match mode against a simple rival (D73–D75). The largest phase.
 6. **Phase 5: Accounts.** Go backend with sign-in and team sync, layered on the local-first data.
 7. **Phase 6: Extras.** Quiz or puzzle section, then the AI assistant.
 
@@ -265,6 +269,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-10 | Version 1.13: D73–D75 approved (COLOSSEUM as turn-by-turn testing with two modes, Showdown's engine as referee, simple rival first); U10 revised, U16 added; modules v1.5, roadmap v1.3, architecture v1.4, design v1.4 | COLOSSEUM review |
 | 2026-11-09 | Design v1.3: AI assistant presenter recorded as open question Q74 (leaning Magearna, Rotom valid); Xatu and Unown suggested for ATHENAEUM and AENIGMA. No new decisions | Assistant presenter discussion |
 | 2026-11-09 | Version 1.12: D71 type tiers, D72 team and member coverage; modules v1.4, roadmap v1.2 | Hall ideas review |
 | 2026-11-08 | Version 1.11: R20 added; D68–D70 approved (active team, team-centered calculation, PokéPaste parked); modules v1.3, roadmap v1.1 | Team and calculator review |

@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.3 — approved 2026-11-08** · Owner: @Alex
+**Version 1.4 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.3, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.4, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -79,7 +79,7 @@ frontend/src/app/
     ├── teams/        LEGIO: team library, editor, analysis, converter (M3)
     ├── calculator/   ABACUS: damage calculator (M4, Phase 3)
     ├── metagame/     ATHENAEUM: usage data and trends (M4, Phase 3)
-    ├── colosseum/    COLOSSEUM: battle stage (M5, Phase 4)
+    ├── colosseum/    COLOSSEUM: turn-by-turn battle testing and stage (M5, Phase 4)
     ├── quiz/         AENIGMA (M7, later)
     └── about/        About and credits, not-found page
 ```
@@ -208,7 +208,7 @@ Path words are English and identical in both languages (D17). Hall names and Lat
 | `/teams`, `/teams/:teamId` | LEGIO: team library and editor (Phase 2) | Shell prerendered; content in the browser (teams live in IndexedDB) |
 | `/calculator` | ABACUS: calculator (Phase 3) | Prerendered shell |
 | `/metagame` | ATHENAEUM: usage data and trends (Phase 3) | Prerendered |
-| `/colosseum` | COLOSSEUM: battle stage (Phase 4) | Prerendered shell |
+| `/colosseum` | COLOSSEUM: turn-by-turn battle testing and stage (Phase 4) | Prerendered shell |
 | `/quiz` | AENIGMA (later) | Prerendered shell |
 | `/about` | About and credits | Prerendered |
 | `/404` | Not-found page | Prerendered; the host serves it for unknown URLs |
@@ -237,6 +237,7 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 | CSS transitions | Small state changes (hover, focus, theme switch) | Always |
 | GSAP (free, proprietary license, D56) | Interface motion and choreography: presenter entrances, hall transitions, list choreography, and the COLOSSEUM's timelines (it also animates PixiJS objects) | Where used |
 | PixiJS (MIT) | The COLOSSEUM's 2D battle stage (WebGL/WebGPU) | Only in `/colosseum` |
+| `@pkmn/sim` (MIT, Phase 4, D74) | Showdown's battle engine, extracted as a package: resolves each turn of a COLOSSEUM battle in the browser. Wrapped in `halls/colosseum/` behind a small interface (start battle, play turn, save and restore state), so the rest of the app never depends on it directly; possibly run in a Web Worker to keep the page responsive. Verified first (Q75) | Only in `/colosseum` |
 
 - A `MotionService` in `core/` exposes a signal for `prefers-reduced-motion`. **Every** animation checks it; with reduced motion, motion becomes a fade or is skipped (X-06).
 - Animations never hold essential information; the page must work with them off.

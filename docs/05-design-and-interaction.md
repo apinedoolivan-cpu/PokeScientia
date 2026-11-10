@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.3 — approved 2026-11-09** · Owner: @Alex
+**Version 1.4 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.3, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.4, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -57,7 +57,7 @@ Greek learning appears as **content, not as a second style**. Rome preserved and
 | Equipos | Teams | **LEGIO** | Build a team of six and study its strengths and weaknesses | Strategy | M3 | 2 | `/teams` |
 | Calculadora | Calculator | **ABACUS** | Damage, rolls and KO probabilities | Strategy | M4 | 3 | `/calculator` |
 | Metajuego | Metagame | **ATHENAEUM** | What is used: common sets, partners, trends | Strategy | M4 | 3 | `/metagame` |
-| Coliseo | Colosseum | **COLOSSEUM** | The animated doubles battle stage | Spectacle | M5 | 4 | `/colosseum` |
+| Coliseo | Colosseum | **COLOSSEUM** | Turn-by-turn doubles battle testing, with an animated stage | Strategy and spectacle | M5 | 4 | `/colosseum` |
 | Quiz | Quiz | **AENIGMA** | Riddles and challenges | Knowledge | M7 | 6 | `/quiz` |
 
 Strategy and information get more halls than spectacle, on purpose: battles are one part of the academy, not its center.
@@ -243,7 +243,7 @@ One page at a time: two tabs, "I · Identidad" and "II · Ciencia", with swipe b
 | **Book** | Pokédex entries, appendix pages | Two-page spread, thumb index, previous/next |
 | **List** | Pokédex list, moves, abilities, items | Filters, sortable grid or table |
 | **Tool** | LEGIO, ABACUS, ATHENAEUM | Hall header, main work area (8 columns), analysis panels (4 columns); stacked on phones |
-| **Stage** | COLOSSEUM | Full-width PixiJS stage with playback controls (Phase 4) |
+| **Stage** | COLOSSEUM | Full-width PixiJS stage with playback controls, the turn matrix and the turn history with its branches (Phase 4); laid out when Phase 4 is specified |
 
 ## 10. Components (`ui/`, D49)
 

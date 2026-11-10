@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-09
+Last updated: 2026-11-10
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -10,7 +10,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 24 | 0 |
+| A. Discovery and module spec | 26 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
@@ -47,6 +47,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q71 | PokéPaste links | Product | Parked → D70, P2 |
 | Q72 | Ranking type combinations | Product | Decided → D71 |
 | Q73 | Team coverage: team or member view | Product | Decided → D72 |
+| Q5 | Battle stage: real or scripted damage | Product | Decided → D73, LAB-F04 (always real) |
+| Q76 | What the COLOSSEUM is for, and how turns are resolved | Product | Decided → D73, D74, D75 |
 
 ## B. Architecture (before `ng new`)
 
@@ -106,7 +108,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | ID | Decision | When |
 | --- | --- | --- |
 | Q63 | Three.js 3D experiments (3D academy entrance, 2.5D COLOSSEUM effects), original content only | Phase 4 |
-| Q5 | Battle stage: real damage numbers or scripted values (LAB-F04 proposes real values from the calculator) | Phase 4 |
+| Q75 | **Battle engine check** (D74): confirm that `@pkmn/sim` supports Champions and its doubles rules, that outcomes can be forced (rolls, critical hits, accuracy, secondary effects, speed ties), and that battle states can be saved and restored for branching. Done as a spike, like M0.3; the fallback for anything unsupported is decided then. | Phase 4 start |
 | Q6 | Login method | Phase 5 |
 | Q34 | Go web framework and database | Phase 5 |
 | Q7 | Hosting for frontend and backend, on free tiers | First deployment |
