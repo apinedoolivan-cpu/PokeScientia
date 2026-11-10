@@ -10,7 +10,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 26 | 0 |
+| A. Discovery and module spec | 27 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
@@ -49,6 +49,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q73 | Team coverage: team or member view | Product | Decided → D72 |
 | Q5 | Battle stage: real or scripted damage | Product | Decided → D73, LAB-F04 (always real) |
 | Q76 | What the COLOSSEUM is for, and how turns are resolved | Product | Decided → D73, D74, D75 |
+| Q77 | What the AI assistant is mainly for, and how it relates to the rival | Product | Decided → D76, D77 |
 
 ## B. Architecture (before `ng new`)
 
@@ -108,12 +109,12 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | ID | Decision | When |
 | --- | --- | --- |
 | Q63 | Three.js 3D experiments (3D academy entrance, 2.5D COLOSSEUM effects), original content only | Phase 4 |
-| Q75 | **Battle engine check** (D74): confirm that `@pkmn/sim` supports Champions and its doubles rules, that outcomes can be forced (rolls, critical hits, accuracy, secondary effects, speed ties), and that battle states can be saved and restored for branching. Done as a spike, like M0.3; the fallback for anything unsupported is decided then. | Phase 4 start |
+| Q75 | **Battle engine check** (D74): confirm that `@pkmn/sim` supports Champions and its doubles rules, that outcomes can be forced (rolls, critical hits, accuracy, secondary effects, speed ties), that battle states can be saved and restored for branching, and **how fast it simulates**: turns per second in the browser and the time to copy a battle state, which decide how many playouts the win estimates can afford (AIA-F03, Phase 6). Done as a spike, like M0.3; the fallback for anything unsupported is decided then. | Phase 4 start |
 | Q6 | Login method | Phase 5 |
 | Q34 | Go web framework and database | Phase 5 |
 | Q7 | Hosting for frontend and backend, on free tiers | First deployment |
 | Q35 | Address: free subdomain (a paid domain breaks R7) | First deployment |
-| Q8 | AI model source | Phase 6 |
+| Q8 | AI model source. Options noted, not decided: the owner's own API key entered in settings (never stored or paid by the site), a provider's free tier, or a small model running in the browser. Must respect R7 (free resources); the turn advisor's steps 1–3 work without any model (D76). | Phase 6 |
 | Q74 | **AI assistant presenter.** The assistant needs a figure that fits the Roman academy. **Current leaning: an ancient-automaton figure such as Magearna**, an artificial mind that suits the classical world (Heron of Alexandria's automata, the Antikythera mechanism) and needs no custom form. **Rotom remains a valid option**, as the academy's resident spirit (Roman Lares) or as an openly modern guest, but its electrical nature clashes with the setting. Another Pokémon may still be chosen. Eliminated in the 2026-11-09 review: Metagross, Porygon, Unown, Sigilyph, Chimecho, Bronzong, Lampent, Xatu (Unown suggested for AENIGMA and Xatu for ATHENAEUM instead). | Phase 6 |
 
 ## F. Working process

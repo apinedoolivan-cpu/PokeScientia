@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.3 — approved 2026-11-10** · Owner: @Alex
+**Version 1.4 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.3, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.4, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77).
 
 ## 1. Planning principles
 
@@ -318,16 +318,16 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 
 **Phase 4 — COLOSSEUM (`v0.5.0`).** The largest phase, on purpose (D73). Specify it fully first (LAB features, Q63), then three parts:
 
-1. **Battle engine spike** (Q75): check `@pkmn/sim` for Champions support, forced outcomes, and saving and restoring states.
+1. **Battle engine spike** (Q75): check `@pkmn/sim` for Champions support, forced outcomes, saving and restoring states, and simulation speed.
 2. **Testing mode, without animation:** battle setup from the active team (LAB-F07), the turn matrix (LAB-F08), playing turns with the engine (LAB-F09), chosen or real chance (LAB-F10), the turn history (LAB-F11) and branching (LAB-F12). Usable as text alone.
 3. **The animated stage:** PixiJS setup, doubles stage, effect library, animated turns and playback controls with a reduced-motion version (LAB-F01, F02, F04–F06); the optional Three.js exploration (Q63).
-4. **Real match mode:** the simple rival (LAB-F13, D75).
+4. **Real match mode:** the action scoring (LAB-F15, D77) and the simple rival that uses it (LAB-F13, D75).
 
 The smarter rival (LAB-F14) waits for Phase 6.
 
 **Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7).
 
-**Phase 6 — AENIGMA and the AI assistant (`v0.7.0`+).** Specify each first (QUZ, AIA features, Q8).
+**Phase 6 — AENIGMA and the AI assistant (`v0.7.0`+).** Specify each first (QUZ, AIA features, Q8). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last.
 
 **Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI. A natural moment is after Phase 1, when the Pokédex is usable.
 

@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.4 — approved 2026-11-10** · Owner: @Alex
+**Version 1.5 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.4, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.5, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -128,6 +128,8 @@ In practice, the rule for us is simple: **anything that changes on screen is hel
 | Showdown text | Parse and write team texts | STR-F05, STR-F06 |
 | Damage (Phase 3) | Wrappers around `@smogon/calc`; combined and accuracy-adjusted probabilities | CMP-F03, CMP-F07–F13 |
 | Team against the metagame (Phase 3) | Threat list and one-against-the-team: every member against a list of sets, built on the damage wrappers and speed formulas | STR-F21, CMP-F14, CMP-F15 |
+
+**Battle logic (Phase 4)** lives in `halls/colosseum/`, next to the `@pkmn/sim` wrapper, because it depends on the engine's battle state: the action scoring (LAB-F15, D77) and, in Phase 6, the playouts for win estimates (AIA-F03). Both work without the user interface so the assistant can call them. Playouts run in a **Web Worker** so the page stays responsive; their affordable number depends on the speed measured in Q75.
 
 Rules:
 
@@ -421,6 +423,7 @@ Approved in review on 2026-11-04.
 | A11 | D56 | Keep GSAP (free, proprietary license) with PixiJS as the 2D animation stack; R7 reworded to allow explicitly approved free proprietary tools |
 | A12 | D55 | Generate Angular's AI guidelines for Claude Code and Copilot; arrange them at the root as in section 12; root `CLAUDE.md` stays authoritative |
 | — | D57 | Git practices for a solo developer (section 12) and `.gitattributes` with LF line endings; experiment branches optional |
+| — | D76, D77 | Action scoring and playouts beside the battle engine wrapper, independent of screens; playouts in a Web Worker (section 4) |
 | — | D68, D69 | Active team as shared state in `core/` (`ActiveTeamService`), its ID kept in preferences; calculations opened from other halls through `/calculator` query parameters (section 3) |
 
 ## Sources

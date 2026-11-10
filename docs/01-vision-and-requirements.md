@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.13 — approved 2026-11-10** · Owner: @Alex
+**Version 1.14 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.13, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.14, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -66,6 +66,7 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 | U15 | Run calcs with my own team: its members against any Pokémon, and the most-used threats against my team | Calculator and metagame | 3 |
 | U10 | Test my team turn by turn against a rival team: see what every move does, choose what chance does, rewind and branch, and watch each turn animated | Battle stage (COLOSSEUM) | 4 |
 | U16 | Play a match with my team against a rival that decides by itself | Battle stage (COLOSSEUM) | 4 |
+| U17 | During a battle, get short advice on every action each of my Pokémon can take: why to use it or not, and an estimated chance to win | AI assistant | 6 |
 | U11 | Sign in and have my teams on any device | Accounts | 5 |
 | U12 | Test my knowledge with a quiz or puzzle | Quiz | 6 |
 | U13 | Ask an assistant to critique my team with evidence | AI assistant | 6 |
@@ -188,6 +189,8 @@ These come directly from the owner's answers in discovery.
 | D73 | **The COLOSSEUM tests teams turn by turn** in doubles, in two modes: a testing mode (both sides controlled, a damage matrix before each turn, chosen or real chance, turn history with branching) and a real match mode (your side only, the rival plays itself). It starts from the active team. Revises D7, D29 and the rationale of D64; Phase 4 becomes the largest phase on purpose. | Showdown already simulates battles; studying what happens in a turn, and why, is what's missing. |
 | D74 | **Turns are resolved by Showdown's open-source battle engine** (`@pkmn/sim`, MIT), running in the browser. Pokescientia builds the analysis, history, branching and animation around it and does not write its own battle rules. Checked at the start of Phase 4: Champions support, forcing outcomes, saving and restoring battle states (Q75). | Correct rules for free, kept up to date by others; effort goes into what is unique. |
 | D75 | **The rival starts simple:** predictable, documented rules based on the calculator. A smarter rival comes later (LAB-F14), possibly with the AI assistant. | A simple rival is enough to practise against and easy to understand; a clever one is a project of its own. |
+| D76 | **The AI assistant's primary use is the turn advisor** (AIA-F03), built in four steps: facts, ranking, win estimates (all computed by code), then explanations by a language model. Code calculates, the AI explains and never invents numbers. It is a **predictable tutor, not a perfect opponent**: imperfection is accepted, it runs on modest resources, and its assumptions are shown. | A perfect player would need a powerful model and vast resources, and isn't the aim; a tutor that explains its reasoning is. |
+| D77 | **One action scoring** (LAB-F15), built in Phase 4 for the simple rival and reused by the turn advisor in Phase 6. Simulations must not assume the rival always plays the top-scored action. | Built and tested once; improvements help both; avoids advice that only looks good because the rival is perfectly predictable. |
 
 ## Assumptions
 
@@ -235,7 +238,7 @@ Approved with version 1. Milestones for each phase are in [`06-roadmap-and-miles
 4. **Phase 3: ABACUS and ATHENAEUM (calculator and metagame).** Damage calculator working from the active team first, then usage data and common sets, the threat list, speed benchmarks, trends.
 5. **Phase 4: The COLOSSEUM (battle stage).** Turn-by-turn testing of a team in doubles, resolved by Showdown's battle engine: damage matrix, chosen or real chance, history with branching; then the animated PixiJS and GSAP stage; then a real match mode against a simple rival (D73–D75). The largest phase.
 6. **Phase 5: Accounts.** Go backend with sign-in and team sync, layered on the local-first data.
-7. **Phase 6: Extras.** Quiz or puzzle section, then the AI assistant.
+7. **Phase 6: Extras.** Quiz or puzzle section, then the AI assistant, whose primary use is the turn advisor in the COLOSSEUM (D76).
 
 Why this order: the Pokédex's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the battle stage (D23). The COLOSSEUM comes last among the core phases, so it can use the data, assets and calculator already in place.
 
@@ -269,6 +272,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-10 | Version 1.14: D76 turn advisor as the AI's primary use, a tutor not a perfect opponent; D77 shared action scoring; U17 added; modules v1.6, roadmap v1.4, architecture v1.5 | AI assistant review |
 | 2026-11-10 | Version 1.13: D73–D75 approved (COLOSSEUM as turn-by-turn testing with two modes, Showdown's engine as referee, simple rival first); U10 revised, U16 added; modules v1.5, roadmap v1.3, architecture v1.4, design v1.4 | COLOSSEUM review |
 | 2026-11-09 | Design v1.3: AI assistant presenter recorded as open question Q74 (leaning Magearna, Rotom valid); Xatu and Unown suggested for ATHENAEUM and AENIGMA. No new decisions | Assistant presenter discussion |
 | 2026-11-09 | Version 1.12: D71 type tiers, D72 team and member coverage; modules v1.4, roadmap v1.2 | Hall ideas review |

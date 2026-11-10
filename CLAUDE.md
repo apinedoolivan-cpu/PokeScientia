@@ -61,6 +61,8 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   only a Phase 4 exploration option (Q63).
 - COLOSSEUM (D73–D75): turn-by-turn battle testing in doubles. Turns are resolved by Showdown's engine (`@pkmn/sim`);
   never write battle rules ourselves.
+- AI assistant (D76, D77, Phase 6): its main use is the turn advisor. Code calculates, the AI explains and never
+  invents numbers; a predictable tutor, not a perfect opponent. The rival and the advisor share one action scoring.
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
   Metajuego, Coliseo, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,

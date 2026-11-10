@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.5 — approved 2026-11-10** · Owner: @Alex
+**Version 1.6 — approved 2026-11-10** · Owner: @Alex
 
 ## Document status
 
-Version 1.5, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.6, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -387,7 +387,8 @@ Turns are resolved by Showdown's open-source battle engine (D74); Pokescientia b
 | LAB-F11 | **Turn history.** Every turn is logged: the actions chosen, the order they happened in, damage dealt, effects, and each Pokémon's HP afterwards. Forced outcomes are marked. | 4 |
 | LAB-F12 | **Branching.** Go back to any earlier turn and choose different actions or outcomes; this creates a new branch while the original is kept. Switch between branches to compare them. | 4 |
 | LAB-F13 | **Real match mode.** You choose only your side's actions; the rival chooses automatically with simple, documented rules (D75): the move with the best KO chance or damage according to the calculator, Protect when threatened, speed control when slower. Chance is always real. Open team sheets as in official VGC: the rival's moves, items and abilities are visible; its spreads and natures are not. | 4 |
-| LAB-F14 | **Smarter rival.** A rival that plans ahead and predicts, possibly using the AI assistant (M8). | 6+ |
+| LAB-F14 | **Smarter rival.** A rival that plans ahead and predicts, possibly using the AI assistant (M8). Still a practice partner, not an unbeatable player (D76). | 6+ |
+| LAB-F15 | **Action scoring** (D77). For a given battle state and Pokémon, every possible action (each move with each target, each switch) ranked with a score and its facts: damage, KO chance, speed order, what the rival can do in return. Built for the rival (LAB-F13) and reused by the turn advisor (AIA-F03). Works without the user interface. | 4 |
 
 ### Rules
 
@@ -396,6 +397,7 @@ Turns are resolved by Showdown's open-source battle engine (D74); Pokescientia b
 - Testing mode controls both sides and allows forced outcomes; real match mode controls one side and never forces outcomes. A tested result is never presented as a real one.
 - Every turn can be read as text in the history; the animation is optional and has a reduced-motion version (X-06).
 - A battle lives in the page while it is open. Saving and sharing battles is not part of the first version.
+- The rival and the turn advisor share one action scoring (LAB-F15, D77). Anything that simulates the rival must **not** assume it always plays the top-scored action; simulations include other reasonable choices.
 - Pokémon images come only from the chosen sources; all effects, fields and UI are original work.
 
 ### Data
@@ -441,12 +443,34 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 ## M8 — AI assistant (`AIA`) · Phase 6 candidate
 
-**Purpose.** An assistant that critiques teams and answers questions with evidence. Outline; model source: Q8.
+**Purpose.** A **tutor**, not an unbeatable player (D76). Its primary use is advising each turn in the COLOSSEUM: why to use, or not use, each action a Pokémon has. It also critiques teams and answers questions with evidence. Outline; model source: Q8.
 
-- **AIA-F01** Team critique that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations.
-- **AIA-F02** Every claim points to the data it comes from.
+**Principle: code calculates, the AI explains** (D76). Every number (damage, KO chance, speed order, win estimate) comes from the battle engine, the calculator or simulations. The language model only explains and weighs strategy, using those results as tools, and never invents a number. Its advice is expected to be useful and predictable, not perfect: it runs on modest resources, and its assumptions are always shown.
 
-**Requirement for earlier phases:** analyses and calculations must be callable without the user interface (see M3 rules), so the assistant can use them later without rewrites.
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| AIA-F01 | **Team critique** that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations. | 6 |
+| AIA-F02 | **Evidence:** every claim points to the data it comes from. | 6 |
+| AIA-F03 | **Turn advisor** (primary use, D76). After start-of-turn effects (Intimidate, weather…), for each Pokémon on your side: every action (its moves with their targets, and each switch) with a short reason to use it or not, and an estimated win chance. Built in four steps; steps 1–3 need no AI and are useful on their own. | 6 |
+
+### Turn advisor steps (AIA-F03)
+
+| Step | What it adds | Needs a language model |
+| --- | --- | --- |
+| 1. Facts | Per action: damage, KO chance, speed order, what the rival can do in return (much of it from the turn matrix, LAB-F08) | No |
+| 2. Ranking | The shared action scoring (LAB-F15) with short template reasons ("87% chance to KO Flutter Mane; you move first") | No |
+| 3. Win estimates | Playouts with the battle engine from the current turn give each action an estimated win chance, with its assumptions shown (how the rival was assumed to play, which spreads were assumed) | No |
+| 4. Explanations | A language model turns steps 1–3 into one or two sentences per action, adding strategic judgment the rules can't capture | Yes |
+
+### Rules
+
+- Win estimates are always labelled as estimates and show their assumptions. They never assume the rival plays the top-scored action (D77).
+- A shown limitation is better than hidden certainty: when the advisor can't evaluate something (a mechanic the engine lacks, too many options to simulate), it says so.
+- If no language model is available, steps 1–3 still work.
+
+**Requirement for earlier phases:** analyses, calculations and the action scoring must be callable without the user interface (see M3 rules, LAB-F15), so the assistant can use them later without rewrites.
 
 ---
 
