@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.15 — approved 2026-11-11** · Owner: @Alex
+**Version 1.16 — approved 2026-11-11** · Owner: @Alex
 
 ## Document status
 
-Version 1.15, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.16, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -192,6 +192,8 @@ These come directly from the owner's answers in discovery.
 | D76 | **The AI assistant's primary use is the turn advisor** (AIA-F03), built in four steps: facts, ranking, win estimates (all computed by code), then explanations by a language model. Code calculates, the AI explains and never invents numbers. It is a **predictable tutor, not a perfect opponent**: imperfection is accepted, it runs on modest resources, and its assumptions are shown. | A perfect player would need a powerful model and vast resources, and isn't the aim; a tutor that explains its reasoning is. |
 | D77 | **One action scoring** (LAB-F15), built in Phase 4 for the simple rival and reused by the turn advisor in Phase 6. Simulations must not assume the rival always plays the top-scored action. | Built and tested once; improvements help both; avoids advice that only looks good because the rival is perfectly predictable. |
 | D78 | **Accessibility, low-cost measures only**, on top of D20: no information by color alone (X-05); a color-blindness simulation check on new screens; no flashing above three per second (X-13); sound optional and never essential (X-14); a screen reader check (Orca) of the main flows at each phase close; a test by a color-blind user when possible. Costlier options (extra palettes, high-contrast theme, spoken battle announcements, an audio-playable battle, AAA compliance) are not planned (P3). | Cheap when built in from the start; covers color blindness, deafness and the basics of blindness without expensive work. |
+| D79 | **Fan-content stance.** Official Pokémon images are used without permission: The Pokémon Company states it doesn't review requests and asks projects not to use its IP, and fan sites rely on its tolerance. Safeguards: non-commercial, the disclaimer (X-11), no official logos, images linked rather than hosted, immediate compliance with any request from the rights holders, and every official image replaceable by an original fallback with one setting (X-15). Game data itself (stats, matchups, formulas) is factual information. | Keeps the standard fan-site approach while making the worst case (a takedown request) cheap to handle. |
+| D80 | **Music** (SHL-F09): only free-licensed tracks (for example CC0 or CC BY, credited on About) in a style that fits the academy or Pokémon. No Pokémon or other copyrighted songs, not even kept in the repository. Off by default (X-14). | Pokémon music is actively enforced; free-licensed music carries no risk and can suit the Roman theme. |
 
 ## Assumptions
 
@@ -273,6 +275,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-11 | Version 1.16: D79 fan-content stance and image fallback switch (X-15); D80 free-licensed music only (SHL-F09); modules v1.8, data strategy v1.1, architecture v1.6, design v1.6, roadmap v1.6 | Copyright review |
 | 2026-11-11 | Version 1.15: D78 low-cost accessibility measures; X-13, X-14 added, X-05 extended; modules v1.7, roadmap v1.5, design v1.5 | Accessibility review |
 | 2026-11-10 | Version 1.14: D76 turn advisor as the AI's primary use, a tutor not a perfect opponent; D77 shared action scoring; U17 added; modules v1.6, roadmap v1.4, architecture v1.5 | AI assistant review |
 | 2026-11-10 | Version 1.13: D73–D75 approved (COLOSSEUM as turn-by-turn testing with two modes, Showdown's engine as referee, simple rival first); U10 revised, U16 added; modules v1.5, roadmap v1.3, architecture v1.4, design v1.4 | COLOSSEUM review |

@@ -1,10 +1,10 @@
 # Pokescientia — Data Strategy
 
-**Version 1 — approved 2026-11-04** · Owner: @Alex
+**Version 1.1 — approved 2026-11-11** · Owner: @Alex
 
 ## Document status
 
-Version 1, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.1, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
@@ -146,6 +146,8 @@ Not used:
 - **jsDelivr CDN:** its terms forbid using it as a general media host and forbid content that violates others' proprietary rights.
 
 **Licensing note.** The sprites repository is CC0, but it states that "all image contents within are Copyright The Pokémon Company". The images are **not** free-licensed. Pokescientia uses them the way fan sites do: non-commercially, credited, with the disclaimer, and complying promptly with any takedown request. Being non-commercial lowers the risk a lot, but it relies on the rights holder's tolerance, not on a license. R18 was reworded accordingly: it covers the assets we add, not official Pokémon images.
+
+**Update 2026-11-11 (D79).** The Pokémon Company's support page says it is "not in a position to review requests to use the Pokémon intellectual property" and asks projects not to use it. There is no permission to rely on, only tolerance. As a safeguard, every official image goes through one image service with an original fallback, and one setting replaces them all (X-15).
 
 **Risk:** GitHub's raw file service is not a CDN and may throttle heavy traffic. For a personal site this is acceptable. If the site is deployed publicly and grows, revisit (for example, mirroring to the free host chosen in Q7).
 

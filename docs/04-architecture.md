@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.5 — approved 2026-11-10** · Owner: @Alex
+**Version 1.6 — approved 2026-11-11** · Owner: @Alex
 
 ## Document status
 
-Version 1.5, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.6, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -355,7 +355,8 @@ A failure shows on the commit in GitHub. Deployment is added when hosting is cho
 1. **Types and type chart come from data.** Never hardcode the 18 types.
 2. **IDs are opaque text.** Never assume an ID contains a Pokédex number.
 3. **Components receive data as inputs.** Entry sections don't look things up by number themselves.
-4. **Image URLs come from data**, never built from a pattern in components (D40).
+4. **Image URLs come from data**, never built from a pattern in components (D40). Components ask an `ImageService` in `core/` for a Pokémon's image; it returns the official URL or the original fallback, depending on one setting (X-15, D79).
+- **Music** (SHL-F09, D80): an `AudioService` in `core/` plays free-licensed tracks from `frontend/public/audio/`, loaded only when played; volume and on/off are stored with the other preferences.
 5. **No hardcoded format rules.** Level, clauses and legality come from `regulation.json` (R17).
 6. **Every visible text is translatable** (`i18n` or `$localize`); no concatenated sentences.
 7. **Everything that changes on screen is a signal** (D52).
@@ -423,6 +424,7 @@ Approved in review on 2026-11-04.
 | A11 | D56 | Keep GSAP (free, proprietary license) with PixiJS as the 2D animation stack; R7 reworded to allow explicitly approved free proprietary tools |
 | A12 | D55 | Generate Angular's AI guidelines for Claude Code and Copilot; arrange them at the root as in section 12; root `CLAUDE.md` stays authoritative |
 | — | D57 | Git practices for a solo developer (section 12) and `.gitattributes` with LF line endings; experiment branches optional |
+| — | D79, D80 | `ImageService` with an original fallback and one switch for all official images; `AudioService` for free-licensed music |
 | — | D76, D77 | Action scoring and playouts beside the battle engine wrapper, independent of screens; playouts in a Web Worker (section 4) |
 | — | D68, D69 | Active team as shared state in `core/` (`ActiveTeamService`), its ID kept in preferences; calculations opened from other halls through `/calculator` query parameters (section 3) |
 

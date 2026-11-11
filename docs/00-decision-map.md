@@ -10,7 +10,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 28 | 0 |
+| A. Discovery and module spec | 30 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
@@ -51,6 +51,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q76 | What the COLOSSEUM is for, and how turns are resolved | Product | Decided → D73, D74, D75 |
 | Q77 | What the AI assistant is mainly for, and how it relates to the rival | Product | Decided → D76, D77 |
 | Q78 | Accessibility for color blindness, deafness and blindness | Product | Decided → D78 (low-cost measures only; costlier ones parked as P3) |
+| Q79 | Using official Pokémon images without permission | Product | Decided → D79 (fan-content stance with safeguards, X-15) |
+| Q80 | Music | Product | Decided → D80 (free-licensed tracks only, SHL-F09) |
 
 ## B. Architecture (before `ng new`)
 

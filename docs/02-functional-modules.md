@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.7 — approved 2026-11-11** · Owner: @Alex
+**Version 1.8 — approved 2026-11-11** · Owner: @Alex
 
 ## Document status
 
-Version 1.7, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.8, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -64,6 +64,7 @@ These rules apply to every module and are not repeated in module sections.
 | X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
 | X-13 | Flashing | Nothing flashes more than three times per second, including battle effects (D78, WCAG 2.3.1). |
 | X-14 | Sound | Sound, if ever added, is optional, off by default, and never carries information that isn't also shown on screen. Any video has captions (D78). |
+| X-15 | Replaceable official images | Every official Pokémon image goes through one image service with an original fallback (a silhouette or type emblem in the academy's style). One setting replaces all official images with the fallback, so they can be removed in minutes if the rights holders ever ask (D79). |
 | X-12 | Active team | One saved team can be the **active team** (D68). It stays selected across halls and visits, appears in a compact strip with its six Pokémon, and every hall that works with teams uses it: LEGIO analyses it, ABACUS loads its members, ATHENAEUM compares the metagame against it, the Pokédex adds to it first. From Phase 2. |
 
 **Acceptance criteria (cross-cutting)**
@@ -93,12 +94,14 @@ These rules apply to every module and are not repeated in module sections.
 | SHL-F06 | **About and credits.** Purpose, unofficial disclaimer, every data and asset source with its license, and the data version (DAT-F09). | 0 |
 | SHL-F07 | **Not-found page**, in the academy style, with a way back. | 0 |
 | SHL-F08 | **Presenter area** in each hall (X-10). | 0 |
+| SHL-F09 | **Music** (D80). A small control in the header: play or pause, volume, track name. Off by default and remembered (X-14); files load only when played. Only free-licensed tracks in a style that fits the academy or Pokémon, credited on About; optionally a different track per hall. | 1 |
 
 ### Rules
 
 - Halls that don't exist yet are not navigable. At the entrance they appear as closed doors showing their phase (design spec §3).
 - Global search shows at most a handful of results per kind, with a link to the full filtered list.
 - The global search needs the Pokédex's data, so it arrives with Phase 1. In Phase 0 the search box is not shown.
+- No copyrighted music is ever used, published or committed, including Pokémon songs (D80).
 
 ### Data
 
@@ -114,6 +117,8 @@ Hosts every hall. Global search links into M2.
 - **SHL-F03** *Given* the Pokédex exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
 - **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`.
 - **SHL-F07** *Given* I open a URL that doesn't exist, *then* I see the not-found page in my language, with a link to the entrance.
+- **SHL-F09** *Given* a first visit, *then* no music plays. *When* I press play and reload the page, *then* the music control remembers my choice and volume, and plays only after I interact with the page (browsers block sound before that).
+- **X-15** *Given* the official-images setting is off, *when* I open any page, *then* every Pokémon image shows the original fallback and nothing breaks.
 
 **Testing approach:** end-to-end tests for navigation, search and settings; unit tests for the search ranking.
 
