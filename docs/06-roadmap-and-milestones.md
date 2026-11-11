@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.4 — approved 2026-11-10** · Owner: @Alex
+**Version 1.5 — approved 2026-11-11** · Owner: @Alex
 
 ## Document status
 
-Version 1.4, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.5, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78).
 
 ## 1. Planning principles
 
@@ -26,7 +26,7 @@ A milestone is done when all of these hold:
 - [ ] Its acceptance criteria (from `02-functional-modules.md`, or listed here for technical milestones) pass, as automated tests where possible.
 - [ ] Lint, unit tests and the production build pass locally and in CI.
 - [ ] Every new screen works in **Spanish and English**, in **Día and Noche**, from **360 px** wide, with the **keyboard**, and with **reduced motion** (X-01, X-04–X-07).
-- [ ] No accessibility errors from axe on new screens (D20).
+- [ ] No accessibility errors from axe on new screens (D20), and nothing shown by color alone, checked with the browser's color-blindness simulation (D78).
 - [ ] Documents touched by the milestone are updated (new decisions in the vision and decision map).
 - [ ] Committed with Conventional Commits and feature IDs (D53), and an entry added to `docs/progress.md`.
 - [ ] Its box in the phase's **Progress** list is ticked.
@@ -338,6 +338,7 @@ The smarter rival (LAB-F14) waits for Phase 6.
 | **Regulation update** | When a new regulation starts (the next one after M-C begins on 2026-12-02) | Data strategy §6: update `@pkmn` packages, edit the regulation file, run the pipeline, review the report, commit as `data:` (R17) |
 | **Dependency updates** | About once a month | `ng update` for Angular, `npm outdated` for the rest; one commit per update, CI must stay green |
 | **Progress log** | End of every session | One entry in `docs/progress.md` |
+| **Accessibility check** | At each phase close | Use the main flows with the Orca screen reader (included in Ubuntu); when possible, ask a color-blind user to try the new screens (D78) |
 | **Document upkeep** | When a decision changes | Vision, decision map and the affected document in the same commit |
 
 Before the pipeline exists (M0.9), a new regulation needs no work.

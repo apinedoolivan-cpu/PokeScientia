@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-10
+Last updated: 2026-11-11
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -10,7 +10,7 @@ Every product and technical decision, grouped by when it must be made. This file
 
 | Stage | Decided | Open |
 | --- | --- | --- |
-| A. Discovery and module spec | 27 | 0 |
+| A. Discovery and module spec | 28 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
@@ -50,6 +50,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q5 | Battle stage: real or scripted damage | Product | Decided → D73, LAB-F04 (always real) |
 | Q76 | What the COLOSSEUM is for, and how turns are resolved | Product | Decided → D73, D74, D75 |
 | Q77 | What the AI assistant is mainly for, and how it relates to the rival | Product | Decided → D76, D77 |
+| Q78 | Accessibility for color blindness, deafness and blindness | Product | Decided → D78 (low-cost measures only; costlier ones parked as P3) |
 
 ## B. Architecture (before `ng new`)
 
@@ -135,3 +136,4 @@ Ideas discussed and deliberately set aside. Nothing is built for them now. A par
 | --- | --- | --- | --- | --- |
 | P1 | **Fakémon**: fan-made Pokémon shown in the platform, fully separated from official Pokémon (own section and IDs, always labelled fan-made). No competitive section. | 2026-11-04 | Copyright of fan creations made by others, and their artwork would have to be stored, unlike official images (D18). | Scope ceiling: official types and rules, plus at most custom moves and abilities. New types or rules are excluded. Estimated size: one milestone plus content work, mostly adding data. Kept cheap by the architecture guidelines: types read from data, IDs treated as opaque text, entry sections receive their data, image URLs come from data. |
 | P2 | **PokéPaste links**: import a team by pasting a `pokepast.es` link (its `/json` and `/raw` views allow reading from any website), and export a team to a new paste through PokéPaste's public form. | 2026-11-08 | Less used than plain Showdown text, which is already imported and exported (STR-F05, STR-F06). | Small: reuses the Showdown importer; the paste's title becomes the team name. Credit PokéPaste on About. |
+| P3 | **Costlier accessibility options**: a color-blind-friendly palette (about 4–8 h, one more token set), a high-contrast theme (about 6–10 h), spoken announcements of battle events for screen readers (about 6–10 h), a battle fully playable by ear, AAA compliance, a professional audit. | 2026-11-11 | The owner applies only low-cost measures (D78). | Tokens keep the palette and contrast options cheap if ever wanted. |

@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.4 — approved 2026-11-10** · Owner: @Alex
+**Version 1.5 — approved 2026-11-11** · Owner: @Alex
 
 ## Document status
 
-Version 1.4, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.5, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -287,7 +287,9 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 
 - Focus is always visible: a 2 px outline in `--color-accent` with a 2 px offset.
 - Touch targets are at least 44 × 44 px.
-- Type, warnings and status always use text or icons as well as color.
+- Type, warnings and status always use text or icons as well as color. Bars (HP, stats) always show their value; coverage cells show their multiplier (D78).
+- Every new screen is checked with the browser's color-blindness simulation (protanopia, deuteranopia, tritanopia, achromatopsia).
+- Effects never flash more than three times per second (X-13); sound is never essential (X-14).
 - Inscriptions in Latin are real text (not images), so screen readers read them, followed by their plain meaning where needed (for example with an accessible label).
 - Contrast and focus are checked by axe in both modes (architecture §11).
 

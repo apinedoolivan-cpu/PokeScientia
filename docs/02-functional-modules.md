@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.6 — approved 2026-11-10** · Owner: @Alex
+**Version 1.7 — approved 2026-11-11** · Owner: @Alex
 
 ## Document status
 
-Version 1.6, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.7, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -55,13 +55,15 @@ These rules apply to every module and are not repeated in module sections.
 | X-02 | Game data language | Names and descriptions appear in the active language (D2). If a Spanish text is missing, the English text is shown and marked. |
 | X-03 | Bilingual search | Any search box matches names in **both** languages, ignoring accents and capitals, so "Lanzallamas", "flamethrower" and "lanzallamas" find the same move. Results show the active-language name with the other name beside it, and open the same page (D30). |
 | X-04 | Themes | Light and dark themes (D19). The default follows the operating system; a manual choice is remembered. |
-| X-05 | Accessibility | WCAG 2.2 AA (D20): full keyboard use, visible focus, labels for screen readers, 4.5:1 text contrast, type information never shown by color alone. |
+| X-05 | Accessibility | WCAG 2.2 AA (D20): full keyboard use, visible focus, labels for screen readers, 4.5:1 text contrast. **No information is shown by color alone** (D78): types and tiers show their name or letter, HP and stat bars show their value, coverage shows ×4, ×2, ×½, ×¼ and ×0, KO chances show percentages. |
 | X-06 | Reduced motion | With `prefers-reduced-motion` on, large motion becomes fades or is skipped; nothing essential depends on animation (D20). |
 | X-07 | Responsive | Desktop-first, fully usable from 360 px width (A1). |
 | X-08 | States | Every data view has loading, empty and error states, each with a clear message and, for errors, a way to retry. |
 | X-09 | Shareable URLs | Every Pokémon, form, move, ability, item and hall has its own URL with stable English IDs (D17). |
 | X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. |
 | X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
+| X-13 | Flashing | Nothing flashes more than three times per second, including battle effects (D78, WCAG 2.3.1). |
+| X-14 | Sound | Sound, if ever added, is optional, off by default, and never carries information that isn't also shown on screen. Any video has captions (D78). |
 | X-12 | Active team | One saved team can be the **active team** (D68). It stays selected across halls and visits, appears in a compact strip with its six Pokémon, and every hall that works with teams uses it: LEGIO analyses it, ABACUS loads its members, ATHENAEUM compares the metagame against it, the Pokédex adds to it first. From Phase 2. |
 
 **Acceptance criteria (cross-cutting)**
