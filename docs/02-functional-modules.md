@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.8 — approved 2026-11-11** · Owner: @Alex
+**Version 1.9 — approved 2026-11-13** · Owner: @Alex
 
 ## Document status
 
-Version 1.8, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.9, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -149,6 +149,7 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F11 | **Doubles move categories**: hand-maintained lists of moves for speed control, redirection, Fake Out, Protect-like moves, etc., used by STR-F11. | 2 |
 | DAT-F12 | **Usage statistics** for the current regulation (see M4). | 3 |
 | DAT-F13 | **Type combination tiers** (D71): the owner's hand-made ranking of all 171 type combinations (18 single types, 153 pairs) in six tiers, S, A, B, C, D and F, kept in `pipeline/manual/type-tiers.csv`. | 0 |
+| DAT-F14 | **Smogon tiers** (D81): for every Pokémon and form, Smogon's Champions singles tier and National Dex singles tier, read from Showdown's data. Nothing is maintained by hand; values change only when the `@pkmn` packages are updated. | 0 |
 
 ### Rules
 
@@ -166,6 +167,7 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 - **DAT-F05** *Given* the pipeline has run, *then* every form has a learnset, and each move in it says whether it is available in the current VGC game.
 - **DAT-F09** *Given* the pipeline has run, *then* the data version file contains the build date and the source game.
 - **DAT-F13** *Given* the tier file is missing one combination or lists one twice, *when* the pipeline runs, *then* it stops and names the combination.
+- **DAT-F14** *Given* the pipeline has run, *then* every Pokémon and form has its Champions singles tier and National Dex tier exactly as in the pinned Showdown data, or an explicit empty value; Pokémon not legal in Champions have no Champions tier.
 - **General** *Given* the pipeline runs twice with the same sources, *then* the output files are identical.
 
 **Testing approach:** validation tests on the generated files (schema checks, no missing IDs or names, references between files resolve); snapshot tests on a few known Pokémon.
@@ -197,12 +199,13 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F11 | **"Add to team" button** on a Pokémon entry (D28). | 2 |
 | ARC-F12 | **Competitive section** in the entry: usage rank and common sets (D13). | 3 |
 | ARC-F13 | **Type tier** (D71): every entry shows the tier of its type combination (S to F) next to its types, with a short note that it is the site's own assessment, mixing competitive and general play. Each form shows the tier of its own types. | 1 |
+| ARC-F14 | **Smogon tiers** (D81): a line under the types shows Smogon's official tiers as plain text, credited to Smogon: Champions singles and National Dex singles ("—" when there is none). From Phase 3 the same line adds the VGC usage rank and percentage for the current regulation (ARC-F12), with source and period. Each form shows its own values. | 1 |
 
 ### Entry sections (ARC-F03)
 
 | Section | Contents |
 | --- | --- |
-| Header | Image, number, name (active language, with the other language shown smaller), types with their type tier (ARC-F13), form selector |
+| Header | Image, number, name (active language, with the other language shown smaller), types with their type tier (ARC-F13), Smogon tiers (ARC-F14), form selector |
 | Base stats | Six stats with bars, and the total |
 | Abilities | Each ability with a short description and a link to its page; hidden ability marked |
 | Type effectiveness | Weaknesses (×4, ×2), resistances (×½, ×¼) and immunities. A note appears when an ability can change them (e.g. Levitate). |
@@ -218,7 +221,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 
 ### Data
 
-Reads DAT-F01 to DAT-F07, DAT-F10 and DAT-F13. Writes nothing.
+Reads DAT-F01 to DAT-F07, DAT-F10, DAT-F13 and DAT-F14; from Phase 3, usage data (DAT-F12). Writes nothing.
 
 ### Connections
 
@@ -233,6 +236,7 @@ Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO
 - **ARC-F07** *Given* the Flamethrower page in Spanish, *then* it is titled "Lanzallamas" and lists Charizard among the Pokémon that learn it.
 - **ARC-F10** *Given* I pick Water and Ground as defending types, *then* Grass shows ×4 and Electric shows ×0.
 - **ARC-F13** *Given* the Gengar entry (Ghost/Poison), *then* its header shows tier B with the note that it is the site's own assessment. *Given* Alolan Ninetales (Ice/Fairy), *then* it shows tier D, while standard Ninetales (Fire) shows tier B.
+- **ARC-F14** *Given* any entry, *then* its Smogon line matches the pinned Showdown data and credits Smogon. *Given* a Pokémon not legal in Champions (e.g. Amoonguss in the 2026-11 data), *then* Champions singles shows "—" while National Dex shows its tier. *Given* Charizard's entry, *when* I select Mega Charizard Y, *then* the Mega's own tiers are shown. *Given* usage data is loaded (Phase 3), *then* the line also shows the VGC usage rank with its source and period.
 
 **Testing approach:** unit tests for type effectiveness and filtering logic; end-to-end tests for list, entry, form switch and detail pages in both languages; prerender check that every entity page is generated.
 

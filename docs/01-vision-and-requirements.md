@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.16 — approved 2026-11-11** · Owner: @Alex
+**Version 1.17 — approved 2026-11-13** · Owner: @Alex
 
 ## Document status
 
-Version 1.16, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.17, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -194,6 +194,7 @@ These come directly from the owner's answers in discovery.
 | D78 | **Accessibility, low-cost measures only**, on top of D20: no information by color alone (X-05); a color-blindness simulation check on new screens; no flashing above three per second (X-13); sound optional and never essential (X-14); a screen reader check (Orca) of the main flows at each phase close; a test by a color-blind user when possible. Costlier options (extra palettes, high-contrast theme, spoken battle announcements, an audio-playable battle, AAA compliance) are not planned (P3). | Cheap when built in from the start; covers color blindness, deafness and the basics of blindness without expensive work. |
 | D79 | **Fan-content stance.** Official Pokémon images are used without permission: The Pokémon Company states it doesn't review requests and asks projects not to use its IP, and fan sites rely on its tolerance. Safeguards: non-commercial, the disclaimer (X-11), no official logos, images linked rather than hosted, immediate compliance with any request from the rights holders, and every official image replaceable by an original fallback with one setting (X-15). Game data itself (stats, matchups, formulas) is factual information. | Keeps the standard fan-site approach while making the worst case (a takedown request) cheap to handle. |
 | D80 | **Music** (SHL-F09): only free-licensed tracks (for example CC0 or CC BY, credited on About) in a style that fits the academy or Pokémon. No Pokémon or other copyrighted songs, not even kept in the repository. Off by default (X-14). | Pokémon music is actively enforced; free-licensed music carries no risk and can suit the Roman theme. |
+| D81 | **Smogon tiers** (DAT-F14, ARC-F14): every Pokédex entry shows Smogon's official tiers as facts, read from Showdown's data (`@pkmn`), with nothing kept by hand: the **Champions singles tier** (current game) and the **National Dex singles tier** (covers nearly every Pokémon). For **VGC**, where Smogon publishes no tiers, the same line shows Smogon's Champions VGC **usage rank** from Phase 3 (D41, ARC-F12). Each form shows its own values; a missing value shows "—". Labels are plain text, credited to Smogon, and never mixed with the S–F type tier (D71). The site keeps no ranking of its own for Pokémon. | Official, well-established and updated with each data refresh at no cost; covers the whole Pokédex, unlike a hand-made list of the Champions roster, which was considered and dropped (too much to maintain, too many Pokémon left unranked). |
 
 ## Assumptions
 
@@ -255,6 +256,7 @@ Why this order: the Pokédex's data is the foundation everything else reads. The
 | Form | A variant sharing a National Pokédex number (regional form, Mega, appliance form…). |
 | Showdown format | The plain-text team format used by Pokémon Showdown, widely used for sharing teams. |
 | Common sets | The moves, items, abilities and spreads most used for a Pokémon, from usage statistics. |
+| Smogon tier | Smogon's official tier for a Pokémon in a singles format (Uber, OU, UU, RU…), set by usage thresholds and council bans. VGC has no tiers; usage rank is shown instead (D81). |
 | Speed tier | A Pokémon's final Speed stat compared with common threats; decides who moves first. |
 | Local-first | Data lives on the user's device first; a server, if any, only syncs it. |
 | `@angular/localize` | Angular's built-in translation system; produces one compiled app per language. |
@@ -275,6 +277,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-13 | Version 1.17: D81 Smogon's official tiers in every entry (Champions singles, National Dex, and the VGC usage rank from Phase 3); DAT-F14, ARC-F14; modules v1.9, data strategy v1.2, roadmap v1.7. Replaces a hand-made Pokémon tier list proposed on 2026-11-12 and never applied | Pokémon ranking discussion |
 | 2026-11-11 | Version 1.16: D79 fan-content stance and image fallback switch (X-15); D80 free-licensed music only (SHL-F09); modules v1.8, data strategy v1.1, architecture v1.6, design v1.6, roadmap v1.6 | Copyright review |
 | 2026-11-11 | Version 1.15: D78 low-cost accessibility measures; X-13, X-14 added, X-05 extended; modules v1.7, roadmap v1.5, design v1.5 | Accessibility review |
 | 2026-11-10 | Version 1.14: D76 turn advisor as the AI's primary use, a tutor not a perfect opponent; D77 shared action scoring; U17 added; modules v1.6, roadmap v1.4, architecture v1.5 | AI assistant review |

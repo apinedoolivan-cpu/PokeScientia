@@ -1,10 +1,10 @@
 # Pokescientia — Data Strategy
 
-**Version 1.1 — approved 2026-11-11** · Owner: @Alex
+**Version 1.2 — approved 2026-11-13** · Owner: @Alex
 
 ## Document status
 
-Version 1.1, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.2, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
@@ -77,6 +77,7 @@ Neither source is enough alone: Showdown has the mechanics but no Spanish; Poké
 | Learnsets (DAT-F05) | Showdown | — |
 | Type chart (DAT-F06) | Showdown | — |
 | Legality and format rules (DAT-F08) | Showdown Champions mod | Hand-maintained regulation file for name and dates |
+| Smogon tiers: Champions singles, National Dex (DAT-F14) | Showdown (`tier` in the Champions mod, `natDexTier`) | — |
 | Search index (DAT-F10) | Built from the above | — |
 
 PokéAPI is used through its **raw data files**, never through the live API, so its fair-use limits don't apply and builds don't depend on its servers.
@@ -214,6 +215,7 @@ The About page (SHL-F06) credits:
 | PokéAPI data | BSD-style | PokéAPI and its contributors |
 | PokéAPI sprites | Repository CC0; images © The Pokémon Company | PokéAPI sprites; The Pokémon Company |
 | Smogon usage statistics | Aggregated statistics, public domain | Smogon University / Pokémon Showdown |
+| Smogon tiers (in Showdown's data) | MIT, as part of the Showdown data | Smogon University (tiering) |
 | `@smogon/calc` | MIT | Smogon |
 | Dexie | Apache-2.0 | Dexie.js |
 

@@ -6,6 +6,21 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-13 · Ranking Pokémon (D81)
+
+- **Done:**
+  - Discussed ranking every Pokémon, as type tiers do for type combinations. Options weighed: a hand-made list, usage bands, a computed score, Smogon's tiers.
+  - First outcome (2026-11-12): a hand-made S–F list for the Champions roster. Dropped: too much to maintain, and most of the Pokédex would stay unranked.
+  - Decided D81 (Q81): show **Smogon's official tiers** in every entry, read from Showdown's data: Champions singles and National Dex singles. For VGC, which has no tiers, the same line shows Smogon's Champions VGC usage rank from Phase 3. No ranking is kept by hand. New features DAT-F14 (M0.9) and ARC-F14 (M1.3, usage rank in M3.4).
+  - Checked in `@pkmn/dex` / `@pkmn/mods` 0.11.0: 383 Pokémon and forms legal in Champions (singles: 15 Uber, 32 OU, 72 UU, 243 RU…; doubles: nearly all DOU, so not shown). National Dex tiers cover nearly every Pokémon.
+  - Docs updated: vision v1.17, modules v1.9, data strategy v1.2, roadmap v1.7, decision map.
+- **Next:** unchanged; M0.1 when the owner is ready.
+- **Notes:**
+  - Commit `d124d26` added a patch file instead of applying it; the next commit removes it and carries the final D81.
+  - Architecture §4 step 6 (manual files) doesn't list the type tier file; to fix when the pipeline is built, or now if the owner prefers.
+
+---
+
 ## 2026-11-11 · Planning stage summary
 
 First entry. Covers all planning done between 2026-11-02 and 2026-11-11 in a single long chat, now closed in favour of shorter chats per topic.
