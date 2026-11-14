@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-13
+Last updated: 2026-11-14
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -14,7 +14,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 7 | 4 |
-| E. Later phases | 0 | 8 |
+| E. Later phases | 1 | 8 |
 | F. Working process | 5 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
@@ -96,7 +96,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 
 | ID | Decision | Kind | Status |
 | --- | --- | --- | --- |
-| Q3 | Presenter cast per section | Product | **Open.** Tentative cast in [`05-design-and-interaction.md`](05-design-and-interaction.md) §7: Mew or Pikachu (BIBLIOTHECA), Falinks (LEGIO), Alakazam or Metagross (ABACUS), Incineroar (COLOSSEUM), Zoroark (AENIGMA); ATRIUM and ATHENAEUM to decide. |
+| Q3 | Presenter cast per section | Product | **Open.** Tentative cast in [`05-design-and-interaction.md`](05-design-and-interaction.md) §7: Mew or Pikachu (BIBLIOTHECA), Falinks (LEGIO), Alakazam or Metagross (ABACUS), Incineroar (COLOSSEUM), Zoroark (AENIGMA); ATRIUM and ATHENAEUM to decide. **Casting criterion (D82):** each presenter must also be believable as the teacher of its hall, since it becomes the assistant's voice there in Phase 6. |
 | Q27 | Hall names and navigation structure | Product | Decided → D59, D60 |
 | Q28 | Typography and color palette | Design | **Open.** Palette: Foro provisional (D63), final choice after the first real pages. Typography: proposed as DP-2. |
 | Q29 | Source of the academy artwork | Design + research | **Open.** Free-licensed only (R18). |
@@ -119,7 +119,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q7 | Hosting for frontend and backend, on free tiers | First deployment |
 | Q35 | Address: free subdomain (a paid domain breaks R7) | First deployment |
 | Q8 | AI model source. Options noted, not decided: the owner's own API key entered in settings (never stored or paid by the site), a provider's free tier, or a small model running in the browser. Must respect R7 (free resources); the turn advisor's steps 1–3 work without any model (D76). | Phase 6 |
-| Q74 | **AI assistant presenter.** The assistant needs a figure that fits the Roman academy. **Current leaning: an ancient-automaton figure such as Magearna**, an artificial mind that suits the classical world (Heron of Alexandria's automata, the Antikythera mechanism) and needs no custom form. **Rotom remains a valid option**, as the academy's resident spirit (Roman Lares) or as an openly modern guest, but its electrical nature clashes with the setting. Another Pokémon may still be chosen. Eliminated in the 2026-11-09 review: Metagross, Porygon, Unown, Sigilyph, Chimecho, Bronzong, Lampent, Xatu (Unown suggested for AENIGMA and Xatu for ATHENAEUM instead). | Phase 6 |
+| Q74 | AI assistant presenter. Magearna (the leaning) and Rotom were considered on 2026-11-09; neither fitted both the academy and an AI. | Decided → D82 (each hall's presenter is the assistant's voice) |
+| Q82 | **AI assistant voices** (D82). Open, options noted: **hand-offs** between presenters (what passes along: a short structured summary of team, turn and question, not the whole conversation); **different models per presenter**, possible because only the voice depends on the model (tied to Q8); a **plain label** on every assistant panel saying it is an AI speaking through the character; a **switch that turns personas off** for a neutral academy voice, like D79's image fallback; **one shared core prompt** plus a short style card per presenter, in both languages; **how much character** the voice may show against D76's predictable tutor (numbers, evidence and assumptions drawn by code in neutral UI, never in character); each voice is an **original academy role**, not an imitation of the Pokémon's official personality; the companion mode (design §7) as the way to reach the assistant. | Phase 6 |
 
 ## F. Working process
 

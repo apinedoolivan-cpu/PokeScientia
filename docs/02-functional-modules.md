@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.9 — approved 2026-11-13** · Owner: @Alex
+**Version 1.10 — approved 2026-11-14** · Owner: @Alex
 
 ## Document status
 
-Version 1.9, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.10, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -60,7 +60,7 @@ These rules apply to every module and are not repeated in module sections.
 | X-07 | Responsive | Desktop-first, fully usable from 360 px width (A1). |
 | X-08 | States | Every data view has loading, empty and error states, each with a clear message and, for errors, a way to retry. |
 | X-09 | Shareable URLs | Every Pokémon, form, move, ability, item and hall has its own URL with stable English IDs (D17). |
-| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. |
+| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. In Phase 6 the presenter is also the AI assistant's voice in its hall (D82). |
 | X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
 | X-13 | Flashing | Nothing flashes more than three times per second, including battle effects (D78, WCAG 2.3.1). |
 | X-14 | Sound | Sound, if ever added, is optional, off by default, and never carries information that isn't also shown on screen. Any video has captions (D78). |
@@ -455,6 +455,8 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 ## M8 — AI assistant (`AIA`) · Phase 6 candidate
 
 **Purpose.** A **tutor**, not an unbeatable player (D76). Its primary use is advising each turn in the COLOSSEUM: why to use, or not use, each action a Pokémon has. It also critiques teams and answers questions with evidence. Outline; model source: Q8.
+
+**Voice (D82).** The assistant has no figure of its own: each hall's presenter speaks for it in that hall (the turn advisor through the COLOSSEUM's presenter, team critique through LEGIO's) and can hand a question to another presenter. Details are open (Q82).
 
 **Principle: code calculates, the AI explains** (D76). Every number (damage, KO chance, speed order, win estimate) comes from the battle engine, the calculator or simulations. The language model only explains and weighs strategy, using those results as tools, and never invents a number. Its advice is expected to be useful and predictable, not perfect: it runs on modest resources, and its assumptions are always shown.
 

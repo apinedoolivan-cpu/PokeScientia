@@ -63,6 +63,7 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   never write battle rules ourselves.
 - AI assistant (D76, D77, Phase 6): its main use is the turn advisor. Code calculates, the AI explains and never
   invents numbers; a predictable tutor, not a perfect opponent. The rival and the advisor share one action scoring.
+  Its voice is each hall's presenter, peers that can hand questions to each other (D82; details Q82).
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
   Metajuego, Coliseo, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,
@@ -85,6 +86,8 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
 
 - The owner makes every commit, straight to `main`. Claude never commits, pushes, or rewrites history;
   it prepares changes and the owner reviews and commits them.
+- How changes are delivered: when Claude cannot write to the owner's copy (a chat session with read-only
+  access), it sends **every changed file in full**, ready to replace in place, with its path. Never a patch or diff file.
 - Commit the lockfile (`package-lock.json`). Never commit secrets or `.env` files.
 - Git practices (D57, `docs/04-architecture.md` section 12): one logical change per commit, never force-push
   `main`, keep CI green, tag each phase. Experiment branches are optional.

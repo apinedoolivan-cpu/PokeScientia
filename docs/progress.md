@@ -6,6 +6,21 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-14 · Presenters as the assistant's voice (D82)
+
+- **Done:**
+  - Revisited Q74: no single Pokémon fits both the Roman academy and an AI (Magearna reads as steampunk, Rotom as appliances).
+  - Decided D82: the assistant has no figure of its own. Each hall's presenter is its voice in that hall, as the hall's *genius loci*. Presenters are peers (ATRIUM is not the head) and can hand questions to each other.
+  - Opened Q82 for Phase 6 details: hand-offs, different models per presenter (tied to Q8), AI label, personas-off switch, prompts and style cards, how much character against D76.
+  - Q3 gains a casting criterion: each presenter must be believable as the teacher of its hall.
+  - Docs updated: vision v1.18, modules v1.10, design v1.7, roadmap v1.8, decision map.
+- **Next:** unchanged; M0.1 when the owner is ready.
+- **Notes:**
+  - The assistant is the last thing built; nothing before Phase 6 depends on D82. The only earlier requirement (analyses callable without the UI) already exists.
+  - With D82, Unown may suit AENIGMA better than Zoroark (an illusionist giving hints); to weigh when casting.
+
+---
+
 ## 2026-11-13 · Ranking Pokémon (D81)
 
 - **Done:**
