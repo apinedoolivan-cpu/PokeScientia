@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.18 — approved 2026-11-15** · Owner: @Alex
+**Version 1.19 — approved 2026-11-15** · Owner: @Alex
 
 ## Document status
 
-Version 1.18, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.19, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -77,7 +77,7 @@ Pokescientia's edge is identity and integration, not data volume.
 
 - **Spanish first.** Most competitive tools are English-only; here Spanish is the default experience.
 - **The academy identity.** A Roman academy: marble and travertine halls with Latin inscriptions, and a Pokédex read as a book, the *Historia Naturalis*.
-- **Resident presenters.** Each hall is introduced by a Pokémon whose nature fits it.
+- **Resident presenters.** Each hall is introduced by a Pokémon whose nature fits it. In the last phase, the same presenters answer your questions as the voice of the AI assistant (D82).
 - **Lookup to analysis in one flow.** From a Pokédex entry straight into a team, and from a team straight into its weaknesses.
 - **Your team everywhere.** The active team follows you through the academy: analysed in LEGIO, calculated in ABACUS, measured against the metagame in ATHENAEUM.
 - **Doubles first.** Analysis tuned for VGC (speed control, spread moves, partners), not adapted from singles.
@@ -194,8 +194,9 @@ These come directly from the owner's answers in discovery.
 | D78 | **Accessibility, low-cost measures only**, on top of D20: no information by color alone (X-05); a color-blindness simulation check on new screens; no flashing above three per second (X-13); sound optional and never essential (X-14); a screen reader check (Orca) of the main flows at each phase close; a test by a color-blind user when possible. Costlier options (extra palettes, high-contrast theme, spoken battle announcements, an audio-playable battle, AAA compliance) are not planned (P3). | Cheap when built in from the start; covers color blindness, deafness and the basics of blindness without expensive work. |
 | D79 | **Fan-content stance.** Official Pokémon images are used without permission: The Pokémon Company states it doesn't review requests and asks projects not to use its IP, and fan sites rely on its tolerance. Safeguards: non-commercial, the disclaimer (X-11), no official logos, images linked rather than hosted, immediate compliance with any request from the rights holders, and every official image replaceable by an original fallback with one setting (X-15). Game data itself (stats, matchups, formulas) is factual information. | Keeps the standard fan-site approach while making the worst case (a takedown request) cheap to handle. |
 | D80 | **Music** (SHL-F09): only free-licensed tracks (for example CC0 or CC BY, credited on About) in a style that fits the academy or Pokémon. No Pokémon or other copyrighted songs, not even kept in the repository. Off by default (X-14). | Pokémon music is actively enforced; free-licensed music carries no risk and can suit the Roman theme. |
-| D81 | **Smogon tiers** (DAT-F14, ARC-F14): every Pokédex entry shows Smogon's official tiers as facts, read from Showdown's data (`@pkmn`), with nothing kept by hand: the **Champions singles tier** (current game) and the **National Dex singles tier** (covers nearly every Pokémon). For **VGC**, where Smogon publishes no tiers, the same line shows Smogon's Champions VGC **usage rank** from Phase 3 (D41, ARC-F12). Each form shows its own values; a missing value shows "—". Labels are plain text, credited to Smogon, and never mixed with the S–F type tier (D71). The site keeps no ranking of its own for Pokémon. (Revised by D82.) | Official, well-established and updated with each data refresh at no cost; covers the whole Pokédex, unlike a hand-made list of the Champions roster, which was considered and dropped (too much to maintain, too many Pokémon left unranked). |
-| D82 | **Competitive section** (ARC-F14, DAT-F14, DAT-F15; revises D81): every Pokédex entry has a competitive section of its own, VGC first, built only from Smogon's data with nothing kept by hand. **VGC** (Phase 3): the usage rank and percentage in the current Champions regulation (D41), the **best usage rank ever reached in any VGC format** in Smogon's statistics archive, with the format and month ("No VGC record" when there is none), and the common sets (CMP-F02). **Doubles** (Phase 1): Smogon's Doubles tier (DUber, DOU, DUU) from the most recent generation in which the Pokémon was legal, naming that generation. **Singles** (Phase 1): the Champions singles tier and the National Dex tier. Missing values show "—"; each form shows its own values; labels are plain text, credited to Smogon, and never mixed with the type tier (D71). | VGC is the lens, yet no source ranks every Pokémon for VGC; showing the best VGC and doubles fact that exists for each Pokémon, with singles as context, covers the whole Pokédex honestly at no maintenance cost. |
+| D81 | **Smogon tiers** (DAT-F14, ARC-F14): every Pokédex entry shows Smogon's official tiers as facts, read from Showdown's data (`@pkmn`), with nothing kept by hand: the **Champions singles tier** (current game) and the **National Dex singles tier** (covers nearly every Pokémon). For **VGC**, where Smogon publishes no tiers, the same line shows Smogon's Champions VGC **usage rank** from Phase 3 (D41, ARC-F12). Each form shows its own values; a missing value shows "—". Labels are plain text, credited to Smogon, and never mixed with the S–F type tier (D71). The site keeps no ranking of its own for Pokémon. (Revised by D83.) | Official, well-established and updated with each data refresh at no cost; covers the whole Pokédex, unlike a hand-made list of the Champions roster, which was considered and dropped (too much to maintain, too many Pokémon left unranked). |
+| D82 | **Presenters are the AI assistant's voice** (Q74). The assistant has no figure of its own: in each hall, that hall's presenter answers, as its *genius loci* (the guardian spirit Romans gave every place). All presenters are peers, ATRIUM included; any of them can hand a question to the presenter whose hall fits it better. Only the principle is decided; how it works is open (Q82, Phase 6). It never overrides D76: code calculates, the voice only explains. | Solves what no single figure could: nothing in a Roman setting fits an AI, and Magearna (steampunk) and Rotom (appliances) each fitted only partly. Reuses the presenter frame and voice already planned, places each assistant feature with its hall's presenter (turn advisor in the COLOSSEUM, team critique in LEGIO), and hand-offs make the academy feel inhabited. The assistant is the last thing built, so the details stay open to change. |
+| D83 | **Competitive section** (ARC-F14, DAT-F14, DAT-F15; revises D81): every Pokédex entry has a competitive section of its own, VGC first, built only from Smogon's data with nothing kept by hand. **VGC** (Phase 3): the usage rank and percentage in the current Champions regulation (D41), the **best usage rank ever reached in any VGC format** in Smogon's statistics archive, with the format and month ("No VGC record" when there is none), and the common sets (CMP-F02). **Doubles** (Phase 1): Smogon's Doubles tier (DUber, DOU, DUU) from the most recent generation in which the Pokémon was legal, naming that generation. **Singles** (Phase 1): the Champions singles tier and the National Dex tier. Missing values show "—"; each form shows its own values; labels are plain text, credited to Smogon, and never mixed with the type tier (D71). | VGC is the lens, yet no source ranks every Pokémon for VGC; showing the best VGC and doubles fact that exists for each Pokémon, with singles as context, covers the whole Pokédex honestly at no maintenance cost. |
 
 ## Assumptions
 
@@ -257,7 +258,7 @@ Why this order: the Pokédex's data is the foundation everything else reads. The
 | Form | A variant sharing a National Pokédex number (regional form, Mega, appliance form…). |
 | Showdown format | The plain-text team format used by Pokémon Showdown, widely used for sharing teams. |
 | Common sets | The moves, items, abilities and spreads most used for a Pokémon, from usage statistics. |
-| Smogon tier | Smogon's official tier for a Pokémon in a singles format (Uber, OU, UU, RU…) or in Smogon Doubles (DUber, DOU, DUU), set by usage thresholds and council bans. VGC has no tiers; usage ranks are shown instead (D82). |
+| Smogon tier | Smogon's official tier for a Pokémon in a singles format (Uber, OU, UU, RU…) or in Smogon Doubles (DUber, DOU, DUU), set by usage thresholds and council bans. VGC has no tiers; usage ranks are shown instead (D83). |
 | Speed tier | A Pokémon's final Speed stat compared with common threats; decides who moves first. |
 | Local-first | Data lives on the user's device first; a server, if any, only syncs it. |
 | `@angular/localize` | Angular's built-in translation system; produces one compiled app per language. |
@@ -267,7 +268,7 @@ Why this order: the Pokédex's data is the foundation everything else reads. The
 | Reduced motion | An operating-system setting asking sites to minimize animation. |
 | GSAP | JavaScript animation library, here for interface motion. |
 | PixiJS | 2D rendering engine using WebGL, here for the battle stage. |
-| Presenter | The resident Pokémon that introduces a section of the site. |
+| Presenter | The resident Pokémon that introduces a section of the site and, in Phase 6, speaks for the AI assistant there (D82). |
 | Hall | A main section of the academy, shown in the menu by its function and in the hall by its Latin inscription (for example, Pokédex · BIBLIOTHECA). |
 | Inscription | A hall's Latin name, carved over its door and shown as its heading (D59, D60). |
 | *Historia Naturalis* | The Pokédex presented as one work in nine books (*libri*), one per region, plus appendices (D61). |
@@ -278,7 +279,8 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
-| 2026-11-15 | Version 1.18: D82 competitive section in every entry, VGC first (current usage, best VGC usage ever, common sets), then Smogon Doubles and singles tiers; revises D81; DAT-F15 added; modules v1.10, data strategy v1.3, design v1.7, roadmap v1.8 | VGC focus review of D81 |
+| 2026-11-15 | Version 1.19: D83 competitive section in every entry, VGC first (current usage, best VGC usage ever, common sets), then Smogon Doubles and singles tiers; revises D81; DAT-F15 added; modules v1.11, data strategy v1.3, design v1.8, roadmap v1.9 | VGC focus review of D81 |
+| 2026-11-14 | Version 1.18: D82 each hall's presenter is the AI assistant's voice, peers that can hand questions to each other; closes Q74, opens Q82 (Phase 6 details), adds a casting criterion to Q3; modules v1.10, design v1.7, roadmap v1.8 | Assistant presenter discussion |
 | 2026-11-13 | Version 1.17: D81 Smogon's official tiers in every entry (Champions singles, National Dex, and the VGC usage rank from Phase 3); DAT-F14, ARC-F14; modules v1.9, data strategy v1.2, roadmap v1.7. Replaces a hand-made Pokémon tier list proposed on 2026-11-12 and never applied | Pokémon ranking discussion |
 | 2026-11-11 | Version 1.16: D79 fan-content stance and image fallback switch (X-15); D80 free-licensed music only (SHL-F09); modules v1.8, data strategy v1.1, architecture v1.6, design v1.6, roadmap v1.6 | Copyright review |
 | 2026-11-11 | Version 1.15: D78 low-cost accessibility measures; X-13, X-14 added, X-05 extended; modules v1.7, roadmap v1.5, design v1.5 | Accessibility review |

@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.10 — approved 2026-11-15** · Owner: @Alex
+**Version 1.11 — approved 2026-11-15** · Owner: @Alex
 
 ## Document status
 
-Version 1.10, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.11, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -60,7 +60,7 @@ These rules apply to every module and are not repeated in module sections.
 | X-07 | Responsive | Desktop-first, fully usable from 360 px width (A1). |
 | X-08 | States | Every data view has loading, empty and error states, each with a clear message and, for errors, a way to retry. |
 | X-09 | Shareable URLs | Every Pokémon, form, move, ability, item and hall has its own URL with stable English IDs (D17). |
-| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. |
+| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. In Phase 6 the presenter is also the AI assistant's voice in its hall (D82). |
 | X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
 | X-13 | Flashing | Nothing flashes more than three times per second, including battle effects (D78, WCAG 2.3.1). |
 | X-14 | Sound | Sound, if ever added, is optional, off by default, and never carries information that isn't also shown on screen. Any video has captions (D78). |
@@ -149,8 +149,8 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F11 | **Doubles move categories**: hand-maintained lists of moves for speed control, redirection, Fake Out, Protect-like moves, etc., used by STR-F11. | 2 |
 | DAT-F12 | **Usage statistics** for the current regulation (see M4). | 3 |
 | DAT-F13 | **Type combination tiers** (D71): the owner's hand-made ranking of all 171 type combinations (18 single types, 153 pairs) in six tiers, S, A, B, C, D and F, kept in `pipeline/manual/type-tiers.csv`. | 0 |
-| DAT-F14 | **Smogon tiers** (D81, D82): for every Pokémon and form, read from Showdown's data: the Champions singles tier, the National Dex tier, and the Doubles tier from the most recent generation in which it was legal, with that generation. Nothing is maintained by hand; values change only when the `@pkmn` packages are updated. | 0 |
-| DAT-F15 | **VGC usage history** (D82): for every Pokémon and form, its best usage rank in any VGC format in Smogon's statistics archive, with the format and month, condensed by the pipeline into one small file. | 3 |
+| DAT-F14 | **Smogon tiers** (D81, D83): for every Pokémon and form, read from Showdown's data: the Champions singles tier, the National Dex tier, and the Doubles tier from the most recent generation in which it was legal, with that generation. Nothing is maintained by hand; values change only when the `@pkmn` packages are updated. | 0 |
+| DAT-F15 | **VGC usage history** (D83): for every Pokémon and form, its best usage rank in any VGC format in Smogon's statistics archive, with the format and month, condensed by the pipeline into one small file. | 3 |
 
 ### Rules
 
@@ -199,9 +199,9 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F09 | **Items list and detail page.** Description and category. | 1 |
 | ARC-F10 | **Type chart page.** Full 18×18 chart; pick one or two defending types to see what hits them. | 1 |
 | ARC-F11 | **"Add to team" button** on a Pokémon entry (D28). | 2 |
-| ARC-F12 | **VGC in the competitive section** (ARC-F14, D13, D82): current usage rank and percentage, best VGC record (DAT-F15) and common sets (CMP-F02), each with source and period. | 3 |
+| ARC-F12 | **VGC in the competitive section** (ARC-F14, D13, D83): current usage rank and percentage, best VGC record (DAT-F15) and common sets (CMP-F02), each with source and period. | 3 |
 | ARC-F13 | **Type tier** (D71): every entry shows the tier of its type combination (S to F) next to its types, with a short note that it is the site's own assessment, mixing competitive and general play. Each form shows the tier of its own types. | 1 |
-| ARC-F14 | **Competitive section** (D82): a section of its own in every entry, in three parts, in this order: **VGC** (ARC-F12, from Phase 3), **Doubles** (Smogon Doubles tier with its generation) and **Singles** (Champions and National Dex tiers). Plain text, credited to Smogon; "—" when a value is missing; each form shows its own values. Until Phase 3 the section shows Doubles and Singles only. | 1 |
+| ARC-F14 | **Competitive section** (D83): a section of its own in every entry, in three parts, in this order: **VGC** (ARC-F12, from Phase 3), **Doubles** (Smogon Doubles tier with its generation) and **Singles** (Champions and National Dex tiers). Plain text, credited to Smogon; "—" when a value is missing; each form shows its own values. Until Phase 3 the section shows Doubles and Singles only. | 1 |
 
 ### Entry sections (ARC-F03)
 
@@ -459,6 +459,8 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 ## M8 — AI assistant (`AIA`) · Phase 6 candidate
 
 **Purpose.** A **tutor**, not an unbeatable player (D76). Its primary use is advising each turn in the COLOSSEUM: why to use, or not use, each action a Pokémon has. It also critiques teams and answers questions with evidence. Outline; model source: Q8.
+
+**Voice (D82).** The assistant has no figure of its own: each hall's presenter speaks for it in that hall (the turn advisor through the COLOSSEUM's presenter, team critique through LEGIO's) and can hand a question to another presenter. Details are open (Q82).
 
 **Principle: code calculates, the AI explains** (D76). Every number (damage, KO chance, speed order, win estimate) comes from the battle engine, the calculator or simulations. The language model only explains and weighs strategy, using those results as tools, and never invents a number. Its advice is expected to be useful and predictable, not perfect: it runs on modest resources, and its assumptions are always shown.
 

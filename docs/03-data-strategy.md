@@ -165,7 +165,7 @@ Limits to state in the interface (CMP rules):
 - Statistics appear monthly, about a month behind.
 - This session's network could not reach Smogon's servers, so the exact file format will be confirmed when Phase 3 starts.
 
-**VGC usage history (D82, DAT-F15).** The same archive keeps past months for earlier VGC formats. The pipeline reads one rating cut-off for every VGC format, keeps each Pokémon's best rank with its format and month, maps old names to our IDs (D37), and writes one small file; the site never loads the archive. *Assumption:* the archive covers VGC formats from several generations; its real extent, the cut-off and the download size are confirmed in M3.3.
+**VGC usage history (D83, DAT-F15).** The same archive keeps past months for earlier VGC formats. The pipeline reads one rating cut-off for every VGC format, keeps each Pokémon's best rank with its format and month, maps old names to our IDs (D37), and writes one small file; the site never loads the archive. *Assumption:* the archive covers VGC formats from several generations; its real extent, the cut-off and the download size are confirmed in M3.3.
 
 ## 9. Damage calculator (Q33, Phase 3)
 
