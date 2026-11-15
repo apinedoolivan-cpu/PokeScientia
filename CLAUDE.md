@@ -51,6 +51,8 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   under it. Default view: fully evolved plus relevant middle evolutions. Entry sections are independent and
   extensible. Learnsets cover every game, marking current-game moves; teams choose a Free or Current
   regulation format (D32). Team rules only warn, never block (D27).
+- Competitive section (D83): every entry shows Smogon data only, VGC first (current usage, best usage ever in any
+  VGC format, common sets; Phase 3), then Smogon Doubles and singles tiers (Phase 1). No hand-made Pokémon ranking.
 - Persistence (D3, D4): local-first in the browser; accounts and sync later via the Go backend.
 - Architecture (D45–D54): `pipeline/` (own package; manual files in `pipeline/manual/`) writes committed JSON
   to `frontend/public/data/`. Every page prerendered (`outputMode: static`), Spanish source under `/es/`, English
@@ -88,6 +90,9 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   it prepares changes and the owner reviews and commits them.
 - How changes are delivered: when Claude cannot write to the owner's copy (a chat session with read-only
   access), it sends **every changed file in full**, ready to replace in place, with its path. Never a patch or diff file.
+  Before preparing any file, Claude fetches the latest `main` and builds from it, so no newer commit is overwritten;
+  after the owner pushes, it checks the commit against what it sent. The commit message is written in the chat,
+  never as a file.
 - Commit the lockfile (`package-lock.json`). Never commit secrets or `.env` files.
 - Git practices (D57, `docs/04-architecture.md` section 12): one logical change per commit, never force-push
   `main`, keep CI green, tag each phase. Experiment branches are optional.
