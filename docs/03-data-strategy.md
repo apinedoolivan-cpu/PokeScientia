@@ -1,10 +1,10 @@
 # Pokescientia — Data Strategy
 
-**Version 1.2 — approved 2026-11-13** · Owner: @Alex
+**Version 1.3 — approved 2026-11-15** · Owner: @Alex
 
 ## Document status
 
-Version 1.2, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.3, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
@@ -77,7 +77,8 @@ Neither source is enough alone: Showdown has the mechanics but no Spanish; Poké
 | Learnsets (DAT-F05) | Showdown | — |
 | Type chart (DAT-F06) | Showdown | — |
 | Legality and format rules (DAT-F08) | Showdown Champions mod | Hand-maintained regulation file for name and dates |
-| Smogon tiers: Champions singles, National Dex (DAT-F14) | Showdown (`tier` in the Champions mod, `natDexTier`) | — |
+| Smogon tiers: Champions singles, National Dex, Doubles (DAT-F14) | Showdown (`tier` in the Champions mod, `natDexTier`, `doublesTier` of each generation) | — |
+| VGC usage history (DAT-F15, Phase 3) | Smogon's statistics archive | — |
 | Search index (DAT-F10) | Built from the above | — |
 
 PokéAPI is used through its **raw data files**, never through the live API, so its fair-use limits don't apply and builds don't depend on its servers.
@@ -163,6 +164,8 @@ Limits to state in the interface (CMP rules):
 - The data comes from Showdown's ladder, not from the in-game ranked mode or official tournaments. Sites like MunchStats read in-game data but publish no license, so they are not used.
 - Statistics appear monthly, about a month behind.
 - This session's network could not reach Smogon's servers, so the exact file format will be confirmed when Phase 3 starts.
+
+**VGC usage history (D82, DAT-F15).** The same archive keeps past months for earlier VGC formats. The pipeline reads one rating cut-off for every VGC format, keeps each Pokémon's best rank with its format and month, maps old names to our IDs (D37), and writes one small file; the site never loads the archive. *Assumption:* the archive covers VGC formats from several generations; its real extent, the cut-off and the download size are confirmed in M3.3.
 
 ## 9. Damage calculator (Q33, Phase 3)
 

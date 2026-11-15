@@ -6,18 +6,15 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
-## 2026-11-14 · Presenters as the assistant's voice (D82)
+## 2026-11-15 · Competitive section, VGC first (D82)
 
 - **Done:**
-  - Revisited Q74: no single Pokémon fits both the Roman academy and an AI (Magearna reads as steampunk, Rotom as appliances).
-  - Decided D82: the assistant has no figure of its own. Each hall's presenter is its voice in that hall, as the hall's *genius loci*. Presenters are peers (ATRIUM is not the head) and can hand questions to each other.
-  - Opened Q82 for Phase 6 details: hand-offs, different models per presenter (tied to Q8), AI label, personas-off switch, prompts and style cards, how much character against D76.
-  - Q3 gains a casting criterion: each presenter must be believable as the teacher of its hall.
-  - Docs updated: vision v1.18, modules v1.10, design v1.7, roadmap v1.8, decision map.
+  - Reviewed D81: it showed singles tiers, against the VGC focus and with many Pokémon unranked.
+  - Decided D82 (Q82): a **competitive section** in every entry, built only from Smogon's data. VGC first (Phase 3): current usage rank, best usage rank ever in any VGC format (new DAT-F15, from Smogon's archive), common sets. Then Doubles (Smogon Doubles tier of the most recent generation where the Pokémon was legal) and Singles (Champions and National Dex), both from Phase 1.
+  - Checked in `@pkmn/dex` 0.11.0: Doubles tiers exist for Generations 5–9 (e.g. Incineroar DOU in 7–9; Mega Kangaskhan DUber in 7, its last generation).
+  - Docs updated: vision v1.18, modules v1.10, data strategy v1.3, design v1.7, roadmap v1.8, decision map.
+- **Open:** the archive's real extent and the rating cut-off are confirmed in M3.3 (assumption in data strategy §8).
 - **Next:** unchanged; M0.1 when the owner is ready.
-- **Notes:**
-  - The assistant is the last thing built; nothing before Phase 6 depends on D82. The only earlier requirement (analyses callable without the UI) already exists.
-  - With D82, Unown may suit AENIGMA better than Zoroark (an illusionist giving hints); to weigh when casting.
 
 ---
 

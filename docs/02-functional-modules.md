@@ -1,6 +1,6 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.10 — approved 2026-11-14** · Owner: @Alex
+**Version 1.10 — approved 2026-11-15** · Owner: @Alex
 
 ## Document status
 
@@ -60,7 +60,7 @@ These rules apply to every module and are not repeated in module sections.
 | X-07 | Responsive | Desktop-first, fully usable from 360 px width (A1). |
 | X-08 | States | Every data view has loading, empty and error states, each with a clear message and, for errors, a way to retry. |
 | X-09 | Shareable URLs | Every Pokémon, form, move, ability, item and hall has its own URL with stable English IDs (D17). |
-| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. In Phase 6 the presenter is also the AI assistant's voice in its hall (D82). |
+| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. |
 | X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
 | X-13 | Flashing | Nothing flashes more than three times per second, including battle effects (D78, WCAG 2.3.1). |
 | X-14 | Sound | Sound, if ever added, is optional, off by default, and never carries information that isn't also shown on screen. Any video has captions (D78). |
@@ -149,7 +149,8 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F11 | **Doubles move categories**: hand-maintained lists of moves for speed control, redirection, Fake Out, Protect-like moves, etc., used by STR-F11. | 2 |
 | DAT-F12 | **Usage statistics** for the current regulation (see M4). | 3 |
 | DAT-F13 | **Type combination tiers** (D71): the owner's hand-made ranking of all 171 type combinations (18 single types, 153 pairs) in six tiers, S, A, B, C, D and F, kept in `pipeline/manual/type-tiers.csv`. | 0 |
-| DAT-F14 | **Smogon tiers** (D81): for every Pokémon and form, Smogon's Champions singles tier and National Dex singles tier, read from Showdown's data. Nothing is maintained by hand; values change only when the `@pkmn` packages are updated. | 0 |
+| DAT-F14 | **Smogon tiers** (D81, D82): for every Pokémon and form, read from Showdown's data: the Champions singles tier, the National Dex tier, and the Doubles tier from the most recent generation in which it was legal, with that generation. Nothing is maintained by hand; values change only when the `@pkmn` packages are updated. | 0 |
+| DAT-F15 | **VGC usage history** (D82): for every Pokémon and form, its best usage rank in any VGC format in Smogon's statistics archive, with the format and month, condensed by the pipeline into one small file. | 3 |
 
 ### Rules
 
@@ -167,7 +168,8 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 - **DAT-F05** *Given* the pipeline has run, *then* every form has a learnset, and each move in it says whether it is available in the current VGC game.
 - **DAT-F09** *Given* the pipeline has run, *then* the data version file contains the build date and the source game.
 - **DAT-F13** *Given* the tier file is missing one combination or lists one twice, *when* the pipeline runs, *then* it stops and names the combination.
-- **DAT-F14** *Given* the pipeline has run, *then* every Pokémon and form has its Champions singles tier and National Dex tier exactly as in the pinned Showdown data, or an explicit empty value; Pokémon not legal in Champions have no Champions tier.
+- **DAT-F14** *Given* the pipeline has run, *then* every Pokémon and form has its Champions singles, National Dex and Doubles tiers exactly as in the pinned Showdown data, or an explicit empty value; Pokémon not legal in Champions have no Champions tier; Mega Kangaskhan's Doubles tier is DUber from Generation 7.
+- **DAT-F15** *Given* the archive has been processed, *then* each Pokémon with a VGC record has its best rank with format and month, a Pokémon never used in VGC has none, and two runs give the same file.
 - **General** *Given* the pipeline runs twice with the same sources, *then* the output files are identical.
 
 **Testing approach:** validation tests on the generated files (schema checks, no missing IDs or names, references between files resolve); snapshot tests on a few known Pokémon.
@@ -197,20 +199,21 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F09 | **Items list and detail page.** Description and category. | 1 |
 | ARC-F10 | **Type chart page.** Full 18×18 chart; pick one or two defending types to see what hits them. | 1 |
 | ARC-F11 | **"Add to team" button** on a Pokémon entry (D28). | 2 |
-| ARC-F12 | **Competitive section** in the entry: usage rank and common sets (D13). | 3 |
+| ARC-F12 | **VGC in the competitive section** (ARC-F14, D13, D82): current usage rank and percentage, best VGC record (DAT-F15) and common sets (CMP-F02), each with source and period. | 3 |
 | ARC-F13 | **Type tier** (D71): every entry shows the tier of its type combination (S to F) next to its types, with a short note that it is the site's own assessment, mixing competitive and general play. Each form shows the tier of its own types. | 1 |
-| ARC-F14 | **Smogon tiers** (D81): a line under the types shows Smogon's official tiers as plain text, credited to Smogon: Champions singles and National Dex singles ("—" when there is none). From Phase 3 the same line adds the VGC usage rank and percentage for the current regulation (ARC-F12), with source and period. Each form shows its own values. | 1 |
+| ARC-F14 | **Competitive section** (D82): a section of its own in every entry, in three parts, in this order: **VGC** (ARC-F12, from Phase 3), **Doubles** (Smogon Doubles tier with its generation) and **Singles** (Champions and National Dex tiers). Plain text, credited to Smogon; "—" when a value is missing; each form shows its own values. Until Phase 3 the section shows Doubles and Singles only. | 1 |
 
 ### Entry sections (ARC-F03)
 
 | Section | Contents |
 | --- | --- |
-| Header | Image, number, name (active language, with the other language shown smaller), types with their type tier (ARC-F13), Smogon tiers (ARC-F14), form selector |
+| Header | Image, number, name (active language, with the other language shown smaller), types with their type tier (ARC-F13), form selector |
 | Base stats | Six stats with bars, and the total |
 | Abilities | Each ability with a short description and a link to its page; hidden ability marked |
 | Type effectiveness | Weaknesses (×4, ×2), resistances (×½, ×¼) and immunities. A note appears when an ability can change them (e.g. Levitate). |
 | Evolution chain | Every stage with its condition (level, item, trade…), each linking to its entry |
 | Learnable moves | Every move the Pokémon has learned in any game, with type, category, power, accuracy and how it is learned; moves available in the current game are marked, and a filter shows only those (D32); filterable and sortable |
+| Competitive | VGC (from Phase 3): current usage rank, best VGC record, common sets. Doubles: Smogon Doubles tier and its generation. Singles: Champions and National Dex tiers (ARC-F14) |
 
 ### Rules
 
@@ -221,7 +224,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 
 ### Data
 
-Reads DAT-F01 to DAT-F07, DAT-F10, DAT-F13 and DAT-F14; from Phase 3, usage data (DAT-F12). Writes nothing.
+Reads DAT-F01 to DAT-F07, DAT-F10, DAT-F13 and DAT-F14; from Phase 3, usage data (DAT-F12) and VGC usage history (DAT-F15). Writes nothing.
 
 ### Connections
 
@@ -236,7 +239,8 @@ Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO
 - **ARC-F07** *Given* the Flamethrower page in Spanish, *then* it is titled "Lanzallamas" and lists Charizard among the Pokémon that learn it.
 - **ARC-F10** *Given* I pick Water and Ground as defending types, *then* Grass shows ×4 and Electric shows ×0.
 - **ARC-F13** *Given* the Gengar entry (Ghost/Poison), *then* its header shows tier B with the note that it is the site's own assessment. *Given* Alolan Ninetales (Ice/Fairy), *then* it shows tier D, while standard Ninetales (Fire) shows tier B.
-- **ARC-F14** *Given* any entry, *then* its Smogon line matches the pinned Showdown data and credits Smogon. *Given* a Pokémon not legal in Champions (e.g. Amoonguss in the 2026-11 data), *then* Champions singles shows "—" while National Dex shows its tier. *Given* Charizard's entry, *when* I select Mega Charizard Y, *then* the Mega's own tiers are shown. *Given* usage data is loaded (Phase 3), *then* the line also shows the VGC usage rank with its source and period.
+- **ARC-F14** *Given* the Incineroar entry, *then* the competitive section shows Doubles: DOU (Generation 9), and its Singles tiers, credited to Smogon. *Given* Mega Kangaskhan, *then* Doubles shows DUber (Generation 7). *Given* a Pokémon not legal in Champions (e.g. Amoonguss in the 2026-11 data), *then* its Champions tier shows "—". *Given* Charizard's entry, *when* I select Mega Charizard Y, *then* the Mega's own values are shown.
+- **ARC-F12** (Phase 3) *Given* usage data is loaded, *then* the VGC part shows the current rank and percentage and the best VGC record with format and month, each naming its source and period; a Pokémon never used in VGC shows "Sin registro VGC".
 
 **Testing approach:** unit tests for type effectiveness and filtering logic; end-to-end tests for list, entry, form switch and detail pages in both languages; prerender check that every entity page is generated.
 
@@ -455,8 +459,6 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 ## M8 — AI assistant (`AIA`) · Phase 6 candidate
 
 **Purpose.** A **tutor**, not an unbeatable player (D76). Its primary use is advising each turn in the COLOSSEUM: why to use, or not use, each action a Pokémon has. It also critiques teams and answers questions with evidence. Outline; model source: Q8.
-
-**Voice (D82).** The assistant has no figure of its own: each hall's presenter speaks for it in that hall (the turn advisor through the COLOSSEUM's presenter, team critique through LEGIO's) and can hand a question to another presenter. Details are open (Q82).
 
 **Principle: code calculates, the AI explains** (D76). Every number (damage, KO chance, speed order, win estimate) comes from the battle engine, the calculator or simulations. The language model only explains and weighs strategy, using those results as tools, and never invents a number. Its advice is expected to be useful and predictable, not perfect: it runs on modest resources, and its assumptions are always shown.
 

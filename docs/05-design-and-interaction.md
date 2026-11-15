@@ -1,6 +1,6 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.7 — approved 2026-11-14** · Owner: @Alex
+**Version 1.7 — approved 2026-11-15** · Owner: @Alex
 
 ## Document status
 
@@ -169,12 +169,9 @@ The same frame in every hall: the presenter stands **under a Roman arch**, on a 
 
 - **Phase 0–2 (D14):** the presenter appears in the hall header with a short introduction (one or two sentences). The introduction can be dismissed and stays dismissed.
 - **Later:** an optional **companion** mode (a small portrait in a corner offering tips, which can be hidden) may be added. Not in the MVP.
-- **Phase 6 (D82):** each presenter becomes the AI assistant's voice in its hall, as the hall's *genius loci*, and can hand a question to another presenter. All presenters are peers. The companion mode is a natural way to reach it; details are open (Q82).
 - **Image treatment (Proposal DP-4):** official artwork in **original color** by default. A duotone or "statue" treatment (CSS filters only, never redrawing) can be explored later.
 
 ### Cast (tentative, Q3 still open)
-
-Casting criterion (D82): a presenter must fit its hall and also be believable as that hall's teacher.
 
 | Hall | Presenter idea | Why |
 | --- | --- | --- |
@@ -185,6 +182,7 @@ Casting criterion (D82): a presenter must fit its hall and also be believable as
 | ATHENAEUM | To be decided; Xatu suggested | Xatu watches the future, fitting a hall about metagame trends |
 | COLOSSEUM | Incineroar | A wrestler for the arena, and a face of competitive play |
 | AENIGMA | Zoroark; Unown suggested as alternative | Zoroark: master of illusions. Unown: living ancient script, for riddles |
+| AI assistant (Phase 6) | Leaning: Magearna or a similar ancient-automaton figure; Rotom also valid (Q74) | An artificial mind that belongs in a classical workshop |
 
 ## 8. The Pokédex as a book: *Historia Naturalis* (D61)
 
@@ -210,7 +208,7 @@ A **"Libros / Lista"** switch is always available. The book is for reading; the 
 | --- | --- |
 | Running head (HISTORIA NATURALIS · LIBER I · KANTO), name, number, form tabs, artwork, types, height and weight | Base stats, abilities, type effectiveness, evolution chain, links to moves and to "Añadir a una legión" (ARC-F11) |
 
-New sections (R16) are added as **extra pages** after the spread, reached by ribbons or links.
+New sections (R16) are added as **extra pages** after the spread, reached by ribbons or links. The first is the **competitive page** (ARC-F14, D82): VGC, then Doubles, then Singles. In the List view the same section appears below the others.
 
 ### Navigation
 
@@ -311,7 +309,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Presenter cast (Q3) | Before each hall is built | ATRIUM and ATHENAEUM still open |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
-| Companion presenters | After the MVP | Optional; in Phase 6 a way to reach the assistant (D82, Q82) |
+| Companion presenters | After the MVP | Optional |
 
 ## 15. Decisions and proposals
 
@@ -326,12 +324,6 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D62 | Themes are Día (light) and Noche (dark); the default follows the device; a manual choice is remembered; an optional mode follows the time of day. |
 | D63 | Foro is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. |
 | D64 | The battle stage is the COLOSSEUM (module M5, formerly "Animation Lab"); strategy and information halls outnumber spectacle. |
-
-### Approved (2026-11-14)
-
-| ID | Decision |
-| --- | --- |
-| D82 | Each hall's presenter is the AI assistant's voice in that hall (its *genius loci*); presenters are peers and can hand questions to each other. Details in Q82 (Phase 6). Supersedes the separate assistant figure (Q74). |
 
 ### Proposals awaiting approval
 

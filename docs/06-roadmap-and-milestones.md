@@ -1,6 +1,6 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.8 — approved 2026-11-14** · Owner: @Alex
+**Version 1.8 — approved 2026-11-15** · Owner: @Alex
 
 ## Document status
 
@@ -9,7 +9,7 @@ Version 1.8, approved. Turns the approved documents (`01`–`05`) into an ordere
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the competitive section and the VGC usage history (D82).
 
 ## 1. Planning principles
 
@@ -181,9 +181,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M1.3 — The entry: identity and science · ~8–12 h
 
-- Entry sections: header with the type tier (ARC-F13) and Smogon tiers (ARC-F14), base stats, abilities, type effectiveness (domain logic with unit tests), evolution chain (ARC-F03); previous and next (ARC-F05).
+- Entry sections: header with the type tier (ARC-F13), the competitive section with Doubles and Singles (ARC-F14), base stats, abilities, type effectiveness (domain logic with unit tests), evolution chain (ARC-F03); previous and next (ARC-F05).
 
-**Done when:** ARC-F03, ARC-F13 and ARC-F14 acceptance criteria pass (Gengar's matchups and tier, both languages; Smogon line without usage rank).
+**Done when:** ARC-F03, ARC-F13 and ARC-F14 acceptance criteria pass (Gengar's matchups and tier, both languages; competitive section without the VGC part).
 
 ### M1.4 — Forms and learnsets · ~6–10 h
 
@@ -315,8 +315,8 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 
 - [ ] **M3.1 — ABACUS with your team** (CMP-F03, CMP-F04, STR-F22, D42): the calculator with all 16 rolls and KO chances; the active team's members one click away; "Calcular" from LEGIO.
 - [ ] **M3.2 — ABACUS analysis** (CMP-F07 to CMP-F11, CMP-F14): matchup grid, scenarios, roll chart, combined damage, accuracy-adjusted chances, one against the team.
-- [ ] **M3.3 — Usage data pipeline** (DAT-F12, D41): confirm Smogon's file format, add it to the pipeline.
-- [ ] **M3.4 — ATHENAEUM** (CMP-F01, CMP-F02, ARC-F12): usage overview and common sets in entries; the VGC usage rank joins the Smogon line (ARC-F14).
+- [ ] **M3.3 — Usage data pipeline** (DAT-F12, DAT-F15, D41, D82): confirm Smogon's file format and the archive's extent, add current usage and the VGC usage history to the pipeline.
+- [ ] **M3.4 — ATHENAEUM** (CMP-F01, CMP-F02, ARC-F12): usage overview and common sets in entries; the VGC part of the competitive section (ARC-F12, ARC-F14).
 - [ ] **M3.5 — Threat list** (STR-F21): the most-used threats against the active team, with "Calcular" on each row.
 - [ ] **M3.6 — Teams meet the metagame** (CMP-F05, CMP-F12, CMP-F15, STR-F15, STR-F16): benchmarks, one against many, your team in the metagame, fill from common set.
 - [ ] **M3.7 — Stretch** (CMP-F06, CMP-F13): trends and the formula explainer.
@@ -335,7 +335,7 @@ The smarter rival (LAB-F14) waits for Phase 6.
 
 **Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7).
 
-**Phase 6 — AENIGMA and the AI assistant (`v0.7.0`+).** Specify each first (QUZ, AIA features, Q8, Q82). Each hall's presenter is the assistant's voice there (D82). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last.
+**Phase 6 — AENIGMA and the AI assistant (`v0.7.0`+).** Specify each first (QUZ, AIA features, Q8). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last.
 
 **Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI. A natural moment is after Phase 1, when the Pokédex is usable.
 
