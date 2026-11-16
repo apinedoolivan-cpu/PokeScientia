@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.19 — approved 2026-11-15** · Owner: @Alex
+**Version 1.20 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.19, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.20, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -77,7 +77,7 @@ Pokescientia's edge is identity and integration, not data volume.
 
 - **Spanish first.** Most competitive tools are English-only; here Spanish is the default experience.
 - **The academy identity.** A Roman academy: marble and travertine halls with Latin inscriptions, and a Pokédex read as a book, the *Historia Naturalis*.
-- **Resident presenters.** Each hall is introduced by a Pokémon whose nature fits it. In the last phase, the same presenters answer your questions as the voice of the AI assistant (D82).
+- **Resident presenters.** Each hall is introduced by a Pokémon whose nature fits it, each with a personality to match (D84). In the last phase, the same presenters answer your questions as the voice of the AI assistant (D82).
 - **Lookup to analysis in one flow.** From a Pokédex entry straight into a team, and from a team straight into its weaknesses.
 - **Your team everywhere.** The active team follows you through the academy: analysed in LEGIO, calculated in ABACUS, measured against the metagame in ATHENAEUM.
 - **Doubles first.** Analysis tuned for VGC (speed control, spread moves, partners), not adapted from singles.
@@ -197,6 +197,7 @@ These come directly from the owner's answers in discovery.
 | D81 | **Smogon tiers** (DAT-F14, ARC-F14): every Pokédex entry shows Smogon's official tiers as facts, read from Showdown's data (`@pkmn`), with nothing kept by hand: the **Champions singles tier** (current game) and the **National Dex singles tier** (covers nearly every Pokémon). For **VGC**, where Smogon publishes no tiers, the same line shows Smogon's Champions VGC **usage rank** from Phase 3 (D41, ARC-F12). Each form shows its own values; a missing value shows "—". Labels are plain text, credited to Smogon, and never mixed with the S–F type tier (D71). The site keeps no ranking of its own for Pokémon. (Revised by D83.) | Official, well-established and updated with each data refresh at no cost; covers the whole Pokédex, unlike a hand-made list of the Champions roster, which was considered and dropped (too much to maintain, too many Pokémon left unranked). |
 | D82 | **Presenters are the AI assistant's voice** (Q74). The assistant has no figure of its own: in each hall, that hall's presenter answers, as its *genius loci* (the guardian spirit Romans gave every place). All presenters are peers, ATRIUM included; any of them can hand a question to the presenter whose hall fits it better. Only the principle is decided; how it works is open (Q82, Phase 6). It never overrides D76: code calculates, the voice only explains. | Solves what no single figure could: nothing in a Roman setting fits an AI, and Magearna (steampunk) and Rotom (appliances) each fitted only partly. Reuses the presenter frame and voice already planned, places each assistant feature with its hall's presenter (turn advisor in the COLOSSEUM, team critique in LEGIO), and hand-offs make the academy feel inhabited. The assistant is the last thing built, so the details stay open to change. |
 | D83 | **Competitive section** (ARC-F14, DAT-F14, DAT-F15; revises D81): every Pokédex entry has a competitive section of its own, VGC first, built only from Smogon's data with nothing kept by hand. **VGC** (Phase 3): the usage rank and percentage in the current Champions regulation (D41), the **best usage rank ever reached in any VGC format** in Smogon's statistics archive, with the format and month ("No VGC record" when there is none), and the common sets (CMP-F02). **Doubles** (Phase 1): Smogon's Doubles tier (DUber, DOU, DUU) from the most recent generation in which the Pokémon was legal, naming that generation. **Singles** (Phase 1): the Champions singles tier and the National Dex tier. Missing values show "—"; each form shows its own values; labels are plain text, credited to Smogon, and never mixed with the type tier (D71). | VGC is the lens, yet no source ranks every Pokémon for VGC; showing the best VGC and doubles fact that exists for each Pokémon, with singles as context, covers the whole Pokédex honestly at no maintenance cost. |
+| D84 | **Presenter cast** (Q3, X-10): ATRIUM **Arcanine** (Kanto form), BIBLIOTHECA **Mew**, LEGIO **Falinks**, ABACUS **Metagross**, ATHENAEUM **Noctowl**, COLOSSEUM **Incineroar**, AENIGMA **Delphox**. Each is chosen for lore or symbolism that matches its hall's function, and each has **a clear personality that matches that function**, used in its introductions and, in Phase 6, its assistant voice (D82). Reasons, personalities and rejected candidates are in the design spec §7. Any presenter may still be swapped before its hall is built. | Completes the cast with one rule for all: the Pokémon's own lore or a clear symbol must tell what the hall does (Metagross calculates, Falinks is a formation of six, Delphox is named after the oracle of Delphi). A clear personality per presenter gives the introductions and the Phase 6 voices a consistent character. |
 
 ## Assumptions
 
@@ -279,6 +280,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-16 | Version 1.20: D84 presenter cast (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox), each with a personality that matches its hall; closes Q3; modules v1.12, design v1.9 | Presenter cast review |
 | 2026-11-15 | Version 1.19: D83 competitive section in every entry, VGC first (current usage, best VGC usage ever, common sets), then Smogon Doubles and singles tiers; revises D81; DAT-F15 added; modules v1.11, data strategy v1.3, design v1.8, roadmap v1.9 | VGC focus review of D81 |
 | 2026-11-14 | Version 1.18: D82 each hall's presenter is the AI assistant's voice, peers that can hand questions to each other; closes Q74, opens Q82 (Phase 6 details), adds a casting criterion to Q3; modules v1.10, design v1.7, roadmap v1.8 | Assistant presenter discussion |
 | 2026-11-13 | Version 1.17: D81 Smogon's official tiers in every entry (Champions singles, National Dex, and the VGC usage rank from Phase 3); DAT-F14, ARC-F14; modules v1.9, data strategy v1.2, roadmap v1.7. Replaces a hand-made Pokémon tier list proposed on 2026-11-12 and never applied | Pokémon ranking discussion |

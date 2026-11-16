@@ -6,6 +6,21 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-16 · Presenter cast (D84)
+
+- **Done:**
+  - Settled the cast (Q3) with one rule: the Pokémon's lore or a clear symbol must tell what its hall does. Each presenter also gets a clear personality that matches its function (owner's rule).
+  - Decided D84: Arcanine (ATRIUM, Kanto form), Mew (BIBLIOTHECA), Falinks (LEGIO), Metagross (ABACUS), Noctowl (ATHENAEUM), Incineroar (COLOSSEUM), Delphox (AENIGMA).
+  - Changes from the tentative cast: Metagross over Alakazam (its lore is about calculation; Alakazam's is psychic and magic), Noctowl over Xatu (a strategist, not a passive seer), Delphox over Zoroark and Unown (the oracle of Delphi and its riddles), Arcanine for ATRIUM (the *cave canem* guardian, noble and friendly) over Pikachu, Klefki and Farigiraf.
+  - Lore checked on WikiDex (Metagross, Alakazam, Xatu, Noctowl, Delphox, Klefki, Girafarig, Growlithe, Arcanine).
+  - Docs updated: vision v1.20, modules v1.12, design v1.9 (cast table with reasons and first personality sketches), decision map, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready. The first presenter text (Arcanine) is written in M0.7.
+- **Notes:**
+  - The personalities are first sketches; they are refined when each hall's introduction is written and, for the assistant voices, in Phase 6 (Q82).
+  - Two links are ours, not Game Freak's: Noctowl as Athena's owl and Arcanine as the *cave canem* dog. Texts should present them as the academy's reading.
+
+---
+
 ## 2026-11-15 · Competitive section, VGC first (D83)
 
 - **Done:**

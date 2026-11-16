@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.8 — approved 2026-11-15** · Owner: @Alex
+**Version 1.9 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.8, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.9, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -172,19 +172,21 @@ The same frame in every hall: the presenter stands **under a Roman arch**, on a 
 - **Phase 6 (D82):** each presenter becomes the AI assistant's voice in its hall, as the hall's *genius loci*, and can hand a question to another presenter. All presenters are peers. The companion mode is a natural way to reach it; details are open (Q82).
 - **Image treatment (Proposal DP-4):** official artwork in **original color** by default. A duotone or "statue" treatment (CSS filters only, never redrawing) can be explored later.
 
-### Cast (tentative, Q3 still open)
+### Cast (D84)
 
-Casting criterion (D82): a presenter must fit its hall and also be believable as that hall's teacher.
+Two rules (D82, D84): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; and it has **a clear personality that matches that function**. The personality sets the tone of its introductions and, in Phase 6, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
 
-| Hall | Presenter idea | Why |
-| --- | --- | --- |
-| ATRIUM | To be decided | |
-| BIBLIOTHECA | Mew or Pikachu | Mew carries the DNA of all Pokémon; Pikachu is the face of Pokémon |
-| LEGIO | **Falinks** | Designed after a military formation, and it is literally a group of six |
-| ABACUS | Alakazam or Metagross | Calculating minds |
-| ATHENAEUM | To be decided; Xatu suggested | Xatu watches the future, fitting a hall about metagame trends |
-| COLOSSEUM | Incineroar | A wrestler for the arena, and a face of competitive play |
-| AENIGMA | Zoroark; Unown suggested as alternative | Zoroark: master of illusions. Unown: living ancient script, for riddles |
+| Hall | Presenter | Why | Personality (first sketch) |
+| --- | --- | --- | --- |
+| ATRIUM | **Arcanine** (Kanto form) | The guardian dog at the door, as in the *cave canem* mosaics of Pompeian entrances; noble, loyal and honorable, once thought a legendary Pokémon | A warm, noble host. Welcomes every visitor, knows every hall and runs you to the right door. Guards the house, but its job is letting you in |
+| BIBLIOTHECA | **Mew** | Said to carry the DNA of every Pokémon: the natural keeper of a book about all of them | Curious and playful; delights in details and in every species equally |
+| LEGIO | **Falinks** | Designed after a military formation, and literally a group of six | A drill sergeant: direct, disciplined, team first. Inspects your formation and reports its weak spots plainly |
+| ABACUS | **Metagross** | Its Pokédex entries describe four brains that solve complex calculations faster than a supercomputer and analyze opponents precisely | Calm and exact. Numbers first, no flourish; always says what the figures assume |
+| ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them | A measured strategist. Thinks before speaking, compares options, explains why one wins |
+| COLOSSEUM | **Incineroar** | A wrestler for the arena, and a face of competitive play | A showman with a coach's heart: loud and theatrical in the ring, honest in your corner |
+| AENIGMA | **Delphox** | Named after Delphi and its oracle, famous for answering in riddles; in lore, its burn marks were read for divination | Enigmatic and playful. Speaks in riddles while you play; once you answer, explains plainly |
+
+**Considered and set aside:** Pikachu (fame, not meaning), Klefki (keys only), Girafarig/Farigiraf (a Janus link few would read) and Hisuian Arcanine (rock and statue, less alive) for ATRIUM; Alakazam (psychic and magic, not calculation) for ABACUS; Xatu (a passive seer, drawn from specific living cultures) for ATHENAEUM; Zoroark (illusion, not riddles) and Unown (no individual mind) for AENIGMA.
 
 ## 8. The Pokédex as a book: *Historia Naturalis* (D61)
 
@@ -308,7 +310,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Item | Decide by | Notes |
 | --- | --- | --- |
 | Final palette (D63) | After the first real pages (Phase 0–1) | Foro is provisional |
-| Presenter cast (Q3) | Before each hall is built | ATRIUM and ATHENAEUM still open |
+| Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
 | Companion presenters | After the MVP | Optional; in Phase 6 a way to reach the assistant (D82, Q82) |
@@ -332,6 +334,12 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | ID | Decision |
 | --- | --- |
 | D82 | Each hall's presenter is the AI assistant's voice in that hall (its *genius loci*); presenters are peers and can hand questions to each other. Details in Q82 (Phase 6). Supersedes the separate assistant figure (Q74). |
+
+### Approved (2026-11-16)
+
+| ID | Decision |
+| --- | --- |
+| D84 | Presenter cast (section 7): Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox. Each fits its hall through lore or symbolism and has a personality that matches its function. Closes Q3. |
 
 ### Proposals awaiting approval
 

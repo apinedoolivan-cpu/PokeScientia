@@ -66,6 +66,8 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
 - AI assistant (D76, D77, Phase 6): its main use is the turn advisor. Code calculates, the AI explains and never
   invents numbers; a predictable tutor, not a perfect opponent. The rival and the advisor share one action scoring.
   Its voice is each hall's presenter, peers that can hand questions to each other (D82; details Q82).
+- Presenters (D84): Arcanine (ATRIUM), Mew (BIBLIOTHECA), Falinks (LEGIO), Metagross (ABACUS), Noctowl (ATHENAEUM),
+  Incineroar (COLOSSEUM), Delphox (AENIGMA). Each has a personality matching its hall (design §7).
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
   Metajuego, Coliseo, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,

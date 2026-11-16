@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-15
+Last updated: 2026-11-16
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -13,7 +13,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | A. Discovery and module spec | 32 | 0 |
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
-| D. Design spec | 7 | 4 |
+| D. Design spec | 8 | 3 |
 | E. Later phases | 1 | 8 |
 | F. Working process | 5 | 0 |
 
@@ -97,7 +97,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 
 | ID | Decision | Kind | Status |
 | --- | --- | --- | --- |
-| Q3 | Presenter cast per section | Product | **Open.** Tentative cast in [`05-design-and-interaction.md`](05-design-and-interaction.md) §7: Mew or Pikachu (BIBLIOTHECA), Falinks (LEGIO), Alakazam or Metagross (ABACUS), Incineroar (COLOSSEUM), Zoroark (AENIGMA); ATRIUM and ATHENAEUM to decide. **Casting criterion (D82):** each presenter must also be believable as the teacher of its hall, since it becomes the assistant's voice there in Phase 6. |
+| Q3 | Presenter cast per section | Product | Decided → D84 (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox; each with a personality that matches its hall). Still open to swaps before each hall is built. |
 | Q27 | Hall names and navigation structure | Product | Decided → D59, D60 |
 | Q28 | Typography and color palette | Design | **Open.** Palette: Foro provisional (D63), final choice after the first real pages. Typography: proposed as DP-2. |
 | Q29 | Source of the academy artwork | Design + research | **Open.** Free-licensed only (R18). |
