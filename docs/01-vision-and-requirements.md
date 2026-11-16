@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.20 — approved 2026-11-16** · Owner: @Alex
+**Version 1.21 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.20, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.21, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -38,6 +38,7 @@ The project succeeds if it is useful to the owner, fun to build, and teaches som
 4. A battle stage, the COLOSSEUM, to test teams turn by turn in doubles, with full control over each turn, and to experiment with GSAP and PixiJS.
 5. Hands-on learning: Angular `@angular/localize`, local-first data, and later a Go API.
 6. An architecture that grows one feature at a time without rewrites.
+7. A place where players meet: the FORUM, where anyone can open a topic and discuss it, built around the academy's own tools (R21).
 
 **Non-goals** (explicitly out of scope unless revisited)
 
@@ -49,7 +50,7 @@ The project succeeds if it is useful to the owner, fun to build, and teaches som
 
 ## Target user and use cases
 
-The primary user is the owner: a Spanish-speaking player who follows official VGC and enjoys Pokémon knowledge in general. A secondary, future user is a friend or community member visiting a public deployment.
+The primary user is the owner: a Spanish-speaking player who follows official VGC and enjoys Pokémon knowledge in general. A secondary, future user is a friend or community member visiting a public deployment; from Phase 6 they can also take part in the FORUM (R21).
 
 | # | As a user, I want to… | Module | Phase |
 | --- | --- | --- | --- |
@@ -66,10 +67,12 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 | U15 | Run calcs with my own team: its members against any Pokémon, and the most-used threats against my team | Calculator and metagame | 3 |
 | U10 | Test my team turn by turn against a rival team: see what every move does, choose what chance does, rewind and branch, and watch each turn animated | Battle stage (COLOSSEUM) | 4 |
 | U16 | Play a match with my team against a rival that decides by itself | Battle stage (COLOSSEUM) | 4 |
-| U17 | During a battle, get short advice on every action each of my Pokémon can take: why to use it or not, and an estimated chance to win | AI assistant | 6 |
+| U17 | During a battle, get short advice on every action each of my Pokémon can take: why to use it or not, and an estimated chance to win | AI assistant | 7 |
 | U11 | Sign in and have my teams on any device | Accounts | 5 |
-| U12 | Test my knowledge with a quiz or puzzle | Quiz | 6 |
-| U13 | Ask an assistant to critique my team with evidence | AI assistant | 6 |
+| U18 | Open a topic and discuss it with other players, attaching a team, a Pokémon, a calculation or a battle | Forum (FORUM) | 6 |
+| U19 | Vote on posts and replies, and report anything that breaks the rules | Forum (FORUM) | 6 |
+| U12 | Test my knowledge with a quiz or puzzle | Quiz | 7 |
+| U13 | Ask an assistant to critique my team with evidence | AI assistant | 7 |
 
 ## Differentiating features
 
@@ -81,6 +84,7 @@ Pokescientia's edge is identity and integration, not data volume.
 - **Lookup to analysis in one flow.** From a Pokédex entry straight into a team, and from a team straight into its weaknesses.
 - **Your team everywhere.** The active team follows you through the academy: analysed in LEGIO, calculated in ABACUS, measured against the metagame in ATHENAEUM.
 - **Doubles first.** Analysis tuned for VGC (speed control, spread moves, partners), not adapted from singles.
+- **Discussion built on the tools.** In the FORUM, a post can carry a team, a calculation or a battle from the other halls, shown already analysed, so every discussion starts from the same evidence (D85).
 - **Animation as a feature.** Motion is designed, not decorative, and the COLOSSEUM shows off what the web can do.
 
 ## Confirmed requirements
@@ -109,6 +113,7 @@ These come directly from the owner's answers in discovery.
 | R18 | All assets we add (fonts, icons, textures, our own artwork) must be free-licensed. Official Pokémon images are not free-licensed: they are used as fan content, credited, from the chosen sources (D40). |
 | R19 | The battle stage shows the official doubles format: two Pokémon per side. |
 | R20 | Doing damage calculations with the owner's own team is a core motivation of the project. A team built in the platform is available in every hall, and the calculator and metagame tools work directly from it. |
+| R21 | A social hall, the FORUM: users open topics and others discuss them, like Reddit. It needs user accounts, so it comes after them. |
 
 ## Approved decisions
 
@@ -128,7 +133,7 @@ These come directly from the owner's answers in discovery.
 | D12 | The competitive view shows all fully evolved Pokémon plus competitively relevant middle evolutions. "Show all" reveals the rest. | Keeps the full Pokédex in focus without depending on legality data in Phase 1. |
 | D13 | MVP team analysis: shared weaknesses and resistances, offensive coverage, speed tiers, and doubles essentials (speed control, Fake Out, Intimidate, redirection, spread moves). Common sets come with usage data in Phase 3. | The first useful version arrives sooner; usage data needs its own research. |
 | D14 | Presenters start simple (portrait and introduction) and grow later. | Low cost; a natural first GSAP use. |
-| D15 | The quiz section stays as a Phase 6 candidate. | Not core to the MVP. |
+| D15 | The quiz section stays as a Phase 6 candidate. (Moved to Phase 7 by D86.) | Not core to the MVP. |
 | D16 | Technical baseline: Angular 22, npm, prerendered pages, SCSS, plain signal-based services for state (NgRx only if a real need appears), and Angular's default tooling (Vitest, ESLint, Prettier; Playwright for end-to-end tests). | Simple, standard, fits static hosting. |
 | D17 | URLs: the language is the build prefix (`/es/`, `/en/`); path words are identical in both languages; resources are identified by stable English IDs (e.g. `/es/pokedex/charizard`). Localized names are for display only. | Switching language only swaps the prefix; links stay stable. |
 | D18 | Data: a mix of open sources, processed at build time into split static files (loaded on demand), refreshed by hand with a script. Images are linked from their source, not stored in the repository. | Free, fast, small repository; specific sources pending research. |
@@ -176,7 +181,7 @@ These come directly from the owner's answers in discovery.
 | D60 | Hall map: ATRIUM (home), BIBLIOTHECA (Pokédex), LEGIO (teams), ABACUS (calculator), ATHENAEUM (metagame), COLOSSEUM (battle stage), AENIGMA (quiz). | Strategy and information halls outnumber spectacle; Latin names work in both languages. |
 | D61 | The Pokédex is the *Historia Naturalis*: nine books (one per region) plus appendices, read as a codex with a thumb index and page turns; a List view is always available; scrolls are ornament only. | Honors Pliny and Aristotle; the codex is the Roman, consultable book. |
 | D62 | Themes are Día (light) and Noche (dark). The default follows the device; a manual choice is remembered; an optional mode follows the time of day. Refines D19. | Day and night as two moods of the same academy. |
-| D63 | Foro (travertine, porphyry, bronze) is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. | Palettes are design tokens, cheap to change. |
+| D63 | Foro (travertine, porphyry, bronze) is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. (Renamed Travertino by D88.) | Palettes are design tokens, cheap to change. |
 | D64 | The battle stage is the COLOSSEUM (module M5, formerly "Animation Lab"). | The arena is the natural Roman setting for battles; analysis lives in LEGIO and ABACUS. (Rationale revised by D73: the COLOSSEUM now analyses turns too.) |
 | D65 | Work is tracked in the documents: milestone checkboxes in `06-roadmap-and-milestones.md` and a session log in `docs/progress.md`. GitHub Issues and Projects are not used for now. Revises the tracking part of D21. | One person, one branch; Git workflow learning is out of scope. Can be revisited if the project demands it. |
 | D66 | Milestones are small (about 4–12 hours each, ending in a committed, working state) and estimated in hours, never dates. | No deadline; about 14 variable hours a week; small steps keep progress visible. |
@@ -190,14 +195,18 @@ These come directly from the owner's answers in discovery.
 | D74 | **Turns are resolved by Showdown's open-source battle engine** (`@pkmn/sim`, MIT), running in the browser. Pokescientia builds the analysis, history, branching and animation around it and does not write its own battle rules. Checked at the start of Phase 4: Champions support, forcing outcomes, saving and restoring battle states (Q75). | Correct rules for free, kept up to date by others; effort goes into what is unique. |
 | D75 | **The rival starts simple:** predictable, documented rules based on the calculator. A smarter rival comes later (LAB-F14), possibly with the AI assistant. | A simple rival is enough to practise against and easy to understand; a clever one is a project of its own. |
 | D76 | **The AI assistant's primary use is the turn advisor** (AIA-F03), built in four steps: facts, ranking, win estimates (all computed by code), then explanations by a language model. Code calculates, the AI explains and never invents numbers. It is a **predictable tutor, not a perfect opponent**: imperfection is accepted, it runs on modest resources, and its assumptions are shown. | A perfect player would need a powerful model and vast resources, and isn't the aim; a tutor that explains its reasoning is. |
-| D77 | **One action scoring** (LAB-F15), built in Phase 4 for the simple rival and reused by the turn advisor in Phase 6. Simulations must not assume the rival always plays the top-scored action. | Built and tested once; improvements help both; avoids advice that only looks good because the rival is perfectly predictable. |
+| D77 | **One action scoring** (LAB-F15), built in Phase 4 for the simple rival and reused by the turn advisor in Phase 7 (D86). Simulations must not assume the rival always plays the top-scored action. | Built and tested once; improvements help both; avoids advice that only looks good because the rival is perfectly predictable. |
 | D78 | **Accessibility, low-cost measures only**, on top of D20: no information by color alone (X-05); a color-blindness simulation check on new screens; no flashing above three per second (X-13); sound optional and never essential (X-14); a screen reader check (Orca) of the main flows at each phase close; a test by a color-blind user when possible. Costlier options (extra palettes, high-contrast theme, spoken battle announcements, an audio-playable battle, AAA compliance) are not planned (P3). | Cheap when built in from the start; covers color blindness, deafness and the basics of blindness without expensive work. |
 | D79 | **Fan-content stance.** Official Pokémon images are used without permission: The Pokémon Company states it doesn't review requests and asks projects not to use its IP, and fan sites rely on its tolerance. Safeguards: non-commercial, the disclaimer (X-11), no official logos, images linked rather than hosted, immediate compliance with any request from the rights holders, and every official image replaceable by an original fallback with one setting (X-15). Game data itself (stats, matchups, formulas) is factual information. | Keeps the standard fan-site approach while making the worst case (a takedown request) cheap to handle. |
 | D80 | **Music** (SHL-F09): only free-licensed tracks (for example CC0 or CC BY, credited on About) in a style that fits the academy or Pokémon. No Pokémon or other copyrighted songs, not even kept in the repository. Off by default (X-14). | Pokémon music is actively enforced; free-licensed music carries no risk and can suit the Roman theme. |
 | D81 | **Smogon tiers** (DAT-F14, ARC-F14): every Pokédex entry shows Smogon's official tiers as facts, read from Showdown's data (`@pkmn`), with nothing kept by hand: the **Champions singles tier** (current game) and the **National Dex singles tier** (covers nearly every Pokémon). For **VGC**, where Smogon publishes no tiers, the same line shows Smogon's Champions VGC **usage rank** from Phase 3 (D41, ARC-F12). Each form shows its own values; a missing value shows "—". Labels are plain text, credited to Smogon, and never mixed with the S–F type tier (D71). The site keeps no ranking of its own for Pokémon. (Revised by D83.) | Official, well-established and updated with each data refresh at no cost; covers the whole Pokédex, unlike a hand-made list of the Champions roster, which was considered and dropped (too much to maintain, too many Pokémon left unranked). |
-| D82 | **Presenters are the AI assistant's voice** (Q74). The assistant has no figure of its own: in each hall, that hall's presenter answers, as its *genius loci* (the guardian spirit Romans gave every place). All presenters are peers, ATRIUM included; any of them can hand a question to the presenter whose hall fits it better. Only the principle is decided; how it works is open (Q82, Phase 6). It never overrides D76: code calculates, the voice only explains. | Solves what no single figure could: nothing in a Roman setting fits an AI, and Magearna (steampunk) and Rotom (appliances) each fitted only partly. Reuses the presenter frame and voice already planned, places each assistant feature with its hall's presenter (turn advisor in the COLOSSEUM, team critique in LEGIO), and hand-offs make the academy feel inhabited. The assistant is the last thing built, so the details stay open to change. |
+| D82 | **Presenters are the AI assistant's voice** (Q74). The assistant has no figure of its own: in each hall, that hall's presenter answers, as its *genius loci* (the guardian spirit Romans gave every place). All presenters are peers, ATRIUM included; any of them can hand a question to the presenter whose hall fits it better. Only the principle is decided; how it works is open (Q82, Phase 7). It never overrides D76: code calculates, the voice only explains. | Solves what no single figure could: nothing in a Roman setting fits an AI, and Magearna (steampunk) and Rotom (appliances) each fitted only partly. Reuses the presenter frame and voice already planned, places each assistant feature with its hall's presenter (turn advisor in the COLOSSEUM, team critique in LEGIO), and hand-offs make the academy feel inhabited. The assistant is the last thing built, so the details stay open to change. |
 | D83 | **Competitive section** (ARC-F14, DAT-F14, DAT-F15; revises D81): every Pokédex entry has a competitive section of its own, VGC first, built only from Smogon's data with nothing kept by hand. **VGC** (Phase 3): the usage rank and percentage in the current Champions regulation (D41), the **best usage rank ever reached in any VGC format** in Smogon's statistics archive, with the format and month ("No VGC record" when there is none), and the common sets (CMP-F02). **Doubles** (Phase 1): Smogon's Doubles tier (DUber, DOU, DUU) from the most recent generation in which the Pokémon was legal, naming that generation. **Singles** (Phase 1): the Champions singles tier and the National Dex tier. Missing values show "—"; each form shows its own values; labels are plain text, credited to Smogon, and never mixed with the type tier (D71). | VGC is the lens, yet no source ranks every Pokémon for VGC; showing the best VGC and doubles fact that exists for each Pokémon, with singles as context, covers the whole Pokédex honestly at no maintenance cost. |
-| D84 | **Presenter cast** (Q3, X-10): ATRIUM **Arcanine** (Kanto form), BIBLIOTHECA **Mew**, LEGIO **Falinks**, ABACUS **Metagross**, ATHENAEUM **Noctowl**, COLOSSEUM **Incineroar**, AENIGMA **Delphox**. Each is chosen for lore or symbolism that matches its hall's function, and each has **a clear personality that matches that function**, used in its introductions and, in Phase 6, its assistant voice (D82). Reasons, personalities and rejected candidates are in the design spec §7. Any presenter may still be swapped before its hall is built. | Completes the cast with one rule for all: the Pokémon's own lore or a clear symbol must tell what the hall does (Metagross calculates, Falinks is a formation of six, Delphox is named after the oracle of Delphi). A clear personality per presenter gives the introductions and the Phase 6 voices a consistent character. |
+| D84 | **Presenter cast** (Q3, X-10): ATRIUM **Arcanine** (Kanto form), BIBLIOTHECA **Mew**, LEGIO **Falinks**, ABACUS **Metagross**, ATHENAEUM **Noctowl**, COLOSSEUM **Incineroar**, AENIGMA **Delphox**. Each is chosen for lore or symbolism that matches its hall's function, and each has **a clear personality that matches that function**, used in its introductions and, in Phase 7, its assistant voice (D82). Reasons, personalities and rejected candidates are in the design spec §7. Any presenter may still be swapped before its hall is built. | Completes the cast with one rule for all: the Pokémon's own lore or a clear symbol must tell what the hall does (Metagross calculates, Falinks is a formation of six, Delphox is named after the oracle of Delphi). A clear personality per presenter gives the introductions and the Phase 7 voices a consistent character. |
+| D85 | **The FORUM** (R21, module M9 `FOR`): a social hall, menu Foro / Forum, inscription FORUM, route `/forum`, in a new Community wing. Reddit-style: a post with a title and text opens a topic; others reply and vote. A post may **attach one item from another hall** (a team, a Pokémon, a calculation or a battle), shown as a card already analysed. Votes rank posts and replies; sorting by Hot, New and Top; a few categories at launch; replies nested up to 3–4 levels. Anyone can read; posting needs an account. | Social interaction is the one thing the academy lacks. A generic forum would lose to Reddit, Smogon and Discord; discussion anchored to the academy's own tools is something they can't offer. The Roman forum was the public square where citizens met and argued, so the name says what the hall does in both languages. |
+| D86 | **Phase order:** the FORUM is **Phase 6**, right after accounts (Phase 5); the quiz and the AI assistant move to **Phase 7**. Accounts stay their own phase. A public deployment must happen before Phase 6. Revises the phase of D15. | The backend is fresh after Phase 5 and every hall a post can link to already exists. Accounts are tested first on a simple use (team sync, deletion) before strangers post. Merging both would make a phase of about 150–250 hours, against D66, and the forum needs its own specification. The forum does not need the assistant. |
+| D87 | **Moderation in layers** (M9 rules): (1) **limits by design** at launch: no private messages, no image uploads, structured attachments; (2) **entrance limits:** verified email, a CAPTCHA, rate limits, new accounts can't post links; (3) **trust levels** earned through participation and votes, unlocking abilities up to helping to moderate; (4) **automatic filters** hold suspicious posts in a review queue and never delete by themselves; (5) a **report** button on every post, and a post reported by several trusted users is hidden until reviewed; (6) **public rules**, a penalty ladder (warning, temporary mute, suspension, ban), a log of every action with its reason, and appeals. Volunteer moderators come later, chosen from trusted users. EU legal duties and a minimum age are part of the Phase 6 specification (Q86). | One person can't moderate a community by hand, so the layers that work without a moderator carry the weight. Most spam comes from new accounts; trust levels (Discourse, Stack Overflow) turn good members into helpers; filters make mistakes, so a person decides. Private messages are the biggest risk with a young audience because nobody else sees them. |
+| D88 | The provisional palette **Foro is renamed Travertino**, with the same values. Revises the name in D63. | "Foro" now names a hall (D85); two things with one name would confuse the docs and the code. |
 
 ## Assumptions
 
@@ -231,6 +240,8 @@ The two hard limits are zero budget and respect for Pokémon intellectual proper
 - A visible disclaimer states that the site is an unofficial fan project.
 - Pokémon artwork is never redrawn or imitated; it comes only from the sources we choose. Original work (UI, effects, academy art) is ours.
 
+**Users and their content.** From Phase 6 the FORUM hosts what users write. Personal data and user posts follow EU law: data protection (GDPR) and the duties of a hosting service (Digital Services Act). These, and a minimum age to sign up, are designed into the Phase 6 specification, not added later (D87, Q86).
+
 **Licenses:** data, image and library licenses were verified in [`03-data-strategy.md`](03-data-strategy.md). Every font, icon set and texture we add must still be checked when chosen (R18).
 
 **Effort.** One developer working in sessions. Each phase must deliver something usable on its own.
@@ -245,9 +256,10 @@ Approved with version 1. Milestones for each phase are in [`06-roadmap-and-miles
 4. **Phase 3: ABACUS and ATHENAEUM (calculator and metagame).** Damage calculator working from the active team first, then usage data and common sets, the threat list, speed benchmarks, trends.
 5. **Phase 4: The COLOSSEUM (battle stage).** Turn-by-turn testing of a team in doubles, resolved by Showdown's battle engine: damage matrix, chosen or real chance, history with branching; then the animated PixiJS and GSAP stage; then a real match mode against a simple rival (D73–D75). The largest phase.
 6. **Phase 5: Accounts.** Go backend with sign-in and team sync, layered on the local-first data.
-7. **Phase 6: Extras.** Quiz or puzzle section, then the AI assistant, whose primary use is the turn advisor in the COLOSSEUM (D76).
+7. **Phase 6: The FORUM.** Reddit-style discussion: posts that open a topic, replies, votes, and optional attachments from the other halls, with moderation in layers (D85–D87). Needs the accounts of Phase 5 and a public deployment.
+8. **Phase 7: Extras.** Quiz or puzzle section, then the AI assistant, whose primary use is the turn advisor in the COLOSSEUM (D76).
 
-Why this order: the Pokédex's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the battle stage (D23). The COLOSSEUM comes last among the core phases, so it can use the data, assets and calculator already in place.
+Why this order: the Pokédex's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the battle stage (D23). The COLOSSEUM comes last among the core phases, so it can use the data, assets and calculator already in place. The FORUM follows accounts directly, reusing the new backend while every hall it links to already exists (D86).
 
 ## Glossary
 
@@ -269,9 +281,11 @@ Why this order: the Pokédex's data is the foundation everything else reads. The
 | Reduced motion | An operating-system setting asking sites to minimize animation. |
 | GSAP | JavaScript animation library, here for interface motion. |
 | PixiJS | 2D rendering engine using WebGL, here for the battle stage. |
-| Presenter | The resident Pokémon that introduces a section of the site and, in Phase 6, speaks for the AI assistant there (D82). |
+| Presenter | The resident Pokémon that introduces a section of the site and, in Phase 7, speaks for the AI assistant there (D82). |
 | Hall | A main section of the academy, shown in the menu by its function and in the hall by its Latin inscription (for example, Pokédex · BIBLIOTHECA). |
 | Inscription | A hall's Latin name, carved over its door and shown as its heading (D59, D60). |
+| Attachment | A team, Pokémon, calculation or battle from another hall, added to a FORUM post and shown as a card (D85). |
+| Trust level | A stage a FORUM user reaches through good participation; each one unlocks abilities, such as posting links or helping to moderate (D87). |
 | *Historia Naturalis* | The Pokédex presented as one work in nine books (*libri*), one per region, plus appendices (D61). |
 
 ## Decision log
@@ -280,6 +294,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-16 | Version 1.21: R21 and D85–D88: the FORUM hall (Reddit-style discussion with attachments from the other halls); a new Phase 6 right after accounts, with the quiz and the AI assistant moved to Phase 7; moderation in layers; the Foro palette renamed Travertino. U18, U19 added; opens Q84–Q87; modules v1.13 (M9), data strategy v1.4, architecture v1.7, design v1.10, roadmap v1.10 | Forum discussion |
 | 2026-11-16 | Version 1.20: D84 presenter cast (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox), each with a personality that matches its hall; closes Q3; modules v1.12, design v1.9 | Presenter cast review |
 | 2026-11-15 | Version 1.19: D83 competitive section in every entry, VGC first (current usage, best VGC usage ever, common sets), then Smogon Doubles and singles tiers; revises D81; DAT-F15 added; modules v1.11, data strategy v1.3, design v1.8, roadmap v1.9 | VGC focus review of D81 |
 | 2026-11-14 | Version 1.18: D82 each hall's presenter is the AI assistant's voice, peers that can hand questions to each other; closes Q74, opens Q82 (Phase 6 details), adds a casting criterion to Q3; modules v1.10, design v1.7, roadmap v1.8 | Assistant presenter discussion |

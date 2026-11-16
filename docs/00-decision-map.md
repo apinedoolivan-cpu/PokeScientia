@@ -14,7 +14,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 8 | 3 |
-| E. Later phases | 1 | 8 |
+| E. Later phases | 1 | 12 |
 | F. Working process | 5 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
@@ -97,9 +97,9 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 
 | ID | Decision | Kind | Status |
 | --- | --- | --- | --- |
-| Q3 | Presenter cast per section | Product | Decided → D84 (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox; each with a personality that matches its hall). Still open to swaps before each hall is built. |
+| Q3 | Presenter cast per section | Product | Decided → D84 (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox; each with a personality that matches its hall). Still open to swaps before each hall is built. The FORUM's presenter is open (Q85). |
 | Q27 | Hall names and navigation structure | Product | Decided → D59, D60 |
-| Q28 | Typography and color palette | Design | **Open.** Palette: Foro provisional (D63), final choice after the first real pages. Typography: proposed as DP-2. |
+| Q28 | Typography and color palette | Design | **Open.** Palette: Travertino provisional (D63; named Foro until D88), final choice after the first real pages. Typography: proposed as DP-2. |
 | Q29 | Source of the academy artwork | Design + research | **Open.** Free-licensed only (R18). |
 | Q30 | Themes | Product | Decided → D19 (light and dark) |
 | Q31 | Accessibility target | Technical | Decided → D20 (WCAG 2.2 AA, reduced motion) |
@@ -114,14 +114,18 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | ID | Decision | When |
 | --- | --- | --- |
 | Q63 | Three.js 3D experiments (3D academy entrance, 2.5D COLOSSEUM effects), original content only | Phase 4 |
-| Q75 | **Battle engine check** (D74): confirm that `@pkmn/sim` supports Champions and its doubles rules, that outcomes can be forced (rolls, critical hits, accuracy, secondary effects, speed ties), that battle states can be saved and restored for branching, and **how fast it simulates**: turns per second in the browser and the time to copy a battle state, which decide how many playouts the win estimates can afford (AIA-F03, Phase 6). Done as a spike, like M0.3; the fallback for anything unsupported is decided then. | Phase 4 start |
+| Q75 | **Battle engine check** (D74): confirm that `@pkmn/sim` supports Champions and its doubles rules, that outcomes can be forced (rolls, critical hits, accuracy, secondary effects, speed ties), that battle states can be saved and restored for branching, and **how fast it simulates**: turns per second in the browser and the time to copy a battle state, which decide how many playouts the win estimates can afford (AIA-F03, Phase 7). Done as a spike, like M0.3; the fallback for anything unsupported is decided then. | Phase 4 start |
 | Q6 | Login method | Phase 5 |
 | Q34 | Go web framework and database | Phase 5 |
 | Q7 | Hosting for frontend and backend, on free tiers | First deployment |
 | Q35 | Address: free subdomain (a paid domain breaks R7) | First deployment |
-| Q8 | AI model source. Options noted, not decided: the owner's own API key entered in settings (never stored or paid by the site), a provider's free tier, or a small model running in the browser. Must respect R7 (free resources); the turn advisor's steps 1–3 work without any model (D76). | Phase 6 |
+| Q84 | **Build or adopt the FORUM** (D85). Our own forum on the Go API and Angular fits the academy and the backend learning goal (R12), but trust levels, filters and moderation tools must be built. Discourse (open source) includes all of them, but needs its own server (R7: free hosting) and would look and behave like a separate site. | Phase 6 start |
+| Q85 | **FORUM presenter**, cast with D84's two rules: lore or a symbol that tells what the hall does, and a matching personality. First idea, not reviewed: Chatot, a bird that mimics human speech. | Before Phase 6 |
+| Q86 | **Legal requirements for user content** (research): EU data protection (GDPR) and the duties of a hosting service under the Digital Services Act (reporting illegal content, giving reasons for removals); the minimum age to sign up in Spain; terms of use and privacy policy; what happens to posts when an account is deleted (ACC-F04). | Phase 6 specification |
+| Q87 | **Free tools for the CAPTCHA and the automatic filters** (R7), and how filtered posts reach the review queue (D87). | Phase 6 specification |
+| Q8 | AI model source. Options noted, not decided: the owner's own API key entered in settings (never stored or paid by the site), a provider's free tier, or a small model running in the browser. Must respect R7 (free resources); the turn advisor's steps 1–3 work without any model (D76). | Phase 7 |
 | Q74 | AI assistant presenter. Magearna (the leaning) and Rotom were considered on 2026-11-09; neither fitted both the academy and an AI. | Decided → D82 (each hall's presenter is the assistant's voice) |
-| Q82 | **AI assistant voices** (D82). Open, options noted: **hand-offs** between presenters (what passes along: a short structured summary of team, turn and question, not the whole conversation); **different models per presenter**, possible because only the voice depends on the model (tied to Q8); a **plain label** on every assistant panel saying it is an AI speaking through the character; a **switch that turns personas off** for a neutral academy voice, like D79's image fallback; **one shared core prompt** plus a short style card per presenter, in both languages; **how much character** the voice may show against D76's predictable tutor (numbers, evidence and assumptions drawn by code in neutral UI, never in character); each voice is an **original academy role**, not an imitation of the Pokémon's official personality; the companion mode (design §7) as the way to reach the assistant. | Phase 6 |
+| Q82 | **AI assistant voices** (D82). Open, options noted: **hand-offs** between presenters (what passes along: a short structured summary of team, turn and question, not the whole conversation); **different models per presenter**, possible because only the voice depends on the model (tied to Q8); a **plain label** on every assistant panel saying it is an AI speaking through the character; a **switch that turns personas off** for a neutral academy voice, like D79's image fallback; **one shared core prompt** plus a short style card per presenter, in both languages; **how much character** the voice may show against D76's predictable tutor (numbers, evidence and assumptions drawn by code in neutral UI, never in character); each voice is an **original academy role**, not an imitation of the Pokémon's official personality; the companion mode (design §7) as the way to reach the assistant. | Phase 7 |
 
 ## F. Working process
 

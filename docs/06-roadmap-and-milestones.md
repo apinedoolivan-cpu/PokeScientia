@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.9 — approved 2026-11-15** · Owner: @Alex
+**Version 1.10 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.9, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.10, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
-- Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–6 as outlines. Later phases are detailed when they approach.
+- Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87).
 
 ## 1. Planning principles
 
@@ -49,7 +49,8 @@ A milestone is done when all of these hold:
 | 3 | ABACUS, ATHENAEUM | Calculator with your own team, then metagame | 8 | 70–110 h | `v0.4.0` |
 | 4 | COLOSSEUM | Turn-by-turn battle testing, animated stage, real match | outline | 120–200 h (the largest phase) | `v0.5.0` |
 | 5 | — | Accounts and sync (Go backend) | outline | 70–110 h | `v0.6.0` |
-| 6 | AENIGMA | Quiz, then AI assistant | outline | open | `v0.7.0`+ |
+| 6 | FORUM | Reddit-style discussion with attachments from the halls; moderation in layers | outline | 90–150 h | `v0.7.0` |
+| 7 | AENIGMA | Quiz, then AI assistant | outline | open | `v0.8.0`+ |
 
 At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing aid, not a schedule.
 
@@ -96,7 +97,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M0.4 — Design tokens and themes · ~6–10 h
 
-- Tokens for Foro, Día and Noche (design §4, D63); the generated type colors.
+- Tokens for Travertino, Día and Noche (design §4, D63, D88); the generated type colors.
 - Theme service: follows the device by default, remembers a manual choice, optional time-of-day mode (D62); a `MotionService` for reduced motion.
 - Cinzel and Alegreya Sans self-hosted (architecture §8).
 - **Design review:** decide **DP-2** (typography), **DP-6** (layout) and **DP-7** (motion) on a sample page.
@@ -322,7 +323,7 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 - [ ] **M3.7 — Stretch** (CMP-F06, CMP-F13): trends and the formula explainer.
 - [ ] **M3.8 — Close Phase 3** and tag `v0.4.0`.
 
-## 9. Phases 4–6 (outlines)
+## 9. Phases 4–7 (outlines)
 
 **Phase 4 — COLOSSEUM (`v0.5.0`).** The largest phase, on purpose (D73). Specify it fully first (LAB features, Q63), then three parts:
 
@@ -331,13 +332,22 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 3. **The animated stage:** PixiJS setup, doubles stage, effect library, animated turns and playback controls with a reduced-motion version (LAB-F01, F02, F04–F06); the optional Three.js exploration (Q63).
 4. **Real match mode:** the action scoring (LAB-F15, D77) and the simple rival that uses it (LAB-F13, D75).
 
-The smarter rival (LAB-F14) waits for Phase 6.
+The smarter rival (LAB-F14) waits for Phase 7.
 
 **Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7).
 
-**Phase 6 — AENIGMA and the AI assistant (`v0.7.0`+).** Specify each first (QUZ, AIA features, Q8, Q82). Each hall's presenter is the assistant's voice there (D82). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last.
+**Phase 6 — FORUM (`v0.7.0`).** Needs a public deployment. Specify it fully first (FOR features): build or adopt (Q84), the presenter (Q85), the legal requirements and minimum age (Q86), and free CAPTCHA and filter tools (Q87). Then:
 
-**Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI. A natural moment is after Phase 1, when the Pokédex is usable.
+1. **Reading:** categories, post lists and threads from the API (FOR-F01, FOR-F06, FOR-F07).
+2. **Writing:** posts, nested replies, editing and deleting (FOR-F02, FOR-F04, FOR-F08), with entrance and rate limits from the first day (D87).
+3. **Attachments** from the other halls (FOR-F03).
+4. **Votes, trust levels and reply notices** (FOR-F05, FOR-F10, FOR-F14).
+5. **Moderation:** reports, filters, review queue, penalty ladder and log (FOR-F09, FOR-F11, FOR-F12). Complete **before** the forum opens to the public.
+6. **Launch content:** the first categories and seeded threads (FOR-F13).
+
+**Phase 7 — AENIGMA and the AI assistant (`v0.8.0`+).** Specify each first (QUZ, AIA features, Q8, Q82). Each hall's presenter is the assistant's voice there (D82). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last. The assistant may later join the FORUM (thread summaries, analysis of attached teams), never moderating on its own.
+
+**Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI. A natural moment is after Phase 1, when the Pokédex is usable. It must happen before Phase 6: the FORUM only makes sense online (D86).
 
 ## 10. Recurring work
 
@@ -369,6 +379,8 @@ Before the pipeline exists (M0.9), a new regulation needs no work.
 | Prerendering ~6,600 pages is slow | Long builds | Measured in M0.3 before the Pokédex is built |
 | Design choices keep changing | Rework | Decided at fixed review points (M0.4–M0.7, M1.5); tokens make colors cheap to change |
 | A source changes format, or a regulation adds a mechanic | Pipeline or team builder breaks | Pinned inputs, pipeline validation; mechanics changes become their own milestone |
+| Moderating the FORUM takes over the owner's time | Spam or abuse stays up, or the project turns into policing | Layers that need no moderator come first (D87); moderators recruited from trusted users later; the forum can be switched to read-only |
+| The FORUM looks empty at launch | Visitors leave | Few categories and seeded weekly threads (FOR-F07, FOR-F13) |
 | Long breaks between sessions | Lost context | `docs/progress.md` and this checklist are the memory; every session starts from them |
 
 ## 12. Decisions
@@ -382,3 +394,4 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D67 | Design proposals DP-1 to DP-7 are decided during Phase 0 and Phase 1 at fixed review points: DP-2, DP-6 and DP-7 in M0.4; DP-1 in M0.6; DP-3 and DP-4 in M0.7; DP-5 in M1.5. |
 | D68 | The active team is built in Phase 2 (M2.9). |
 | D69 | Phase 3 starts with ABACUS and the active team (M3.1–M3.2), before the usage data; the threat list follows the usage data (M3.5). |
+| D86 | The FORUM is Phase 6, right after accounts; the quiz and the AI assistant move to Phase 7. A public deployment comes before Phase 6. |

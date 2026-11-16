@@ -63,16 +63,21 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   only a Phase 4 exploration option (Q63).
 - COLOSSEUM (D73–D75): turn-by-turn battle testing in doubles. Turns are resolved by Showdown's engine (`@pkmn/sim`);
   never write battle rules ourselves.
-- AI assistant (D76, D77, Phase 6): its main use is the turn advisor. Code calculates, the AI explains and never
+- AI assistant (D76, D77, Phase 7): its main use is the turn advisor. Code calculates, the AI explains and never
   invents numbers; a predictable tutor, not a perfect opponent. The rival and the advisor share one action scoring.
   Its voice is each hall's presenter, peers that can hand questions to each other (D82; details Q82).
 - Presenters (D84): Arcanine (ATRIUM), Mew (BIBLIOTHECA), Falinks (LEGIO), Metagross (ABACUS), Noctowl (ATHENAEUM),
-  Incineroar (COLOSSEUM), Delphox (AENIGMA). Each has a personality matching its hall (design §7).
+  Incineroar (COLOSSEUM), Delphox (AENIGMA); FORUM to be cast (Q85). Each has a personality matching its hall
+  (design §7).
+- FORUM (D85–D87, Phase 6, after accounts in Phase 5): Reddit-style topics, nested replies and votes; a post can
+  attach a team, Pokémon, calculation or battle from another hall. Moderation in layers: limits by design (no
+  private messages or image uploads at launch), entrance limits, trust levels, filters that only hold posts for
+  review, reports, public rules with logged actions. Quiz and AI assistant are Phase 7 (D86).
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
-  Metajuego, Coliseo, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,
-  COLOSSEUM, AENIGMA). The Pokédex is the *Historia Naturalis* book with a List view. Themes Día/Noche follow
-  the device by default. Foro palette is provisional; never hardcode colors, use tokens.
+  Metajuego, Coliseo, Foro, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,
+  COLOSSEUM, FORUM, AENIGMA). The Pokédex is the *Historia Naturalis* book with a List view. Themes Día/Noche follow
+  the device by default. Travertino palette (D88, formerly Foro) is provisional; never hardcode colors, use tokens.
 - Budget (R7): free tools, data, assets and hosting only; open source preferred; free proprietary tools only
   when approved as a decision (GSAP, D56).
 

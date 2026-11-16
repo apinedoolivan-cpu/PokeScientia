@@ -1,14 +1,15 @@
 # Pokescientia — Data Strategy
 
-**Version 1.3 — approved 2026-11-15** · Owner: @Alex
+**Version 1.4 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.3, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.4, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
 - How the pipeline is built (scripts, folders, schedules) belongs to the architecture doc. This document covers **what** comes from **where**.
+- Version 1.4 moves the AI assistant to Phase 7 (D86). What users write in the FORUM (Phase 6) is not game data: its storage and legal handling are specified with Phase 6 (Q86).
 
 ## Summary
 
@@ -204,7 +205,7 @@ Stat formulas (both systems and the converter, DS-3) are written by us, because 
 
 **DS-8, approved as D43:** adopt this split, and ask the browser for persistent storage so teams aren't cleared under storage pressure. Backup export (STR-F07) remains the safety net. This closes Q26.
 
-## 11. AI integration (Phase 6)
+## 11. AI integration (Phase 7)
 
 The AI assistant (M8) is deferred (R6); its model source is Q8. The only requirement for now, already in the module spec: analyses and calculations must work without the interface, so the assistant can call them later. The assistant must cite the same data sources listed here.
 

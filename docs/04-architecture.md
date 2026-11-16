@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.6 — approved 2026-11-11** · Owner: @Alex
+**Version 1.7 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.6, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.7, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -28,6 +28,7 @@ Pokescientia is a **static website**: every page is generated at build time, and
                                                         (PokéAPI sprites, D40)
 
  Phase 5: Go API (backend/) with its OpenAPI contract (api/) for accounts and sync.
+ Phase 6: the same API serves the FORUM: posts, replies, votes and moderation (Q84).
 ```
 
 ## 2. Repository structure
@@ -80,6 +81,7 @@ frontend/src/app/
     ├── calculator/   ABACUS: damage calculator (M4, Phase 3)
     ├── metagame/     ATHENAEUM: usage data and trends (M4, Phase 3)
     ├── colosseum/    COLOSSEUM: turn-by-turn battle testing and stage (M5, Phase 4)
+    ├── forum/        FORUM: categories, threads, moderation (M9, Phase 6)
     ├── quiz/         AENIGMA (M7, later)
     └── about/        About and credits, not-found page
 ```
@@ -211,6 +213,7 @@ Path words are English and identical in both languages (D17). Hall names and Lat
 | `/calculator` | ABACUS: calculator (Phase 3) | Prerendered shell |
 | `/metagame` | ATHENAEUM: usage data and trends (Phase 3) | Prerendered |
 | `/colosseum` | COLOSSEUM: turn-by-turn battle testing and stage (Phase 4) | Prerendered shell |
+| `/forum`, `/forum/:postId` | FORUM: categories and threads (Phase 6) | Shell prerendered; content loaded from the API in the browser |
 | `/quiz` | AENIGMA (later) | Prerendered shell |
 | `/about` | About and credits | Prerendered |
 | `/404` | Not-found page | Prerendered; the host serves it for unknown URLs |
@@ -365,13 +368,14 @@ A failure shows on the commit in GitHub. Deployment is added when hosting is cho
 
 Guidelines 1–4 also keep the parked fakémon idea (P1) cheap if it's ever reopened.
 
-## 14. Future: backend (Phase 5)
+## 14. Future: backend (Phases 5 and 6)
 
 Reserved only:
 
 - `backend/`: a Go API for accounts and team sync (D4); framework and database are Q34.
 - `api/openapi.yaml`: the contract; the frontend generates its TypeScript types from it.
 - The frontend keeps working without it (local-first, D3).
+- From Phase 6 the API also serves the FORUM (M9): posts, replies, votes, reports and moderation, under the rules of D87. Whether the forum is built on our own API or adopts an existing open-source forum engine is Q84.
 
 ## 15. Phase 0 setup
 
@@ -426,6 +430,7 @@ Approved in review on 2026-11-04.
 | — | D57 | Git practices for a solo developer (section 12) and `.gitattributes` with LF line endings; experiment branches optional |
 | — | D79, D80 | `ImageService` with an original fallback and one switch for all official images; `AudioService` for free-licensed music |
 | — | D76, D77 | Action scoring and playouts beside the battle engine wrapper, independent of screens; playouts in a Web Worker (section 4) |
+| — | D85–D87 | FORUM reserved: `halls/forum/`, `/forum` routes whose content comes from the API, and forum data in the backend from Phase 6 (Q84) |
 | — | D68, D69 | Active team as shared state in `core/` (`ActiveTeamService`), its ID kept in preferences; calculations opened from other halls through `/calculator` query parameters (section 3) |
 
 ## Sources

@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.9 — approved 2026-11-16** · Owner: @Alex
+**Version 1.10 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.9, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.10, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -58,9 +58,10 @@ Greek learning appears as **content, not as a second style**. Rome preserved and
 | Calculadora | Calculator | **ABACUS** | Damage, rolls and KO probabilities | Strategy | M4 | 3 | `/calculator` |
 | Metajuego | Metagame | **ATHENAEUM** | What is used: common sets, partners, trends | Strategy | M4 | 3 | `/metagame` |
 | Coliseo | Colosseum | **COLOSSEUM** | Turn-by-turn doubles battle testing, with an animated stage | Strategy and spectacle | M5 | 4 | `/colosseum` |
-| Quiz | Quiz | **AENIGMA** | Riddles and challenges | Knowledge | M7 | 6 | `/quiz` |
+| Foro | Forum | **FORUM** | The public square: open a topic and discuss it, with teams, calculations and battles attached | Community | M9 | 6 | `/forum` |
+| Quiz | Quiz | **AENIGMA** | Riddles and challenges | Knowledge | M7 | 7 | `/quiz` |
 
-Strategy and information get more halls than spectacle, on purpose: battles are one part of the academy, not its center.
+Strategy and information get more halls than spectacle, on purpose: battles are one part of the academy, not its center. The FORUM is the one community hall (D85): the Roman forum was where citizens met and argued, so the name says what the hall does in both languages. *Forum* is the Latin word; *foro* is its Spanish descendant.
 
 **Halls that don't exist yet** appear at the entrance as **closed doors** with their phase ("Fase 3"), and are not navigable (resolves the open point in SHL rules).
 
@@ -84,9 +85,9 @@ Which one shows:
 
 ### Palettes (D63)
 
-**Foro is the provisional palette.** Pompeya, Mosaico and Púrpura imperial remain as alternatives; the final choice is made once real pages exist. Changing it means editing one tokens file (section 4, "Tokens").
+**Travertino is the provisional palette** (named Foro until D88, same values). Pompeya, Mosaico and Púrpura imperial remain as alternatives; the final choice is made once real pages exist. Changing it means editing one tokens file (section 4, "Tokens").
 
-**Foro** — travertine, porphyry, bronze:
+**Travertino** — travertine, porphyry, bronze:
 
 | Semantic token | Día | Noche | Used for |
 | --- | --- | --- | --- |
@@ -169,12 +170,12 @@ The same frame in every hall: the presenter stands **under a Roman arch**, on a 
 
 - **Phase 0–2 (D14):** the presenter appears in the hall header with a short introduction (one or two sentences). The introduction can be dismissed and stays dismissed.
 - **Later:** an optional **companion** mode (a small portrait in a corner offering tips, which can be hidden) may be added. Not in the MVP.
-- **Phase 6 (D82):** each presenter becomes the AI assistant's voice in its hall, as the hall's *genius loci*, and can hand a question to another presenter. All presenters are peers. The companion mode is a natural way to reach it; details are open (Q82).
+- **Phase 7 (D82):** each presenter becomes the AI assistant's voice in its hall, as the hall's *genius loci*, and can hand a question to another presenter. All presenters are peers. The companion mode is a natural way to reach it; details are open (Q82).
 - **Image treatment (Proposal DP-4):** official artwork in **original color** by default. A duotone or "statue" treatment (CSS filters only, never redrawing) can be explored later.
 
 ### Cast (D84)
 
-Two rules (D82, D84): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; and it has **a clear personality that matches that function**. The personality sets the tone of its introductions and, in Phase 6, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
+Two rules (D82, D84): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; and it has **a clear personality that matches that function**. The personality sets the tone of its introductions and, in Phase 7, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
 
 | Hall | Presenter | Why | Personality (first sketch) |
 | --- | --- | --- | --- |
@@ -184,6 +185,7 @@ Two rules (D82, D84): a presenter's **lore or a clear symbol must tell what its 
 | ABACUS | **Metagross** | Its Pokédex entries describe four brains that solve complex calculations faster than a supercomputer and analyze opponents precisely | Calm and exact. Numbers first, no flourish; always says what the figures assume |
 | ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them | A measured strategist. Thinks before speaking, compares options, explains why one wins |
 | COLOSSEUM | **Incineroar** | A wrestler for the arena, and a face of competitive play | A showman with a coach's heart: loud and theatrical in the ring, honest in your corner |
+| FORUM | **To be cast** (Q85) | Chosen with the same two rules before Phase 6 | — |
 | AENIGMA | **Delphox** | Named after Delphi and its oracle, famous for answering in riddles; in lore, its burn marks were read for divination | Enigmatic and playful. Speaks in riddles while you play; once you answer, explains plainly |
 
 **Considered and set aside:** Pikachu (fame, not meaning), Klefki (keys only), Girafarig/Farigiraf (a Janus link few would read) and Hisuian Arcanine (rock and statue, less alive) for ATRIUM; Alakazam (psychic and magic, not calculation) for ABACUS; Xatu (a passive seer, drawn from specific living cultures) for ATHENAEUM; Zoroark (illusion, not riddles) and Unown (no individual mind) for AENIGMA.
@@ -302,18 +304,19 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 ## 13. Effect on other documents
 
 - **Module names:** M2 is the Pokédex (BIBLIOTHECA), M3 Teams (LEGIO), M4 Calculator and metagame (ABACUS, ATHENAEUM), M5 the **battle stage** (COLOSSEUM), formerly "Animation Lab". Feature IDs (`ARC-`, `STR-`, `CMP-`, `LAB-`) do not change.
-- **Routes and folders** in the architecture use the English menu words: `/teams`, `/calculator`, `/metagame`, `/colosseum`, `/quiz`.
+- **Routes and folders** in the architecture use the English menu words: `/teams`, `/calculator`, `/metagame`, `/colosseum`, `/forum`, `/quiz`.
 - **D5** (even Greek–museum blend) is superseded by **D58**.
 
 ## 14. Open items
 
 | Item | Decide by | Notes |
 | --- | --- | --- |
-| Final palette (D63) | After the first real pages (Phase 0–1) | Foro is provisional |
+| Final palette (D63) | After the first real pages (Phase 0–1) | Travertino is provisional (D88) |
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
-| Companion presenters | After the MVP | Optional; in Phase 6 a way to reach the assistant (D82, Q82) |
+| FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; presenter (Q85) |
+| Companion presenters | After the MVP | Optional; in Phase 7 a way to reach the assistant (D82, Q82) |
 
 ## 15. Decisions and proposals
 
@@ -326,20 +329,22 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D60 | Hall map: ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM, COLOSSEUM, AENIGMA (section 3). |
 | D61 | The Pokédex is the *Historia Naturalis*: nine books plus appendices, read as a codex with thumb index and page turns; a List view is always available; scrolls are ornament only. |
 | D62 | Themes are Día (light) and Noche (dark); the default follows the device; a manual choice is remembered; an optional mode follows the time of day. |
-| D63 | Foro is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. |
+| D63 | Foro is the provisional palette; Pompeya, Mosaico and Púrpura imperial remain alternatives until real pages exist. (Renamed Travertino by D88.) |
 | D64 | The battle stage is the COLOSSEUM (module M5, formerly "Animation Lab"); strategy and information halls outnumber spectacle. |
 
 ### Approved (2026-11-14)
 
 | ID | Decision |
 | --- | --- |
-| D82 | Each hall's presenter is the AI assistant's voice in that hall (its *genius loci*); presenters are peers and can hand questions to each other. Details in Q82 (Phase 6). Supersedes the separate assistant figure (Q74). |
+| D82 | Each hall's presenter is the AI assistant's voice in that hall (its *genius loci*); presenters are peers and can hand questions to each other. Details in Q82 (Phase 7). Supersedes the separate assistant figure (Q74). |
 
 ### Approved (2026-11-16)
 
 | ID | Decision |
 | --- | --- |
 | D84 | Presenter cast (section 7): Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox. Each fits its hall through lore or symbolism and has a personality that matches its function. Closes Q3. |
+| D85 | The FORUM (menu Foro / Forum, route `/forum`), the community hall: Reddit-style topics, replies and votes, with attachments from the other halls (section 3). Presenter open (Q85). |
+| D88 | The provisional palette Foro is renamed Travertino, with the same values (section 4). |
 
 ### Proposals awaiting approval
 

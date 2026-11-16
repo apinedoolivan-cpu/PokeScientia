@@ -6,6 +6,22 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-16 · The FORUM (D85–D88)
+
+- **Done:**
+  - Recovered the forum idea. It was dropped earlier only as a name for the metagame hall, because "foro" suggests discussion; now it is that hall: the FORUM (Foro in the menu), where users open topics and others discuss them, like Reddit (R21, D85). A post can attach a team, Pokémon, calculation or battle from the other halls, shown already analysed.
+  - Placed it as Phase 6, right after accounts; the quiz and the AI assistant move to Phase 7 (D86). Merging it into Phase 5 was set aside: too large a phase, and the forum needs its own specification.
+  - Reviewed how forums handle moderation and decided on layers (D87): limits by design, entrance limits, trust levels (as in Discourse and Stack Overflow), filters that hold posts for review (as Reddit's AutoModerator), reports, public rules with a penalty ladder and appeals.
+  - Renamed the provisional palette Foro to Travertino (D88).
+  - Opened Q84 (build or adopt Discourse), Q85 (FORUM presenter), Q86 (legal requirements and minimum age), Q87 (free CAPTCHA and filter tools).
+  - Docs updated: vision v1.21, modules v1.13 (new M9 `FOR`), data strategy v1.4, architecture v1.7, design v1.10, roadmap v1.10, decision map, CLAUDE.md, README.
+- **Next:** unchanged; M0.1 when the owner is ready.
+- **Notes:**
+  - *Forum* is the Latin word and *foro* its Spanish descendant: menu Foro / Forum, inscription FORUM, route `/forum`.
+  - A public deployment must come before Phase 6.
+
+---
+
 ## 2026-11-16 · Presenter cast (D84)
 
 - **Done:**

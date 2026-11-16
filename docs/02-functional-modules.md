@@ -1,15 +1,15 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.12 — approved 2026-11-16** · Owner: @Alex
+**Version 1.13 — approved 2026-11-16** · Owner: @Alex
 
 ## Document status
 
-Version 1.12, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.13, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
 - Changes are made by editing this file and recording the decision in the vision doc's Decision log.
-- Detail follows the phase: Phases 0–2 in full, Phase 3 in medium detail, Phases 4–6 as outlines. Later modules are detailed when their phase approaches.
+- Detail follows the phase: Phases 0–2 in full, Phase 3 in medium detail, Phases 4–7 as outlines. Later modules are detailed when their phase approaches.
 
 ### Feature IDs
 
@@ -32,13 +32,16 @@ Each module is presented as a hall of the Roman academy; the Latin hall names an
 | M4 | Calculator and metagame · ABACUS, ATHENAEUM | `CMP` | 3 | M1, M2, M3 |
 | M5 | Battle stage · COLOSSEUM | `LAB` | 4 | M1, M4 |
 | M6 | Accounts | `ACC` | 5 | M3 |
-| M7 | Quiz · AENIGMA | `QUZ` | 6 | M1, M2 |
-| M8 | AI assistant | `AIA` | 6 | M2, M3, M4 |
+| M7 | Quiz · AENIGMA | `QUZ` | 7 | M1, M2 |
+| M8 | AI assistant | `AIA` | 7 | M2, M3, M4 |
+| M9 | Forum · FORUM | `FOR` | 6 | M6 (attachments from M2–M5) |
 
 ```
 M1 Data pipeline ──► M2 Pokédex ──► M3 Teams ──► M4 Calculator & metagame
         │                 │                │                       │
         │                 │                └──► M6 Accounts        └──► M5 Battle stage
+        │                 │                      │
+        │                 │                      └──► M9 Forum ◄── attachments from M2–M5
         │                 └──► M7 Quiz
         └──► M0 Academy shell (hosts every hall)          M8 AI assistant ◄── M2, M3, M4
 ```
@@ -60,7 +63,7 @@ These rules apply to every module and are not repeated in module sections.
 | X-07 | Responsive | Desktop-first, fully usable from 360 px width (A1). |
 | X-08 | States | Every data view has loading, empty and error states, each with a clear message and, for errors, a way to retry. |
 | X-09 | Shareable URLs | Every Pokémon, form, move, ability, item and hall has its own URL with stable English IDs (D17). |
-| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. In Phase 6 the presenter is also the AI assistant's voice in its hall (D82). Cast and personalities: D84, design spec §7. |
+| X-10 | Presenters | Each hall has a presenter: portrait plus a short introduction (D14). The introduction can be dismissed. In Phase 7 the presenter is also the AI assistant's voice in its hall (D82). Cast and personalities: D84, design spec §7. |
 | X-11 | Legal | Every page links to About; the unofficial fan-project disclaimer is always reachable (Constraints). |
 | X-13 | Flashing | Nothing flashes more than three times per second, including battle effects (D78, WCAG 2.3.1). |
 | X-14 | Sound | Sound, if ever added, is optional, off by default, and never carries information that isn't also shown on screen. Any video has captions (D78). |
@@ -402,7 +405,7 @@ Turns are resolved by Showdown's open-source battle engine (D74); Pokescientia b
 | LAB-F11 | **Turn history.** Every turn is logged: the actions chosen, the order they happened in, damage dealt, effects, and each Pokémon's HP afterwards. Forced outcomes are marked. | 4 |
 | LAB-F12 | **Branching.** Go back to any earlier turn and choose different actions or outcomes; this creates a new branch while the original is kept. Switch between branches to compare them. | 4 |
 | LAB-F13 | **Real match mode.** You choose only your side's actions; the rival chooses automatically with simple, documented rules (D75): the move with the best KO chance or damage according to the calculator, Protect when threatened, speed control when slower. Chance is always real. Open team sheets as in official VGC: the rival's moves, items and abilities are visible; its spreads and natures are not. | 4 |
-| LAB-F14 | **Smarter rival.** A rival that plans ahead and predicts, possibly using the AI assistant (M8). Still a practice partner, not an unbeatable player (D76). | 6+ |
+| LAB-F14 | **Smarter rival.** A rival that plans ahead and predicts, possibly using the AI assistant (M8). Still a practice partner, not an unbeatable player (D76). | 7+ |
 | LAB-F15 | **Action scoring** (D77). For a given battle state and Pokémon, every possible action (each move with each target, each switch) ranked with a score and its facts: damage, KO chance, speed order, what the rival can do in return. Built for the rival (LAB-F13) and reused by the turn advisor (AIA-F03). Works without the user interface. | 4 |
 
 ### Rules
@@ -437,7 +440,7 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 ## M6 — Accounts (`ACC`) · Phase 5
 
-**Purpose.** Sign in and keep teams in sync across devices, through the Go backend (D4). Outline.
+**Purpose.** Sign in and keep teams in sync across devices, through the Go backend (D4). Accounts are also what the FORUM needs to post (M9, Phase 6). Outline.
 
 - **ACC-F01** Sign in and sign out (method: Q6).
 - **ACC-F02** First sign-in uploads existing local teams; the app keeps working offline and syncs later (D3).
@@ -447,7 +450,7 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 ---
 
-## M7 — Quiz · AENIGMA (`QUZ`) · Phase 6 candidate
+## M7 — Quiz · AENIGMA (`QUZ`) · Phase 7 candidate
 
 **Purpose.** Test Pokémon knowledge in a playful way (D15). Outline; presenter: Delphox (D84).
 
@@ -456,7 +459,7 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 ---
 
-## M8 — AI assistant (`AIA`) · Phase 6 candidate
+## M8 — AI assistant (`AIA`) · Phase 7 candidate
 
 **Purpose.** A **tutor**, not an unbeatable player (D76). Its primary use is advising each turn in the COLOSSEUM: why to use, or not use, each action a Pokémon has. It also critiques teams and answers questions with evidence. Outline; model source: Q8.
 
@@ -468,9 +471,9 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 | ID | Feature | Phase |
 | --- | --- | --- |
-| AIA-F01 | **Team critique** that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations. | 6 |
-| AIA-F02 | **Evidence:** every claim points to the data it comes from. | 6 |
-| AIA-F03 | **Turn advisor** (primary use, D76). After start-of-turn effects (Intimidate, weather…), for each Pokémon on your side: every action (its moves with their targets, and each switch) with a short reason to use it or not, and an estimated win chance. Built in four steps; steps 1–3 need no AI and are useful on their own. | 6 |
+| AIA-F01 | **Team critique** that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations. | 7 |
+| AIA-F02 | **Evidence:** every claim points to the data it comes from. | 7 |
+| AIA-F03 | **Turn advisor** (primary use, D76). After start-of-turn effects (Intimidate, weather…), for each Pokémon on your side: every action (its moves with their targets, and each switch) with a short reason to use it or not, and an estimated win chance. Built in four steps; steps 1–3 need no AI and are useful on their own. | 7 |
 
 ### Turn advisor steps (AIA-F03)
 
@@ -488,6 +491,51 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 - If no language model is available, steps 1–3 still work.
 
 **Requirement for earlier phases:** analyses, calculations and the action scoring must be callable without the user interface (see M3 rules, LAB-F15), so the assistant can use them later without rewrites.
+
+---
+
+## M9 — Forum · FORUM (`FOR`) · Phase 6
+
+**Purpose.** The academy's public square: users open topics and others discuss them, like Reddit (R21, D85). What sets it apart is that a post can carry work from the other halls, shown already analysed. Outline: the full specification is written at the start of Phase 6, together with Q84–Q87. Presenter: open (Q85).
+
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| FOR-F01 | **Read** without an account: categories, post lists and threads. | 6 |
+| FOR-F02 | **Open a topic:** a post with a title, text and a category. Needs an account (M6). | 6 |
+| FOR-F03 | **Attachments:** a post can carry one item from another hall: a team (LEGIO, with its analysis), a Pokémon (BIBLIOTHECA), a calculation (ABACUS) or a battle (COLOSSEUM). It is shown as a card that opens the item in its hall. | 6 |
+| FOR-F04 | **Replies**, nested up to 3–4 levels, readable on a phone. | 6 |
+| FOR-F05 | **Votes** up and down on posts and replies. | 6 |
+| FOR-F06 | **Sorting:** Hot, New and Top. | 6 |
+| FOR-F07 | **Categories:** a few at launch (for example Competitive, Team rating, Questions, Pokédex and lore, General); new ones only when the existing ones are busy. | 6 |
+| FOR-F08 | **Edit and delete** my own posts and replies. | 6 |
+| FOR-F09 | **Report** a post or reply, with a reason. | 6 |
+| FOR-F10 | **Trust levels:** users unlock abilities through good participation (D87). | 6 |
+| FOR-F11 | **Moderation tools:** review queue, actions with a logged reason, the penalty ladder, appeals. | 6 |
+| FOR-F12 | **Automatic filters** that hold suspicious posts for review. | 6 |
+| FOR-F13 | **Seeded threads:** a weekly thread opened automatically (for example the metagame of the week, from ATHENAEUM's data), so the forum never looks empty. | 6 |
+| FOR-F14 | **Reply notices** on the site when someone answers my post or reply. | 6 |
+
+### Rules (D87)
+
+- Reading is open to everyone. Posting, replying, voting and reporting need a signed-in account with a verified email.
+- **Limits by design at launch:** no private messages and no image uploads. Links only from users with enough trust.
+- **New accounts start limited:** fewer posts per hour and no links; the limits lift with trust levels.
+- **Filters never delete:** they hold a post for review, and a person decides.
+- **Reports:** a post reported by several trusted users is hidden until a moderator reviews it.
+- **Rules are public**, in plain language and in both languages. Moderation follows a ladder (warning, temporary mute, suspension, ban). Every action is logged with its reason; the user is told why and can appeal.
+- Votes rank content and feed trust levels. Nobody votes on their own posts.
+- Deleting an account (ACC-F04) removes or anonymises its posts; the exact rule is part of Q86.
+- Personal data, the minimum age to sign up and the duties of a hosting service follow EU law (Q86).
+
+### Connections
+
+Needs accounts (M6). Attachments open in LEGIO, BIBLIOTHECA, ABACUS and the COLOSSEUM; a shared team reuses share by link (ACC-F05). Seeded threads read ATHENAEUM's usage data (M4). The AI assistant (M8, Phase 7) may join later, summarising threads or analysing attached teams, but never moderates on its own.
+
+### Out of scope (for now)
+
+Private messages, image uploads, custom avatars, real-time chat, email notifications.
 
 ---
 
