@@ -6,12 +6,23 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-17 · Braviary as the voice of moderation (D90, D91)
+
+- **Done:**
+  - Decided D90 (option A): in Phase 7, Braviary is the AI face of reporting and moderation. Users report by talking to it; it reads the post against the rules, explains, may hide the post while it is reviewed and proposes the penalty; a moderator confirms penalties and appeals go to a person (D87 unchanged). New feature AIA-F04.
+  - Option B (Braviary acting alone on obvious spam and flagrant abuse) appealed to the owner; opened as Q88, to decide once its proposals prove reliable.
+  - Decided D91: presenters are shown alive, in original color, each with a vivid personality of its own, so in Phase 7 talking to the assistant feels like talking to that presenter. Dropped the statue treatment for Braviary (revises D89).
+  - Docs updated: vision v1.23, modules v1.15, design v1.12, roadmap v1.12, decision map, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+
+---
+
 ## 2026-11-17 · FORUM presenter (D89)
 
 - **Done:**
   - Cast the FORUM (Q85). As with the ATRIUM, no Pokémon stands for the hall's function (public discussion), so the choice follows a clearly Roman symbol with a fitting role.
   - Decided D89: **Braviary** (Unova form) as the Roman *aquila*, the eagle that carried SPQR, "the Senate and People of Rome": the emblem of the forum's people, not of war. Its role leans to moderation: a proud, brave guardian that protects its comrades (its lore) and swoops on abusive posts. Jupiter's eagle and any bird still link to messages.
-  - Its American look is handled by the framing and by trying the bronze statue treatment of DP-4 on it in M0.7.
+  - Its American look is handled by the framing and by trying the bronze statue treatment of DP-4 on it in M0.7. (Statue dropped the same day by D91.)
   - Forum lore kept for its introductions: Pliny's phoenix shown in the Comitium in 47 CE and judged fake; Pliny's pigeons at Mutina; *Fama*, the goddess of rumor.
   - Reviewed and set aside: Chatot, Mr. Mime, Smeargle, Grafaiai, Primarina, Unfezant, Conkeldurr, Farigiraf, Lycanroc, Exploud, the other birds of prey, Corviknight, Hisuian Braviary, Yveltal, Tornadus (Therian Forme), Zapdos and Moltres (reasons in design §7).
   - Lore checked on Bulbapedia, PokémonDB and veekun (Braviary, Smeargle, Grafaiai, Conkeldurr, Tornadus); Pliny checked in the *Natural History*, book X.

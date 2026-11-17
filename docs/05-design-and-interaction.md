@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.11 — approved 2026-11-17** · Owner: @Alex
+**Version 1.12 — approved 2026-11-17** · Owner: @Alex
 
 ## Document status
 
-Version 1.11, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.12, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -164,18 +164,18 @@ The exact hue table lives with the tokens and is generated, not hand-picked per 
 
 ### Frame (Proposal DP-3)
 
-The same frame in every hall: the presenter stands **under a Roman arch**, on a **plinth** with its name inscribed in Cinzel. It combines the "statue in a niche" and "bust and inscription" patterns explored on the canvas.
+The same frame in every hall: the presenter stands **under a Roman arch**, on a **plinth** with its name inscribed in Cinzel. It combines the "statue in a niche" and "bust and inscription" patterns explored on the canvas. The arch and plinth are the setting only: the Pokémon in it is shown alive, never as a statue (D91).
 
 ### Behavior
 
 - **Phase 0–2 (D14):** the presenter appears in the hall header with a short introduction (one or two sentences). The introduction can be dismissed and stays dismissed.
 - **Later:** an optional **companion** mode (a small portrait in a corner offering tips, which can be hidden) may be added. Not in the MVP.
 - **Phase 7 (D82):** each presenter becomes the AI assistant's voice in its hall, as the hall's *genius loci*, and can hand a question to another presenter. All presenters are peers. The companion mode is a natural way to reach it; details are open (Q82).
-- **Image treatment (Proposal DP-4):** official artwork in **original color** by default. A duotone or "statue" treatment (CSS filters only, never redrawing) can be explored later. It is tried first on Braviary, the FORUM's presenter, to make it read as a bronze Roman *aquila* (D89).
+- **Image treatment (Proposal DP-4):** official artwork in **original color** by default. A duotone or "statue" treatment of presenters is ruled out (D91): they will speak for the assistant, so they look alive.
 
 ### Cast (D84)
 
-Two rules (D82, D84): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; and it has **a clear personality that matches that function**. The personality sets the tone of its introductions and, in Phase 7, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
+Three rules (D82, D84, D91): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; it has **a clear personality that matches that function**; and that personality is **vivid and its own**, so that in Phase 7 talking to the assistant feels like talking to that presenter. Presenters are shown alive, in original color. The personality sets the tone of its introductions and, in Phase 7, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
 
 | Hall | Presenter | Why | Personality (first sketch) |
 | --- | --- | --- | --- |
@@ -191,7 +191,8 @@ Two rules (D82, D84): a presenter's **lore or a clear symbol must tell what its 
 **Braviary in detail (D89).** No Pokémon stands for public discussion itself, so, as with Arcanine at the ATRIUM, the cast follows a clearly Roman symbol given a fitting role.
 
 - **The eagle of the people, not of war.** The *aquila* led the legions, but its standard also bore SPQR. In the FORUM it stands for the community the hall exists for, so it does not compete with LEGIO's Falinks: LEGIO forms the team, the eagle is the standard everyone gathers under.
-- **The American look.** Braviary is a bald eagle in red, white and blue. Two answers: the idea of an eagle as a state's emblem comes from Rome's *aquila*, so a national eagle is Rome's symbol reused; and the bronze "statue" treatment (DP-4, CSS filters only, never redrawing) is tried on it so it reads as a bronze *aquila*.
+- **The American look.** Braviary is a bald eagle in red, white and blue. The answer is the framing: the idea of an eagle as a state's emblem comes from Rome's *aquila*, so a national eagle is Rome's symbol reused; it is shown alive, in its own colors, like every presenter (D91).
+- **The voice of moderation (Phase 7, D90).** When the assistant arrives, Braviary is the main way to report a post and to moderate. Users report by talking to it; it reads the post against the rules, says what it will do and why, may hide the post while it is reviewed, and proposes the penalty, which a moderator confirms. Its brave, protective temper suits the job: firm with abuse, warm with the people it guards.
 - **Forum lore for its introductions** (texts present these as the academy's stories):
   - **Pliny's phoenix.** The *Natural History* reports a phoenix brought to Rome under Claudius in 47 CE and shown in the Comitium, the forum's place of assembly, which Pliny judged a fake: Rome's first viral hoax, and a good opening for the rules on false information.
   - **Pliny's pigeons.** During the siege of Mutina, Decimus Brutus sent letters tied to pigeons' feet (*Natural History*, book X): messages carried by air, fitting for reply notices.
@@ -324,7 +325,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
-| FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; Braviary's frame and statue treatment (D89) |
+| FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; Braviary's frame and the report conversation (D89, D90) |
 | Companion presenters | After the MVP | Optional; in Phase 7 a way to reach the assistant (D82, Q82) |
 
 ## 15. Decisions and proposals
@@ -355,6 +356,8 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D85 | The FORUM (menu Foro / Forum, route `/forum`), the community hall: Reddit-style topics, replies and votes, with attachments from the other halls (section 3). Presenter open (Q85), cast by D89. |
 | D88 | The provisional palette Foro is renamed Travertino, with the same values (section 4). |
 | D89 | FORUM presenter: Braviary, the *aquila* of SPQR, a proud guardian of the square with moderation as its role (section 7). Closes Q85. |
+| D90 | In Phase 7 Braviary is the AI face of reporting and moderation; it proposes, a moderator confirms penalties, appeals go to a person (section 7). |
+| D91 | Presenters are shown alive, in original color, each with a vivid personality of its own; no statue treatment for Braviary (section 7). Revises the image part of D89. |
 
 ### Proposals awaiting approval
 
@@ -364,7 +367,7 @@ Each proposal is decided on a real page at a fixed review point in the roadmap (
 | --- | --- | --- |
 | DP-1 | Navigation: top bar on desktop, "Salas" full-screen menu on phones, hall header and breadcrumb | 3 |
 | DP-2 | Typography: Cinzel for inscriptions and names, Alegreya Sans for everything else; scale and rules | 5 |
-| DP-3 | Presenter frame: statue under a Roman arch on an inscribed plinth, same in every hall | 7 |
+| DP-3 | Presenter frame: the presenter, shown alive, under a Roman arch on an inscribed plinth, same in every hall | 7 |
 | DP-4 | Official artwork shown in original color by default | 7 |
 | DP-5 | Page turn: on the spine (desktop), slide (phone), crossfade (reduced motion) | 8 |
 | DP-6 | Layout: 12-column grid, spacing scale, 2 px corners, breakpoints, page templates | 9 |

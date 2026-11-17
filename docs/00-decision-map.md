@@ -14,7 +14,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 8 | 3 |
-| E. Later phases | 2 | 11 |
+| E. Later phases | 2 | 12 |
 | F. Working process | 5 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
@@ -123,6 +123,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q85 | FORUM presenter, cast with D84's two rules. Reviewed on 2026-11-17: Chatot, Mr. Mime, Smeargle, Grafaiai, Primarina, Unfezant, Conkeldurr, the eagles and other birds of prey, and the legendary birds (Tornadus in Therian Forme, Zapdos, Moltres). | Decided → D89 (Braviary, the *aquila* of SPQR) |
 | Q86 | **Legal requirements for user content** (research): EU data protection (GDPR) and the duties of a hosting service under the Digital Services Act (reporting illegal content, giving reasons for removals); the minimum age to sign up in Spain; terms of use and privacy policy; what happens to posts when an account is deleted (ACC-F04). | Phase 6 specification |
 | Q87 | **Free tools for the CAPTCHA and the automatic filters** (R7), and how filtered posts reach the review queue (D87). | Phase 6 specification |
+| Q88 | **Braviary acting alone on clear cases** (D90, option B of the review). Once its moderation runs, measure how often moderators agree with its proposals; if it proves reliable, let it remove obvious spam and flagrant abuse and apply the penalty by itself, with every decision open to appeal to a person. Revises D87 for those cases only. | After Braviary's moderation has run (Phase 7) |
 | Q8 | AI model source. Options noted, not decided: the owner's own API key entered in settings (never stored or paid by the site), a provider's free tier, or a small model running in the browser. Must respect R7 (free resources); the turn advisor's steps 1–3 work without any model (D76). | Phase 7 |
 | Q74 | AI assistant presenter. Magearna (the leaning) and Rotom were considered on 2026-11-09; neither fitted both the academy and an AI. | Decided → D82 (each hall's presenter is the assistant's voice) |
 | Q82 | **AI assistant voices** (D82). Open, options noted: **hand-offs** between presenters (what passes along: a short structured summary of team, turn and question, not the whole conversation); **different models per presenter**, possible because only the voice depends on the model (tied to Q8); a **plain label** on every assistant panel saying it is an AI speaking through the character; a **switch that turns personas off** for a neutral academy voice, like D79's image fallback; **one shared core prompt** plus a short style card per presenter, in both languages; **how much character** the voice may show against D76's predictable tutor (numbers, evidence and assumptions drawn by code in neutral UI, never in character); each voice is an **original academy role**, not an imitation of the Pokémon's official personality; the companion mode (design §7) as the way to reach the assistant. | Phase 7 |

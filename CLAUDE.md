@@ -68,8 +68,9 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   Its voice is each hall's presenter, peers that can hand questions to each other (D82; details Q82).
 - Presenters (D84): Arcanine (ATRIUM), Mew (BIBLIOTHECA), Falinks (LEGIO), Metagross (ABACUS), Noctowl (ATHENAEUM),
   Incineroar (COLOSSEUM), Delphox (AENIGMA), Braviary (FORUM, D89: the *aquila* of SPQR, a guardian
-  with moderation as its role). Each has a personality matching its hall
-  (design §7).
+  with moderation as its role). Each has a vivid personality of its own matching its hall, and is shown alive,
+  never as a statue (D91, design §7). In Phase 7 Braviary is the AI face of reporting and moderation; a moderator
+  confirms penalties (D90).
 - FORUM (D85–D87, Phase 6, after accounts in Phase 5): Reddit-style topics, nested replies and votes; a post can
   attach a team, Pokémon, calculation or battle from another hall. Moderation in layers: limits by design (no
   private messages or image uploads at launch), entrance limits, trust levels, filters that only hold posts for
