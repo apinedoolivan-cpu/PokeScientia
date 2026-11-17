@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.10 — approved 2026-11-16** · Owner: @Alex
+**Version 1.11 — approved 2026-11-17** · Owner: @Alex
 
 ## Document status
 
-Version 1.10, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.11, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89).
 
 ## 1. Planning principles
 
@@ -124,7 +124,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 - Entrance with doors for every hall: open or closed with its phase (SHL-F01, design §3).
 - `ps-presenter`: arch, plinth, dismissible introduction (SHL-F08, X-10). First presenter text.
 - `ImageService` and `ps-pokemon-image` with the original fallback and the switch for all official images (X-15, D79).
-- **Design review:** decide **DP-3** (presenter frame) and **DP-4** (artwork treatment).
+- **Design review:** decide **DP-3** (presenter frame) and **DP-4** (artwork treatment). For DP-4, also try the bronze statue treatment on Braviary, the FORUM's presenter, to see whether it reads as a Roman *aquila* (D89).
 
 **Done when:** SHL-F01 and X-15 acceptance criteria pass; the introduction stays dismissed after reload; DP-3 and DP-4 are recorded.
 
@@ -336,7 +336,7 @@ The smarter rival (LAB-F14) waits for Phase 7.
 
 **Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7).
 
-**Phase 6 — FORUM (`v0.7.0`).** Needs a public deployment. Specify it fully first (FOR features): build or adopt (Q84), the presenter (Q85), the legal requirements and minimum age (Q86), and free CAPTCHA and filter tools (Q87). Then:
+**Phase 6 — FORUM (`v0.7.0`).** Needs a public deployment. Specify it fully first (FOR features): build or adopt (Q84), the legal requirements and minimum age (Q86), and free CAPTCHA and filter tools (Q87). The presenter is Braviary (D89). Then:
 
 1. **Reading:** categories, post lists and threads from the API (FOR-F01, FOR-F06, FOR-F07).
 2. **Writing:** posts, nested replies, editing and deleting (FOR-F02, FOR-F04, FOR-F08), with entrance and rate limits from the first day (D87).

@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.13 — approved 2026-11-16** · Owner: @Alex
+**Version 1.14 — approved 2026-11-17** · Owner: @Alex
 
 ## Document status
 
-Version 1.13, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.14, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -496,7 +496,7 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 ## M9 — Forum · FORUM (`FOR`) · Phase 6
 
-**Purpose.** The academy's public square: users open topics and others discuss them, like Reddit (R21, D85). What sets it apart is that a post can carry work from the other halls, shown already analysed. Outline: the full specification is written at the start of Phase 6, together with Q84–Q87. Presenter: open (Q85).
+**Purpose.** The academy's public square: users open topics and others discuss them, like Reddit (R21, D85). What sets it apart is that a post can carry work from the other halls, shown already analysed. Outline: the full specification is written at the start of Phase 6, together with Q84, Q86 and Q87. Presenter: Braviary, the guardian of the square (D89).
 
 ### Features
 

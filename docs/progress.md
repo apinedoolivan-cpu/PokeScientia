@@ -6,6 +6,20 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-17 · FORUM presenter (D89)
+
+- **Done:**
+  - Cast the FORUM (Q85). As with the ATRIUM, no Pokémon stands for the hall's function (public discussion), so the choice follows a clearly Roman symbol with a fitting role.
+  - Decided D89: **Braviary** (Unova form) as the Roman *aquila*, the eagle that carried SPQR, "the Senate and People of Rome": the emblem of the forum's people, not of war. Its role leans to moderation: a proud, brave guardian that protects its comrades (its lore) and swoops on abusive posts. Jupiter's eagle and any bird still link to messages.
+  - Its American look is handled by the framing and by trying the bronze statue treatment of DP-4 on it in M0.7.
+  - Forum lore kept for its introductions: Pliny's phoenix shown in the Comitium in 47 CE and judged fake; Pliny's pigeons at Mutina; *Fama*, the goddess of rumor.
+  - Reviewed and set aside: Chatot, Mr. Mime, Smeargle, Grafaiai, Primarina, Unfezant, Conkeldurr, Farigiraf, Lycanroc, Exploud, the other birds of prey, Corviknight, Hisuian Braviary, Yveltal, Tornadus (Therian Forme), Zapdos and Moltres (reasons in design §7).
+  - Lore checked on Bulbapedia, PokémonDB and veekun (Braviary, Smeargle, Grafaiai, Conkeldurr, Tornadus); Pliny checked in the *Natural History*, book X.
+  - Docs updated: vision v1.22, modules v1.14, design v1.11, roadmap v1.11, decision map, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+
+---
+
 ## 2026-11-16 · The FORUM (D85–D88)
 
 - **Done:**

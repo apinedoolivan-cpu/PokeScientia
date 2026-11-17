@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.21 — approved 2026-11-16** · Owner: @Alex
+**Version 1.22 — approved 2026-11-17** · Owner: @Alex
 
 ## Document status
 
-Version 1.21, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.22, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -207,6 +207,7 @@ These come directly from the owner's answers in discovery.
 | D86 | **Phase order:** the FORUM is **Phase 6**, right after accounts (Phase 5); the quiz and the AI assistant move to **Phase 7**. Accounts stay their own phase. A public deployment must happen before Phase 6. Revises the phase of D15. | The backend is fresh after Phase 5 and every hall a post can link to already exists. Accounts are tested first on a simple use (team sync, deletion) before strangers post. Merging both would make a phase of about 150–250 hours, against D66, and the forum needs its own specification. The forum does not need the assistant. |
 | D87 | **Moderation in layers** (M9 rules): (1) **limits by design** at launch: no private messages, no image uploads, structured attachments; (2) **entrance limits:** verified email, a CAPTCHA, rate limits, new accounts can't post links; (3) **trust levels** earned through participation and votes, unlocking abilities up to helping to moderate; (4) **automatic filters** hold suspicious posts in a review queue and never delete by themselves; (5) a **report** button on every post, and a post reported by several trusted users is hidden until reviewed; (6) **public rules**, a penalty ladder (warning, temporary mute, suspension, ban), a log of every action with its reason, and appeals. Volunteer moderators come later, chosen from trusted users. EU legal duties and a minimum age are part of the Phase 6 specification (Q86). | One person can't moderate a community by hand, so the layers that work without a moderator carry the weight. Most spam comes from new accounts; trust levels (Discourse, Stack Overflow) turn good members into helpers; filters make mistakes, so a person decides. Private messages are the biggest risk with a young audience because nobody else sees them. |
 | D88 | The provisional palette **Foro is renamed Travertino**, with the same values. Revises the name in D63. | "Foro" now names a hall (D85); two things with one name would confuse the docs and the code. |
+| D89 | **FORUM presenter: Braviary** (Unova form; closes Q85). It stands as the Roman ***aquila***, the eagle that carried **SPQR**, "the Senate and People of Rome": the emblem of the people who met in the forum, not of war. Its role leans to **moderation more than messaging**: a proud, brave guardian that protects the community and, as a bird of prey, swoops on abusive posts; as a bird, and as Jupiter's eagle that carried his will, it still links to messages. Its American look (a bald eagle in red, white and blue) is handled by the framing (the eagle as a state's emblem comes from Rome's *aquila*) and by trying the bronze "statue" treatment of DP-4 on it. Reasons, personality, forum lore for its introductions and rejected candidates are in the design spec §7. | No Pokémon stands for public discussion itself, so the cast follows a clearly Roman symbol given a fitting role, as Arcanine does for ATRIUM. Its lore fits that role: it is "often seen as a motif for various kinds of emblems" and, as the "soldiers of the sky", fights tirelessly to protect its friends. Tornadus (Therian Forme), the only close rival, is not clearly an eagle and comes with a Fūjin form. |
 
 ## Assumptions
 
@@ -294,6 +295,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-17 | Version 1.22: D89 Braviary as the FORUM's presenter, the *aquila* of SPQR with a moderator's personality; closes Q85; modules v1.14, design v1.11, roadmap v1.11 | FORUM presenter review |
 | 2026-11-16 | Version 1.21: R21 and D85–D88: the FORUM hall (Reddit-style discussion with attachments from the other halls); a new Phase 6 right after accounts, with the quiz and the AI assistant moved to Phase 7; moderation in layers; the Foro palette renamed Travertino. U18, U19 added; opens Q84–Q87; modules v1.13 (M9), data strategy v1.4, architecture v1.7, design v1.10, roadmap v1.10 | Forum discussion |
 | 2026-11-16 | Version 1.20: D84 presenter cast (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox), each with a personality that matches its hall; closes Q3; modules v1.12, design v1.9 | Presenter cast review |
 | 2026-11-15 | Version 1.19: D83 competitive section in every entry, VGC first (current usage, best VGC usage ever, common sets), then Smogon Doubles and singles tiers; revises D81; DAT-F15 added; modules v1.11, data strategy v1.3, design v1.8, roadmap v1.9 | VGC focus review of D81 |

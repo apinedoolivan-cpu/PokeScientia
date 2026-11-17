@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.10 — approved 2026-11-16** · Owner: @Alex
+**Version 1.11 — approved 2026-11-17** · Owner: @Alex
 
 ## Document status
 
-Version 1.10, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.11, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -171,7 +171,7 @@ The same frame in every hall: the presenter stands **under a Roman arch**, on a 
 - **Phase 0–2 (D14):** the presenter appears in the hall header with a short introduction (one or two sentences). The introduction can be dismissed and stays dismissed.
 - **Later:** an optional **companion** mode (a small portrait in a corner offering tips, which can be hidden) may be added. Not in the MVP.
 - **Phase 7 (D82):** each presenter becomes the AI assistant's voice in its hall, as the hall's *genius loci*, and can hand a question to another presenter. All presenters are peers. The companion mode is a natural way to reach it; details are open (Q82).
-- **Image treatment (Proposal DP-4):** official artwork in **original color** by default. A duotone or "statue" treatment (CSS filters only, never redrawing) can be explored later.
+- **Image treatment (Proposal DP-4):** official artwork in **original color** by default. A duotone or "statue" treatment (CSS filters only, never redrawing) can be explored later. It is tried first on Braviary, the FORUM's presenter, to make it read as a bronze Roman *aquila* (D89).
 
 ### Cast (D84)
 
@@ -185,10 +185,19 @@ Two rules (D82, D84): a presenter's **lore or a clear symbol must tell what its 
 | ABACUS | **Metagross** | Its Pokédex entries describe four brains that solve complex calculations faster than a supercomputer and analyze opponents precisely | Calm and exact. Numbers first, no flourish; always says what the figures assume |
 | ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them | A measured strategist. Thinks before speaking, compares options, explains why one wins |
 | COLOSSEUM | **Incineroar** | A wrestler for the arena, and a face of competitive play | A showman with a coach's heart: loud and theatrical in the ring, honest in your corner |
-| FORUM | **To be cast** (Q85) | Chosen with the same two rules before Phase 6 | — |
+| FORUM | **Braviary** (Unova form) | The Roman *aquila*, the eagle that carried **SPQR**, "the Senate and People of Rome": the emblem of the people who met in the forum. Its lore calls it a motif for emblems, and the "soldiers of the sky" that fight tirelessly to protect their friends. Jupiter's eagle carried his will, and any bird links to messages | A proud, brave standard-bearer and the guardian of the square. Welcomes newcomers loudly, raises the best discussions high, and as a bird of prey swoops on abusive posts. Moderation first, messages second |
 | AENIGMA | **Delphox** | Named after Delphi and its oracle, famous for answering in riddles; in lore, its burn marks were read for divination | Enigmatic and playful. Speaks in riddles while you play; once you answer, explains plainly |
 
-**Considered and set aside:** Pikachu (fame, not meaning), Klefki (keys only), Girafarig/Farigiraf (a Janus link few would read) and Hisuian Arcanine (rock and statue, less alive) for ATRIUM; Alakazam (psychic and magic, not calculation) for ABACUS; Xatu (a passive seer, drawn from specific living cultures) for ATHENAEUM; Zoroark (illusion, not riddles) and Unown (no individual mind) for AENIGMA.
+**Braviary in detail (D89).** No Pokémon stands for public discussion itself, so, as with Arcanine at the ATRIUM, the cast follows a clearly Roman symbol given a fitting role.
+
+- **The eagle of the people, not of war.** The *aquila* led the legions, but its standard also bore SPQR. In the FORUM it stands for the community the hall exists for, so it does not compete with LEGIO's Falinks: LEGIO forms the team, the eagle is the standard everyone gathers under.
+- **The American look.** Braviary is a bald eagle in red, white and blue. Two answers: the idea of an eagle as a state's emblem comes from Rome's *aquila*, so a national eagle is Rome's symbol reused; and the bronze "statue" treatment (DP-4, CSS filters only, never redrawing) is tried on it so it reads as a bronze *aquila*.
+- **Forum lore for its introductions** (texts present these as the academy's stories):
+  - **Pliny's phoenix.** The *Natural History* reports a phoenix brought to Rome under Claudius in 47 CE and shown in the Comitium, the forum's place of assembly, which Pliny judged a fake: Rome's first viral hoax, and a good opening for the rules on false information.
+  - **Pliny's pigeons.** During the siege of Mutina, Decimus Brutus sent letters tied to pigeons' feet (*Natural History*, book X): messages carried by air, fitting for reply notices.
+  - ***Fama*,** the Roman goddess of rumor, who in Virgil flies about with countless eyes, ears and tongues: material for the voice, as what the guardian keeps in check.
+
+**Considered and set aside:** Pikachu (fame, not meaning), Klefki (keys only), Girafarig/Farigiraf (a Janus link few would read) and Hisuian Arcanine (rock and statue, less alive) for ATRIUM; Alakazam (psychic and magic, not calculation) for ABACUS; Xatu (a passive seer, drawn from specific living cultures) for ATHENAEUM; Zoroark (illusion, not riddles) and Unown (no individual mind) for AENIGMA. For the FORUM: Chatot (mimics sounds, and tropical), Mr. Mime (the minstrel bringing news is not a Roman image), Smeargle (artistic painting more than messages), Grafaiai (a signature tag repeated for life, solitary and poisonous), Primarina (Greek sirens lure sailors to their death), Unfezant (one-to-one messages, kept as lore), Conkeldurr (its Roman concrete builds the square but says nothing about talking in it), Farigiraf (the Janus link again), Lycanroc (no lore of the Roman she-wolf), Exploud (a herald announces but doesn't discuss), Pidgeot, Talonflame, Hawlucha, Staraptor and Swellow (not eagles), Corviknight (a raven, steel rather than bronze, British in theme), Hisuian Braviary (loses the eagle's look), Yveltal (death), Tornadus in Therian Forme (not clearly an eagle; its other form is the wind god Fūjin; storms destroy), Zapdos (Jupiter's eagle holds thunderbolts, but it doesn't look like an eagle) and Moltres (Pliny's phoenix is an anecdote, not the hall's function, and a fourth fire-type presenter).
 
 ## 8. The Pokédex as a book: *Historia Naturalis* (D61)
 
@@ -315,7 +324,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
-| FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; presenter (Q85) |
+| FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; Braviary's frame and statue treatment (D89) |
 | Companion presenters | After the MVP | Optional; in Phase 7 a way to reach the assistant (D82, Q82) |
 
 ## 15. Decisions and proposals
@@ -343,8 +352,9 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | ID | Decision |
 | --- | --- |
 | D84 | Presenter cast (section 7): Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox. Each fits its hall through lore or symbolism and has a personality that matches its function. Closes Q3. |
-| D85 | The FORUM (menu Foro / Forum, route `/forum`), the community hall: Reddit-style topics, replies and votes, with attachments from the other halls (section 3). Presenter open (Q85). |
+| D85 | The FORUM (menu Foro / Forum, route `/forum`), the community hall: Reddit-style topics, replies and votes, with attachments from the other halls (section 3). Presenter open (Q85), cast by D89. |
 | D88 | The provisional palette Foro is renamed Travertino, with the same values (section 4). |
+| D89 | FORUM presenter: Braviary, the *aquila* of SPQR, a proud guardian of the square with moderation as its role (section 7). Closes Q85. |
 
 ### Proposals awaiting approval
 

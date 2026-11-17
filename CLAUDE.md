@@ -67,7 +67,8 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   invents numbers; a predictable tutor, not a perfect opponent. The rival and the advisor share one action scoring.
   Its voice is each hall's presenter, peers that can hand questions to each other (D82; details Q82).
 - Presenters (D84): Arcanine (ATRIUM), Mew (BIBLIOTHECA), Falinks (LEGIO), Metagross (ABACUS), Noctowl (ATHENAEUM),
-  Incineroar (COLOSSEUM), Delphox (AENIGMA); FORUM to be cast (Q85). Each has a personality matching its hall
+  Incineroar (COLOSSEUM), Delphox (AENIGMA), Braviary (FORUM, D89: the *aquila* of SPQR, a guardian
+  with moderation as its role). Each has a personality matching its hall
   (design §7).
 - FORUM (D85–D87, Phase 6, after accounts in Phase 5): Reddit-style topics, nested replies and votes; a post can
   attach a team, Pokémon, calculation or battle from another hall. Moderation in layers: limits by design (no

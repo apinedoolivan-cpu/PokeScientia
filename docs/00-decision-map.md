@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-16
+Last updated: 2026-11-17
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -14,7 +14,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 8 | 3 |
-| E. Later phases | 1 | 12 |
+| E. Later phases | 2 | 11 |
 | F. Working process | 5 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
@@ -97,7 +97,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 
 | ID | Decision | Kind | Status |
 | --- | --- | --- | --- |
-| Q3 | Presenter cast per section | Product | Decided → D84 (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox; each with a personality that matches its hall). Still open to swaps before each hall is built. The FORUM's presenter is open (Q85). |
+| Q3 | Presenter cast per section | Product | Decided → D84 (Arcanine, Mew, Falinks, Metagross, Noctowl, Incineroar, Delphox; each with a personality that matches its hall). Still open to swaps before each hall is built. FORUM: Braviary (D89, closes Q85). |
 | Q27 | Hall names and navigation structure | Product | Decided → D59, D60 |
 | Q28 | Typography and color palette | Design | **Open.** Palette: Travertino provisional (D63; named Foro until D88), final choice after the first real pages. Typography: proposed as DP-2. |
 | Q29 | Source of the academy artwork | Design + research | **Open.** Free-licensed only (R18). |
@@ -120,7 +120,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q7 | Hosting for frontend and backend, on free tiers | First deployment |
 | Q35 | Address: free subdomain (a paid domain breaks R7) | First deployment |
 | Q84 | **Build or adopt the FORUM** (D85). Our own forum on the Go API and Angular fits the academy and the backend learning goal (R12), but trust levels, filters and moderation tools must be built. Discourse (open source) includes all of them, but needs its own server (R7: free hosting) and would look and behave like a separate site. | Phase 6 start |
-| Q85 | **FORUM presenter**, cast with D84's two rules: lore or a symbol that tells what the hall does, and a matching personality. First idea, not reviewed: Chatot, a bird that mimics human speech. | Before Phase 6 |
+| Q85 | FORUM presenter, cast with D84's two rules. Reviewed on 2026-11-17: Chatot, Mr. Mime, Smeargle, Grafaiai, Primarina, Unfezant, Conkeldurr, the eagles and other birds of prey, and the legendary birds (Tornadus in Therian Forme, Zapdos, Moltres). | Decided → D89 (Braviary, the *aquila* of SPQR) |
 | Q86 | **Legal requirements for user content** (research): EU data protection (GDPR) and the duties of a hosting service under the Digital Services Act (reporting illegal content, giving reasons for removals); the minimum age to sign up in Spain; terms of use and privacy policy; what happens to posts when an account is deleted (ACC-F04). | Phase 6 specification |
 | Q87 | **Free tools for the CAPTCHA and the automatic filters** (R7), and how filtered posts reach the review queue (D87). | Phase 6 specification |
 | Q8 | AI model source. Options noted, not decided: the owner's own API key entered in settings (never stored or paid by the site), a provider's free tier, or a small model running in the browser. Must respect R7 (free resources); the turn advisor's steps 1–3 work without any model (D76). | Phase 7 |
