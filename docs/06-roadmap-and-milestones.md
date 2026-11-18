@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.12 — approved 2026-11-17** · Owner: @Alex
+**Version 1.13 — approved 2026-11-18** · Owner: @Alex
 
 ## Document status
 
-Version 1.12, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.13, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91); version 1.13 adds the `/commit-message` skill to M0.1 (D93).
 
 ## 1. Planning principles
 
@@ -79,8 +79,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 - `outputMode: "static"`; `@angular/localize` with Spanish source under `/es/` and English under `/en/` (D1, D17, D50).
 - ESLint with the layer import rules (architecture §3), Prettier, Vitest; `.vscode/extensions.json`.
 - AI guidelines arranged at the root as in architecture §12 (D55).
+- The `/commit-message` skill for Claude Code (`.claude/skills/commit-message/SKILL.md`): reads architecture §12 and the staged changes, and drafts the message for the owner to review (D93). From this milestone on, every commit message comes from it.
 
-**Done when:** a production build produces `/es/` and `/en/` with a placeholder page each; lint and tests pass; Claude Code loads `frontend/CLAUDE.md`; the Angular MCP server works from the root.
+**Done when:** a production build produces `/es/` and `/en/` with a placeholder page each; lint and tests pass; Claude Code loads `frontend/CLAUDE.md`; the Angular MCP server works from the root; `/commit-message` drafts a §12-compliant message for M0.1's own commit.
 
 ### M0.2 — Continuous integration · ~3–5 h
 
@@ -395,3 +396,4 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D68 | The active team is built in Phase 2 (M2.9). |
 | D69 | Phase 3 starts with ABACUS and the active team (M3.1–M3.2), before the usage data; the threat list follows the usage data (M3.5). |
 | D86 | The FORUM is Phase 6, right after accounts; the quiz and the AI assistant move to Phase 7. A public deployment comes before Phase 6. |
+| D93 | The `/commit-message` Claude Code skill is added in M0.1 and drafts every commit message from then on. |

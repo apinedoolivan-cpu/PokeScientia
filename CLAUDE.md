@@ -114,7 +114,7 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   selector`, `docs: D90, D91 …`); a specific summary (never a vague "update/improve"); when several areas or any
   decision change, a bulleted body organized by what changed, not by file: one bullet per decision or change led
   by its ID, then the versions touched. Check where each ID lives (§12 table). Claude prepares messages; the
-  owner commits.
+  owner commits. From M0.1, use the `/commit-message` skill, which loads §12 every time (D93).
 - User-facing UI text: Spanish first, with English translations.
 
 ## Session routine

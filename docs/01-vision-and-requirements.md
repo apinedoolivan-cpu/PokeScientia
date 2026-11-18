@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.24 — approved 2026-11-18** · Owner: @Alex
+**Version 1.25 — approved 2026-11-18** · Owner: @Alex
 
 ## Document status
 
-Version 1.24, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.25, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -211,6 +211,7 @@ These come directly from the owner's answers in discovery.
 | D90 | **Braviary is the AI face of reporting and moderation** (Phase 7, AIA-F04; option A of the review). In the FORUM, the assistant speaks as Braviary and becomes the main way to report a post and to moderate: users report by talking to it; it reads the post against the public rules, says what it will do and why, may hide the post at once while it is reviewed, and proposes the penalty. **A moderator confirms every penalty, and appeals always go to a person** (D87 unchanged). Letting it act alone on clear cases is open (Q88). | Braviary's brave guardian personality (D89) makes it the natural voice of moderation, and one familiar character is easier to report to than a form. Keeping a person on every penalty respects D87 and the EU expectation that users can contest moderation; a language model will sometimes misjudge, and here a mistake hits a real user. |
 | D91 | **Presenters are shown alive, each with a vivid personality of its own.** Official artwork in original color (DP-4's default); no bronze or statue treatment for Braviary, which revises the image part of D89. Every presenter's personality must be distinct and vivid enough that, in Phase 7, talking to the assistant feels like talking to that presenter (D82). | The presenters will speak for the assistant, so they should look and feel like living characters, not monuments. A statue suggests the opposite. |
 | D92 | **Commit message rules live in one place: architecture §12.** They now include organizing the body by what changed (not by file), a table of where each ID lives, and add/revise/close verbs. `.github/commit-instructions.md` and Copilot's commit-message setting are removed. Claude prepares every message (in the chat, or Claude Code from the staged changes after reading §12); the owner reviews and commits. Revises D53. | Copilot's messages proved unreliable for documentation commits, even with instructions: they put IDs in the wrong documents and were organized by file. The rules existed in three copies; one source of truth avoids drift, and it sits with the other Git practices, where projects usually document their conventions. |
+| D93 | **A `/commit-message` skill for Claude Code** (`.claude/skills/commit-message/SKILL.md`), added in M0.1. It reads architecture §12 and the staged changes, uses what the session knows about why they were made, and drafts the message; the owner reviews and commits. From M0.1 on, every commit message comes from it. | CLAUDE.md's "read §12 first" is an instruction Claude Code can skip in a long session or a quick request; a skill loads the rules every time. Skills are the current format of Claude Code's custom slash commands. |
 
 ## Assumptions
 
@@ -298,6 +299,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-18 | Version 1.25: D93 `/commit-message` Claude Code skill added to M0.1; architecture v1.9, roadmap v1.13 | Commit message review |
 | 2026-11-18 | Version 1.24: D92 commit message rules moved into architecture §12 (organized by change, ID table, verbs); `.github/commit-instructions.md` and Copilot's commit setting removed (revises D53); architecture v1.8 | Commit message review |
 | 2026-11-17 | Version 1.23: D90 Braviary as the AI face of reporting and moderation in Phase 7, with a person confirming penalties (AIA-F04); D91 presenters shown alive with vivid personalities, no statue treatment for Braviary (revises D89); opens Q88; modules v1.15, design v1.12, roadmap v1.12 | Braviary review |
 | 2026-11-17 | Version 1.22: D89 Braviary as the FORUM's presenter, the *aquila* of SPQR with a moderator's personality; closes Q85; modules v1.14, design v1.11, roadmap v1.11 | FORUM presenter review |

@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.8 — approved 2026-11-18** · Owner: @Alex
+**Version 1.9 — approved 2026-11-18** · Owner: @Alex
 
 ## Document status
 
-Version 1.8, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.9, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -38,6 +38,8 @@ The monorepo (D9) holds independent parts that share nothing but documents and, 
 ```
 PokeScientia/
 ├── CLAUDE.md                     permanent instructions for Claude
+├── .claude/
+│   └── skills/commit-message/    the /commit-message skill, SKILL.md (section 12, D93)
 ├── README.md
 ├── .github/
 │   └── workflows/ci.yml          CI (section 12)
@@ -282,7 +284,10 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 
 ### Commit messages (D53, D92)
 
-This is the one place where commit message rules are written. `CLAUDE.md` points here, so Claude Code follows the same rules. **Who writes them:** Claude prepares each message, in the chat or, in the terminal, from the staged changes; the owner reviews it and commits. Copilot's message generator is not configured (D92).
+This is the one place where commit message rules are written. `CLAUDE.md` points here, so Claude Code follows the same rules. **Who writes them:** Claude prepares each message; the owner reviews it and commits. Copilot's message generator is not configured (D92).
+
+- **In the terminal (from M0.1):** the `/commit-message` skill (`.claude/skills/commit-message/SKILL.md`, D93). It reads this section and the staged changes (`git diff --staged`), uses what the session knows about why the changes were made, and drafts the message for review. It never commits. Claude Code may also load it on its own when asked for a commit message. Skills are Claude Code's current format for custom slash commands.
+- **In a chat session:** Claude writes the message in the chat, following this section.
 
 A good message lets someone reading the history understand **what changed and why** without opening the files. Messages are in English (D22) and follow **Conventional Commits**.
 
@@ -352,6 +357,7 @@ The owner writes code with **Claude Code in VS Code's integrated terminal**, sta
 | `CLAUDE.md` (root) | Us | Claude Code, always | Project rules, decisions, pointers to `docs/`. **Authoritative.** |
 | `frontend/CLAUDE.md` | `ng new --ai-config claude-code` | Claude Code, when working on files in `frontend/` | Angular's official best practices (about 60 lines: standalone components, signals, `input()`/`output()`, native control flow, Signal Forms, `inject()`, WCAG AA and axe checks) |
 | `.mcp.json` (root) | Generated in `frontend/`, moved to the root | Claude Code | Angular CLI's MCP server (`npx @angular/cli mcp`), which gives Claude Angular-specific tools and documentation |
+| `.claude/skills/commit-message/SKILL.md` | Us (M0.1) | Claude Code, on `/commit-message` or when asked for a commit message | Reads section 12 and the staged changes; drafts the message (D93) |
 | `AGENTS.md` (root) | Generated in `frontend/`, moved to the root, plus a short header we add | Copilot chat | Angular's best practices, preceded by: "Project rules are in `CLAUDE.md` and `docs/`; they win on conflict." |
 | `.vscode/mcp.json` (root) | Generated in `frontend/.vscode/`, moved to the root | Copilot in VS Code | The same Angular MCP server |
 
@@ -441,6 +447,7 @@ The steps that start Phase 0, after this document and the design document are ap
 5. Create `pipeline/` with its own `package.json`, and the hand-maintained files in `pipeline/manual/`.
 6. Add `.vscode/settings.json` (shared editor settings) and `.github/workflows/ci.yml`.
 6b. Arrange the AI guidelines as described in section 12 (move the MCP configurations to the repository root, create the root `AGENTS.md`, and check that both tools load them).
+6c. Add the `/commit-message` skill (section 12, D93).
 7. **Spike** (a short experiment, kept or discarded): prerender a few hundred test pages in both languages, measuring build time and size, and confirm how the data service reads data during the build and during hydration. Results are written into this document before the Pokédex is built.
 
 [`06-roadmap-and-milestones.md`](06-roadmap-and-milestones.md) turns these steps into Phase 0 milestones M0.1–M0.3.
@@ -461,6 +468,7 @@ Approved in review on 2026-11-04.
 | A8 | D52 | Zoneless change detection with OnPush (Angular 22 defaults) |
 | A9 | D53 | Conventional Commits with feature IDs (revised by D92) |
 | — | D92 | Commit message rules live only in section 12; `.github/commit-instructions.md` and Copilot's commit setting removed |
+| — | D93 | `/commit-message` Claude Code skill, added in M0.1, drafts every commit message |
 | A10 | D54 | Node 26 LTS, recorded in `.nvmrc` and `engines` |
 | A11 | D56 | Keep GSAP (free, proprietary license) with PixiJS as the 2D animation stack; R7 reworded to allow explicitly approved free proprietary tools |
 | A12 | D55 | Generate Angular's AI guidelines for Claude Code and Copilot; arrange them at the root as in section 12; root `CLAUDE.md` stays authoritative |

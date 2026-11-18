@@ -6,6 +6,16 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-18 · The /commit-message skill (D93)
+
+- **Done:**
+  - Checked how Claude Code will follow the commit rules: it loads CLAUDE.md automatically, but "read §12 first" can be skipped, and in a fresh session it only sees the diff.
+  - Decided D93: a `/commit-message` Claude Code skill (`.claude/skills/commit-message/SKILL.md`) that reads architecture §12 and the staged changes and drafts the message. Added to M0.1; from then on every commit message comes from it. Skills are Claude Code's current format for custom slash commands (custom commands were merged into skills).
+  - Docs updated: vision v1.25, architecture v1.9, roadmap v1.13, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+
+---
+
 ## 2026-11-18 · Commit message rules in one place (D92)
 
 - **Done:**
