@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-17
+Last updated: 2026-11-18
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -74,7 +74,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q56 | Translation file format | Technical | Decided → D50 |
 | Q57 | Root address and language redirect | Technical | Decided → D51 |
 | Q58 | Change detection | Technical | Decided → D52 |
-| Q59 | Commit message convention | Technical | Decided → D53 |
+| Q59 | Commit message convention | Technical | Decided → D53 (revised by D92: rules in architecture §12) |
 | Q60 | Node version | Technical | Decided → D54 |
 | Q61 | GSAP's proprietary license versus R7 ("open-source material only") | Product | Decided → D56 (keep GSAP; R7 reworded) |
 | Q62 | Angular's AI configuration files (`--ai-config`) | Technical | Decided → D55 |

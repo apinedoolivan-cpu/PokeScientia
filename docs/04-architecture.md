@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.7 — approved 2026-11-16** · Owner: @Alex
+**Version 1.8 — approved 2026-11-18** · Owner: @Alex
 
 ## Document status
 
-Version 1.7, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.8, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -40,10 +40,9 @@ PokeScientia/
 ├── CLAUDE.md                     permanent instructions for Claude
 ├── README.md
 ├── .github/
-│   ├── workflows/ci.yml          CI (section 12)
-│   └── commit-instructions.md    commit message rules for Copilot (section 12)
+│   └── workflows/ci.yml          CI (section 12)
 ├── .vscode/
-│   ├── settings.json             Copilot commit instructions, shared editor settings
+│   ├── settings.json             shared editor settings
 │   └── extensions.json           recommended extensions
 ├── .gitattributes                line endings (D57)
 ├── .nvmrc                        Node version (D54)
@@ -281,34 +280,72 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 - **ESLint** with Angular's rules and the import restrictions from section 3. **Prettier** for formatting.
 - **npm scripts** (frontend): `start`, `build`, `test`, `e2e`, `lint`, `extract-i18n`. (pipeline): `build-data`, `test`.
 
-### Commit messages (D53)
+### Commit messages (D53, D92)
 
-**Conventional Commits** with feature IDs: `type(scope): summary`, plus a bulleted body when needed.
+This is the one place where commit message rules are written. `CLAUDE.md` points here, so Claude Code follows the same rules. **Who writes them:** Claude prepares each message, in the chat or, in the terminal, from the staged changes; the owner reviews it and commits. Copilot's message generator is not configured (D92).
 
-| Part | Values |
-| --- | --- |
-| type | `feat`, `fix`, `docs`, `test`, `refactor`, `style`, `chore`, `data`, `ci` |
-| scope | `shell`, `arc`, `str`, `cmp`, `lab`, `domain`, `ui`, `pipeline`, `i18n`, `docs` |
-| summary | Imperative, lowercase, specific (never just "update" or "improve"); include the feature ID when implementing one |
-| body | Required when several areas, or any decision, requirement or version, change: one bullet per area with IDs and versions |
+A good message lets someone reading the history understand **what changed and why** without opening the files. Messages are in English (D22) and follow **Conventional Commits**.
 
-Examples: `feat(arc): ARC-F04 add form selector` · `data: refresh for Regulation M-D` · `docs: architecture v1`.
+```
+type(scope): summary
 
-**Copilot setup:** `.github/commit-instructions.md` holds these rules, and `.vscode/settings.json` points Copilot's "Generate commit message" to it:
-
-```json
-{
-  "github.copilot.chat.commitMessageGeneration.instructions": [
-    { "file": ".github/commit-instructions.md" }
-  ]
-}
+- ID or topic: what was decided or changed (IDs, versions)
+- ID or topic: what was decided or changed
+- versions: the document versions touched
 ```
 
-The same rules are in CLAUDE.md, so Claude in the terminal suggests messages in the same style.
+**First line**
+
+| Part | Rule |
+| --- | --- |
+| type (required) | `feat` new feature · `fix` bug fix · `docs` documentation only (`docs/`, `README.md`, `CLAUDE.md`) · `test` tests only · `refactor` code change that neither fixes a bug nor adds a feature · `style` formatting · `chore` tooling, configuration, dependencies · `data` regenerated data in `frontend/public/data/` or hand-maintained files in `pipeline/manual/` · `ci` GitHub Actions |
+| scope (optional) | `shell`, `arc`, `str`, `cmp`, `lab`, `domain`, `ui`, `pipeline`, `i18n`, `docs`. Omitted when the change spans several areas |
+| summary (required) | The **most important change, stated specifically**: imperative, lowercase, no final period, at most 72 characters for the whole line. Never vague on its own ("update files", "improve docs", "minor changes"); never a list of file names |
+| IDs first | A feature being implemented or fixed starts the summary (`feat(arc): ARC-F04 add form selector`); so do decisions being recorded (`docs: D90, D91 …`) |
+| mixed types | Use the type of the most important change; list the rest in the body |
+
+**Body.** Required when the commit touches more than one area, adds or changes a decision, requirement or document version, or when the summary can't say everything important. Optional for small, single-purpose changes.
+
+- **Organized by what changed, not by file**: Git already lists the files. One bullet per decision, requirement, question or feature, led by its ID (`D90:`, `Q88:`, `AIA-F04:`); a change without an ID is led by its topic (`Design §7:`, `pipeline:`).
+- Say what was decided or changed, not that something changed: "R7 reworded to allow approved free proprietary tools", not "updated R7"; never "reflect changes" or "log updates".
+- The right verb for each ID: **add** a new one, **revise** an existing one (naming it: "revises D89"), **close** a question ("closes Q85").
+- The last bullet lists the document versions touched and the other files changed (`vision v1.23, modules v1.15, decision map, CLAUDE.md, progress`).
+- If the reason for a change isn't known, describe the change precisely and don't guess a reason.
+- Lines wrap at about 72 characters.
+
+**Where each ID lives** (check before naming one):
+
+| ID | Meaning | Defined in |
+| --- | --- | --- |
+| `D#` | Decision | `01-vision-and-requirements.md` (some documents repeat theirs in a closing table) |
+| `R#` | Requirement | `01-vision-and-requirements.md` |
+| `Q#` | Open question | `00-decision-map.md`, which never holds `D#` entries; a decided question points to its `D#` |
+| `XXX-F##` | Feature (`ARC-F04`) | `02-functional-modules.md` |
+| `DP-#` | Design proposal | `05-design-and-interaction.md` |
+| `M#.#` | Milestone | `06-roadmap-and-milestones.md` |
+
+**Examples**
+
+Small changes, no body: `feat(arc): ARC-F04 add form selector` · `fix(str): STR-F19 correct rounding in EV to SP conversion` · `data: refresh for regulation M-D`.
+
+Decisions across several documents:
+
+```
+docs: D90, D91 Braviary as the voice of moderation; presenters alive
+
+- D90: in Phase 7 Braviary is the AI face of reporting and moderation;
+  it proposes, a moderator confirms penalties, appeals go to a person;
+  new AIA-F04
+- Q88: Braviary acting alone on clear cases, once proven reliable
+- D91: presenters shown alive with vivid personalities; statue
+  treatment dropped for Braviary (revises D89); DP-3, DP-4 wording
+- vision v1.23, modules v1.15, design v1.12, roadmap v1.12,
+  decision map, CLAUDE.md, progress
+```
 
 ### AI guidelines (D55)
 
-The owner writes code with **Claude Code in VS Code's integrated terminal**, started from the repository root, and uses **Copilot** in VS Code for commit messages and chat. Each tool reads its own instruction files:
+The owner writes code with **Claude Code in VS Code's integrated terminal**, started from the repository root, and uses **Copilot** in VS Code for chat. Each tool reads its own instruction files:
 
 | File | Written by | Read by | Contents |
 | --- | --- | --- | --- |
@@ -317,7 +354,6 @@ The owner writes code with **Claude Code in VS Code's integrated terminal**, sta
 | `.mcp.json` (root) | Generated in `frontend/`, moved to the root | Claude Code | Angular CLI's MCP server (`npx @angular/cli mcp`), which gives Claude Angular-specific tools and documentation |
 | `AGENTS.md` (root) | Generated in `frontend/`, moved to the root, plus a short header we add | Copilot chat | Angular's best practices, preceded by: "Project rules are in `CLAUDE.md` and `docs/`; they win on conflict." |
 | `.vscode/mcp.json` (root) | Generated in `frontend/.vscode/`, moved to the root | Copilot in VS Code | The same Angular MCP server |
-| `.github/commit-instructions.md` | Us | Copilot commit messages | Section above |
 
 Why files move: both tools read their configuration from the folder that is opened or where they start (the repository root), so files generated inside `frontend/` would otherwise be ignored. `frontend/CLAUDE.md` stays where it is, because Claude Code reads nested `CLAUDE.md` files when it works in that folder, which is exactly where Angular's rules apply.
 
@@ -331,7 +367,7 @@ Rules:
 
 The owner works alone and commits straight to `main` (D21). These habits keep the history useful and `main` healthy:
 
-1. **Review before committing.** Check the staged changes in VS Code's Source Control panel. A message generated by Copilot is a draft: fix the summary and add anything missing before committing. Claude Code can also suggest a message for the staged changes; the owner still commits.
+1. **Review before committing.** Check the staged changes in VS Code's Source Control panel. Claude prepares the message (in the chat, or Claude Code from the staged changes) following the rules above; the owner reviews it and commits. Copilot's generated messages are not used (D92).
 2. **One logical change per commit.** From Phase 0, commit each feature or step on its own (`feat(arc): ARC-F04 add form selector`), not a day's work at once.
 3. **Commit often, push regularly.** GitHub is also the backup; unpushed work exists only on one computer.
 4. **Never rewrite pushed history.** No force-push to `main`; a mistake is fixed with a new commit.
@@ -403,7 +439,7 @@ The steps that start Phase 0, after this document and the design document are ap
 3. Set `outputMode: "static"` and the i18n configuration (Spanish source under `/es/`, English under `/en/`) in `angular.json`; add `@angular/localize`.
 4. Add ESLint (`ng add angular-eslint`), Prettier, Playwright and axe.
 5. Create `pipeline/` with its own `package.json`, and the hand-maintained files in `pipeline/manual/`.
-6. Add `.github/commit-instructions.md`, `.vscode/settings.json` and `.github/workflows/ci.yml`.
+6. Add `.vscode/settings.json` (shared editor settings) and `.github/workflows/ci.yml`.
 6b. Arrange the AI guidelines as described in section 12 (move the MCP configurations to the repository root, create the root `AGENTS.md`, and check that both tools load them).
 7. **Spike** (a short experiment, kept or discarded): prerender a few hundred test pages in both languages, measuring build time and size, and confirm how the data service reads data during the build and during hydration. Results are written into this document before the Pokédex is built.
 
@@ -423,7 +459,8 @@ Approved in review on 2026-11-04.
 | A6 | D50 | Translation files in XLIFF, with meaning and description for each text |
 | A7 | D51 | A static root page redirects to the saved language, else the browser's, else Spanish |
 | A8 | D52 | Zoneless change detection with OnPush (Angular 22 defaults) |
-| A9 | D53 | Conventional Commits with feature IDs; Copilot configured through `.github/commit-instructions.md` |
+| A9 | D53 | Conventional Commits with feature IDs (revised by D92) |
+| — | D92 | Commit message rules live only in section 12; `.github/commit-instructions.md` and Copilot's commit setting removed |
 | A10 | D54 | Node 26 LTS, recorded in `.nvmrc` and `engines` |
 | A11 | D56 | Keep GSAP (free, proprietary license) with PixiJS as the 2D animation stack; R7 reworded to allow explicitly approved free proprietary tools |
 | A12 | D55 | Generate Angular's AI guidelines for Claude Code and Copilot; arrange them at the root as in section 12; root `CLAUDE.md` stays authoritative |
@@ -445,5 +482,5 @@ Checked on 2026-11-04.
 - npm registry: `three` 0.187.0 (MIT), `motion` 14.9.1 (MIT), `animejs` 4.5.0 (MIT), compared as alternatives
 - [GSAP Standard "No Charge" license — ScanCode LicenseDB](https://scancode-licensedb.aboutcode.org/gsap-standard-no-charge-2025.html)
 - Angular's best practices for AI tools: `packages/core/resources/best-practices.md` in the [Angular repository](https://github.com/angular/angular), and the `ai-config` schematic in the [Angular CLI repository](https://github.com/angular/angular-cli)
-- [Custom instructions in VS Code — VS Code blog](https://code.visualstudio.com/blogs/2025/03/26/custom-instructions) and [Commit messages with Copilot — Tim Deschryver](https://timdeschryver.dev/blog/gain-control-over-commit-messages-generated-by-github-copilot)
+- [Custom instructions in VS Code — VS Code blog](https://code.visualstudio.com/blogs/2025/03/26/custom-instructions)
 - Pokémon Showdown data (commit `62597d9`): entity counts and learnset size estimate

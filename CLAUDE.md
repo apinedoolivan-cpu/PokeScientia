@@ -109,10 +109,12 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
 ## Language (D22)
 
 - Code, comments, commit messages and `docs/`: English. Only the README is bilingual.
-- Commit messages (D53): Conventional Commits, `type(scope): summary`, with the feature ID when implementing
-  one (e.g. `feat(arc): ARC-F04 add form selector`). The summary names the main change specifically (no vague
-  "update/improve"); a bulleted body with IDs and versions is required when several areas or any decision
-  change. Full rules in `.github/commit-instructions.md`.
+- Commit messages (D53, D92): **read `docs/04-architecture.md` §12 before writing one**; it is the only full
+  set of rules. In short: Conventional Commits, `type(scope): summary`, IDs first (`feat(arc): ARC-F04 add form
+  selector`, `docs: D90, D91 …`); a specific summary (never a vague "update/improve"); when several areas or any
+  decision change, a bulleted body organized by what changed, not by file: one bullet per decision or change led
+  by its ID, then the versions touched. Check where each ID lives (§12 table). Claude prepares messages; the
+  owner commits.
 - User-facing UI text: Spanish first, with English translations.
 
 ## Session routine

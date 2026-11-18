@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.23 — approved 2026-11-17** · Owner: @Alex
+**Version 1.24 — approved 2026-11-18** · Owner: @Alex
 
 ## Document status
 
-Version 1.23, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.24, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -171,7 +171,7 @@ These come directly from the owner's answers in discovery.
 | D50 | Translation files use XLIFF, with a meaning and description for each text. | Context helps when translating short or ambiguous texts. |
 | D51 | A static root page sends visitors to their saved language, otherwise their browser's language, otherwise Spanish. | Static hosting has no server to choose a language. |
 | D52 | Change detection is zoneless with OnPush (Angular 22 defaults); anything that changes on screen is a signal. | Fits D16 and makes pages faster. |
-| D53 | Commit messages follow Conventional Commits with feature IDs; Copilot's commit message generation is configured with `.github/commit-instructions.md`. | Readable history linked to the spec, using the owner's existing workflow. |
+| D53 | Commit messages follow Conventional Commits with feature IDs; Copilot's commit message generation is configured with `.github/commit-instructions.md`. (Revised by D92.) | Readable history linked to the spec, using the owner's existing workflow. |
 | D54 | Node 26 LTS, recorded in `.nvmrc` and in `engines`. | Current LTS, supported by Angular 22; same version locally and in CI. |
 | D55 | Angular's official AI guidelines are generated for Claude Code and Copilot (`--ai-config claude-code --ai-config vscode`) and arranged at the repository root; the root `CLAUDE.md` and `docs/` stay authoritative. | Claude Code (in VS Code's terminal) writes the code; Angular's guidelines keep it idiomatic. |
 | D56 | The animation stack is 2D: GSAP (free, proprietary license) for interface motion and choreography, PixiJS for the COLOSSEUM's stage. Three.js is a Phase 4 exploration option for original 3D content only (Q63). | GSAP has the richest timelines and plugins; our Pokémon images are 2D. |
@@ -210,6 +210,7 @@ These come directly from the owner's answers in discovery.
 | D89 | **FORUM presenter: Braviary** (Unova form; closes Q85). It stands as the Roman ***aquila***, the eagle that carried **SPQR**, "the Senate and People of Rome": the emblem of the people who met in the forum, not of war. Its role leans to **moderation more than messaging**: a proud, brave guardian that protects the community and, as a bird of prey, swoops on abusive posts; as a bird, and as Jupiter's eagle that carried his will, it still links to messages. Its American look (a bald eagle in red, white and blue) is handled by the framing: the eagle as a state's emblem comes from Rome's *aquila*. (Image revised by D91: no statue treatment.) Reasons, personality, forum lore for its introductions and rejected candidates are in the design spec §7. | No Pokémon stands for public discussion itself, so the cast follows a clearly Roman symbol given a fitting role, as Arcanine does for ATRIUM. Its lore fits that role: it is "often seen as a motif for various kinds of emblems" and, as the "soldiers of the sky", fights tirelessly to protect its friends. Tornadus (Therian Forme), the only close rival, is not clearly an eagle and comes with a Fūjin form. |
 | D90 | **Braviary is the AI face of reporting and moderation** (Phase 7, AIA-F04; option A of the review). In the FORUM, the assistant speaks as Braviary and becomes the main way to report a post and to moderate: users report by talking to it; it reads the post against the public rules, says what it will do and why, may hide the post at once while it is reviewed, and proposes the penalty. **A moderator confirms every penalty, and appeals always go to a person** (D87 unchanged). Letting it act alone on clear cases is open (Q88). | Braviary's brave guardian personality (D89) makes it the natural voice of moderation, and one familiar character is easier to report to than a form. Keeping a person on every penalty respects D87 and the EU expectation that users can contest moderation; a language model will sometimes misjudge, and here a mistake hits a real user. |
 | D91 | **Presenters are shown alive, each with a vivid personality of its own.** Official artwork in original color (DP-4's default); no bronze or statue treatment for Braviary, which revises the image part of D89. Every presenter's personality must be distinct and vivid enough that, in Phase 7, talking to the assistant feels like talking to that presenter (D82). | The presenters will speak for the assistant, so they should look and feel like living characters, not monuments. A statue suggests the opposite. |
+| D92 | **Commit message rules live in one place: architecture §12.** They now include organizing the body by what changed (not by file), a table of where each ID lives, and add/revise/close verbs. `.github/commit-instructions.md` and Copilot's commit-message setting are removed. Claude prepares every message (in the chat, or Claude Code from the staged changes after reading §12); the owner reviews and commits. Revises D53. | Copilot's messages proved unreliable for documentation commits, even with instructions: they put IDs in the wrong documents and were organized by file. The rules existed in three copies; one source of truth avoids drift, and it sits with the other Git practices, where projects usually document their conventions. |
 
 ## Assumptions
 
@@ -297,6 +298,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-18 | Version 1.24: D92 commit message rules moved into architecture §12 (organized by change, ID table, verbs); `.github/commit-instructions.md` and Copilot's commit setting removed (revises D53); architecture v1.8 | Commit message review |
 | 2026-11-17 | Version 1.23: D90 Braviary as the AI face of reporting and moderation in Phase 7, with a person confirming penalties (AIA-F04); D91 presenters shown alive with vivid personalities, no statue treatment for Braviary (revises D89); opens Q88; modules v1.15, design v1.12, roadmap v1.12 | Braviary review |
 | 2026-11-17 | Version 1.22: D89 Braviary as the FORUM's presenter, the *aquila* of SPQR with a moderator's personality; closes Q85; modules v1.14, design v1.11, roadmap v1.11 | FORUM presenter review |
 | 2026-11-16 | Version 1.21: R21 and D85–D88: the FORUM hall (Reddit-style discussion with attachments from the other halls); a new Phase 6 right after accounts, with the quiz and the AI assistant moved to Phase 7; moderation in layers; the Foro palette renamed Travertino. U18, U19 added; opens Q84–Q87; modules v1.13 (M9), data strategy v1.4, architecture v1.7, design v1.10, roadmap v1.10 | Forum discussion |

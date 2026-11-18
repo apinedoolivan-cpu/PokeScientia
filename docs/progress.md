@@ -6,6 +6,17 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-18 · Commit message rules in one place (D92)
+
+- **Done:**
+  - Compared a Copilot commit message with the prepared one for `f6d4a48`. Copilot's put D90 in the decision map (it lives in the vision; the map got Q88), missed Q88 and the DP-3/DP-4 wording, used "update" in the summary, and was organized by file, partly because our own rule said "one bullet per area or file group".
+  - Confirmed that only Copilot read `.github/commit-instructions.md`; Claude follows CLAUDE.md. The owner uses Claude's messages, so the file was a third copy of the rules.
+  - Decided D92: the full rules live only in architecture §12, rewritten: body organized by what changed with one bullet per ID, then versions; a table of where each ID lives; add/revise/close verbs; no guessed reasons. Deleted `.github/commit-instructions.md` and the Copilot setting in `.vscode/settings.json` (editor settings kept). CLAUDE.md tells Claude Code to read §12 before writing a message.
+  - Docs updated: vision v1.24, architecture v1.8, decision map, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+
+---
+
 ## 2026-11-17 · Braviary as the voice of moderation (D90, D91)
 
 - **Done:**

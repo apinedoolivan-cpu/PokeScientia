@@ -1,7 +1,4 @@
 {
-  "github.copilot.chat.commitMessageGeneration.instructions": [
-    { "file": ".github/commit-instructions.md" }
-  ],
   "files.insertFinalNewline": true,
   "files.trimTrailingWhitespace": true
 }
