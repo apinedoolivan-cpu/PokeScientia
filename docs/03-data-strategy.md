@@ -1,14 +1,15 @@
 # Pokescientia — Data Strategy
 
-**Version 1.4 — approved 2026-11-16** · Owner: @Alex
+**Version 1.5 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.4, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.5, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
 - How the pipeline is built (scripts, folders, schedules) belongs to the architecture doc. This document covers **what** comes from **where**.
+- Version 1.5 adds PokéPaste (D95) as an external service for importing and exporting teams. It is not a data source: it carries the user's own teams, only when the user asks.
 - Version 1.4 moves the AI assistant to Phase 7 (D86). What users write in the FORUM (Phase 6) is not game data: its storage and legal handling are specified with Phase 6 (Q86).
 
 ## Summary
@@ -222,6 +223,7 @@ The About page (SHL-F06) credits:
 | Smogon tiers (in Showdown's data) | MIT, as part of the Showdown data | Smogon University (tiering) |
 | `@smogon/calc` | MIT | Smogon |
 | Dexie | Apache-2.0 | Dexie.js |
+| PokéPaste (service used to import and export team links, D95) | Source code BSD-style; pastes are their authors' | PokéPaste, by Felix Friedlander |
 
 Plus the unofficial fan-project disclaimer (README, Constraints).
 
@@ -236,6 +238,7 @@ Plus the unofficial fan-project disclaimer (README, Constraints).
 | GitHub throttles image links | Images fail under heavy use | Placeholders; revisit hosting if the site grows |
 | Usage data only covers Showdown's ladder | Common sets differ from in-game trends | Source and period always shown |
 | Takedown request from a rights holder | Content removed | Non-commercial, credited, disclaimer; comply promptly |
+| PokéPaste is down, changes its addresses or closes (its code was last changed in 2021) | Link import and export stop working | Pasting Showdown text always works (STR-F05, STR-F06); errors say so; tests use recorded responses (D95) |
 
 ## 14. Approved proposals
 

@@ -6,6 +6,18 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-19 · PokéPaste reopened (D95)
+
+- **Done:**
+  - Compared Showdown's team import and export with PokéPaste. PokéPaste uses the same Showdown export text; it adds title, author, notes, a readable page and a short link. Showdown's own teambuilder has an "Upload to PokePaste" button.
+  - Checked PokéPaste's source code again: `/json` gives text, title, author and notes, readable from any website; `/create` is a public form. Code last changed in 2021.
+  - Decided D95 (revises D70, closes P2 and Q71): import from a PokéPaste link (STR-F23), team sheet (STR-F24), author and notes (STR-F25), optional export to PokéPaste (STR-F26), user story U19. The importer now states its defaults for missing lines (STR-F05) and the export writes `Level: 50` (STR-F06).
+  - New milestone M2.10 (PokéPaste and the team sheet); closing Phase 2 becomes M2.11.
+  - Docs updated: vision v1.27, modules v1.17, data strategy v1.5, architecture v1.10, design v1.14, roadmap v1.15, decision map.
+- **Next:** unchanged; M0.1 when the owner is ready.
+
+---
+
 ## 2026-11-19 · Presenter personalities and responsibilities (D94)
 
 - **Done:**

@@ -44,7 +44,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q50 | Competitive middle evolutions list | Product | Decided → D33 |
 | Q51 | Team saving | Product | Decided → D34 |
 | Q70 | Teams across halls and calculations with one's own team | Product | Decided → D68, D69 |
-| Q71 | PokéPaste links | Product | Parked → D70, P2 |
+| Q71 | PokéPaste links | Product | Decided → D95 (parked as P2 by D70, reopened 2026-11-19) |
 | Q72 | Ranking type combinations | Product | Decided → D71 |
 | Q73 | Team coverage: team or member view | Product | Decided → D72 |
 | Q5 | Battle stage: real or scripted damage | Product | Decided → D73, LAB-F04 (always real) |
@@ -147,5 +147,5 @@ Ideas discussed and deliberately set aside. Nothing is built for them now. A par
 | ID | Idea | Parked on | Why parked | If reopened |
 | --- | --- | --- | --- | --- |
 | P1 | **Fakémon**: fan-made Pokémon shown in the platform, fully separated from official Pokémon (own section and IDs, always labelled fan-made). No competitive section. | 2026-11-04 | Copyright of fan creations made by others, and their artwork would have to be stored, unlike official images (D18). | Scope ceiling: official types and rules, plus at most custom moves and abilities. New types or rules are excluded. Estimated size: one milestone plus content work, mostly adding data. Kept cheap by the architecture guidelines: types read from data, IDs treated as opaque text, entry sections receive their data, image URLs come from data. |
-| P2 | **PokéPaste links**: import a team by pasting a `pokepast.es` link (its `/json` and `/raw` views allow reading from any website), and export a team to a new paste through PokéPaste's public form. | 2026-11-08 | Less used than plain Showdown text, which is already imported and exported (STR-F05, STR-F06). | Small: reuses the Showdown importer; the paste's title becomes the team name. Credit PokéPaste on About. |
+| P2 | **PokéPaste links**: import a team by pasting a `pokepast.es` link, and export a team to a new paste. **Reopened by the owner on 2026-11-19 → D95** (STR-F23 to STR-F26). | 2026-11-08 | Less used than plain Showdown text, which is already imported and exported (STR-F05, STR-F06). | — |
 | P3 | **Costlier accessibility options**: a color-blind-friendly palette (about 4–8 h, one more token set), a high-contrast theme (about 6–10 h), spoken announcements of battle events for screen readers (about 6–10 h), a battle fully playable by ear, AAA compliance, a professional audit. | 2026-11-11 | The owner applies only low-cost measures (D78). | Tokens keep the palette and contrast options cheap if ever wanted. |

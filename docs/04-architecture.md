@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.9 — approved 2026-11-18** · Owner: @Alex
+**Version 1.10 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.9, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.10, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -26,6 +26,8 @@ Pokescientia is a **static website**: every page is generated at build time, and
                               ─► static files ─► free static host      ▼
                                                         raw.githubusercontent.com
                                                         (PokéAPI sprites, D40)
+
+ Only when the user asks: pokepast.es, to read a pasted team link or create a paste (D95).
 
  Phase 5: Go API (backend/) with its OpenAPI contract (api/) for accounts and sync.
  Phase 6: the same API serves the FORUM: posts, replies, votes and moderation (Q84).
@@ -102,6 +104,7 @@ These rules are enforced by ESLint import restrictions, so a violation fails CI.
 - Components are standalone (Angular's default).
 - State lives in **signal-based services** (D16). A hall's state lives in its own service; shared state lives in `core/`.
 - **The active team** (X-12, D68) is shared state: an `ActiveTeamService` in `core/` holds the selected team as a signal, reading it through `TeamRepository`. Every hall reads it from there, never from `halls/teams/`, so the layer rules hold. The strip that shows it is a `ui/` component placed by `shell/`.
+- **PokéPaste** (D95): a `PasteService` in `core/` reads `https://pokepast.es/<id>/json` (text, title, author and notes; the site allows reading from any website) and hands the text to the Showdown parser in `domain/`. Export (STR-F26) submits PokéPaste's public form (`/create`: `paste`, `title`, `author`, `notes`) in a new tab, so no cross-site request is needed. Nothing else in the app talks to PokéPaste.
 - **Opening a calculation from another hall** (STR-F22) navigates to `/calculator` with query parameters naming the team, the member and the side (for example `?team=…&attacker=2`); ABACUS reads them and loads the values from `core/`.
 - Every hall is **lazy-loaded**: visiting the Pokédex never downloads the COLOSSEUM.
 - Pages read route parameters as English IDs (D17, D37) and ask `core/` data services for data.
@@ -128,7 +131,7 @@ In practice, the rule for us is simple: **anything that changes on screen is hel
 | Stats | Formulas for Stat Points and EVs/IVs at level 50; natures | STR-F02, STR-F10 |
 | Converter | `EVs = 8 × SP − 4` and the reverse, with warnings | STR-F19 |
 | Team analysis | Defensive, offensive, speed tiers, doubles essentials, rule warnings | STR-F04, STR-F08–F11 |
-| Showdown text | Parse and write team texts | STR-F05, STR-F06 |
+| Showdown text | Parse and write team texts; recognize a PokéPaste link; report what was assumed for missing lines | STR-F05, STR-F06, STR-F23 |
 | Damage (Phase 3) | Wrappers around `@smogon/calc`; combined and accuracy-adjusted probabilities | CMP-F03, CMP-F07–F13 |
 | Team against the metagame (Phase 3) | Threat list and one-against-the-team: every member against a list of sets, built on the damage wrappers and speed formulas | STR-F21, CMP-F14, CMP-F15 |
 
@@ -254,7 +257,7 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 
 - **Dexie** over IndexedDB, wrapped by a `TeamRepository` service in `core/`. Halls never use Dexie directly.
 - Database schema has a **version number**; each change adds a migration so saved teams survive updates.
-- Every team stores its format (STR-F17) and stat system (STR-F18).
+- Every team stores its format (STR-F17) and stat system (STR-F18), plus an optional author and notes (STR-F25).
 - Persistent storage is requested on first save (D43).
 - **Backup format** (STR-F07): a JSON file with a format version, the export date and the teams.
 - Preferences (language, theme, dismissed presenters, **active team ID**) use localStorage through a `PreferencesService`, with safe defaults if storage is unavailable. If the stored active team no longer exists, no team is active.
@@ -477,6 +480,7 @@ Approved in review on 2026-11-04.
 | — | D76, D77 | Action scoring and playouts beside the battle engine wrapper, independent of screens; playouts in a Web Worker (section 4) |
 | — | D85–D87 | FORUM reserved: `halls/forum/`, `/forum` routes whose content comes from the API, and forum data in the backend from Phase 6 (Q84) |
 | — | D68, D69 | Active team as shared state in `core/` (`ActiveTeamService`), its ID kept in preferences; calculations opened from other halls through `/calculator` query parameters (section 3) |
+| — | D95 | `PasteService` in `core/` reads PokéPaste's `/json` view and exports through its public form; parsing stays in `domain/` (section 3) |
 
 ## Sources
 

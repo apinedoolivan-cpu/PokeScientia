@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.14 — approved 2026-11-19** · Owner: @Alex
+**Version 1.15 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.14, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.15, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91); version 1.13 adds the `/commit-message` skill to M0.1 (D93); version 1.14 adds the presenters' responsibilities to Phase 7 (D94).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91); version 1.13 adds the `/commit-message` skill to M0.1 (D93); version 1.14 adds the presenters' responsibilities to Phase 7 (D94); version 1.15 adds PokéPaste links and the team sheet to Phase 2 (D95).
 
 ## 1. Planning principles
 
@@ -249,7 +249,8 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 - [ ] M2.7 — Speed and doubles essentials
 - [ ] M2.8 — From the Pokédex to the legion
 - [ ] M2.9 — The active team
-- [ ] M2.10 — Close Phase 2
+- [ ] M2.10 — PokéPaste and the team sheet
+- [ ] M2.11 — Close Phase 2
 
 ### M2.1 — Stat formulas and converter · ~6–8 h
 
@@ -259,9 +260,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M2.2 — Showdown text · ~6–8 h
 
-- Parser and writer for Showdown team texts (STR-F05, STR-F06), with round-trip tests on real exported teams.
+- Parser and writer for Showdown team texts (STR-F05, STR-F06), with round-trip tests on real exported teams and real PokéPaste texts; defaults and notes for missing lines; `Level: 50` written on export.
 
-**Done when:** STR-F05 and STR-F06 acceptance criteria pass, including the round trip.
+**Done when:** STR-F05 and STR-F06 acceptance criteria pass, including the round trip and the missing-lines cases.
 
 ### M2.3 — Saving and the team library · ~8–10 h
 
@@ -305,9 +306,15 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 **Done when:** X-12 and STR-F20 acceptance criteria pass.
 
-### M2.10 — Close Phase 2 · ~4–6 h
+### M2.10 — PokéPaste and the team sheet · ~8–10 h
 
-- End-to-end tests for building, importing, exporting and reloading a team, and for keeping the active team across halls and reloads; tag `v0.3.0`.
+- Author and notes on teams (STR-F25); `PasteService` and import from a PokéPaste link in the library and the strip (STR-F23, D95, architecture §3); the team sheet with its print style (STR-F24, `ps-team-sheet`); export to PokéPaste with its confirmation (STR-F26, optional: may move later); PokéPaste credited on About.
+
+**Done when:** STR-F23, STR-F24 and STR-F25 acceptance criteria pass, with PokéPaste replaced by recorded responses in tests; STR-F26's too if it is built here.
+
+### M2.11 — Close Phase 2 · ~4–6 h
+
+- End-to-end tests for building, importing (text and PokéPaste link), exporting and reloading a team, and for keeping the active team across halls and reloads; tag `v0.3.0`.
 
 ## 8. Phase 3 — Calculator and metagame (ABACUS, ATHENAEUM) · `v0.4.0`
 
@@ -396,4 +403,5 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D68 | The active team is built in Phase 2 (M2.9). |
 | D69 | Phase 3 starts with ABACUS and the active team (M3.1–M3.2), before the usage data; the threat list follows the usage data (M3.5). |
 | D86 | The FORUM is Phase 6, right after accounts; the quiz and the AI assistant move to Phase 7. A public deployment comes before Phase 6. |
+| D95 | PokéPaste links, the team sheet, and author and notes are built in Phase 2 (M2.10, after the active team); the parser's missing-line rules go into M2.2. |
 | D93 | The `/commit-message` Claude Code skill is added in M0.1 and drafts every commit message from then on. |

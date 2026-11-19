@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.16 — approved 2026-11-19** · Owner: @Alex
+**Version 1.17 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.16, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.17, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -261,12 +261,12 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 
 | ID | Feature | Phase |
 | --- | --- | --- |
-| STR-F01 | **Team library.** List of saved teams (name, the six Pokémon, last edited). Create, rename, duplicate and delete (delete can be undone). | 2 |
+| STR-F01 | **Team library.** List of saved teams (name, author if any, the six Pokémon, last edited). Create, rename, duplicate and delete (delete can be undone). | 2 |
 | STR-F02 | **Team editor.** Up to six slots. Each slot: Pokémon and form, ability, held item (including Mega Stones), four moves, nature, and stat spread in the team's stat system (STR-F18). Level is always 50. Final stats are calculated and shown. | 2 |
 | STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices are every move the Pokémon has ever learned; in the regulation format, moves not available in the current game are marked. | 2 |
 | STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon or moves not legal in the current regulation. Warnings never block editing or saving. | 2 |
-| STR-F05 | **Import from Showdown text.** Paste the text and the team is created. Lines that can't be read are reported; the rest is imported. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. Available from the team library and from the active-team strip; an imported team becomes the active team. | 2 |
-| STR-F06 | **Export to Showdown text**, with one-click copy. | 2 |
+| STR-F05 | **Import from Showdown text.** Paste the text and the team is created. Lines that can't be read are reported; the rest is imported. Lines left out get the defaults stated in the rules below, and the import says what it assumed. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. Available from the team library and from the active-team strip; an imported team becomes the active team. | 2 |
+| STR-F06 | **Export to Showdown text**, with one-click copy. Every member includes `Level: 50`, so the text imports correctly anywhere. Author and notes are not part of Showdown text and are left out. | 2 |
 | STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
 | STR-F08 | **Defensive analysis.** For each of the 18 attacking types: how many members are weak, resistant or immune; shared weaknesses are highlighted. Abilities that grant immunity (e.g. Levitate, Flash Fire) are counted. Shown for the whole team, with each member's values side by side (D72). | 2 |
 | STR-F09 | **Offensive coverage.** Which types the team's damaging moves hit super-effectively, and which types nothing hits super-effectively. Shown for the whole team, with each member's contribution (D72). | 2 |
@@ -276,6 +276,10 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | STR-F13 | **Live analysis.** All analyses update immediately as the team changes. | 2 |
 | STR-F14 | **Autosave.** Changes are saved in the browser automatically; no "Save" button (D34). | 2 |
 | STR-F17 | **Team format** (D32). Each team is either **Free** (all Pokémon, every move ever learned, no legality warnings) or **Current regulation** (the same choices, plus the regulation warnings in STR-F04). New teams use the current regulation; the format can be changed at any time. | 2 |
+| STR-F23 | **Import from a PokéPaste link** (D95). The import box accepts Showdown text or a `pokepast.es` link. With a link, the paste is read and its text goes through the same importer as STR-F05; the paste's title becomes the team name (or "Equipo importado" if it has none) and its author and notes fill STR-F25. If the paste can't be read (no connection, wrong link, site down), the message says so and suggests pasting the text instead. Works from the library and the active-team strip; the team becomes active, as in STR-F05. | 2 |
+| STR-F24 | **Team sheet** (D95). A read-only view of a team, as clear as a PokéPaste page in the academy's design: team name, author and notes; for each member its image, name, types, item, ability, nature, spread in the team's stat system, final stats and four moves. Two or three columns on wide screens, one on phones; prints cleanly. Opened from the library and the editor. | 2 |
+| STR-F25 | **Author and notes** (D95). Each team can have an author and free-text notes, both optional, editable in the editor, kept in the backup (STR-F07) and filled by a PokéPaste import. | 2 |
+| STR-F26 | **Export to PokéPaste** (D95). Creates a new paste with the team's Showdown text (STR-F06), its name as title, its author and notes, and opens it in a new tab with its link ready to share. It asks first, because a paste can be read by anyone with the link and can't be changed or deleted from here. Optional: it may move to a later phase without blocking Phase 2. | 2 |
 | STR-F20 | **Active team** (X-12, D68). Choose the active team from the library or the strip; switch or clear it at any time. The strip shows the six Pokémon, opens the team in LEGIO, and offers to create or import a team when none is active. | 2 |
 | STR-F15 | **Benchmarks.** Speed tiers compared against popular threats in the regulation. | 3 |
 | STR-F16 | **Fill from common set.** Fill a slot with a common set from usage data. | 3 |
@@ -290,6 +294,9 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 - Format rules (level 50, species clause, item clause, legality) come from the regulation data (DAT-F08), not from code, so a new regulation needs only a data update (R17).
 - Game availability never limits what can be built; it only adds warnings, and only in the regulation format (D27, D32).
 - Spreads are always valid for the team's stat system: at most 66 Stat Points (32 per stat), or at most 510 EVs (252 per stat).
+- **Missing lines in Showdown text** (STR-F05, STR-F23) follow Showdown's defaults: a stat missing from `EVs` is 0, a stat missing from `IVs` is 31, no `EVs` line means an empty spread. A member imported with an empty spread shows a note ("El texto no incluía reparto"). The `Level` line is ignored, because every team is level 50 (STR-F02); a level other than 50 is noted. Notes are information, not warnings (D27).
+- Showdown text has no place for a team's name, author or notes; a PokéPaste link is how they travel with the team (STR-F23, STR-F26).
+- PokéPaste is only contacted when the user pastes a link (STR-F23) or confirms an export (STR-F26). Teams stay in the browser (D3); PokéPaste is a way in and out, never storage.
 - Analysis covers all six members. In VGC you bring six and choose four per game; choosing four is not modeled.
 - Deleting the active team leaves no team active; nothing else changes.
 - **Team and member view** (D72): coverage (STR-F08, STR-F09) shows the whole team by default. Selecting a member shows that member's own coverage; deselecting returns to the team view.
@@ -312,6 +319,11 @@ Receives Pokémon from M2. Provides the active team to every hall (X-12), above 
 - **STR-F17** *Given* the same team, *when* I switch it to the Free format, *then* the duplicate-item and legality warnings disappear, while a move the Pokémon can never learn is still flagged.
 - **STR-F05** *Given* valid Showdown text for six Pokémon, *when* I import it, *then* the team has the same Pokémon, items, abilities, moves, natures and spreads. *Given* one line has an unknown move, *then* that line is reported and the rest is imported.
 - **STR-F05/F06** *Given* a team, *when* I export it and import the text again, *then* the result is identical to the original.
+- **STR-F05** *Given* a set with no `EVs` line, *when* I import it, *then* the member has an empty spread and a note saying the text had none. *Given* a set with `Level: 100`, *then* the member is level 50 and the level is noted.
+- **STR-F23** *Given* a working PokéPaste link, *when* I paste it into the import box, *then* a team is created with the paste's six sets, its title as the team name, and its author and notes. *Given* a link to a paste that doesn't exist, or no connection, *then* I see a message that suggests pasting the text instead, and no team is created.
+- **STR-F24** *Given* a team of six with author and notes, *when* I open its team sheet, *then* every member shows image, name, types, item, ability, nature, spread, final stats and moves, with the team name, author and notes above; *when* I print it, *then* it fits the page without the site's navigation.
+- **STR-F25** *Given* a team with author and notes, *when* I export the backup and import it back, *then* author and notes are unchanged.
+- **STR-F26** *Given* a team, *when* I choose "Exportar a PokéPaste", *then* I am told the paste will be public to anyone with the link; *when* I confirm, *then* a new tab opens on the new paste, with the team's text, name, author and notes.
 - **STR-F08** *Given* a team with three Pokémon weak to Ground and none resistant or immune, *then* Ground is highlighted as a shared weakness. *When* I add a Levitate Pokémon, *then* it counts as immune to Ground.
 - **STR-F08/F09** *Given* no member is selected, *then* coverage shows team totals. *When* I select Garchomp, *then* it shows Garchomp's own weaknesses and the types its moves hit super-effectively; *when* I deselect it, the team view returns.
 - **STR-F10** *Given* a member with 100 final Speed, *when* I open the Tailwind view, *then* it shows 200.
@@ -324,11 +336,11 @@ Receives Pokémon from M2. Provides the active team to every hall (X-12), above 
 - **STR-F21** (Phase 3) *Given* usage data and an active team, *then* each listed threat shows its set, the best KO chance any member has against it, and its best KO chance against each member. *Given* a threat that no member can KO in two hits and that outspeeds the whole team, *then* it is highlighted.
 - **STR-F22** (Phase 3) *Given* a member with its item, ability, nature, spread and moves, *when* I choose "Calcular", *then* ABACUS opens with that member as the attacker, identical in every value.
 
-**Testing approach:** unit tests for stat calculation in both systems (checked against `@smogon/calc`), the converter, every analysis and the Showdown parser (including round-trip tests with real exported teams); end-to-end tests for building, importing, exporting and reloading a team.
+**Testing approach:** unit tests for stat calculation in both systems (checked against `@smogon/calc`), the converter, every analysis and the Showdown parser (including round-trip tests with real exported teams and real PokéPaste texts); end-to-end tests for building, importing, exporting and reloading a team; the PokéPaste requests are replaced by recorded responses in tests, so tests never depend on the live site.
 
 ### Out of scope
 
-Team sharing by link (needs M6), team-preview simulation (choosing four of six), opponent prediction, and importing from PokéPaste links (parked idea P2). Damage calculations live in M4; LEGIO links to them (STR-F22).
+Team sharing by a PokéScientia link (needs M6; PokéPaste links cover sharing until then, STR-F26), team-preview simulation (choosing four of six), opponent prediction, Showdown text with Spanish names (Showdown's format uses English names only), and reading teams saved inside Showdown or the game. Damage calculations live in M4; LEGIO links to them (STR-F22).
 
 ---
 
