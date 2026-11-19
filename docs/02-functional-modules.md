@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.15 — approved 2026-11-17** · Owner: @Alex
+**Version 1.16 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.15, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.16, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -456,6 +456,9 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 - **QUZ-F01** Question types built from existing data: silhouettes, type matchups, "which is faster", ability or move identification.
 - **QUZ-F02** Scores kept in the browser.
+- **QUZ-F03** **Ladder of hints** (D94). Each question has a riddle and two clues built by code from the data: the first narrows it down (a type, a generation, a region), the second almost gives it away (a sharper silhouette, the first letter). Each hint used lowers the points the question is worth. Works without a language model, as templates; from Phase 7 Delphox words them (AIA-F08).
+
+A **daily riddle**, the same for everyone with hints that unlock during the day, is possible but not decided (Q89).
 
 ---
 
@@ -465,16 +468,22 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 
 **Voice (D82).** The assistant has no figure of its own: each hall's presenter speaks for it in that hall (the turn advisor through the COLOSSEUM's presenter, team critique through LEGIO's) and can hand a question to another presenter. In the FORUM it speaks as Braviary, the voice of reporting and moderation (AIA-F04, D90). Details are open (Q82).
 
+**Responsibilities (D94).** Every presenter answers questions in its own way; some also carry a responsibility, a job that acts, owns a process and would be missed (design §7): Falinks inspects and fixes teams (AIA-F01, AIA-F05), Noctowl writes the metagame report (AIA-F06), Incineroar coaches the battle (AIA-F03, AIA-F07), Braviary moderates (AIA-F04) and Delphox runs the quiz (AIA-F08). Arcanine, Mew and Metagross have none. A hint mode in every hall is open (Q90).
+
 **Principle: code calculates, the AI explains** (D76). Every number (damage, KO chance, speed order, win estimate) comes from the battle engine, the calculator or simulations. The language model only explains and weighs strategy, using those results as tools, and never invents a number. Its advice is expected to be useful and predictable, not perfect: it runs on modest resources, and its assumptions are always shown.
 
 ### Features
 
 | ID | Feature | Phase |
 | --- | --- | --- |
-| AIA-F01 | **Team critique** that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations. | 7 |
+| AIA-F01 | **Team critique** by Falinks (D94) that cites the same analyses the teams hall shows (STR-F08 to STR-F11) and, when available, usage data and damage calculations. | 7 |
 | AIA-F02 | **Evidence:** every claim points to the data it comes from. | 7 |
 | AIA-F03 | **Turn advisor** (primary use, D76). After start-of-turn effects (Intimidate, weather…), for each Pokémon on your side: every action (its moves with their targets, and each switch) with a short reason to use it or not, and an estimated win chance. Built in four steps; steps 1–3 need no AI and are useful on their own. | 7 |
 | AIA-F04 | **Moderation through Braviary** (D90). In the FORUM, users report a post by talking to Braviary. It reads the post against the public rules, says what it will do and why, may hide the post at once while it is reviewed, and proposes the penalty. A moderator confirms every penalty; appeals go to a person (D87). Acting alone on clear cases is open (Q88). | 7 |
+| AIA-F05 | **Inspection and fixes by Falinks** (D94). After a critique, Falinks proposes concrete fixes (a move or item swap, an illegal set, a spread conversion with STR-F19); the trainer accepts or rejects each one, and only accepted fixes change the team. It offers an inspection when a team enters the COLOSSEUM (LAB-F07) or is attached to a FORUM post (FOR-F03). It warns and proposes, never blocks (D27). | 7 |
+| AIA-F06 | **Metagame report by Noctowl** (D94). Noctowl writes the weekly "metagame of the week" thread (FOR-F13) from ATHENAEUM's data, and a briefing when a new regulation arrives: what changed, what rose and fell, what to watch. Every figure comes from the usage data; Noctowl explains it. | 7 |
+| AIA-F07 | **Battle review by Incineroar** (D94). After a battle, Incineroar goes through the turn history (LAB-F11) and points out the two or three turns that decided it. The turns are found by code, where the estimated win chance (AIA-F03 step 3) swung most; Incineroar explains why. | 7 |
+| AIA-F08 | **Delphox runs the quiz** (D94). It phrases each question (QUZ-F01) as a riddle, gives the ladder of hints (QUZ-F03), accepts answers written in the player's own words and keeps the score. The correct answer always comes from the data. | 7 |
 
 ### Turn advisor steps (AIA-F03)
 
@@ -515,7 +524,7 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 | FOR-F10 | **Trust levels:** users unlock abilities through good participation (D87). | 6 |
 | FOR-F11 | **Moderation tools:** review queue, actions with a logged reason, the penalty ladder, appeals. | 6 |
 | FOR-F12 | **Automatic filters** that hold suspicious posts for review. | 6 |
-| FOR-F13 | **Seeded threads:** a weekly thread opened automatically (for example the metagame of the week, from ATHENAEUM's data), so the forum never looks empty. | 6 |
+| FOR-F13 | **Seeded threads:** a weekly thread opened automatically (for example the metagame of the week, from ATHENAEUM's data), so the forum never looks empty. A template in Phase 6; from Phase 7 Noctowl writes the metagame thread (AIA-F06, D94). | 6 |
 | FOR-F14 | **Reply notices** on the site when someone answers my post or reply. | 6 |
 
 ### Rules (D87)

@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.13 — approved 2026-11-18** · Owner: @Alex
+**Version 1.14 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.13, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.14, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91); version 1.13 adds the `/commit-message` skill to M0.1 (D93).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91); version 1.13 adds the `/commit-message` skill to M0.1 (D93); version 1.14 adds the presenters' responsibilities to Phase 7 (D94).
 
 ## 1. Planning principles
 
@@ -346,7 +346,7 @@ The smarter rival (LAB-F14) waits for Phase 7.
 5. **Moderation:** reports, filters, review queue, penalty ladder and log (FOR-F09, FOR-F11, FOR-F12). Complete **before** the forum opens to the public.
 6. **Launch content:** the first categories and seeded threads (FOR-F13).
 
-**Phase 7 — AENIGMA and the AI assistant (`v0.8.0`+).** Specify each first (QUZ, AIA features, Q8, Q82). Each hall's presenter is the assistant's voice there (D82). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last. In the FORUM the assistant speaks as Braviary and becomes the main way to report and moderate (AIA-F04, D90): it handles reports and proposes actions, a moderator confirms penalties. Whether it may act alone on clear cases is decided once it has run (Q88).
+**Phase 7 — AENIGMA and the AI assistant (`v0.8.0`+).** Specify each first (QUZ, AIA features, Q8, Q82). Each hall's presenter is the assistant's voice there (D82). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last. In the FORUM the assistant speaks as Braviary and becomes the main way to report and moderate (AIA-F04, D90): it handles reports and proposes actions, a moderator confirms penalties. Whether it may act alone on clear cases is decided once it has run (Q88). The other presenters' responsibilities come with it (D94): Falinks's inspection and fixes (AIA-F05), Noctowl's metagame report (AIA-F06, taking over FOR-F13's template), Incineroar's battle review (AIA-F07) and Delphox running the quiz (AIA-F08) with its ladder of hints (QUZ-F03), which works without a language model. Decide the daily riddle (Q89) and the hint mode (Q90) in the specification.
 
 **Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI. A natural moment is after Phase 1, when the Pokédex is usable. It must happen before Phase 6: the FORUM only makes sense online (D86).
 

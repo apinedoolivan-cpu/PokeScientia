@@ -6,6 +6,18 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-19 · Presenter personalities and responsibilities (D94)
+
+- **Done:**
+  - Wrote a full personality for each of the eight presenters, following Braviary's model (design §7).
+  - Defined when a presenter has a responsibility: it acts or produces something, owns a process, and would be missed if removed. Ways of answering (Arcanine pointing the way, Mew telling origins, Metagross setting up a calculation) are personality, not responsibilities.
+  - Decided D94: responsibilities for Falinks (inspection and fixes, AIA-F05), Noctowl (weekly metagame report and regulation briefings, AIA-F06), Incineroar (turn advisor and battle review, AIA-F07), Delphox (runs the quiz, AIA-F08, with a ladder of hints built by code, QUZ-F03), plus Braviary's moderation (D90). None for Arcanine, Mew and Metagross.
+  - Opened Q89 (Delphox's daily riddle, possible) and Q90 (a hint mode in every hall, in each presenter's voice).
+  - Docs updated: vision v1.26, modules v1.16, design v1.13, roadmap v1.14, decision map, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+
+---
+
 ## 2026-11-18 · The /commit-message skill (D93)
 
 - **Done:**

@@ -70,7 +70,9 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   Incineroar (COLOSSEUM), Delphox (AENIGMA), Braviary (FORUM, D89: the *aquila* of SPQR, a guardian
   with moderation as its role). Each has a vivid personality of its own matching its hall, and is shown alive,
   never as a statue (D91, design §7). In Phase 7 Braviary is the AI face of reporting and moderation; a moderator
-  confirms penalties (D90).
+  confirms penalties (D90). A presenter has a responsibility only when it acts, owns a process and would be missed
+  (D94): Falinks inspects and fixes teams, Noctowl writes the metagame report, Incineroar coaches the battle, Delphox
+  runs the quiz; Arcanine, Mew and Metagross only answer, each in its own way.
 - FORUM (D85–D87, Phase 6, after accounts in Phase 5): Reddit-style topics, nested replies and votes; a post can
   attach a team, Pokémon, calculation or battle from another hall. Moderation in layers: limits by design (no
   private messages or image uploads at launch), entrance limits, trust levels, filters that only hold posts for

@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.12 — approved 2026-11-17** · Owner: @Alex
+**Version 1.13 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.12, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.13, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -175,18 +175,41 @@ The same frame in every hall: the presenter stands **under a Roman arch**, on a 
 
 ### Cast (D84)
 
-Three rules (D82, D84, D91): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; it has **a clear personality that matches that function**; and that personality is **vivid and its own**, so that in Phase 7 talking to the assistant feels like talking to that presenter. Presenters are shown alive, in original color. The personality sets the tone of its introductions and, in Phase 7, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
+Four rules (D82, D84, D91, D94): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; it has **a clear personality that matches that function**; that personality is **vivid and its own**, so that in Phase 7 talking to the assistant feels like talking to that presenter; and it has **a responsibility only when it does a real job** that passes the three tests below. Presenters are shown alive, in original color. The personality sets the tone of its introductions and, in Phase 7, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
 
-| Hall | Presenter | Why | Personality (first sketch) |
+| Hall | Presenter | Why |
+| --- | --- | --- |
+| ATRIUM | **Arcanine** (Kanto form) | The guardian dog at the door, as in the *cave canem* mosaics of Pompeian entrances; noble, loyal and honorable, once thought a legendary Pokémon |
+| BIBLIOTHECA | **Mew** | Said to carry the DNA of every Pokémon: the natural keeper of a book about all of them |
+| LEGIO | **Falinks** | Designed after a military formation, and literally a group of six |
+| ABACUS | **Metagross** | Its Pokédex entries describe four brains that solve complex calculations faster than a supercomputer and analyze opponents precisely |
+| ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them |
+| COLOSSEUM | **Incineroar** | A wrestler for the arena, and a face of competitive play |
+| FORUM | **Braviary** (Unova form) | The Roman *aquila*, the eagle that carried **SPQR**, "the Senate and People of Rome": the emblem of the people who met in the forum. Its lore calls it a motif for emblems, and the "soldiers of the sky" that fight tirelessly to protect their friends. Jupiter's eagle carried his will, and any bird links to messages |
+| AENIGMA | **Delphox** | Named after Delphi and its oracle, famous for answering in riddles; in lore, its burn marks were read for divination |
+
+### Personalities and responsibilities (D94)
+
+Every presenter has a **personality**. A presenter has a **responsibility** only when it does a real job in the academy, beyond answering questions about its hall. Every presenter answers questions, and the way it answers (in words, by opening a tool already set up, by telling a story) is part of its personality, not a responsibility. A job counts as a responsibility only if it passes **all three tests**:
+
+1. **It acts or produces something** that stays on the site after the conversation: a hidden post, a published thread, a changed team, a score.
+2. **It owns a process:** it does the work at its own moment (every report, every week, every turn, every round), not only when asked.
+3. **Without it, something stops happening:** removing the presenter leaves part of the academy with no one doing it. Removing only its answers leaves the hall working.
+
+Like every voice, a responsibility follows D76: code produces every fact and number; the presenter decides how to say it and, where allowed, proposes actions. Responsibilities arrive with the assistant in Phase 7 unless stated otherwise. Future presenters are cast with the same test.
+
+| Presenter | Personality | Responsibility | Way of answering (not a responsibility) |
 | --- | --- | --- | --- |
-| ATRIUM | **Arcanine** (Kanto form) | The guardian dog at the door, as in the *cave canem* mosaics of Pompeian entrances; noble, loyal and honorable, once thought a legendary Pokémon | A warm, noble host. Welcomes every visitor, knows every hall and runs you to the right door. Guards the house, but its job is letting you in |
-| BIBLIOTHECA | **Mew** | Said to carry the DNA of every Pokémon: the natural keeper of a book about all of them | Curious and playful; delights in details and in every species equally |
-| LEGIO | **Falinks** | Designed after a military formation, and literally a group of six | A drill sergeant: direct, disciplined, team first. Inspects your formation and reports its weak spots plainly |
-| ABACUS | **Metagross** | Its Pokédex entries describe four brains that solve complex calculations faster than a supercomputer and analyze opponents precisely | Calm and exact. Numbers first, no flourish; always says what the figures assume |
-| ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them | A measured strategist. Thinks before speaking, compares options, explains why one wins |
-| COLOSSEUM | **Incineroar** | A wrestler for the arena, and a face of competitive play | A showman with a coach's heart: loud and theatrical in the ring, honest in your corner |
-| FORUM | **Braviary** (Unova form) | The Roman *aquila*, the eagle that carried **SPQR**, "the Senate and People of Rome": the emblem of the people who met in the forum. Its lore calls it a motif for emblems, and the "soldiers of the sky" that fight tirelessly to protect their friends. Jupiter's eagle carried his will, and any bird links to messages | A proud, brave standard-bearer and the guardian of the square. Welcomes newcomers loudly, raises the best discussions high, and as a bird of prey swoops on abusive posts. Moderation first, messages second |
-| AENIGMA | **Delphox** | Named after Delphi and its oracle, famous for answering in riddles; in lore, its burn marks were read for divination | Enigmatic and playful. Speaks in riddles while you play; once you answer, explains plainly |
+| **Arcanine** (ATRIUM) | The old guard dog of the house. Warm, noble and unhurried; has greeted every visitor since the academy opened and is proud of the house. Talks about the other presenters like family ("Falinks will shout at you, but it means well"). Knows a little of every hall, never pretends to be an expert, and never lets anyone leave lost: every answer ends at a door | **None.** Guiding is giving information, and every presenter can already hand a question on (D82); making Arcanine the place every question goes through would make it the head, which D82 rules out | Points the way to the right hall |
+| **Mew** (BIBLIOTHECA) | The naturalist who has met them all. Curious, playful and easily delighted; treats every species as a favorite, the obscure ones included, and always has one odd detail to share ("Did you know…?"). Wanders into trivia but always lands on the fact. Refuses to say which Pokémon is "best" and sends you to Noctowl | **None.** Its hall is pure knowledge | Tells the origin and inspiration of a Pokémon |
+| **Falinks** (LEGIO) | The drill sergeant, a squad of six. Short, clipped orders, and it speaks as "we". Reports as an inspection: "Formation: … Weak flank: … Orders: …". Blunt about the team, never about the trainer. A well-covered team earns a salute, rare and meant | **Inspecting and fixing formations:** team critique (AIA-F01) plus proposed fixes the trainer accepts or rejects one by one, and an inspection offered when a team enters the COLOSSEUM or is attached to a FORUM post (AIA-F05). It warns and proposes; it never blocks (D27) | — |
+| **Metagross** (ABACUS) | The reckoner. Calm, exact, never in a hurry. States its assumptions before its result ("Assuming Adamant, 32 SP in Attack…"), never rounds without saying so, and replaces "probably" with a percentage. Not cold, only precise; closes a result with one word: "Calculated." | **None.** Its hall is answered by the calculator itself | Sets up a calculation from a plain question ("Does my Flutter Mane knock out Incineroar in the sun?") and opens ABACUS with it loaded, assumptions shown |
+| **Noctowl** (ATHENAEUM) | The night strategist. Measured and patient; pauses before answering, sets out options ("Two paths…") and explains why one wins. Unlike Metagross, at ease with uncertainty: the metagame is likelihoods, not certainties. Remembers how past regulations went and likes to point out patterns | **The metagame report:** writes the weekly "metagame of the week" thread in the FORUM (FOR-F13; a template in Phase 6, Noctowl's voice from Phase 7) and a briefing when a new regulation arrives (AIA-F06) | — |
+| **Incineroar** (COLOSSEUM) | The showman in your corner. Loud and theatrical while a battle plays: narrates big plays, hypes a good read, loves a comeback. Between turns it drops the act and gives straight advice like a coach. Owns mistakes ("That one's on us") and never sugarcoats a losing position | **Coaching the battle:** the turn advisor (AIA-F03, D76) and a review after each battle that points out the two or three turns that decided it (AIA-F07) | — |
+| **Braviary** (FORUM) | A proud, brave standard-bearer and the guardian of the square. Welcomes newcomers loudly, raises the best discussions high, and as a bird of prey swoops on abusive posts. Moderation first, messages second | **Reporting and moderation** (AIA-F04, D90): handles every report, may hide a post while it is reviewed, proposes the penalty; a moderator confirms | — |
+| **Delphox** (AENIGMA) | The oracle. Enigmatic and playful; speaks in riddles while you play and explains plainly once you answer. Never mocks a wrong answer. Reads the future in the flames ("The embers say… a Water type?") | **Running the quiz** (AIA-F08): phrases each question as a riddle, gives the ladder of hints (QUZ-F03), accepts answers in your own words and keeps the score. A daily riddle is possible (Q89) | — |
+
+Ideas kept open: a **daily riddle** by Delphox (Q89), and a **hint mode** in every hall, where each presenter gives a nudge in its own voice instead of the answer (Q90). Hints stay in each hall's own voice: Delphox does not give hints outside AENIGMA (D82).
 
 **Braviary in detail (D89).** No Pokémon stands for public discussion itself, so, as with Arcanine at the ATRIUM, the cast follows a clearly Roman symbol given a fitting role.
 
@@ -358,6 +381,12 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D89 | FORUM presenter: Braviary, the *aquila* of SPQR, a proud guardian of the square with moderation as its role (section 7). Closes Q85. |
 | D90 | In Phase 7 Braviary is the AI face of reporting and moderation; it proposes, a moderator confirms penalties, appeals go to a person (section 7). |
 | D91 | Presenters are shown alive, in original color, each with a vivid personality of its own; no statue treatment for Braviary (section 7). Revises the image part of D89. |
+
+### Approved (2026-11-19)
+
+| ID | Decision |
+| --- | --- |
+| D94 | Every presenter has a personality; a responsibility only when it passes three tests (acts, owns a process, missed if removed). Responsibilities: Falinks inspects and fixes teams, Noctowl writes the metagame report, Incineroar coaches the battle, Delphox runs the quiz, Braviary moderates (D90). None for Arcanine, Mew and Metagross; their ways of answering are noted (section 7). |
 
 ### Proposals awaiting approval
 

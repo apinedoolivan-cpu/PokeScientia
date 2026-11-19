@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.25 — approved 2026-11-18** · Owner: @Alex
+**Version 1.26 — approved 2026-11-19** · Owner: @Alex
 
 ## Document status
 
-Version 1.25, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.26, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -212,6 +212,7 @@ These come directly from the owner's answers in discovery.
 | D91 | **Presenters are shown alive, each with a vivid personality of its own.** Official artwork in original color (DP-4's default); no bronze or statue treatment for Braviary, which revises the image part of D89. Every presenter's personality must be distinct and vivid enough that, in Phase 7, talking to the assistant feels like talking to that presenter (D82). | The presenters will speak for the assistant, so they should look and feel like living characters, not monuments. A statue suggests the opposite. |
 | D92 | **Commit message rules live in one place: architecture §12.** They now include organizing the body by what changed (not by file), a table of where each ID lives, and add/revise/close verbs. `.github/commit-instructions.md` and Copilot's commit-message setting are removed. Claude prepares every message (in the chat, or Claude Code from the staged changes after reading §12); the owner reviews and commits. Revises D53. | Copilot's messages proved unreliable for documentation commits, even with instructions: they put IDs in the wrong documents and were organized by file. The rules existed in three copies; one source of truth avoids drift, and it sits with the other Git practices, where projects usually document their conventions. |
 | D93 | **A `/commit-message` skill for Claude Code** (`.claude/skills/commit-message/SKILL.md`), added in M0.1. It reads architecture §12 and the staged changes, uses what the session knows about why they were made, and drafts the message; the owner reviews and commits. From M0.1 on, every commit message comes from it. | CLAUDE.md's "read §12 first" is an instruction Claude Code can skip in a long session or a quick request; a skill loads the rules every time. Skills are the current format of Claude Code's custom slash commands. |
+| D94 | **Presenter personalities and responsibilities.** Every presenter has a vivid personality (design §7). A presenter has a **responsibility** only when it does a real job beyond answering questions, passing three tests: it **acts or produces something** that stays on the site, it **owns a process** (works at its own moment, not only when asked), and **without it something stops happening**. How a presenter answers (words, a tool already set up, a story) is part of its personality, not a responsibility. Responsibilities, all from Phase 7 and all under D76: **Falinks** inspects teams and proposes fixes the trainer accepts one by one (AIA-F01, AIA-F05); **Noctowl** writes the weekly metagame report in the FORUM and a briefing for each new regulation (AIA-F06, FOR-F13); **Incineroar** coaches the battle: the turn advisor and a review of the turns that decided it (AIA-F03, AIA-F07); **Delphox** runs the quiz, with a ladder of hints built by code (AIA-F08, QUZ-F03); **Braviary** moderates (D90). **Arcanine, Mew and Metagross have none**: pointing the way, telling a Pokémon's origins and setting up a calculation are their ways of answering. Opens Q89 (daily riddle) and Q90 (hint mode in every hall). | Personality alone gives every hall a voice; a job only where it does real work keeps the presenters from getting invented chores. Writing down the test makes the line between answering and a responsibility clear for future presenters. Hints are built by code so they work before the assistant exists and never invent facts. |
 
 ## Assumptions
 
@@ -299,6 +300,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-19 | Version 1.26: D94 presenter personalities for all eight presenters and responsibilities only where a real job passes three tests (Falinks, Noctowl, Incineroar, Delphox, plus Braviary's D90); AIA-F05 to AIA-F08 and QUZ-F03 added; opens Q89, Q90; modules v1.16, design v1.13, roadmap v1.14 | Presenter personalities review |
 | 2026-11-18 | Version 1.25: D93 `/commit-message` Claude Code skill added to M0.1; architecture v1.9, roadmap v1.13 | Commit message review |
 | 2026-11-18 | Version 1.24: D92 commit message rules moved into architecture §12 (organized by change, ID table, verbs); `.github/commit-instructions.md` and Copilot's commit setting removed (revises D53); architecture v1.8 | Commit message review |
 | 2026-11-17 | Version 1.23: D90 Braviary as the AI face of reporting and moderation in Phase 7, with a person confirming penalties (AIA-F04); D91 presenters shown alive with vivid personalities, no statue treatment for Braviary (revises D89); opens Q88; modules v1.15, design v1.12, roadmap v1.12 | Braviary review |
