@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.10 — approved 2026-11-19** · Owner: @Alex
+**Version 1.11 — approved 2026-11-20** · Owner: @Alex
 
 ## Document status
 
-Version 1.10, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.11, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -395,8 +395,9 @@ On every push to `main`:
 3. Unit and component tests; pipeline tests when it changes.
 4. Production build (both languages, prerendered).
 5. End-to-end and accessibility tests against the built site.
+6. `npm audit --audit-level=high` (D98). Dependabot, enabled in the repository settings, proposes dependency updates; each is reviewed like any other change.
 
-A failure shows on the commit in GitHub. Deployment is added when hosting is chosen (Q7).
+A failure shows on the commit in GitHub. Deployment is added when hosting is chosen (Q7), with a Content Security Policy that allows only our own scripts and the sites we read from (image sources, `pokepast.es`) (D98).
 
 ## 13. Coding guidelines
 
@@ -410,6 +411,7 @@ A failure shows on the commit in GitHub. Deployment is added when hosting is cho
 7. **Everything that changes on screen is a signal** (D52).
 8. **Accessibility is part of "done"** (D20): keyboard, labels, contrast, reduced motion.
 9. **Small, focused files**, named with Angular's 2025 style guide (the default for new projects).
+10. **Imported text is never HTML** (D98). Showdown text, PokéPaste fields and backup files are shown through interpolation only, never `[innerHTML]` or `bypassSecurityTrust…`, and are checked against their expected shape, with length limits, before they are saved.
 
 Guidelines 1–4 also keep the parked fakémon idea (P1) cheap if it's ever reopened.
 
@@ -421,6 +423,7 @@ Reserved only:
 - `api/openapi.yaml`: the contract; the frontend generates its TypeScript types from it.
 - The frontend keeps working without it (local-first, D3).
 - From Phase 6 the API also serves the FORUM (M9): posts, replies, votes, reports and moderation, under the rules of D87. Whether the forum is built on our own API or adopts an existing open-source forum engine is Q84.
+- Security for accounts, the FORUM and the AI assistant follows D98; its checklist is Q91.
 
 ## 15. Phase 0 setup
 
@@ -480,6 +483,7 @@ Approved in review on 2026-11-04.
 | — | D76, D77 | Action scoring and playouts beside the battle engine wrapper, independent of screens; playouts in a Web Worker (section 4) |
 | — | D85–D87 | FORUM reserved: `halls/forum/`, `/forum` routes whose content comes from the API, and forum data in the backend from Phase 6 (Q84) |
 | — | D68, D69 | Active team as shared state in `core/` (`ActiveTeamService`), its ID kept in preferences; calculations opened from other halls through `/calculator` query parameters (section 3) |
+| — | D98 | Low-cost security: imported text never rendered as HTML (guideline 10), `npm audit` in CI, a Content Security Policy at deployment; account checklist in Q91 (section 14) |
 | — | D95 | `PasteService` in `core/` reads PokéPaste's `/json` view and exports through its public form; parsing stays in `domain/` (section 3) |
 
 ## Sources

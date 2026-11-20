@@ -1,15 +1,15 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.16 — approved 2026-11-20** · Owner: @Alex
+**Version 1.17 — approved 2026-11-20** · Owner: @Alex
 
 ## Document status
 
-Version 1.16, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.17, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
 - Changes are recorded in the vision's decision log. Later phases are added as new versions of this document.
-- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91); version 1.13 adds the `/commit-message` skill to M0.1 (D93); version 1.14 adds the presenters' responsibilities to Phase 7 (D94); version 1.15 adds PokéPaste links and the team sheet to Phase 2 (D95).
+- New decisions from this document: **D65–D67** (section 12). Version 1.1 adds the active team and team-centered calculation (D68, D69); version 1.2 adds type tiers and the member coverage view (D71, D72); version 1.3 redefines Phase 4 (D73–D75); version 1.4 adds the action scoring and the turn advisor (D76, D77); version 1.5 adds low-cost accessibility checks (D78); version 1.6 adds the image fallback switch and music (D79, D80); version 1.7 adds Smogon tiers (D81); version 1.8 adds the presenters as the assistant's voice to Phase 6 (D82); version 1.9 adds the competitive section and the VGC usage history (D83); version 1.10 adds the FORUM as Phase 6 and moves the quiz and the AI assistant to Phase 7 (D85–D87); version 1.11 casts Braviary for the FORUM (D89); version 1.12 makes Braviary the voice of moderation in Phase 7 (D90, D91); version 1.13 adds the `/commit-message` skill to M0.1 (D93); version 1.14 adds the presenters' responsibilities to Phase 7 (D94); version 1.15 adds PokéPaste links and the team sheet to Phase 2 (D95); version 1.17 adds low-cost security checks (D98).
 
 ## 1. Planning principles
 
@@ -86,6 +86,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 ### M0.2 — Continuous integration · ~3–5 h
 
 - GitHub Actions workflow: install, lint, unit tests, production build on every push to `main` (D21).
+- `npm audit` step in the workflow and Dependabot turned on (D98).
 
 **Done when:** a push shows a green run; a deliberately failing test shows a red one.
 
@@ -342,7 +343,7 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 
 The smarter rival (LAB-F14) waits for Phase 7.
 
-**Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7).
+**Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7). The specification settles the account security checklist (Q91, D98).
 
 **Phase 6 — FORUM (`v0.7.0`).** Needs a public deployment. Specify it fully first (FOR features): build or adopt (Q84), the legal requirements and minimum age (Q86), and free CAPTCHA and filter tools (Q87). The presenter is Braviary (D89). Then:
 
@@ -355,14 +356,14 @@ The smarter rival (LAB-F14) waits for Phase 7.
 
 **Phase 7 — AENIGMA and the AI assistant (`v0.8.0`+).** Specify each first (QUZ, AIA features, Q8, Q82). Each hall's presenter is the assistant's voice there (D82). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last. In the FORUM the assistant speaks as Braviary and becomes the main way to report and moderate (AIA-F04, D90): it handles reports and proposes actions, a moderator confirms penalties. Whether it may act alone on clear cases is decided once it has run (Q88). The other presenters' responsibilities come with it (D94): Falinks's inspection and fixes (AIA-F05), Noctowl's metagame report (AIA-F06, taking over FOR-F13's template), Incineroar's battle review (AIA-F07) and Delphox running the quiz (AIA-F08) with its ladder of hints (QUZ-F03), which works without a language model. Decide the daily riddle (Q89) and the hint mode (Q90) in the specification.
 
-**Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI. A natural moment is after Phase 1, when the Pokédex is usable. It must happen before Phase 6: the FORUM only makes sense online (D86).
+**Public deployment** is not tied to a phase. When the owner wants the site online, a short milestone decides hosting and address (Q7, Q35) and adds a deployment step to CI, with a Content Security Policy (D98). A natural moment is after Phase 1, when the Pokédex is usable. It must happen before Phase 6: the FORUM only makes sense online (D86).
 
 ## 10. Recurring work
 
 | Task | When | How |
 | --- | --- | --- |
 | **Regulation update** | When a new regulation starts (the next one after M-C begins on 2026-12-02) | Data strategy §6: update `@pkmn` packages, edit the regulation file, run the pipeline, review the report, commit as `data:` (R17) |
-| **Dependency updates** | About once a month | `ng update` for Angular, `npm outdated` for the rest; one commit per update, CI must stay green |
+| **Dependency updates** | About once a month | `ng update` for Angular, `npm outdated` for the rest, and any Dependabot proposals; one commit per update, CI must stay green (D98) |
 | **Progress log** | End of every session | One entry in `docs/progress.md` |
 | **Accessibility check** | At each phase close | Use the main flows with the Orca screen reader (included in Ubuntu); when possible, ask a color-blind user to try the new screens (D78) |
 | **Document upkeep** | When a decision changes | Vision, decision map and the affected document in the same commit |
@@ -405,3 +406,4 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D86 | The FORUM is Phase 6, right after accounts; the quiz and the AI assistant move to Phase 7. A public deployment comes before Phase 6. |
 | D95 | PokéPaste links, the team sheet, and author and notes are built in Phase 2 (M2.10, after the active team); the parser's missing-line rules go into M2.2. |
 | D93 | The `/commit-message` Claude Code skill is added in M0.1 and drafts every commit message from then on. |
+| D98 | `npm audit` and Dependabot join CI in M0.2; the first public deployment adds a Content Security Policy; the Phase 5 specification settles the account security checklist (Q91). |

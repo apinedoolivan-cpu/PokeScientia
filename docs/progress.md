@@ -6,6 +6,17 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-20 · Low-cost security (D98)
+
+- **Done:**
+  - Reviewed where security matters, keeping it the project's last priority. Through Phase 4 nothing leaves the browser (teams in IndexedDB, preferences in localStorage), so the risk is very low; it starts with accounts (Phase 5), then the FORUM (Phase 6) and the AI assistant (Phase 7).
+  - Decided D98: low-cost measures only, like D78. Now: imported text never rendered as HTML and validated (architecture guideline 10); `npm audit` and Dependabot in M0.2; a Content Security Policy at the first deployment. Costlier measures are not planned.
+  - Opened Q91: the account security checklist for the Phase 5 specification (no stored passwords if possible, cookie sessions, ownership checks, parameterised SQL, secrets, rate limits, real deletion), plus server-side sanitising of posts (Phase 6) and the user's AI key and prompt injection (Phase 7). Q88 now weighs prompt injection.
+  - Docs updated: vision v1.29, architecture v1.11, roadmap v1.17, decision map, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+
+---
+
 ## 2026-11-20 · Roman politics in the FORUM (D96, D97)
 
 - **Done:**

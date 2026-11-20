@@ -84,6 +84,9 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
   Metajuego, Coliseo, Foro, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,
   COLOSSEUM, FORUM, AENIGMA). The Pokédex is the *Historia Naturalis* book with a List view. Themes Día/Noche follow
   the device by default. Travertino palette (D88, formerly Foro) is provisional; never hardcode colors, use tokens.
+- Security (D98): low-cost measures only, built in as each phase arrives; the project's last priority. Imported
+  text (Showdown, PokéPaste, backups) is never rendered as HTML and is validated; `npm audit` in CI; account checklist
+  in Q91 (Phase 5).
 - Budget (R7): free tools, data, assets and hosting only; open source preferred; free proprietary tools only
   when approved as a decision (GSAP, D56).
 
