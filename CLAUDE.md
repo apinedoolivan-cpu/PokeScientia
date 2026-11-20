@@ -76,7 +76,9 @@ scope of the current milestone. When a milestone is done, the owner ticks it and
 - FORUM (D85–D87, Phase 6, after accounts in Phase 5): Reddit-style topics, nested replies and votes; a post can
   attach a team, Pokémon, calculation or battle from another hall. Moderation in layers: limits by design (no
   private messages or image uploads at launch), entrance limits, trust levels, filters that only hold posts for
-  review, reports, public rules with logged actions. Quiz and AI assistant are Phase 7 (D86).
+  review, reports, public rules with logged actions. Every user looks the same: trust levels are internal, never
+  shown (D97). Roman civic framing (D96): rules as the LEX FORI in twelve tablets (real-world politics off-topic),
+  appeals as *provocatio*, the public ACTA log. Quiz and AI assistant are Phase 7 (D86).
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
   Metajuego, Coliseo, Foro, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS, ATHENAEUM,

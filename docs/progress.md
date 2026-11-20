@@ -6,6 +6,21 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-20 · Roman politics in the FORUM (D96, D97)
+
+- **Done:**
+  - Listed the Roman concepts the academy doesn't use yet. The owner raised politics and law, among Rome's most lasting contributions, which has no room as a hall.
+  - Decided D96: the FORUM, the centre of Roman civic life, carries it through parts it already has. The rules are the LEX FORI, twelve tablets after the Twelve Tables (FOR-F15). Appeals are the *provocatio*. The moderation log is the public ACTA (FOR-F16). Votes are called *suffragium* in texts only. Real-world politics is off-topic. The economy, offices as ranks and a Senate were not adopted.
+  - Decided D97: every user looks the same. Trust levels stay as D87 sets them, against repeat accounts, but are internal and never shown (revises D87 in visibility only).
+  - Parked P4: visible user ranks, possibly Roman military ranks, not designed yet.
+  - Docs updated: vision v1.28, modules v1.18, design v1.15, roadmap v1.16, decision map, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+- **Notes:**
+  - The tablets' wording is written in the Phase 6 specification; whether the ACTA names users is part of Q86.
+  - The vision's user stories have two U19 entries (PokéPaste from D95, and FORUM votes and reports). Not fixed here; to renumber in a later session.
+
+---
+
 ## 2026-11-19 · PokéPaste reopened (D95)
 
 - **Done:**

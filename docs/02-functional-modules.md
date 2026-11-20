@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.17 — approved 2026-11-19** · Owner: @Alex
+**Version 1.18 — approved 2026-11-20** · Owner: @Alex
 
 ## Document status
 
-Version 1.17, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.18, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -533,20 +533,23 @@ A **daily riddle**, the same for everyone with hints that unlock during the day,
 | FOR-F07 | **Categories:** a few at launch (for example Competitive, Team rating, Questions, Pokédex and lore, General); new ones only when the existing ones are busy. | 6 |
 | FOR-F08 | **Edit and delete** my own posts and replies. | 6 |
 | FOR-F09 | **Report** a post or reply, with a reason. | 6 |
-| FOR-F10 | **Trust levels:** users unlock abilities through good participation (D87). | 6 |
-| FOR-F11 | **Moderation tools:** review queue, actions with a logged reason, the penalty ladder, appeals. | 6 |
+| FOR-F10 | **Trust levels:** users unlock abilities through good participation (D87). Internal only: never shown as badges, titles or ranks (D97). | 6 |
+| FOR-F11 | **Moderation tools:** review queue, actions with a logged reason, the penalty ladder, appeals (the *provocatio*, D96). | 6 |
 | FOR-F12 | **Automatic filters** that hold suspicious posts for review. | 6 |
 | FOR-F13 | **Seeded threads:** a weekly thread opened automatically (for example the metagame of the week, from ATHENAEUM's data), so the forum never looks empty. A template in Phase 6; from Phase 7 Noctowl writes the metagame thread (AIA-F06, D94). | 6 |
 | FOR-F14 | **Reply notices** on the site when someone answers my post or reply. | 6 |
+| FOR-F15 | **LEX FORI** (D96): the public rules as twelve tablets, *TABULA I* to *TABULA XII*, each with the rule in plain language in both languages. Moderation actions, reports and appeals refer to a tablet by its number. | 6 |
+| FOR-F16 | **ACTA** (D96): the public log of moderation actions, each with the date, the tablet it applies and the reason. Whether it names the user is decided with Q86. | 6 |
 
 ### Rules (D87)
 
 - Reading is open to everyone. Posting, replying, voting and reporting need a signed-in account with a verified email.
 - **Limits by design at launch:** no private messages and no image uploads. Links only from users with enough trust.
 - **New accounts start limited:** fewer posts per hour and no links; the limits lift with trust levels.
+- **Every user looks the same (D97):** trust levels are internal and never shown. When a limit applies, the message explains it in plain words without naming a level.
 - **Filters never delete:** they hold a post for review, and a person decides.
 - **Reports:** a post reported by several trusted users is hidden until a moderator reviews it.
-- **Rules are public**, in plain language and in both languages. Moderation follows a ladder (warning, temporary mute, suspension, ban). Every action is logged with its reason; the user is told why and can appeal.
+- **Rules are public**, in plain language and in both languages, as the LEX FORI (FOR-F15, D96). Real-world politics is off-topic. Moderation follows a ladder (warning, temporary mute, suspension, ban). Every action is logged with its reason in the public ACTA (FOR-F16); the user is told why and can appeal (*provocatio*), always to a person.
 - Votes rank content and feed trust levels. Nobody votes on their own posts.
 - Deleting an account (ACC-F04) removes or anonymises its posts; the exact rule is part of Q86.
 - Personal data, the minimum age to sign up and the duties of a hosting service follow EU law (Q86).
@@ -557,7 +560,7 @@ Needs accounts (M6). Attachments open in LEGIO, BIBLIOTHECA, ABACUS and the COLO
 
 ### Out of scope (for now)
 
-Private messages, image uploads, custom avatars, real-time chat, email notifications.
+Private messages, image uploads, custom avatars, real-time chat, email notifications, visible ranks or badges (D97, parked as P4).
 
 ---
 

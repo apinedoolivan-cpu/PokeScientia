@@ -1,10 +1,10 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.15 — approved 2026-11-19** · Owner: @Alex
+**Version 1.16 — approved 2026-11-20** · Owner: @Alex
 
 ## Document status
 
-Version 1.15, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.16, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
@@ -349,8 +349,8 @@ The smarter rival (LAB-F14) waits for Phase 7.
 1. **Reading:** categories, post lists and threads from the API (FOR-F01, FOR-F06, FOR-F07).
 2. **Writing:** posts, nested replies, editing and deleting (FOR-F02, FOR-F04, FOR-F08), with entrance and rate limits from the first day (D87).
 3. **Attachments** from the other halls (FOR-F03).
-4. **Votes, trust levels and reply notices** (FOR-F05, FOR-F10, FOR-F14).
-5. **Moderation:** reports, filters, review queue, penalty ladder and log (FOR-F09, FOR-F11, FOR-F12). Complete **before** the forum opens to the public.
+4. **Votes, trust levels and reply notices** (FOR-F05, FOR-F10, FOR-F14). Trust levels stay internal (D97).
+5. **Moderation:** reports, filters, review queue, penalty ladder, appeals, the LEX FORI and the public ACTA (FOR-F09, FOR-F11, FOR-F12, FOR-F15, FOR-F16; D96). Complete **before** the forum opens to the public.
 6. **Launch content:** the first categories and seeded threads (FOR-F13).
 
 **Phase 7 — AENIGMA and the AI assistant (`v0.8.0`+).** Specify each first (QUZ, AIA features, Q8, Q82). Each hall's presenter is the assistant's voice there (D82). The assistant's primary feature is the turn advisor (AIA-F03, D76), built in its four steps: facts, ranking and win estimates first (no language model needed), explanations last. In the FORUM the assistant speaks as Braviary and becomes the main way to report and moderate (AIA-F04, D90): it handles reports and proposes actions, a moderator confirms penalties. Whether it may act alone on clear cases is decided once it has run (Q88). The other presenters' responsibilities come with it (D94): Falinks's inspection and fixes (AIA-F05), Noctowl's metagame report (AIA-F06, taking over FOR-F13's template), Incineroar's battle review (AIA-F07) and Delphox running the quiz (AIA-F08) with its ladder of hints (QUZ-F03), which works without a language model. Decide the daily riddle (Q89) and the hint mode (Q90) in the specification.

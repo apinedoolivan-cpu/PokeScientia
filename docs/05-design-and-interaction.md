@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.14 — approved 2026-11-19** · Owner: @Alex
+**Version 1.15 — approved 2026-11-20** · Owner: @Alex
 
 ## Document status
 
-Version 1.14, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.15, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -151,7 +151,7 @@ The exact hue table lives with the tokens and is generated, not hand-picked per 
 | **Arch** | Entrance doors, presenter niches | Round top, flat base |
 | **Plinth** | Under presenters and on door inscriptions | Cinzel text, ornament-colored border |
 | **Laurel** | Emblem; optional accents (completed analyses, results) | Line art |
-| **Roman numerals** | Book numbers (LIBER I), thumb index, page numbers | Arabic numerals for all data (stats, IDs, damage) |
+| **Roman numerals** | Book numbers (LIBER I), thumb index, page numbers, the FORUM's rule tablets (TABULA I) | Arabic numerals for all data (stats, IDs, damage) |
 | **Abacus beads** | ABACUS hall header | A small decorative abacus |
 
 **Rules:**
@@ -220,6 +220,16 @@ Ideas kept open: a **daily riddle** by Delphox (Q89), and a **hint mode** in eve
   - **Pliny's phoenix.** The *Natural History* reports a phoenix brought to Rome under Claudius in 47 CE and shown in the Comitium, the forum's place of assembly, which Pliny judged a fake: Rome's first viral hoax, and a good opening for the rules on false information.
   - **Pliny's pigeons.** During the siege of Mutina, Decimus Brutus sent letters tied to pigeons' feet (*Natural History*, book X): messages carried by air, fitting for reply notices.
   - ***Fama*,** the Roman goddess of rumor, who in Virgil flies about with countless eyes, ears and tongues: material for the voice, as what the guardian keeps in check.
+  - **The Twelve Tables.** Rome's first written law, put up in the Forum so every citizen could read it: the origin of the LEX FORI (D96), and Braviary's way of introducing the rules.
+  - **The *provocatio*.** A Roman citizen could appeal a magistrate's punishment to the people: the guardian swoops, but never has the last word.
+
+**Civic framing of the FORUM (D96, D97).** The hall carries Roman civic life through parts it already has, never through new mechanics:
+
+- **LEX FORI:** the rules page shows twelve bronze tablets, *TABULA I* to *TABULA XII*: a Cinzel heading with the Roman numeral, the rule in plain language beneath in Alegreya Sans. Tablets I–VI say what is expected, VII–IX the penalty ladder, X–XII the user's rights. Moderation messages cite a tablet ("TABULA IV") next to its plain title.
+- **ACTA:** the public log, styled as a posted notice: date, tablet, action, reason.
+- ***Provocatio*:** the appeal button keeps a plain label ("Apelar" / "Appeal"); the Latin word appears in its explanation.
+- ***Suffragium*:** only in introductions and help texts; vote buttons stay plain icons and words (D59).
+- **One kind of user (D97):** no badges, titles, ranks or level marks on posts or profiles. Every author is shown the same way.
 
 **Considered and set aside:** Pikachu (fame, not meaning), Klefki (keys only), Girafarig/Farigiraf (a Janus link few would read) and Hisuian Arcanine (rock and statue, less alive) for ATRIUM; Alakazam (psychic and magic, not calculation) for ABACUS; Xatu (a passive seer, drawn from specific living cultures) for ATHENAEUM; Zoroark (illusion, not riddles) and Unown (no individual mind) for AENIGMA. For the FORUM: Chatot (mimics sounds, and tropical), Mr. Mime (the minstrel bringing news is not a Roman image), Smeargle (artistic painting more than messages), Grafaiai (a signature tag repeated for life, solitary and poisonous), Primarina (Greek sirens lure sailors to their death), Unfezant (one-to-one messages, kept as lore), Conkeldurr (its Roman concrete builds the square but says nothing about talking in it), Farigiraf (the Janus link again), Lycanroc (no lore of the Roman she-wolf), Exploud (a herald announces but doesn't discuss), Pidgeot, Talonflame, Hawlucha, Staraptor and Swellow (not eagles), Corviknight (a raven, steel rather than bronze, British in theme), Hisuian Braviary (loses the eagle's look), Yveltal (death), Tornadus in Therian Forme (not clearly an eagle; its other form is the wind god Fūjin; storms destroy), Zapdos (Jupiter's eagle holds thunderbolts, but it doesn't look like an eagle) and Moltres (Pliny's phoenix is an anecdote, not the hall's function, and a fourth fire-type presenter).
 
@@ -349,7 +359,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
-| FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; Braviary's frame and the report conversation (D89, D90) |
+| FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; Braviary's frame and the report conversation (D89, D90); the LEX FORI tablets, the ACTA and the appeal (D96); no visible ranks (D97) |
 | Companion presenters | After the MVP | Optional; in Phase 7 a way to reach the assistant (D82, Q82) |
 
 ## 15. Decisions and proposals
@@ -388,6 +398,13 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | ID | Decision |
 | --- | --- |
 | D94 | Every presenter has a personality; a responsibility only when it passes three tests (acts, owns a process, missed if removed). Responsibilities: Falinks inspects and fixes teams, Noctowl writes the metagame report, Incineroar coaches the battle, Delphox runs the quiz, Braviary moderates (D90). None for Arcanine, Mew and Metagross; their ways of answering are noted (section 7). |
+
+### Approved (2026-11-20)
+
+| ID | Decision |
+| --- | --- |
+| D96 | Roman civic life frames the FORUM: the rules as the LEX FORI in twelve tablets, appeals as *provocatio*, the public ACTA log, *suffragium* in texts only; real-world politics is off-topic (section 7). |
+| D97 | Every user looks the same: trust levels are internal, with no badges, titles or ranks on posts or profiles (section 7). Revises D87 in visibility only. |
 
 ### Proposals awaiting approval
 
