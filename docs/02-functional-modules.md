@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.18 — approved 2026-11-20** · Owner: @Alex
+**Version 1.19 — approved 2026-11-21** · Owner: @Alex
 
 ## Document status
 
-Version 1.18, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.19, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -142,11 +142,11 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F01 | **Pokémon and forms**, all generations: National Pokédex number, English ID (PokéAPI style, D37), names (es/en), forms grouped under their number (D11), types, base stats, abilities (including hidden), height and weight, evolution chain with conditions, image URL, flags "fully evolved" and "competitive view". | 0 |
 | DAT-F02 | **Moves**: ID, names and descriptions (es/en), type, category, power, accuracy, PP, priority, **target** (single, both foes, all others…; essential for doubles), and flags such as contact or sound. | 0 |
 | DAT-F03 | **Abilities**: ID, names and descriptions (es/en). | 0 |
-| DAT-F04 | **Items**: ID, names and descriptions (es/en), category. The Pokédex shows items with a competitive purpose; every item keeps its category, so other groups can be shown later by changing a filter (D31). | 0 |
+| DAT-F04 | **Items**, every item in PokéAPI's data (D100): ID, names and descriptions (es/en), category, icon URL. **Battle items** (those in Showdown's data) also carry: whether the item is available in the current game (D101), the Mega form a Mega Stone unlocks, and the Pokémon a species-specific item works for (e.g. Light Ball). | 0 |
 | DAT-F05 | **Learnsets**: every move each Pokémon or form has learned in any game, with the generations and methods, and a flag for moves available in the current game (D32, D39). | 0 |
 | DAT-F06 | **Type chart** of the current generation. | 0 |
 | DAT-F07 | **Competitive middle evolutions**: a short, hand-maintained list (e.g. Porygon2, Dusclops) included in the competitive view (D12, D33). | 0 |
-| DAT-F08 | **Regulation data**: which Pokémon and forms are legal in the current VGC regulation, plus the format rules (level, team size, clauses, Mega Evolution). The current regulation is named in one file that is easy to update (R17, D35). | 2 |
+| DAT-F08 | **Regulation data**: which Pokémon and forms are legal in the current VGC regulation, plus the format rules (level, team size, clauses, Mega Evolution). Item availability comes from DAT-F04 (D101). The current regulation is named in one file that is easy to update (R17, D35). | 2 |
 | DAT-F09 | **Data version**: the date the data was built and the game it reflects, shown in About. | 0 |
 | DAT-F10 | **Search index**: names in both languages for every Pokémon, form, move, ability and item. | 1 |
 | DAT-F11 | **Doubles move categories**: hand-maintained lists of moves for speed control, redirection, Fake Out, Protect-like moves, etc., used by STR-F11. | 2 |
@@ -168,6 +168,7 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 ### Acceptance criteria
 
 - **DAT-F01** *Given* the pipeline has run, *then* every Pokémon from #1 to the latest has an entry with Spanish and English names, and Ninetales has two forms (standard and Alolan) under number 38.
+- **DAT-F04** *Given* the pipeline has run, *then* every item in PokéAPI's data has an entry with its category; Sitrus Berry and Choice Scarf are battle items available in the current game, Choice Band is a battle item not available in it, Charizardite Y links to Mega Charizard Y, and the Bicycle is an item with names, description and category only.
 - **DAT-F05** *Given* the pipeline has run, *then* every form has a learnset, and each move in it says whether it is available in the current VGC game.
 - **DAT-F09** *Given* the pipeline has run, *then* the data version file contains the build date and the source game.
 - **DAT-F13** *Given* the tier file is missing one combination or lists one twice, *when* the pipeline runs, *then* it stops and names the combination.
@@ -199,7 +200,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F06 | **Moves list** with filters (type, category, name, and a "spread moves" filter) and sorting. | 1 |
 | ARC-F07 | **Move detail page.** All move data and description, and the Pokémon that can learn it, marking those that learn it in the current game. | 1 |
 | ARC-F08 | **Abilities list and detail page.** Description and the Pokémon that have it (regular or hidden). | 1 |
-| ARC-F09 | **Items list and detail page.** Description and category. | 1 |
+| ARC-F09 | **The ARMAMENTARIUM: items list and detail page** (D99, D100). The list opens on items available in the current game; "Show all" reveals every item, marking those not available in the current game; filters by category and name; view and filters are kept in the URL. A battle item's page shows its description, category, whether it is available in the current game, and the Mega form it unlocks or the Pokémon it works for, each linked. Any other item's page shows its description, category and icon. | 1 |
 | ARC-F10 | **Type chart page.** Full 18×18 chart; pick one or two defending types to see what hits them. | 1 |
 | ARC-F11 | **"Add to team" button** on a Pokémon entry (D28). | 2 |
 | ARC-F12 | **VGC in the competitive section** (ARC-F14, D13, D83): current usage rank and percentage, best VGC record (DAT-F15) and common sets (CMP-F02), each with source and period. | 3 |
@@ -221,7 +222,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 ### Rules
 
 - A Pokémon is defined by its National Pokédex number; forms are shown within one entry (D11).
-- The competitive view contains fully evolved Pokémon plus the hand-maintained middle evolutions (D12, DAT-F07).
+- The competitive view contains fully evolved Pokémon plus the hand-maintained middle evolutions (D12, DAT-F07). The ARMAMENTARIUM's default view, likewise, contains the items available in the current game (D100).
 - Display names follow the active language; links always use English IDs (D17).
 - New sections can be added to the entry without changing existing ones (R16).
 
@@ -240,6 +241,7 @@ Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO
 - **ARC-F04** *Given* the Ninetales entry is open, *when* I select the Alolan form, *then* types, stats, abilities and moves change to Alolan Ninetales and the URL becomes `/pokedex/ninetales-alola`.
 - **ARC-F03** *Given* the Gengar entry, *then* the type effectiveness shows Ground as ×2 and Normal and Fighting as immune.
 - **ARC-F07** *Given* the Flamethrower page in Spanish, *then* it is titled "Lanzallamas" and lists Charizard among the Pokémon that learn it.
+- **ARC-F09** *Given* I open the ARMAMENTARIUM, *then* Choice Scarf appears and Choice Band doesn't; *when* I choose "Show all", *then* Choice Band appears, marked as not available in the current game. *Given* the Charizardite Y page, *then* it links to Mega Charizard Y. *Given* the Bicycle's page, *then* it shows its description and category in both languages, or the English text marked.
 - **ARC-F10** *Given* I pick Water and Ground as defending types, *then* Grass shows ×4 and Electric shows ×0.
 - **ARC-F13** *Given* the Gengar entry (Ghost/Poison), *then* its header shows tier B with the note that it is the site's own assessment. *Given* Alolan Ninetales (Ice/Fairy), *then* it shows tier D, while standard Ninetales (Fire) shows tier B.
 - **ARC-F14** *Given* the Incineroar entry, *then* the competitive section shows Doubles: DOU (Generation 9), and its Singles tiers, credited to Smogon. *Given* Mega Kangaskhan, *then* Doubles shows DUber (Generation 7). *Given* a Pokémon not legal in Champions (e.g. Amoonguss in the 2026-11 data), *then* its Champions tier shows "—". *Given* Charizard's entry, *when* I select Mega Charizard Y, *then* the Mega's own values are shown.
@@ -249,7 +251,7 @@ Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO
 
 ### Out of scope (for now)
 
-Pokédex flavor text, locations and encounter data, sprites from every game, cries, and side-by-side comparison of Pokémon. Any of them can be added later as a new entry section (R16).
+Pokédex flavor text, locations and encounter data (for Pokémon and for items), sprites from every game, cries, and side-by-side comparison of Pokémon. Any of them can be added later as a new entry section (R16).
 
 ---
 
@@ -263,8 +265,8 @@ Pokédex flavor text, locations and encounter data, sprites from every game, cri
 | --- | --- | --- |
 | STR-F01 | **Team library.** List of saved teams (name, author if any, the six Pokémon, last edited). Create, rename, duplicate and delete (delete can be undone). | 2 |
 | STR-F02 | **Team editor.** Up to six slots. Each slot: Pokémon and form, ability, held item (including Mega Stones), four moves, nature, and stat spread in the team's stat system (STR-F18). Level is always 50. Final stats are calculated and shown. | 2 |
-| STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices are every move the Pokémon has ever learned; in the regulation format, moves not available in the current game are marked. | 2 |
-| STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon or moves not legal in the current regulation. Warnings never block editing or saving. | 2 |
+| STR-F03 | **Smart pickers.** Searchable choices for Pokémon, abilities, items and moves. Move choices are every move the Pokémon has ever learned; in the regulation format, moves not available in the current game are marked. Item choices are battle items; in the regulation format, items not available in the current game are marked (D101). | 2 |
+| STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon, moves or items not legal in the current regulation (D101). Warnings never block editing or saving. | 2 |
 | STR-F05 | **Import from Showdown text.** Paste the text and the team is created. Lines that can't be read are reported; the rest is imported. Lines left out get the defaults stated in the rules below, and the import says what it assumed. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. Available from the team library and from the active-team strip; an imported team becomes the active team. | 2 |
 | STR-F06 | **Export to Showdown text**, with one-click copy. Every member includes `Level: 50`, so the text imports correctly anywhere. Author and notes are not part of Showdown text and are left out. | 2 |
 | STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
@@ -316,6 +318,7 @@ Receives Pokémon from M2. Provides the active team to every hall (X-12), above 
 
 - **STR-F01** *Given* I delete a team, *when* I choose "Undo" in the message that appears, *then* the team is back unchanged.
 - **STR-F04** *Given* a team in the regulation format where two members hold Sitrus Berry, *then* a duplicate-item warning appears on both, and I can still keep editing and the team is still saved.
+- **STR-F04** *Given* a team in the regulation format where a member holds Choice Band, *then* that member shows a warning that the item is not available in the current game, and the team is still saved.
 - **STR-F17** *Given* the same team, *when* I switch it to the Free format, *then* the duplicate-item and legality warnings disappear, while a move the Pokémon can never learn is still flagged.
 - **STR-F05** *Given* valid Showdown text for six Pokémon, *when* I import it, *then* the team has the same Pokémon, items, abilities, moves, natures and spreads. *Given* one line has an unknown move, *then* that line is reported and the rest is imported.
 - **STR-F05/F06** *Given* a team, *when* I export it and import the text again, *then* the result is identical to the original.
@@ -571,7 +574,7 @@ The assumptions in Draft 1 were reviewed on 2026-11-03.
 | Where | Outcome |
 | --- | --- |
 | X-03 | Bilingual search kept (D30). |
-| DAT-F04 | Battle items by default; categories kept to allow other items later (D31). |
+| DAT-F04 | Battle items by default; categories kept to allow other items later (D31). Revised on 2026-11-21: every item is shown, battle items in full (D100). |
 | DAT-F05, ARC-F03, STR-F17 | Learnsets cover every game; teams choose Free or Current regulation format (D32). Replaces the "current game only" assumption. |
 | DAT-F07 | Hand-maintained list of competitive middle evolutions kept (D33). |
 | STR-F14 | Autosave kept (D34). |

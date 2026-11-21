@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.11 — approved 2026-11-20** · Owner: @Alex
+**Version 1.12 — approved 2026-11-21** · Owner: @Alex
 
 ## Document status
 
-Version 1.11, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.12, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -79,7 +79,7 @@ frontend/src/app/
 ├── shell/         layout, header, navigation, global search, presenter area
 └── halls/
     ├── atrium/       ATRIUM: home and hall doors (SHL-F01)
-    ├── pokedex/      BIBLIOTHECA: shelf, codex, list, moves, abilities, items, types (M2)
+    ├── pokedex/      BIBLIOTHECA: shelf, codex, list, moves, abilities, items (the ARMAMENTARIUM, D99), types (M2)
     ├── teams/        LEGIO: team library, editor, analysis, converter (M3)
     ├── calculator/   ABACUS: damage calculator (M4, Phase 3)
     ├── metagame/     ATHENAEUM: usage data and trends (M4, Phase 3)
@@ -211,7 +211,7 @@ Path words are English and identical in both languages (D17). Hall names and Lat
 | `/pokedex`, `/pokedex/:id` | BIBLIOTHECA: shelf and list; entries as codex pages (forms have their own IDs, D37) | Prerendered, every ID |
 | `/moves`, `/moves/:id` | Moves | Prerendered, every ID |
 | `/abilities`, `/abilities/:id` | Abilities | Prerendered, every ID |
-| `/items`, `/items/:id` | Items | Prerendered, every ID |
+| `/items`, `/items/:id` | ARMAMENTARIUM: every item, a room of the BIBLIOTHECA (D99, D100) | Prerendered, every ID |
 | `/types` | Type chart | Prerendered |
 | `/teams`, `/teams/:teamId` | LEGIO: team library and editor (Phase 2) | Shell prerendered; content in the browser (teams live in IndexedDB) |
 | `/calculator` | ABACUS: calculator (Phase 3) | Prerendered shell |
@@ -224,7 +224,7 @@ Path words are English and identical in both languages (D17). Hall names and Lat
 
 Parameterized routes list their IDs at build time with `getPrerenderParams`, read from the generated data.
 
-**Size of the build:** about 3,300 entity pages (≈1,300–1,400 Pokémon and forms, ≈940 moves, ≈310 abilities, ≈540 battle items) × 2 languages ≈ **6,600 HTML pages**, plus a copy of `public/data/` per language. Build output is **not** committed; CI builds it. Angular's documentation warns that large prerenders take time; the Phase 0 spike measures it (section 15).
+**Size of the build:** about 4,900 entity pages (≈1,300–1,400 Pokémon and forms, ≈940 moves, ≈310 abilities, ≈2,200 items, D100) × 2 languages ≈ **9,800 HTML pages**, plus a copy of `public/data/` per language. Build output is **not** committed; CI builds it. Angular's documentation warns that large prerenders take time; the Phase 0 spike measures it (section 15).
 
 **Data during prerendering:** pages load their JSON through one data service in `core/`. How that service reads files during the build (from disk) versus in the browser (over HTTP), and how the data is reused when the page hydrates, is validated in the Phase 0 spike before the Pokédex is built.
 
@@ -484,6 +484,7 @@ Approved in review on 2026-11-04.
 | — | D85–D87 | FORUM reserved: `halls/forum/`, `/forum` routes whose content comes from the API, and forum data in the backend from Phase 6 (Q84) |
 | — | D68, D69 | Active team as shared state in `core/` (`ActiveTeamService`), its ID kept in preferences; calculations opened from other halls through `/calculator` query parameters (section 3) |
 | — | D98 | Low-cost security: imported text never rendered as HTML (guideline 10), `npm audit` in CI, a Content Security Policy at deployment; account checklist in Q91 (section 14) |
+| — | D99–D101 | Every item from PokéAPI, battle items completed from Showdown with their current-game availability (pipeline step 5); `/items` pages for every item, about 3,400 more prerendered pages (section 7) |
 | — | D95 | `PasteService` in `core/` reads PokéPaste's `/json` view and exports through its public form; parsing stays in `domain/` (section 3) |
 
 ## Sources

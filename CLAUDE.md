@@ -57,6 +57,9 @@ when they choose. Small throwaway experiments outside the repository are welcome
   under it. Default view: fully evolved plus relevant middle evolutions. Entry sections are independent and
   extensible. Learnsets cover every game, marking current-game moves; teams choose a Free or Current
   regulation format (D32). Team rules only warn, never block (D27).
+- Items (D99–D101): the ARMAMENTARIUM, a room of the BIBLIOTHECA (no menu entry, Mew presents it), shows every
+  item from PokéAPI; battle items (those in Showdown's data) get the full page, with availability in the current game
+  from the Champions mod. Opens on items available in the current game. LEGIO marks and warns about unavailable items.
 - Competitive section (D83): every entry shows Smogon data only, VGC first (current usage, best usage ever in any
   VGC format, common sets; Phase 3), then Smogon Doubles and singles tiers (Phase 1). No hand-made Pokémon ranking.
 - Persistence (D3, D4): local-first in the browser; accounts and sync later via the Go backend.

@@ -1,10 +1,10 @@
 # Pokescientia — Data Strategy
 
-**Version 1.5 — approved 2026-11-19** · Owner: @Alex
+**Version 1.6 — approved 2026-11-21** · Owner: @Alex
 
 ## Document status
 
-Version 1.5, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.6, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
@@ -17,7 +17,7 @@ Version 1.5, approved. Defines where every piece of data comes from, under which
 | Need | Source | License | Decision |
 | --- | --- | --- | --- |
 | Game mechanics: Pokémon, forms, stats, abilities, moves, battle items, learnsets, formats | Pokémon Showdown data, through the `@pkmn/dex` and `@pkmn/mods` packages | MIT | D36 |
-| Spanish and English names, descriptions, evolution conditions, Pokédex numbers, item categories | PokéAPI raw data (CSV files in its GitHub repository) | BSD-style | D36 |
+| Spanish and English names, descriptions, evolution conditions, Pokédex numbers, the full item list with categories | PokéAPI raw data (CSV files in its GitHub repository) | BSD-style | D36 |
 | Current game and regulation | Pokémon Champions, Regulation Set M-C, from Showdown's Champions data | MIT | D35, D38, D39 |
 | Images | PokéAPI sprites repository, linked through `raw.githubusercontent.com` | Images © The Pokémon Company; repository CC0 | D40 |
 | Usage statistics (Phase 3) | Smogon's monthly statistics for Showdown's Champions VGC ladder | Aggregated stats: public domain | D41 |
@@ -75,13 +75,29 @@ Neither source is enough alone: Showdown has the mechanics but no Spanish; Poké
 | Names and descriptions, Spanish and English (DAT-F01–F04) | PokéAPI | Showdown English names as fallback |
 | Moves: type, category, power, accuracy, PP, priority, target, flags (DAT-F02) | Showdown | — |
 | Abilities (DAT-F03) | Showdown | — |
-| Items: which items appear (DAT-F04) | Showdown (its item list is the items that matter in battle) | PokéAPI category, kept for future groups (D31) |
+| Items: which items appear and their category (DAT-F04) | PokéAPI (every item, D100) | Showdown marks the battle items and gives their battle data (D100, D101) |
+| Items: availability in the current game, Mega form, species-specific holder (DAT-F04) | Showdown Champions mod | — |
 | Learnsets (DAT-F05) | Showdown | — |
 | Type chart (DAT-F06) | Showdown | — |
 | Legality and format rules (DAT-F08) | Showdown Champions mod | Hand-maintained regulation file for name and dates |
 | Smogon tiers: Champions singles, National Dex, Doubles (DAT-F14) | Showdown (`tier` in the Champions mod, `natDexTier`, `doublesTier` of each generation) | — |
 | VGC usage history (DAT-F15, Phase 3) | Smogon's statistics archive | — |
 | Search index (DAT-F10) | Built from the above | — |
+
+**Items (D100, D101).** Checked on 2026-11-21 in `@pkmn/dex` and `@pkmn/mods` (0.10.13 and 0.11.0 give the same counts):
+
+| | Count |
+| --- | --- |
+| Items in PokéAPI's data (2026-11-04) | 2,223 (2,218 with a Spanish name) |
+| Items in Showdown's data (battle items) | 587 |
+| Available in Champions (no `isNonstandard` flag in the Champions mod) | 166 |
+| Marked `Past` (earlier games only) | 408 |
+| Other flags (`Future`, `Legends`, `CAP`, `Unobtainable`) | 13 |
+
+- A **battle item** is an item present in Showdown's data. PokéAPI's "holdable" flag is not used to decide it, because it is incomplete (Mega Stones are not flagged).
+- Showdown's data includes Poké Balls (marked `Past` in Champions); they still count as battle items and get the full page.
+- Spanish descriptions are less complete than names, so more item pages fall back to English, marked (X-02, D44). The build report lists every fallback.
+- Showdown's Champions data says whether an item is available **now**, not since which regulation, and its count (166) is higher than the 117 items third-party sites listed for M-A. The difference may be the items added in M-B and M-C, or Mega Stones in the game but not in the current regulation. Both are checked in Q93.
 
 PokéAPI is used through its **raw data files**, never through the live API, so its fair-use limits don't apply and builds don't depend on its servers.
 
@@ -256,6 +272,7 @@ All approved on 2026-11-04 and recorded in the vision document.
 | DS-7 | `@smogon/calc` as the damage engine, with our own calculator experience on top | D42 | Q33 |
 | DS-8 | localStorage for preferences, IndexedDB via Dexie for teams, persistent storage requested | D43 | Q26 |
 | DS-9 | Hand-maintained Spanish overrides file; English fallback marked and reported | D44 | — |
+| — | Every item from PokéAPI, battle items marked and completed from Showdown; availability in the current game from the Champions mod (approved 2026-11-21) | D100, D101 | — |
 
 ## Sources
 
@@ -270,7 +287,8 @@ Opened on 2026-11-04.
 - [Add Champions Doubles format — Showdown pull request #12401](https://github.com/smogon/pokemon-showdown/pull/12401)
 - [PokéAPI repository](https://github.com/PokeAPI/pokeapi) (commit `e5b79b2`, 2026-11-02): license and `data/v2/csv`
 - [PokéAPI sprites repository](https://github.com/PokeAPI/sprites) (commit `1b3b7c0`, 2026-11-03): license and README
-- npm packages: `@pkmn/dex`, `@pkmn/data`, `@pkmn/mods` (0.10.13), `@pkmn/img` (0.3.5, README on hosting sprites), `@smogon/calc` (0.12.0), `dexie` (4.4.7)
+- npm packages: `@pkmn/dex`, `@pkmn/data`, `@pkmn/mods` (0.10.13; item counts rechecked with 0.10.13 and 0.11.0 on 2026-11-21), `@pkmn/img` (0.3.5, README on hosting sprites), `@smogon/calc` (0.12.0), `dexie` (4.4.7)
+- [Pokémon Champions format snapshot — MetaVGC](https://metavgc.com/guides/pokemon-champions-format-legal-pokemon-items-moves) (opened 2026-11-21): 117 allowed items in M-A
 - [pkmn/smogon — Smogon data APIs](https://github.com/pkmn/smogon)
 - [jsDelivr terms of use](https://raw.githubusercontent.com/jsdelivr/jsdelivr/master/Terms%20of%20Use.md)
 - [About MunchStats](https://munchstats.com/about)

@@ -1,10 +1,10 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.17 — approved 2026-11-20** · Owner: @Alex
+**Version 1.18 — approved 2026-11-21** · Owner: @Alex
 
 ## Document status
 
-Version 1.17, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.18, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
@@ -163,7 +163,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 - [ ] M1.4 — Forms and learnsets
 - [ ] M1.5 — The book
 - [ ] M1.6 — Moves
-- [ ] M1.7 — Abilities and items
+- [ ] M1.7 — Abilities and the ARMAMENTARIUM
 - [ ] M1.8 — Type chart
 - [ ] M1.9 — Global search
 - [ ] M1.10 — Music
@@ -207,11 +207,13 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 **Done when:** ARC-F07 acceptance criterion passes (Lanzallamas).
 
-### M1.7 — Abilities and items · ~6–8 h
+### M1.7 — Abilities and the ARMAMENTARIUM · ~8–12 h
 
-- Lists and detail pages (ARC-F08, ARC-F09), linked from the shelf's appendices.
+- Abilities list and detail pages (ARC-F08), linked from the shelf's appendices.
+- The ARMAMENTARIUM (D99, D100): its door on the shelf, cabinets by category, the items list opening on items available in the current game with "Show all", and the item page in its two levels of detail (ARC-F09).
+- **Design review:** the cabinets and the item card (design §8, §14).
 
-**Done when:** every ability and battle item has a page in both languages.
+**Done when:** every ability and every item has a page in both languages; ARC-F09 acceptance criteria pass.
 
 ### M1.8 — Type chart · ~4–6 h
 
@@ -279,7 +281,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M2.5 — Rule warnings · ~5–8 h
 
-- Regulation data (DAT-F08) and non-blocking warnings (STR-F04, D27).
+- Regulation data (DAT-F08) and non-blocking warnings (STR-F04, D27), including items not available in the current game (D101). Research Q93 first.
 
 **Done when:** STR-F04 acceptance criterion passes (duplicate Sitrus Berry).
 
@@ -405,5 +407,6 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D69 | Phase 3 starts with ABACUS and the active team (M3.1–M3.2), before the usage data; the threat list follows the usage data (M3.5). |
 | D86 | The FORUM is Phase 6, right after accounts; the quiz and the AI assistant move to Phase 7. A public deployment comes before Phase 6. |
 | D95 | PokéPaste links, the team sheet, and author and notes are built in Phase 2 (M2.10, after the active team); the parser's missing-line rules go into M2.2. |
+| D99, D100 | The ARMAMENTARIUM and every item are built in Phase 1 (M1.7, about 2–4 h more); item availability warnings in M2.5 (D101). |
 | D93 | The `/commit-message` Claude Code skill is added in M0.1 and drafts every commit message from then on. |
 | D98 | `npm audit` and Dependabot join CI in M0.2; the first public deployment adds a Content Security Policy; the Phase 5 specification settles the account security checklist (Q91). |

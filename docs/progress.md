@@ -6,6 +6,23 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-21 · Items and the ARMAMENTARIUM (D99–D101)
+
+- **Done:**
+  - Reviewed how items are covered. They live in the BIBLIOTHECA's appendix (ARC-F09, description and category only) and inside common sets in the ATHENAEUM. Found a gap: no item legality, though Champions has a much smaller item pool than earlier games.
+  - Weighed an items hall and set it aside: halls are split by what you do, and item lookups belong to the library.
+  - Decided D99: the ARMAMENTARIUM, a room of the BIBLIOTHECA with cabinets by category; no menu entry, Mew presents it.
+  - Decided D100 (revises D31): every item in PokéAPI's data (2,223), battle items with the full page, the rest with encyclopedic data; the list opens on items available in the current game.
+  - Decided D101: item availability from Showdown's Champions data (166 of 587 items available on 2026-11-21); marks and warnings in the team editor.
+  - Opened Q92 (item usage on item pages, in the ATHENAEUM and in LEGIO; Phase 3) and Q93 (when each item entered Champions, and checking Showdown's list against the official one; M2.5).
+  - Docs updated: vision v1.30, modules v1.19, data strategy v1.6, architecture v1.12, design v1.16, roadmap v1.18, decision map, CLAUDE.md.
+- **Next:** open; exploring ideas. M0.1 whenever the owner chooses.
+- **Notes:**
+  - Showdown's data includes Poké Balls (marked `Past`), so "battle item" means "in Showdown's data", not "holdable".
+  - The build grows to about 9,800 prerendered pages; the Phase 0 spike measures prerender time.
+
+---
+
 ## 2026-11-21 · Pace of the project
 
 - **Done:**

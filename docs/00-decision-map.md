@@ -1,6 +1,6 @@
 # Pokescientia — Decision Map
 
-Last updated: 2026-11-20
+Last updated: 2026-11-21
 
 Every product and technical decision, grouped by when it must be made. This file is the only place open questions are tracked. When a question is decided, its approved text goes into [`01-vision-and-requirements.md`](01-vision-and-requirements.md) (or the relevant doc) as a `D` entry, and its row here changes to **Decided**.
 
@@ -14,7 +14,7 @@ Every product and technical decision, grouped by when it must be made. This file
 | B. Architecture (before `ng new`) | 19 | 0 |
 | C. Data strategy | 8 | 0 |
 | D. Design spec | 8 | 3 |
-| E. Later phases | 2 | 15 |
+| E. Later phases | 2 | 17 |
 | F. Working process | 5 | 0 |
 
 Parked ideas (section G) are not counted: they are out of scope until the owner reopens them.
@@ -39,7 +39,7 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q45 | "Add to team" from the Pokédex | Product | Decided → D28 |
 | Q46 | Battle stage layout and first version | Product | Decided → D29 |
 | Q47 | Bilingual search | Product | Decided → D30 |
-| Q48 | Which items the Pokédex shows | Product | Decided → D31 |
+| Q48 | Which items the Pokédex shows | Product | Decided → D31, revised by D100 (every item, battle items in full) |
 | Q49 | Learnset scope and team formats | Product | Decided → D32 |
 | Q50 | Competitive middle evolutions list | Product | Decided → D33 |
 | Q51 | Team saving | Product | Decided → D34 |
@@ -127,6 +127,8 @@ Parked ideas (section G) are not counted: they are out of scope until the owner 
 | Q89 | **Daily riddle** (D94). One riddle a day by Delphox, the same for everyone, with hints that unlock during the day; it could also show as a small card at the entrance, still Delphox's riddle. Possible, not decided. | Phase 7 specification (AENIGMA) |
 | Q90 | **Hint mode in every hall** (D94). A "give me a hint, not the answer" option, where each presenter gives a nudge in its own voice (for example Incineroar in the COLOSSEUM), useful for learning. Never Delphox outside AENIGMA (D82). | Phase 7 specification (assistant) |
 | Q91 | **Account security checklist** (D98), part of the accounts specification. Proposed, not decided: prefer a sign-in that stores no passwords (Google or GitHub sign-in, or email links; tied to Q6), otherwise hash with Argon2id or bcrypt; store only email, display name and teams; sessions in HttpOnly, Secure, SameSite cookies, never tokens in localStorage; the server checks that every team or post belongs to the signed-in user, with a test per endpoint; parameterised SQL only (tied to Q34); secrets in the host's environment variables (`.env` is never committed); rate limits on sign-in; account deletion really deletes (ACC-F04). **From Phase 6:** posts rendered from a small Markdown subset and sanitised on the server. **From Phase 7:** a user's own AI key (Q8) stays in their browser and never reaches our server; post text is treated as data, never as instructions (prompt injection, Q88). | Phase 5 specification |
+| Q92 | **Item usage** (D99, D100). Proposed, not decided: on each battle item's page, the Pokémon that hold it most and how often; in the ATHENAEUM, a ranking of the most used items in the regulation, each with its top holders; in LEGIO, the team's six items at a glance. All from the Smogon statistics already planned (D41). | Phase 3 specification |
+| Q93 | **When each item entered Champions** (research, D101). Showdown's data says whether an item is available now, not since when. Options: compare Showdown's per-regulation Champions data (a mod for the previous regulation exists), or a small hand-written file with the items each regulation added. Also check, at each data refresh, Showdown's list of available items against the official regulation list. | M2.5 (regulation data) |
 | Q8 | AI model source. Options noted, not decided: the owner's own API key entered in settings (never stored or paid by the site), a provider's free tier, or a small model running in the browser. Must respect R7 (free resources); the turn advisor's steps 1–3 work without any model (D76). | Phase 7 |
 | Q74 | AI assistant presenter. Magearna (the leaning) and Rotom were considered on 2026-11-09; neither fitted both the academy and an AI. | Decided → D82 (each hall's presenter is the assistant's voice) |
 | Q82 | **AI assistant voices** (D82). Open, options noted: **hand-offs** between presenters (what passes along: a short structured summary of team, turn and question, not the whole conversation); **different models per presenter**, possible because only the voice depends on the model (tied to Q8); a **plain label** on every assistant panel saying it is an AI speaking through the character; a **switch that turns personas off** for a neutral academy voice, like D79's image fallback; **one shared core prompt** plus a short style card per presenter, in both languages; **how much character** the voice may show against D76's predictable tutor (numbers, evidence and assumptions drawn by code in neutral UI, never in character); each voice is an **original academy role**, not an imitation of the Pokémon's official personality; the companion mode (design §7) as the way to reach the assistant. | Phase 7 |
