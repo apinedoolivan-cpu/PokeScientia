@@ -10,9 +10,15 @@ is the main lens. It is also a learning project: Angular i18n, GSAP/PixiJS anima
 
 ## Current phase
 
-**Phase 0 — Foundations.** Current milestone: **M0.1 Workspace and tooling** (`docs/06-roadmap-and-milestones.md`).
-Planning is closed (documents 01–06 approved). Code, installs and scaffolding are allowed only within the
-scope of the current milestone. When a milestone is done, the owner ticks it and this line moves to the next.
+**Phase 0 — Foundations.** Next milestone: **M0.1 Workspace and tooling** (`docs/06-roadmap-and-milestones.md`).
+Documents 01–06 are approved and keep growing as ideas are explored. Code, installs and scaffolding are allowed
+only within the scope of the current milestone. When a milestone is done, the owner ticks it and this line moves
+to the next.
+
+**Pace: open-ended exploration.** There is no deadline. The project is a hobby the owner enjoys thinking about,
+and a way to learn the technologies and Claude itself. A session may only explore ideas or the tools, with no
+coding at all. Don't push to start M0.1, and don't end sessions with reminders about it; the owner starts it
+when they choose. Small throwaway experiments outside the repository are welcome when the owner asks for them.
 
 ## Source of truth
 

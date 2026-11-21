@@ -6,6 +6,19 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-21 · Pace of the project
+
+- **Done:**
+  - Reviewed the planning stage: about 3.5 weeks, 46 commits, all documentation, no code yet.
+  - The owner explained the pace: there is no deadline, the project is a hobby for relaxing and exploring ideas, and right now the aim is a general understanding of the technologies and of Claude before coding.
+  - CLAUDE.md now records this under "Current phase": sessions may be pure exploration, and Claude doesn't push to start M0.1. Not given a D-number, since it describes how the owner works rather than the product.
+- **Next:** open; exploring ideas and the tools. M0.1 whenever the owner chooses.
+- **Notes:**
+  - Ideas for distant phases can stay as short notes until their phase comes close, so the specs don't grow faster than they can be kept consistent.
+  - A small throwaway experiment (for example, a scratch Angular app or a tiny page built with Claude Code) counts as exploration and doesn't start M0.1.
+
+---
+
 ## 2026-11-20 · Low-cost security (D98)
 
 - **Done:**
