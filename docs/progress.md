@@ -6,6 +6,21 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-22 · A hall for official VGC competition (Q94, Q95)
+
+- **Done:**
+  - The owner proposed covering competition itself: the official circuit's big events, the best players and their games. Checked that the ATHENAEUM never covers this: it uses only Showdown ladder statistics (D41), which exclude official tournaments.
+  - Weighed it as a hall and found it passes the items test (halls split by what you do): following the competition is its own activity, separate from studying usage.
+  - Recorded the idea as Q94, not decided: VGC only, Masters only, Internationals and Worlds first; calendar, event pages with open team lists that open in LEGIO, ABACUS and the COLOSSEUM, player pages, embedded official streams; no hosting. Names noted: LUDI, CIRCUS, FASTI.
+  - Opened Q95 (research): other tournaments later, and sources for the top players of the moment (Championship Points standings, Travel Award standings, Limitless VGC rankings, Liquipedia).
+  - Docs updated: decision map.
+- **Next:** open; exploring ideas. M0.1 whenever the owner chooses.
+- **Notes:**
+  - The 2027 LAIC (São Paulo, 20–22 November 2026, Regulation M-C) was the season's first International; sources still disagreed on the Masters final that night, an example of why results need checking.
+  - Official events run several games (VGC, TCG, Pokémon GO, UNITE); only VGC is in scope.
+
+---
+
 ## 2026-11-21 · Items and the ARMAMENTARIUM (D99–D101)
 
 - **Done:**
