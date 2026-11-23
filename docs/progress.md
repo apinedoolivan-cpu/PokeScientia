@@ -6,6 +6,18 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-23 · CIRCUS for official VGC competition (Q94)
+
+- **Done:**
+  - Checked the CIRCUS name against history: the Circus Maximus (chariot races) and the Colosseum (gladiators and beast hunts) were different buildings and shows, so the name stands apart from the COLOSSEUM. The owner leans to CIRCUS.
+  - Reshaped Q94 around the circus: PULVINAR (the built-in player with team lists beside each game), SPINA (the current season and its events), AURIGAE (player pages as career inscriptions, after Diocles), FASTI (past seasons). Past seasons are now in scope, with teams from earlier games labelled as approximations in the tools.
+  - Docs updated: decision map.
+- **Next:** open; exploring ideas. Presenter for the CIRCUS still to choose.
+- **Notes:**
+  - The menu keeps a plain label (D59), so *circo* never appears alone.
+
+---
+
 ## 2026-11-22 · A hall for official VGC competition (Q94, Q95)
 
 - **Done:**
