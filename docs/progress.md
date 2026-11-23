@@ -6,6 +6,22 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-23 · A simpler CIRCUS (Q94)
+
+- **Done:**
+  - Checked that commit `5918037` matches the files sent.
+  - The owner found the four-room CIRCUS out of line with the other halls: only the BIBLIOTHECA has rooms, because of its size. Reshaped Q94 as one page for watching: the player with the current or latest tournament, a side panel with the event's facts and source links, a row of past replays, and the season's top players as a short list.
+  - Dropped from the hall: standings, brackets, player profile pages and the room names (PULVINAR, SPINA, AURIGAE, FASTI).
+  - The owner wants both players' teams beside each replay, opening in LEGIO. Checked how: official VGC uses open team sheets (everything but stats) and RK9 publishes them during the event; teams are fixed for the whole tournament, so they are copied by hand when a replay is added. Replays only; live streams show teams on the broadcast.
+  - Looked for live game data (picks, HP): none exists, since official matches run on consoles. Computer-vision tools that read battles from video exist, but need the video downloaded; set aside.
+  - Docs updated: decision map.
+- **Next:** open; exploring ideas. Presenter for the CIRCUS still to choose.
+- **Notes:**
+  - The hand-curated data: event facts, video IDs, each replay's two team lists, and a top-players list per season.
+  - Open team sheets have no stats, so teams opened in LEGIO get default spreads, labelled.
+
+---
+
 ## 2026-11-23 · CIRCUS for official VGC competition (Q94)
 
 - **Done:**
