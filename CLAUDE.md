@@ -83,6 +83,9 @@ when they choose. Small throwaway experiments outside the repository are welcome
   presenter has a responsibility only when it acts, owns a process and would be missed (D94): Falinks inspects and
   fixes teams, Noctowl writes the metagame report, Incineroar coaches the battle, Delphox runs the quiz, Rillaboom
   announces the big events (from Phase 3, by code); Arcanine, Mew and Metagross only answer, each in its own way.
+- ATHENAEUM (D106, D107): menu Estrategia / Strategy, route `/strategy`; it teaches as well as showing the metagame.
+  Fundamentals pages are written once (mechanics only) with a live part from usage data; roles on usage pages; a
+  glossary with `ps-term` tooltips from Phase 1 (M1.10), the rest in Phase 3 (M3.5). No separate learning hall.
 - CIRCUS (D102–D105, Phase 3, after the ATHENAEUM): one page to watch official VGC competition, VGC and Masters
   only, Internationals and Worlds; YouTube player (embedded in privacy-enhanced mode, loaded on click; never
   downloaded or re-hosted, nothing over the player), event panel, past replays, both players' open team lists
@@ -97,7 +100,7 @@ when they choose. Small throwaway experiments outside the repository are welcome
   appeals as *provocatio*, the public ACTA log. Quiz and AI assistant are Phase 7 (D86).
 - UI (D19, D20): light and dark themes on design tokens; WCAG 2.2 AA; always honor `prefers-reduced-motion`.
 - Identity (D58–D64): a Roman academy. Menu labels are plain words (Inicio, Pokédex, Equipos, Calculadora,
-  Metajuego, Torneos, Coliseo, Foro, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS,
+  Estrategia, Torneos, Coliseo, Foro, Quiz); halls carry Latin inscriptions (ATRIUM, BIBLIOTHECA, LEGIO, ABACUS,
   ATHENAEUM, CIRCUS, COLOSSEUM, FORUM, AENIGMA). The Pokédex is the *Historia Naturalis* book with a List view.
   Themes Día/Noche follow the device by default. Travertino palette (D88, formerly Foro) is provisional; never
   hardcode colors, use tokens.

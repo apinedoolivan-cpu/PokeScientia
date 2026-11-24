@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.17 — approved 2026-11-24** · Owner: @Alex
+**Version 1.18 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.17, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.18, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -56,7 +56,7 @@ Greek learning appears as **content, not as a second style**. Rome preserved and
 | Pokédex | Pokédex | **BIBLIOTHECA** | The *Historia Naturalis*: every species, move and ability; its ARMAMENTARIUM holds every item (D99) | Knowledge | M2 | 1 | `/pokedex`… |
 | Equipos | Teams | **LEGIO** | Build a team of six and study its strengths and weaknesses | Strategy | M3 | 2 | `/teams` |
 | Calculadora | Calculator | **ABACUS** | Damage, rolls and KO probabilities | Strategy | M4 | 3 | `/calculator` |
-| Metajuego | Metagame | **ATHENAEUM** | What is used: common sets, partners, trends | Strategy | M4 | 3 | `/metagame` |
+| Estrategia | Strategy | **ATHENAEUM** | How competitive play works and what is used: fundamentals, glossary, common sets, partners, trends | Strategy and knowledge | M4 | 3 | `/strategy` |
 | Torneos | Tournaments | **CIRCUS** | Watch the big official VGC tournaments, with both teams beside each game, and the season's best players | Spectacle | M10 | 3 | `/tournaments` |
 | Coliseo | Colosseum | **COLOSSEUM** | Turn-by-turn doubles battle testing, with an animated stage | Strategy and spectacle | M5 | 4 | `/colosseum` |
 | Foro | Forum | **FORUM** | The public square: open a topic and discuss it, with teams, calculations and battles attached | Community | M9 | 6 | `/forum` |
@@ -186,7 +186,7 @@ Four rules (D82, D84, D91, D94): a presenter's **lore or a clear symbol must tel
 | BIBLIOTHECA | **Mew** | Said to carry the DNA of every Pokémon: the natural keeper of a book about all of them |
 | LEGIO | **Falinks** | Designed after a military formation, and literally a group of six |
 | ABACUS | **Metagross** | Its Pokédex entries describe four brains that solve complex calculations faster than a supercomputer and analyze opponents precisely |
-| ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them |
+| ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them. The real Athenaeum, founded by Hadrian in Rome, was a school, so the owl presides over a hall that teaches (D106) |
 | CIRCUS | **Rillaboom** | The herald of the games, like the Roman *praeco*: a drummer whose troop is led by whoever wins a drumming battle, and a face competitive players know (the most used Pokémon on the Champions VGC ladder in Regulation M-C) |
 | COLOSSEUM | **Incineroar** | A wrestler for the arena, and a face of competitive play |
 | FORUM | **Braviary** (Unova form) | The Roman *aquila*, the eagle that carried **SPQR**, "the Senate and People of Rome": the emblem of the people who met in the forum. Its lore calls it a motif for emblems, and the "soldiers of the sky" that fight tirelessly to protect their friends. Jupiter's eagle carried his will, and any bird links to messages |
@@ -208,7 +208,7 @@ Like every voice, a responsibility follows D76: code produces every fact and num
 | **Mew** (BIBLIOTHECA) | The naturalist who has met them all. Curious, playful and easily delighted; treats every species as a favorite, the obscure ones included, and always has one odd detail to share ("Did you know…?"). Wanders into trivia but always lands on the fact. Refuses to say which Pokémon is "best" and sends you to Noctowl | **None.** Its hall is pure knowledge | Tells the origin and inspiration of a Pokémon |
 | **Falinks** (LEGIO) | The drill sergeant, a squad of six. Short, clipped orders, and it speaks as "we". Reports as an inspection: "Formation: … Weak flank: … Orders: …". Blunt about the team, never about the trainer. A well-covered team earns a salute, rare and meant | **Inspecting and fixing formations:** team critique (AIA-F01) plus proposed fixes the trainer accepts or rejects one by one, and an inspection offered when a team enters the COLOSSEUM or is attached to a FORUM post (AIA-F05). It warns and proposes; it never blocks (D27) | — |
 | **Metagross** (ABACUS) | The reckoner. Calm, exact, never in a hurry. States its assumptions before its result ("Assuming Adamant, 32 SP in Attack…"), never rounds without saying so, and replaces "probably" with a percentage. Not cold, only precise; closes a result with one word: "Calculated." | **None.** Its hall is answered by the calculator itself | Sets up a calculation from a plain question ("Does my Flutter Mane knock out Incineroar in the sun?") and opens ABACUS with it loaded, assumptions shown |
-| **Noctowl** (ATHENAEUM) | The night strategist. Measured and patient; pauses before answering, sets out options ("Two paths…") and explains why one wins. Unlike Metagross, at ease with uncertainty: the metagame is likelihoods, not certainties. Remembers how past regulations went and likes to point out patterns | **The metagame report:** writes the weekly "metagame of the week" thread in the FORUM (FOR-F13; a template in Phase 6, Noctowl's voice from Phase 7) and a briefing when a new regulation arrives (AIA-F06) | — |
+| **Noctowl** (ATHENAEUM) | The night strategist. Measured and patient; pauses before answering, sets out options ("Two paths…") and explains why one wins. Unlike Metagross, at ease with uncertainty: the metagame is likelihoods, not certainties. Remembers how past regulations went and likes to point out patterns. Also the patient teacher (D106): no question is too basic, it answers a beginner as seriously as an expert, and points to the right fundamentals page | **The metagame report:** writes the weekly "metagame of the week" thread in the FORUM (FOR-F13; a template in Phase 6, Noctowl's voice from Phase 7) and a briefing when a new regulation arrives (AIA-F06) | — |
 | **Incineroar** (COLOSSEUM) | The showman in your corner. Loud and theatrical while a battle plays: narrates big plays, hypes a good read, loves a comeback. Between turns it drops the act and gives straight advice like a coach. Owns mistakes ("That one's on us") and never sugarcoats a losing position | **Coaching the battle:** the turn advisor (AIA-F03, D76) and a review after each battle that points out the two or three turns that decided it (AIA-F07) | — |
 | **Rillaboom** (CIRCUS) | The herald of the games. Warm, rhythmic and generous with praise; opens every event with a drum roll, builds the tension before a final and celebrates the winner, whoever it is. Never takes sides: it respects whoever performs best, as its troop follows its best drummer. Gentle off the stage, values harmony, and loves telling you which match not to miss | **Announcing the big events** (CIR-F07, D105), from Phase 3 and by code, without the assistant: its door at the ATRIUM shows the next or current event and when it airs, and while one is live a small notice appears in every hall | — |
 | **Braviary** (FORUM) | A proud, brave standard-bearer and the guardian of the square. Welcomes newcomers loudly, raises the best discussions high, and as a bird of prey swoops on abusive posts. Moderation first, messages second | **Reporting and moderation** (AIA-F04, D90): handles every report, may hide a post while it is reviewed, proposes the penalty; a moderator confirms | — |
@@ -328,6 +328,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | `ps-stat-bar` | Labelled stat with value and bar |
 | `ps-inscription` | Cinzel heading for halls, plinths and running heads |
 | `ps-presenter` | Arch, artwork, plinth and dismissible introduction |
+| `ps-term` | A competitive term with its glossary definition on hover, focus or tap, a dotted underline in the text color, never color alone (X-16, D107) |
 | `ps-pokemon-image` | Every Pokémon image: official image or the original fallback (a silhouette or type emblem drawn in the academy's line style), chosen by the image service (X-15) |
 | `ps-music-control` | Play or pause, volume and track name in the header; off by default (SHL-F09) |
 | `ps-hall-door` | Entrance door (open or closed) |
@@ -368,8 +369,8 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 
 ## 13. Effect on other documents
 
-- **Module names:** M2 is the Pokédex (BIBLIOTHECA), M3 Teams (LEGIO), M4 Calculator and metagame (ABACUS, ATHENAEUM), M5 the **battle stage** (COLOSSEUM), formerly "Animation Lab". Feature IDs (`ARC-`, `STR-`, `CMP-`, `LAB-`) do not change.
-- **Routes and folders** in the architecture use the English menu words: `/teams`, `/calculator`, `/metagame`, `/tournaments`, `/colosseum`, `/forum`, `/quiz`.
+- **Module names:** M2 is the Pokédex (BIBLIOTHECA), M3 Teams (LEGIO), M4 Calculator and strategy (ABACUS, ATHENAEUM), M5 the **battle stage** (COLOSSEUM), formerly "Animation Lab". Feature IDs (`ARC-`, `STR-`, `CMP-`, `LAB-`) do not change.
+- **Routes and folders** in the architecture use the English menu words: `/teams`, `/calculator`, `/strategy`, `/tournaments`, `/colosseum`, `/forum`, `/quiz`.
 - **D5** (even Greek–museum blend) is superseded by **D58**.
 
 ## 14. Open items
@@ -381,7 +382,8 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | ARMAMENTARIUM design (D99) | M1.7 | Cabinets by category, the item card, how the door sits beside the bookcase |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
-| CIRCUS design | M3.8 | The player area, the team lists beside it, the replay row, Rillaboom's frame and the herald's notice; the racetrack imagery |
+| CIRCUS design | M3.9 | The player area, the team lists beside it, the replay row, Rillaboom's frame and the herald's notice; the racetrack imagery |
+| ATHENAEUM design | M3.4–M3.5 | The two sides, what is used and how it works; the fundamentals page with its written part and live part; roles on usage pages; the glossary page. The term tooltip (`ps-term`) is designed earlier, in M1.10 (D106, D107) |
 | FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; Braviary's frame and the report conversation (D89, D90); the LEX FORI tablets, the ACTA and the appeal (D96); no visible ranks (D97) |
 | Companion presenters | After the MVP | Optional; in Phase 7 a way to reach the assistant (D82, Q82) |
 
@@ -442,6 +444,8 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | --- | --- |
 | D102 | The CIRCUS (menu Torneos / Tournaments, route `/tournaments`), a Spectacle hall for watching official VGC competition, one page with no rooms (section 3). |
 | D105 | CIRCUS presenter: Rillaboom, the herald (*praeco*), with announcing the big events as its responsibility from Phase 3. Presenters are not meant to be Roman (section 7). |
+| D106 | The ATHENAEUM teaches as well as showing the metagame: menu Estrategia / Strategy, route `/strategy`, two sides (what is used, how it works); Noctowl as the patient teacher (sections 3, 7). Revises the label in D60. |
+| D107 | Teaching content: fundamentals pages written once with a live part from data, roles on usage pages, a glossary with the `ps-term` tooltip from Phase 1 (sections 9, 10, 14). |
 
 ### Proposals awaiting approval
 

@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.20 — approved 2026-11-24** · Owner: @Alex
+**Version 1.21 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.20, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.21, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -29,7 +29,7 @@ Each module is presented as a hall of the Roman academy; the Latin hall names an
 | M1 | Data pipeline | `DAT` | 0 | — |
 | M2 | Pokédex · BIBLIOTHECA | `ARC` | 1 | M0, M1 |
 | M3 | Teams · LEGIO | `STR` | 2 | M0, M1, M2 |
-| M4 | Calculator and metagame · ABACUS, ATHENAEUM | `CMP` | 3 | M1, M2, M3 |
+| M4 | Calculator and strategy · ABACUS, ATHENAEUM | `CMP` | 3 | M1, M2, M3 |
 | M5 | Battle stage · COLOSSEUM | `LAB` | 4 | M1, M4 |
 | M6 | Accounts | `ACC` | 5 | M3 |
 | M7 | Quiz · AENIGMA | `QUZ` | 7 | M1, M2 |
@@ -71,6 +71,7 @@ These rules apply to every module and are not repeated in module sections.
 | X-14 | Sound | Sound, if ever added, is optional, off by default, and never carries information that isn't also shown on screen. Any video has captions (D78). |
 | X-15 | Replaceable official images | Every official Pokémon image goes through one image service with an original fallback (a silhouette or type emblem in the academy's style). One setting replaces all official images with the fallback, so they can be removed in minutes if the rights holders ever ask (D79). |
 | X-12 | Active team | One saved team can be the **active team** (D68). It stays selected across halls and visits, appears in a compact strip with its six Pokémon, and every hall that works with teams uses it: LEGIO analyses it, ABACUS loads its members, ATHENAEUM compares the metagame against it, the Pokédex adds to it first. From Phase 2. |
+| X-16 | Terms explained in place | A competitive term in our own texts (section labels, introductions, help, analyses) shows its short definition from the glossary (DAT-F17) on hover, focus or tap, readable by screen readers and keyboard (D107). From Phase 3 the definition links to the term's fundamentals page when there is one (CMP-F16). Game data descriptions from the sources are not marked. From Phase 1. |
 
 **Acceptance criteria (cross-cutting)**
 
@@ -157,6 +158,8 @@ User accounts in the header (M6), notifications (except the herald's event notic
 | DAT-F14 | **Smogon tiers** (D81, D83): for every Pokémon and form, read from Showdown's data: the Champions singles tier, the National Dex tier, and the Doubles tier from the most recent generation in which it was legal, with that generation. Nothing is maintained by hand; values change only when the `@pkmn` packages are updated. | 0 |
 | DAT-F15 | **VGC usage history** (D83): for every Pokémon and form, its best usage rank in any VGC format in Smogon's statistics archive, with the format and month, condensed by the pipeline into one small file. | 3 |
 | DAT-F16 | **Official tournaments** (D104): the hand-curated tournaments file for the CIRCUS (events, video IDs, the two players and their open team lists for each replay, the season's top players, a source link for every fact), validated like the other manual files: every Pokémon, ability, item and move resolves to our IDs, and a replay without both team lists stops the build. | 3 |
+| DAT-F17 | **Glossary** (D107): competitive terms with a short definition in Spanish and English, hand-written in `pipeline/manual/`, each with a stable ID and, from Phase 3, the fundamentals page it links to. | 1 |
+| DAT-F18 | **Fundamentals texts** (D107): one written explanation per concept in both languages, hand-written in `pipeline/manual/`, with the doubles category (DAT-F11) its live part reads. Mechanics only: no usage or regulation-specific claims. | 3 |
 
 ### Rules
 
@@ -166,6 +169,7 @@ User accounts in the header (M6), notifications (except the herald's event notic
 - Each field comes from exactly one source (D36). Spanish gaps are filled from the overrides file or fall back to English, and the build reports them (D44).
 - Refreshing the data is a single, documented command run by hand (D18). Running it twice with the same sources gives the same files.
 - Hand-maintained lists (DAT-F07, DAT-F08, DAT-F11, DAT-F13) live in the repository as small, readable files.
+- Our own texts (DAT-F17, DAT-F18) are written by the owner in both languages; they are not game data, so X-02's fallback to English never applies to them: both languages are required.
 - The type tier file must contain every combination exactly once, with valid types and tiers; otherwise the build stops. Order doesn't matter: Fire/Flying and Flying/Fire are the same combination.
 
 ### Acceptance criteria
@@ -176,6 +180,7 @@ User accounts in the header (M6), notifications (except the herald's event notic
 - **DAT-F09** *Given* the pipeline has run, *then* the data version file contains the build date and the source game.
 - **DAT-F13** *Given* the tier file is missing one combination or lists one twice, *when* the pipeline runs, *then* it stops and names the combination.
 - **DAT-F14** *Given* the pipeline has run, *then* every Pokémon and form has its Champions singles, National Dex and Doubles tiers exactly as in the pinned Showdown data, or an explicit empty value; Pokémon not legal in Champions have no Champions tier; Mega Kangaskhan's Doubles tier is DUber from Generation 7.
+- **DAT-F17** *Given* a glossary term missing its English or Spanish definition, or linking to a fundamentals page that doesn't exist, *when* the pipeline runs, *then* it stops and names the term.
 - **DAT-F15** *Given* the archive has been processed, *then* each Pokémon with a VGC record has its best rank with format and month, a Pokémon never used in VGC has none, and two runs give the same file.
 - **General** *Given* the pipeline runs twice with the same sources, *then* the output files are identical.
 
@@ -315,7 +320,7 @@ Reads Pokémon, moves, abilities, items, learnsets, type chart, regulation data 
 
 ### Connections
 
-Receives Pokémon from M2. Provides the active team to every hall (X-12), above all M4 (calculator and metagame), and later M6 (sync) and M8 (assistant).
+Receives Pokémon from M2. Provides the active team to every hall (X-12), above all M4 (calculator and strategy), and later M6 (sync) and M8 (assistant).
 
 ### Acceptance criteria
 
@@ -350,9 +355,9 @@ Team sharing by a PokéScientia link (needs M6; PokéPaste links cover sharing u
 
 ---
 
-## M4 — Calculator and metagame · ABACUS, ATHENAEUM (`CMP`) · Phase 3
+## M4 — Calculator and strategy · ABACUS, ATHENAEUM (`CMP`) · Phase 3
 
-**Purpose.** Bring real competitive data into the platform: what people actually use, and how much damage attacks do, **above all with the owner's own team** (R20, D69). Medium detail; specified fully before Phase 3 starts.
+**Purpose.** Bring real competitive data into the platform: what people actually use, and how much damage attacks do, **above all with the owner's own team** (R20, D69). The ATHENAEUM also **teaches** (R23, D106): next to what is used, it explains how competitive play works, through fundamentals pages, roles on usage pages and a glossary (D107). Medium detail; specified fully before Phase 3 starts.
 
 ### Features
 
@@ -373,6 +378,9 @@ Team sharing by a PokéScientia link (needs M6; PokéPaste links cover sharing u
 | CMP-F13 | **Formula explainer.** A step-by-step page showing how stats and damage are calculated for a chosen example. | 3 (stretch) |
 | CMP-F14 | **One against the team.** A chosen Pokémon's attacks against each of the active team's six, with damage range and KO chance; and the reverse, each member's best attack against it. | 3 |
 | CMP-F15 | **Your team in the metagame.** On each Pokémon's usage page, a short summary of how it fares against the active team, from the same calculation as the threat list (STR-F21). | 3 |
+| CMP-F16 | **Fundamentals pages** (D107): one page per concept, starting with speed control, Trick Room, Protect, Fake Out, Intimidate, redirection, spread moves, weather and terrain, type matchups, and team structure. Each has the written explanation (DAT-F18) and a live part from usage data, such as the most used Pokémon providing that role in the current regulation, each opening its entry. | 3 |
+| CMP-F17 | **Roles on usage pages** (D107): what each Pokémon does in doubles (speed control, Fake Out, Intimidate, redirection…), from the doubles categories (DAT-F11) and its common sets, each role linking to its fundamentals page. | 3 |
+| CMP-F18 | **Glossary page** (D107): every term of the glossary (DAT-F17), searchable, each linking to its fundamentals page when there is one. | 3 |
 
 ### Rules
 
@@ -380,6 +388,7 @@ Team sharing by a PokéScientia link (needs M6; PokéPaste links cover sharing u
 - Damage comes from `@smogon/calc` (D42). Combined damage, accuracy adjustments and charts are our own calculations on top of its rolls.
 - Mechanics are always the current game's (Champions), whatever the team's stat system (D38).
 - Team-based calculations (CMP-F04, CMP-F14, CMP-F15, STR-F21) always use the team's exact values; when a value comes from usage data instead, it is labelled.
+- **Written once, kept current by data** (D107): fundamentals texts explain mechanics only and never name what is popular now; examples of who uses a concept come from the live part, with its source and period like all usage data.
 
 ### Open questions
 
@@ -391,6 +400,8 @@ None. Usage data (D41) and the calculator (D42) were decided in the data strateg
 - **CMP-F02** *Given* usage data is loaded, *then* each common-set panel names its source and period.
 - **CMP-F10** *Given* two attackers that each have a 50% chance to deal at least half of a target's HP, *then* the combined KO chance equals the probability computed from all pairs of their rolls.
 - **CMP-F04** *Given* an active team, *when* I open ABACUS, *then* its six members can be placed on either side with one click each, and editing them in the calculator does not change the saved team.
+- **CMP-F16** *Given* the Fake Out page and loaded usage data, *then* it shows the written explanation in the active language and, below it, the most used Pokémon with Fake Out in the current regulation, with source and period.
+- **CMP-F17** *Given* Incineroar's usage page, *then* it shows the roles Fake Out and Intimidate, each linking to its fundamentals page.
 - **CMP-F14** *Given* a chosen Pokémon and an active team, *then* every one of its damaging moves shows a damage range and KO chance against each of the six members.
 
 **Testing approach:** comparison tests against the reference calculator for a set of known matchups; unit tests for combined and accuracy-adjusted probabilities; validation tests on the usage data files.

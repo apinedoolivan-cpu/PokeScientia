@@ -1,10 +1,10 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.19 — approved 2026-11-24** · Owner: @Alex
+**Version 1.20 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.19, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.20, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
@@ -44,9 +44,9 @@ A milestone is done when all of these hold:
 | Phase | Hall(s) | Goal | Milestones | Rough effort | Tag |
 | --- | --- | --- | --- | --- | --- |
 | 0 | ATRIUM | Foundations: project, CI, design system, shell, data pipeline | 10 | 60–90 h | `v0.1.0` |
-| 1 | BIBLIOTHECA | The Pokédex as the *Historia Naturalis*, plus music | 11 | 75–120 h | `v0.2.0` |
+| 1 | BIBLIOTHECA | The Pokédex as the *Historia Naturalis*, plus the glossary and music | 12 | 80–128 h | `v0.2.0` |
 | 2 | LEGIO | Team building and analysis; the active team | 10 | 65–100 h | `v0.3.0` |
-| 3 | ABACUS, ATHENAEUM, CIRCUS | Calculator with your own team, then metagame, then official competition | 10 | 85–135 h | `v0.4.0` |
+| 3 | ABACUS, ATHENAEUM, CIRCUS | Calculator with your own team, then metagame and fundamentals, then official competition | 11 | 95–151 h | `v0.4.0` |
 | 4 | COLOSSEUM | Turn-by-turn battle testing, animated stage, real match | outline | 120–200 h (the largest phase) | `v0.5.0` |
 | 5 | — | Accounts and sync (Go backend) | outline | 70–110 h | `v0.6.0` |
 | 6 | FORUM | Reddit-style discussion with attachments from the halls; moderation in layers | outline | 90–150 h | `v0.7.0` |
@@ -166,8 +166,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 - [ ] M1.7 — Abilities and the ARMAMENTARIUM
 - [ ] M1.8 — Type chart
 - [ ] M1.9 — Global search
-- [ ] M1.10 — Music
-- [ ] M1.11 — Close Phase 1
+- [ ] M1.10 — Glossary and term tooltips
+- [ ] M1.11 — Music
+- [ ] M1.12 — Close Phase 1
 
 ### M1.1 — Pokédex list · ~6–10 h
 
@@ -227,13 +228,20 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 **Done when:** SHL-F03 acceptance criterion passes in both languages.
 
-### M1.10 — Music · ~4–8 h
+### M1.10 — Glossary and term tooltips · ~5–8 h
+
+- The glossary file in `pipeline/manual/` with its validation (DAT-F17, D107): the terms that appear in the BIBLIOTHECA first (spread move, priority, STAB, Stat Points…), in both languages.
+- `ps-term` in `ui/` and the terms marked in our own texts (X-16). **Design review:** the tooltip on a real page.
+
+**Done when:** DAT-F17 acceptance criterion passes; a marked term shows its definition by mouse, keyboard, touch and screen reader, in both languages.
+
+### M1.11 — Music · ~4–8 h
 
 - Choose free-licensed tracks that fit the academy or Pokémon (D80) and record their licenses for About; `AudioService` and `ps-music-control` (SHL-F09).
 
 **Done when:** SHL-F09 acceptance criterion passes; every track's source and license appear on About.
 
-### M1.11 — Close Phase 1 · ~4–6 h
+### M1.12 — Close Phase 1 · ~4–6 h
 
 - End-to-end tests for the Pokédex flows; performance check of a large list and an entry; data refresh if a new regulation is out (section 10); tag `v0.2.0`.
 
@@ -319,7 +327,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 - End-to-end tests for building, importing (text and PokéPaste link), exporting and reloading a team, and for keeping the active team across halls and reloads; tag `v0.3.0`.
 
-## 8. Phase 3 — Calculator, metagame and competition (ABACUS, ATHENAEUM, CIRCUS) · `v0.4.0`
+## 8. Phase 3 — Calculator, strategy and competition (ABACUS, ATHENAEUM, CIRCUS) · `v0.4.0`
 
 Medium detail; specified fully when Phase 2 closes.
 
@@ -329,12 +337,13 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 - [ ] **M3.2 — ABACUS analysis** (CMP-F07 to CMP-F11, CMP-F14): matchup grid, scenarios, roll chart, combined damage, accuracy-adjusted chances, one against the team.
 - [ ] **M3.3 — Usage data pipeline** (DAT-F12, DAT-F15, D41, D83): confirm Smogon's file format and the archive's extent, add current usage and the VGC usage history to the pipeline.
 - [ ] **M3.4 — ATHENAEUM** (CMP-F01, CMP-F02, ARC-F12): usage overview and common sets in entries; the VGC part of the competitive section (ARC-F12, ARC-F14).
-- [ ] **M3.5 — Threat list** (STR-F21): the most-used threats against the active team, with "Calcular" on each row.
-- [ ] **M3.6 — Teams meet the metagame** (CMP-F05, CMP-F12, CMP-F15, STR-F15, STR-F16): benchmarks, one against many, your team in the metagame, fill from common set.
-- [ ] **M3.7 — CIRCUS data** (DAT-F16, D104) · ~6–10 h: the tournaments file in `pipeline/manual/` and its validation; the current season's Internationals and Worlds, with the top cut replays and both team lists for each, and the top players; check how a live broadcast is embedded (the live video's ID by hand, or a channel-level live address).
-- [ ] **M3.8 — CIRCUS** (CIR-F01 to CIR-F07, D102, D103, D105) · ~10–14 h: the page with the player (privacy-enhanced, loaded on click), the event panel, the replay row, both teams beside each replay with "open in LEGIO", the season's top players; Rillaboom in the hall header and its event notices at the ATRIUM and in every hall. Design review of the page (design §14).
-- [ ] **M3.9 — Stretch** (CMP-F06, CMP-F13): trends and the formula explainer.
-- [ ] **M3.10 — Close Phase 3** and tag `v0.4.0`.
+- [ ] **M3.5 — Fundamentals** (CMP-F16 to CMP-F18, DAT-F18, D106, D107) · ~10–16 h: the ten fundamentals texts in both languages and their validation; the fundamentals pages with their live part; roles on usage pages; the glossary page, and tooltips linked to the fundamentals pages. Design review of the ATHENAEUM's two sides (design §14).
+- [ ] **M3.6 — Threat list** (STR-F21): the most-used threats against the active team, with "Calcular" on each row.
+- [ ] **M3.7 — Teams meet the metagame** (CMP-F05, CMP-F12, CMP-F15, STR-F15, STR-F16): benchmarks, one against many, your team in the metagame, fill from common set.
+- [ ] **M3.8 — CIRCUS data** (DAT-F16, D104) · ~6–10 h: the tournaments file in `pipeline/manual/` and its validation; the current season's Internationals and Worlds, with the top cut replays and both team lists for each, and the top players; check how a live broadcast is embedded (the live video's ID by hand, or a channel-level live address).
+- [ ] **M3.9 — CIRCUS** (CIR-F01 to CIR-F07, D102, D103, D105) · ~10–14 h: the page with the player (privacy-enhanced, loaded on click), the event panel, the replay row, both teams beside each replay with "open in LEGIO", the season's top players; Rillaboom in the hall header and its event notices at the ATRIUM and in every hall. Design review of the page (design §14).
+- [ ] **M3.10 — Stretch** (CMP-F06, CMP-F13): trends and the formula explainer.
+- [ ] **M3.11 — Close Phase 3** and tag `v0.4.0`.
 
 ## 9. Phases 4–7 (outlines)
 
@@ -407,10 +416,11 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D66 | Milestones are small (about 4–12 hours each, ending in a committed, working state) and estimated in hours, never dates. |
 | D67 | Design proposals DP-1 to DP-7 are decided during Phase 0 and Phase 1 at fixed review points: DP-2, DP-6 and DP-7 in M0.4; DP-1 in M0.6; DP-3 and DP-4 in M0.7; DP-5 in M1.5. |
 | D68 | The active team is built in Phase 2 (M2.9). |
-| D69 | Phase 3 starts with ABACUS and the active team (M3.1–M3.2), before the usage data; the threat list follows the usage data (M3.5). |
+| D69 | Phase 3 starts with ABACUS and the active team (M3.1–M3.2), before the usage data; the threat list follows the usage data (M3.6; renumbered by D107). |
 | D86 | The FORUM is Phase 6, right after accounts; the quiz and the AI assistant move to Phase 7. A public deployment comes before Phase 6. |
 | D95 | PokéPaste links, the team sheet, and author and notes are built in Phase 2 (M2.10, after the active team); the parser's missing-line rules go into M2.2. |
 | D99, D100 | The ARMAMENTARIUM and every item are built in Phase 1 (M1.7, about 2–4 h more); item availability warnings in M2.5 (D101). |
 | D93 | The `/commit-message` Claude Code skill is added in M0.1 and drafts every commit message from then on. |
-| D102–D105 | The CIRCUS closes Phase 3, after the ATHENAEUM (M3.7, M3.8). Rillaboom's event notices come with it, built by code, without the assistant. |
+| D102–D105 | The CIRCUS closes Phase 3, after the ATHENAEUM (M3.8, M3.9; renumbered by D107). Rillaboom's event notices come with it, built by code, without the assistant. |
+| D106, D107 | The glossary and term tooltips come in Phase 1 (M1.10, before music); the fundamentals pages, roles and glossary page in Phase 3 (M3.5, right after the ATHENAEUM's usage pages, which their live part needs). Later milestones are renumbered: Phase 1 closes with M1.12, Phase 3 with M3.11. |
 | D98 | `npm audit` and Dependabot join CI in M0.2; the first public deployment adds a Content Security Policy; the Phase 5 specification settles the account security checklist (Q91). |

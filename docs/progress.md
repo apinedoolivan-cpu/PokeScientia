@@ -6,6 +6,21 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-24 · The ATHENAEUM teaches (D106, D107)
+
+- **Done:**
+  - Reviewed the Roman concepts still unused. LUDUS (a hall for learning) was set aside: guides written by hand go stale every regulation and would be written twice.
+  - Decided R23 and D106: the ATHENAEUM teaches as well as showing the metagame, with two sides, what is used and how it works. Menu Estrategia / Strategy, route `/strategy`, wing Strategy and knowledge. Noctowl is also its patient teacher (personality, not a responsibility). Hadrian's Athenaeum, a school, is its lore.
+  - Decided D107: fundamentals pages written once (mechanics only) with a live part from usage data, starting with ten concepts (CMP-F16, DAT-F18); roles on usage pages (CMP-F17); a glossary (DAT-F17) with tooltips from Phase 1 (X-16, `ps-term`) and a glossary page in Phase 3 (CMP-F18). User stories U23, U24.
+  - New milestones M1.10 (glossary and tooltips) and M3.5 (fundamentals). Later milestones renumbered: Music M1.11, Phase 1 closes with M1.12; the threat list is M3.6, the CIRCUS M3.8 and M3.9, Phase 3 closes with M3.11. References in D69 and D102 updated.
+  - Docs updated: vision v1.32, modules v1.21, data strategy v1.8, architecture v1.14, design v1.18, roadmap v1.20, CLAUDE.md.
+- **Next:** unchanged; M0.1 when the owner is ready.
+- **Notes:**
+  - Earlier progress entries keep the milestone numbers of their day.
+  - The two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-24 · The CIRCUS settled, with Rillaboom (D102–D105)
 
 - **Done:**

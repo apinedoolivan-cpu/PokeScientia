@@ -1,10 +1,10 @@
 # Pokescientia — Data Strategy
 
-**Version 1.7 — approved 2026-11-24** · Owner: @Alex
+**Version 1.8 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.7, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.8, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
@@ -297,11 +297,20 @@ The CIRCUS (M10) shows the big official VGC events. No source offers them as ope
 
 **Embedding.** YouTube's embedded player is governed by the YouTube API Services Terms. It is used in privacy-enhanced mode (`youtube-nocookie.com`), where views don't personalize the viewer's YouTube experience, and it loads only when the user presses play. YouTube requires the page to send its address (an HTTP Referer), or embedded videos refuse to play, and its minimum functionality rules forbid covering the player. The videos stay on Pokémon's channel: nothing is downloaded, re-uploaded or restreamed.
 
-**Live broadcasts.** The data holds each event's broadcast times; "live" means now falls within them. The live video's ID is added by hand when Pokémon publishes the stream; until then the player shows the latest replay and a link to the channel. Whether a channel-level live address can be embedded instead is checked in M3.7.
+**Live broadcasts.** The data holds each event's broadcast times; "live" means now falls within them. The live video's ID is added by hand when Pokémon publishes the stream; until then the player shows the latest replay and a link to the channel. Whether a channel-level live address can be embedded instead is checked in M3.8.
 
 **Facts, not content.** Results, rankings and team lists are facts. Only those are copied, always credited; never articles, reports, images or commentary from the sources.
 
 **People.** Only adults of the Masters division appear, with what the official results publish: name, country, results and teams. No photos and no personal details. A player who asks to be removed is removed.
+
+## 16. Our own texts (Phases 1 and 3, D107)
+
+The glossary (DAT-F17) and the fundamentals texts (DAT-F18) are not data from a source: the owner writes them, in Spanish and English, as hand-maintained files in `pipeline/manual/`. They belong to the project, so no license or credit is needed beyond the site's own.
+
+- **No translation from sources** (D2 is about game data): both languages are written, and the pipeline rejects a term or text missing either.
+- **What they may say:** mechanics only. Anything that changes with the regulation (who is popular, what is legal) is read from the usage and regulation data at build time, never written into the text, so a new regulation needs no rewriting.
+- **Review:** when a new game changes a mechanic, the affected texts are revised as part of that game's data milestone (section 6).
+- **Format:** chosen when M1.10 is built (for example one file for the glossary, and one Markdown file per concept and language for the fundamentals); the pipeline validates them and writes JSON like the rest of the data.
 
 ## Sources
 
