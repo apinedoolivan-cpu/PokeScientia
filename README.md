@@ -10,6 +10,7 @@ romana de ciencias naturales.
 - **Pokédex (BIBLIOTHECA)**: la *Historia Naturalis*, un libro por región con todas las especies y una vista competitiva por defecto.
 - **Equipos (LEGIO)**: creación y análisis de equipos centrados en dobles oficiales (VGC).
 - **Calculadora y metajuego (ABACUS y ATHENAEUM)**: daño, tiradas y probabilidades de KO; lo más usado y las tendencias.
+- **Torneos (CIRCUS)**: mira los grandes torneos oficiales de VGC, con los equipos de ambos jugadores junto a cada partida, y descubre a los mejores jugadores de la temporada.
 - **Coliseo (COLOSSEUM)**: pon a prueba tu equipo turno a turno en dobles: qué hace cada movimiento, qué pasa si eliges la suerte, y un combate contra un rival, todo animado en 2D.
 - **Más adelante**: cuentas con sincronización; el **Foro (FORUM)**, donde abrir temas y debatirlos con otros jugadores, adjuntando equipos, cálculos o combates; un quiz (AENIGMA) y un asistente de IA.
 
@@ -40,6 +41,7 @@ natural science.
 - **Pokédex (BIBLIOTHECA)**: the *Historia Naturalis*, one book per region covering every species, with a competitive view by default.
 - **Teams (LEGIO)**: team building and analysis focused on official doubles (VGC).
 - **Calculator and metagame (ABACUS and ATHENAEUM)**: damage, rolls and KO chances; what is used and how it trends.
+- **Tournaments (CIRCUS)**: watch the big official VGC tournaments, with both players' teams beside each game, and meet the season's best players.
 - **Colosseum (COLOSSEUM)**: test your team turn by turn in doubles: what every move does, what happens if you choose the luck, and a match against a rival, all animated in 2D.
 - **Later**: accounts with sync; the **Forum (FORUM)**, to open topics and discuss them with other players, attaching teams, calculations or battles; a quiz (AENIGMA) and an AI assistant.
 

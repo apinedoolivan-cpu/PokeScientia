@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.16 — approved 2026-11-21** · Owner: @Alex
+**Version 1.17 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.16, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.17, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -57,11 +57,12 @@ Greek learning appears as **content, not as a second style**. Rome preserved and
 | Equipos | Teams | **LEGIO** | Build a team of six and study its strengths and weaknesses | Strategy | M3 | 2 | `/teams` |
 | Calculadora | Calculator | **ABACUS** | Damage, rolls and KO probabilities | Strategy | M4 | 3 | `/calculator` |
 | Metajuego | Metagame | **ATHENAEUM** | What is used: common sets, partners, trends | Strategy | M4 | 3 | `/metagame` |
+| Torneos | Tournaments | **CIRCUS** | Watch the big official VGC tournaments, with both teams beside each game, and the season's best players | Spectacle | M10 | 3 | `/tournaments` |
 | Coliseo | Colosseum | **COLOSSEUM** | Turn-by-turn doubles battle testing, with an animated stage | Strategy and spectacle | M5 | 4 | `/colosseum` |
 | Foro | Forum | **FORUM** | The public square: open a topic and discuss it, with teams, calculations and battles attached | Community | M9 | 6 | `/forum` |
 | Quiz | Quiz | **AENIGMA** | Riddles and challenges | Knowledge | M7 | 7 | `/quiz` |
 
-Strategy and information get more halls than spectacle, on purpose: battles are one part of the academy, not its center. The FORUM is the one community hall (D85): the Roman forum was where citizens met and argued, so the name says what the hall does in both languages. *Forum* is the Latin word; *foro* is its Spanish descendant.
+Strategy and information get more halls than spectacle, on purpose: battles are one part of the academy, not its center. The FORUM is the one community hall (D85): the Roman forum was where citizens met and argued, so the name says what the hall does in both languages. *Forum* is the Latin word; *foro* is its Spanish descendant. The CIRCUS is the spectacle of other people's battles (D102): the Circus Maximus held Rome's chariot races, a different building and show from the Colosseum's gladiators, so the COLOSSEUM is where you fight and the CIRCUS is where you watch the champions. *Circus* appears only as the inscription, with the racetrack in its imagery; the menu says Torneos / Tournaments (D59).
 
 **Halls that don't exist yet** appear at the entrance as **closed doors** with their phase ("Fase 3"), and are not navigable (resolves the open point in SHL rules).
 
@@ -177,6 +178,8 @@ The same frame in every hall: the presenter stands **under a Roman arch**, on a 
 
 Four rules (D82, D84, D91, D94): a presenter's **lore or a clear symbol must tell what its hall does**, so it is believable as that hall's teacher; it has **a clear personality that matches that function**; that personality is **vivid and its own**, so that in Phase 7 talking to the assistant feels like talking to that presenter; and it has **a responsibility only when it does a real job** that passes the three tests below. Presenters are shown alive, in original color. The personality sets the tone of its introductions and, in Phase 7, of its assistant voice; it never changes facts or numbers (D76). Each voice is an original academy role, not an imitation of the Pokémon's official personality (Q82). Any presenter may be swapped before its hall is built.
 
+**Presenters are not meant to be Roman** (D105): no Pokémon is. Each fits through its lore, personality and role in the hall; a Roman link (Arcanine's *cave canem*, Braviary's *aquila*, Rillaboom's *praeco*) is a bonus, never a requirement.
+
 | Hall | Presenter | Why |
 | --- | --- | --- |
 | ATRIUM | **Arcanine** (Kanto form) | The guardian dog at the door, as in the *cave canem* mosaics of Pompeian entrances; noble, loyal and honorable, once thought a legendary Pokémon |
@@ -184,6 +187,7 @@ Four rules (D82, D84, D91, D94): a presenter's **lore or a clear symbol must tel
 | LEGIO | **Falinks** | Designed after a military formation, and literally a group of six |
 | ABACUS | **Metagross** | Its Pokédex entries describe four brains that solve complex calculations faster than a supercomputer and analyze opponents precisely |
 | ATHENAEUM | **Noctowl** | The owl of Athena, symbol of wisdom (our association, not Game Freak's); turns its head to think, and in lore sees several futures and chooses one after weighing them |
+| CIRCUS | **Rillaboom** | The herald of the games, like the Roman *praeco*: a drummer whose troop is led by whoever wins a drumming battle, and a face competitive players know (the most used Pokémon on the Champions VGC ladder in Regulation M-C) |
 | COLOSSEUM | **Incineroar** | A wrestler for the arena, and a face of competitive play |
 | FORUM | **Braviary** (Unova form) | The Roman *aquila*, the eagle that carried **SPQR**, "the Senate and People of Rome": the emblem of the people who met in the forum. Its lore calls it a motif for emblems, and the "soldiers of the sky" that fight tirelessly to protect their friends. Jupiter's eagle carried his will, and any bird links to messages |
 | AENIGMA | **Delphox** | Named after Delphi and its oracle, famous for answering in riddles; in lore, its burn marks were read for divination |
@@ -206,6 +210,7 @@ Like every voice, a responsibility follows D76: code produces every fact and num
 | **Metagross** (ABACUS) | The reckoner. Calm, exact, never in a hurry. States its assumptions before its result ("Assuming Adamant, 32 SP in Attack…"), never rounds without saying so, and replaces "probably" with a percentage. Not cold, only precise; closes a result with one word: "Calculated." | **None.** Its hall is answered by the calculator itself | Sets up a calculation from a plain question ("Does my Flutter Mane knock out Incineroar in the sun?") and opens ABACUS with it loaded, assumptions shown |
 | **Noctowl** (ATHENAEUM) | The night strategist. Measured and patient; pauses before answering, sets out options ("Two paths…") and explains why one wins. Unlike Metagross, at ease with uncertainty: the metagame is likelihoods, not certainties. Remembers how past regulations went and likes to point out patterns | **The metagame report:** writes the weekly "metagame of the week" thread in the FORUM (FOR-F13; a template in Phase 6, Noctowl's voice from Phase 7) and a briefing when a new regulation arrives (AIA-F06) | — |
 | **Incineroar** (COLOSSEUM) | The showman in your corner. Loud and theatrical while a battle plays: narrates big plays, hypes a good read, loves a comeback. Between turns it drops the act and gives straight advice like a coach. Owns mistakes ("That one's on us") and never sugarcoats a losing position | **Coaching the battle:** the turn advisor (AIA-F03, D76) and a review after each battle that points out the two or three turns that decided it (AIA-F07) | — |
+| **Rillaboom** (CIRCUS) | The herald of the games. Warm, rhythmic and generous with praise; opens every event with a drum roll, builds the tension before a final and celebrates the winner, whoever it is. Never takes sides: it respects whoever performs best, as its troop follows its best drummer. Gentle off the stage, values harmony, and loves telling you which match not to miss | **Announcing the big events** (CIR-F07, D105), from Phase 3 and by code, without the assistant: its door at the ATRIUM shows the next or current event and when it airs, and while one is live a small notice appears in every hall | — |
 | **Braviary** (FORUM) | A proud, brave standard-bearer and the guardian of the square. Welcomes newcomers loudly, raises the best discussions high, and as a bird of prey swoops on abusive posts. Moderation first, messages second | **Reporting and moderation** (AIA-F04, D90): handles every report, may hide a post while it is reviewed, proposes the penalty; a moderator confirms | — |
 | **Delphox** (AENIGMA) | The oracle. Enigmatic and playful; speaks in riddles while you play and explains plainly once you answer. Never mocks a wrong answer. Reads the future in the flames ("The embers say… a Water type?") | **Running the quiz** (AIA-F08): phrases each question as a riddle, gives the ladder of hints (QUZ-F03), accepts answers in your own words and keeps the score. A daily riddle is possible (Q89) | — |
 
@@ -223,6 +228,13 @@ Ideas kept open: a **daily riddle** by Delphox (Q89), and a **hint mode** in eve
   - **The Twelve Tables.** Rome's first written law, put up in the Forum so every citizen could read it: the origin of the LEX FORI (D96), and Braviary's way of introducing the rules.
   - **The *provocatio*.** A Roman citizen could appeal a magistrate's punishment to the people: the guardian swoops, but never has the last word.
 
+**Rillaboom in detail (D105).** No Pokémon is a herald, so, as with every hall, the cast follows a fitting role.
+
+- **The announcer, not a competitor.** A drum marks the start, builds the tension and celebrates the win, which is a herald's job. Charizard and the other stars of competitive play would be competitors standing in the stands; Incineroar already holds that spirit in the COLOSSEUM.
+- **Spectacle and competition in one.** Its troop chooses its leader through a drumming battle, a contest won by performance, which is the analogy the CIRCUS rests on: watching competitive play as a show. Gigantamax gives it a forest of drums for the big moments.
+- **A face players know.** It led usage on the Champions VGC ladder in Regulation M-C and has been a VGC staple for years, often beside Incineroar: the fighter in the COLOSSEUM and the announcer in the CIRCUS reflect real competitive history.
+- **The Roman role.** The *praeco* announced the games, the races and the winners to the crowd; texts can use the word in introductions, never in buttons (D59).
+
 **Civic framing of the FORUM (D96, D97).** The hall carries Roman civic life through parts it already has, never through new mechanics:
 
 - **LEX FORI:** the rules page shows twelve bronze tablets, *TABULA I* to *TABULA XII*: a Cinzel heading with the Roman numeral, the rule in plain language beneath in Alegreya Sans. Tablets I–VI say what is expected, VII–IX the penalty ladder, X–XII the user's rights. Moderation messages cite a tablet ("TABULA IV") next to its plain title.
@@ -231,7 +243,7 @@ Ideas kept open: a **daily riddle** by Delphox (Q89), and a **hint mode** in eve
 - ***Suffragium*:** only in introductions and help texts; vote buttons stay plain icons and words (D59).
 - **One kind of user (D97):** no badges, titles, ranks or level marks on posts or profiles. Every author is shown the same way.
 
-**Considered and set aside:** Pikachu (fame, not meaning), Klefki (keys only), Girafarig/Farigiraf (a Janus link few would read) and Hisuian Arcanine (rock and statue, less alive) for ATRIUM; Alakazam (psychic and magic, not calculation) for ABACUS; Xatu (a passive seer, drawn from specific living cultures) for ATHENAEUM; Zoroark (illusion, not riddles) and Unown (no individual mind) for AENIGMA. For the FORUM: Chatot (mimics sounds, and tropical), Mr. Mime (the minstrel bringing news is not a Roman image), Smeargle (artistic painting more than messages), Grafaiai (a signature tag repeated for life, solitary and poisonous), Primarina (Greek sirens lure sailors to their death), Unfezant (one-to-one messages, kept as lore), Conkeldurr (its Roman concrete builds the square but says nothing about talking in it), Farigiraf (the Janus link again), Lycanroc (no lore of the Roman she-wolf), Exploud (a herald announces but doesn't discuss), Pidgeot, Talonflame, Hawlucha, Staraptor and Swellow (not eagles), Corviknight (a raven, steel rather than bronze, British in theme), Hisuian Braviary (loses the eagle's look), Yveltal (death), Tornadus in Therian Forme (not clearly an eagle; its other form is the wind god Fūjin; storms destroy), Zapdos (Jupiter's eagle holds thunderbolts, but it doesn't look like an eagle) and Moltres (Pliny's phoenix is an anecdote, not the hall's function, and a fourth fire-type presenter).
+**Considered and set aside:** Pikachu (fame, not meaning), Klefki (keys only), Girafarig/Farigiraf (a Janus link few would read) and Hisuian Arcanine (rock and statue, less alive) for ATRIUM; Alakazam (psychic and magic, not calculation) for ABACUS; Xatu (a passive seer, drawn from specific living cultures) for ATHENAEUM; Zoroark (illusion, not riddles) and Unown (no individual mind) for AENIGMA. For the FORUM: Chatot (mimics sounds, and tropical), Mr. Mime (the minstrel bringing news is not a Roman image), Smeargle (artistic painting more than messages), Grafaiai (a signature tag repeated for life, solitary and poisonous), Primarina (Greek sirens lure sailors to their death), Unfezant (one-to-one messages, kept as lore), Conkeldurr (its Roman concrete builds the square but says nothing about talking in it), Farigiraf (the Janus link again), Lycanroc (no lore of the Roman she-wolf), Exploud (a herald announces but doesn't discuss), Pidgeot, Talonflame, Hawlucha, Staraptor and Swellow (not eagles), Corviknight (a raven, steel rather than bronze, British in theme), Hisuian Braviary (loses the eagle's look), Yveltal (death), Tornadus in Therian Forme (not clearly an eagle; its other form is the wind god Fūjin; storms destroy), Zapdos (Jupiter's eagle holds thunderbolts, but it doesn't look like an eagle) and Moltres (Pliny's phoenix is an anecdote, not the hall's function, and a fourth fire-type presenter). For the CIRCUS: Rapidash (the one horse with competitive lore, "very competitive… in the hopes of racing", but racing is not the analogy and it is unknown in competitive play), Mudsdale (labour, not speed), Zebstrika and Cyclizar (speed without competition), Glastrier, Spectrier and Keldeo (a king's steeds and justice), Meowscarada (a stage magician and a trickster: the modern circus), Hawlucha (a showman, but wrestling is Incineroar's), Quaquaval, Primarina and Meloetta (dancers and singers), Mr. Mime, Mr. Rime, Chatot and Blacephalon (mimicry or clowns), Victini (victory itself, but absent from current games and no spectacle), Greninja (a bond with its trainer, but a ninja hides), Charizard (a fierce competitor, not an announcer), and Kingambit, Garchomp, Urshifu and Salamence (meta Pokémon with nothing to present).
 
 ## 8. The Pokédex as a book: *Historia Naturalis* (D61)
 
@@ -300,7 +312,7 @@ One page at a time: two tabs, "I · Identidad" and "II · Ciencia", with swipe b
 | **Shelf** | BIBLIOTHECA | Hall header, bookcase with books and appendices, selected-book panel |
 | **Book** | Pokédex entries, appendix pages | Two-page spread, thumb index, previous/next |
 | **List** | Pokédex list, moves, abilities, items | Filters, sortable grid or table |
-| **Tool** | LEGIO, ABACUS, ATHENAEUM | Hall header, main work area (8 columns), analysis panels (4 columns); stacked on phones |
+| **Tool** | LEGIO, ABACUS, ATHENAEUM, CIRCUS | Hall header, main work area (8 columns), analysis panels (4 columns); stacked on phones. In the CIRCUS the player is the main area, with the event panel and the two teams at the side and the row of replays and the top players below |
 | **Stage** | COLOSSEUM | Full-width PixiJS stage with playback controls, the turn matrix and the turn history with its branches (Phase 4); laid out when Phase 4 is specified |
 
 ## 10. Components (`ui/`, D49)
@@ -357,7 +369,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 ## 13. Effect on other documents
 
 - **Module names:** M2 is the Pokédex (BIBLIOTHECA), M3 Teams (LEGIO), M4 Calculator and metagame (ABACUS, ATHENAEUM), M5 the **battle stage** (COLOSSEUM), formerly "Animation Lab". Feature IDs (`ARC-`, `STR-`, `CMP-`, `LAB-`) do not change.
-- **Routes and folders** in the architecture use the English menu words: `/teams`, `/calculator`, `/metagame`, `/colosseum`, `/forum`, `/quiz`.
+- **Routes and folders** in the architecture use the English menu words: `/teams`, `/calculator`, `/metagame`, `/tournaments`, `/colosseum`, `/forum`, `/quiz`.
 - **D5** (even Greek–museum blend) is superseded by **D58**.
 
 ## 14. Open items
@@ -369,6 +381,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | ARMAMENTARIUM design (D99) | M1.7 | Cabinets by category, the item card, how the door sits beside the bookcase |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
+| CIRCUS design | M3.8 | The player area, the team lists beside it, the replay row, Rillaboom's frame and the herald's notice; the racetrack imagery |
 | FORUM design | Phase 6 specification | Thread list, thread page, attachment cards, votes, report and moderation screens; Braviary's frame and the report conversation (D89, D90); the LEX FORI tablets, the ACTA and the appeal (D96); no visible ranks (D97) |
 | Companion presenters | After the MVP | Optional; in Phase 7 a way to reach the assistant (D82, Q82) |
 
@@ -422,6 +435,13 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | --- | --- |
 | D99 | The ARMAMENTARIUM: the BIBLIOTHECA's room for items, with cabinets by category; no menu entry and no presenter of its own (Mew presents it) (section 8). |
 | D100 | Every item is shown: battle items with the full page, the rest with encyclopedic data; the list opens on items available in the current game (section 8). Revises D31. |
+
+### Approved (2026-11-24)
+
+| ID | Decision |
+| --- | --- |
+| D102 | The CIRCUS (menu Torneos / Tournaments, route `/tournaments`), a Spectacle hall for watching official VGC competition, one page with no rooms (section 3). |
+| D105 | CIRCUS presenter: Rillaboom, the herald (*praeco*), with announcing the big events as its responsibility from Phase 3. Presenters are not meant to be Roman (section 7). |
 
 ### Proposals awaiting approval
 

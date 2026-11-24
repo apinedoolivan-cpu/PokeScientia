@@ -6,6 +6,20 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-24 · The CIRCUS settled, with Rillaboom (D102–D105)
+
+- **Done:**
+  - Checked that commit `34cfb03` matches the files sent.
+  - Chose the presenter. Reviewed horses (Rapidash, Mudsdale, Zebstrika, Cyclizar, Glastrier, Spectrier, Keldeo), showmen (Meowscarada, Hawlucha, Quaquaval, singers and mimics), Victini, Charizard, Greninja and meta Pokémon. The owner chose **Rillaboom**: a face competitive players know, and a drummer whose troop is led by whoever wins a drumming battle, which joins competition and spectacle without leaning to racing or to the modern circus. As a drummer it is the herald (*praeco*), an announcer rather than a competitor.
+  - Settled the hall: D102 (the CIRCUS, one page, VGC and Masters only, Internationals and Worlds, Phase 3 after the ATHENAEUM, route `/tournaments`), D103 (the page: YouTube player, event panel, past replays, both teams beside each replay opening in LEGIO, the season's top players), D104 (coverage only where every replay's teams are public, so from the 2023 season at most; hand-curated data with sources; embeds only, privacy-enhanced and on click; players' data limited), D105 (Rillaboom, announcing the big events from Phase 3 by code, at the ATRIUM and in every hall while live; presenters need not be Roman). R22, U20–U22, M10 (CIR-F01 to CIR-F07), DAT-F16, M3.7 and M3.8 added. Closes Q94; Q95 reworded.
+  - Docs updated: vision v1.31, modules v1.20, data strategy v1.7, architecture v1.13, design v1.17, roadmap v1.19, decision map, CLAUDE.md, README.
+- **Next:** open; exploring ideas. M0.1 whenever the owner chooses.
+- **Notes:**
+  - The roadmap's version note was missing version 1.18 (the ARMAMENTARIUM); added.
+  - YouTube's embedded player refuses to play if the page sends no address (HTTP Referer): the Content Security Policy and referrer policy must allow for it at deployment.
+
+---
+
 ## 2026-11-23 · A simpler CIRCUS (Q94)
 
 - **Done:**

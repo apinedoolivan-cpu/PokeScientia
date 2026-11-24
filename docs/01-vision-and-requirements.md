@@ -1,10 +1,10 @@
 # Pokescientia — Vision & Requirements
 
-**Version 1.30 — approved 2026-11-21** · Owner: @Alex
+**Version 1.31 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.30, approved. Changes are made by editing this file and adding an entry to the Decision log.
+Version 1.31, approved. Changes are made by editing this file and adding an entry to the Decision log.
 
 Every statement carries one of five labels:
 
@@ -39,12 +39,14 @@ The project succeeds if it is useful to the owner, fun to build, and teaches som
 5. Hands-on learning: Angular `@angular/localize`, local-first data, and later a Go API.
 6. An architecture that grows one feature at a time without rewrites.
 7. A place where players meet: the FORUM, where anyone can open a topic and discuss it, built around the academy's own tools (R21).
+8. A place to follow official VGC: the CIRCUS, where the big tournaments of the official circuit can be watched with the teams in play (R22).
 
 **Non-goals** (explicitly out of scope unless revisited)
 
 - Any monetization, ads, or official affiliation.
 - A rules-accurate battle engine of our own.
 - Online player-vs-player battles or matchmaking.
+- Hosting or running tournaments, and downloading or re-hosting broadcasts; the CIRCUS only embeds official videos (D104).
 - Paid infrastructure, paid APIs, or a paid domain.
 - Competing with Smogon, Showdown or Bulbapedia on completeness; we link to them instead.
 
@@ -69,6 +71,9 @@ The primary user is the owner: a Spanish-speaking player who follows official VG
 | U10 | Test my team turn by turn against a rival team: see what every move does, choose what chance does, rewind and branch, and watch each turn animated | Battle stage (COLOSSEUM) | 4 |
 | U16 | Play a match with my team against a rival that decides by itself | Battle stage (COLOSSEUM) | 4 |
 | U17 | During a battle, get short advice on every action each of my Pokémon can take: why to use it or not, and an estimated chance to win | AI assistant | 7 |
+| U20 | Watch the current big VGC tournament or a past one, with both players' teams beside the game | Tournaments (CIRCUS) | 3 |
+| U21 | Open a team I just watched in LEGIO to study it | Tournaments (CIRCUS) | 3 |
+| U22 | See who the best players of the season are | Tournaments (CIRCUS) | 3 |
 | U11 | Sign in and have my teams on any device | Accounts | 5 |
 | U18 | Open a topic and discuss it with other players, attaching a team, a Pokémon, a calculation or a battle | Forum (FORUM) | 6 |
 | U19 | Vote on posts and replies, and report anything that breaks the rules | Forum (FORUM) | 6 |
@@ -86,6 +91,7 @@ Pokescientia's edge is identity and integration, not data volume.
 - **Your team everywhere.** The active team follows you through the academy: analysed in LEGIO, calculated in ABACUS, measured against the metagame in ATHENAEUM.
 - **Doubles first.** Analysis tuned for VGC (speed control, spread moves, partners), not adapted from singles.
 - **Discussion built on the tools.** In the FORUM, a post can carry a team, a calculation or a battle from the other halls, shown already analysed, so every discussion starts from the same evidence (D85).
+- **Watch with the teams in hand.** In the CIRCUS, each replay of an official match shows both players' teams beside it, one click away from LEGIO (D103).
 - **Animation as a feature.** Motion is designed, not decorative, and the COLOSSEUM shows off what the web can do.
 
 ## Confirmed requirements
@@ -115,6 +121,7 @@ These come directly from the owner's answers in discovery.
 | R19 | The battle stage shows the official doubles format: two Pokémon per side. |
 | R20 | Doing damage calculations with the owner's own team is a core motivation of the project. A team built in the platform is available in every hall, and the calculator and metagame tools work directly from it. |
 | R21 | A social hall, the FORUM: users open topics and others discuss them, like Reddit. It needs user accounts, so it comes after them. |
+| R22 | A hall for following official VGC competition, the CIRCUS: watch the current big tournament and past ones, with the teams in play, and see the season's best players. VGC and the Masters division only; it never hosts events. |
 
 ## Approved decisions
 
@@ -221,6 +228,10 @@ These come directly from the owner's answers in discovery.
 | D99 | **The ARMAMENTARIUM, the items room of the BIBLIOTHECA.** Items leave the appendix books for a room of their own inside the library: inscription ARMAMENTARIUM (the Roman armoury), reached from the shelf, the global search and every link to an item; route `/items` (unchanged). Items stand in cabinets, one per category. It is not a hall: no menu entry, no door at the entrance and no presenter of its own; Mew presents it as part of the BIBLIOTHECA. Built in Phase 1 (M1.7). | Items matter in competitive play and deserve a distinctive place, but item information alone doesn't justify a hall: halls are split by what you do, and lookups belong to the library. |
 | D100 | **Every item, in two levels of detail** (revises D31). The ARMAMENTARIUM shows every item in PokéAPI's data (2,223 on 2026-11-04). **Battle items**, those in Showdown's data, get the full page: description, category, whether the item is available in the current game (D101), the Mega form a Mega Stone unlocks and the Pokémon a species-specific item works for. **Every other item** gets an encyclopedic page: names, description, category and icon. The list opens on items available in the current game, with "Show all" for every item, like the Pokédex's competitive view (D12). | Both sources already cover every item, so showing all of them costs little (about 3,400 more prerendered pages); the competitive default keeps the focus on what can be used. |
 | D101 | **Item availability in the current game** (DAT-F04, STR-F03, STR-F04). Each battle item says whether it is available in the current game, read from Showdown's Champions data like the rest of the legality data (D36). In the regulation format, the team editor marks items not available in the current game and warns about them, without blocking (D27). Champions has a much smaller item pool than earlier games (166 of Showdown's 587 items on 2026-11-21), and every regulation adds some. | Without it the items list and the team editor would offer hundreds of items that can't be used, and an illegal item would go unnoticed. |
+| D102 | **The CIRCUS** (R22, Q94, module M10 `CIR`): a hall for watching official VGC competition. Menu Torneos / Tournaments, inscription CIRCUS, route `/tournaments`, in a new Spectacle wing. **One page, no rooms**, like LEGIO and ABACUS. Scope: **VGC only** (not the TCG, Pokémon GO or UNITE), the **Masters division only**, and the big events of the official circuit, the **International Championships and the World Championships**. It never hosts events or matchmaking. Built in **Phase 3, after the ATHENAEUM** (M3.7, M3.8). | The ATHENAEUM shows what is used on Showdown's ladder (D41) and never covers official tournaments; following the competition itself is a different activity, so it passes the test that halls are split by what you do (D99). The Circus Maximus and the Colosseum were different buildings for different shows: the amphitheatre held gladiators, the circus held the chariot races, Rome's most followed competition, watched by huge crowds and run by factions with star charioteers. So the COLOSSEUM is where you fight your own battles and the CIRCUS is where you watch the champions. Its data is small and static, so it needs no backend; it comes after the ATHENAEUM because it opens teams in LEGIO and sits beside the metagame. |
+| D103 | **The CIRCUS page** (CIR-F01 to CIR-F06). (1) **The player**, at the centre: the official YouTube broadcast of the current or latest big event, live while it runs, then its recorded matches. YouTube only: the official VGC stream is always on YouTube. (2) **The event panel** at the side: name, dates, place, game, regulation, the winner when known, and links to the official results and community sources for the full standings. (3) **A row of past replays**, mainly the top cut and finals of past events, by season. (4) **Both players' teams beside each replay**, from the open team lists, never over the video; each opens in LEGIO with one click, in the Free format with warnings for teams from earlier games (D27, D32). The lists carry no stats, so default spreads are used and labelled. (5) **The season's top players:** a short list, about the top ten of the Masters Championship Points standings, with name, country and points, linking out for details. No standings tables, brackets or player pages: links instead. | The owner wants a place to watch, not another results database; one page keeps the CIRCUS in line with the other halls (only the BIBLIOTHECA has rooms, for its size). The teams beside the game are what an embedded video alone can't give, and LEGIO turns a watched team into a studied one. Live game data (each game's four picks, HP) doesn't exist: official matches run on consoles and publish no battle log, and reading it from video would need the video downloaded. The teams are enough. |
+| D104 | **Coverage and data** (DAT-F16). **An event is covered only when its data is complete and the teams of every replay shown are public.** In practice that means events with open team lists, used in TPCi events since the 2023 season, so the archive reaches back to the 2023 season at most and grows backwards one event at a time. The data is **hand-curated** in one file in `pipeline/manual/` (events, video IDs, the two players and their team lists for each replay, the season's top players), every fact with a source link; the pipeline validates it (every Pokémon, ability, item and move must resolve, and a replay without both team lists is rejected). Videos are **only embedded** from Pokémon's official channel, in YouTube's privacy-enhanced mode, loaded when the user presses play; never downloaded, re-uploaded or restreamed, and nothing is drawn over the player. **Players:** adults of the Masters division only; only their name, country, results and teams as the official results publish them; no photos or personal details; a player who asks to be removed is removed. Other tournaments (Regionals, Special Events, online events) enter only if they meet the same rule (Q95). | Official results have no open API and community sources disagree right after an event, so a few events a season by hand is reliable and fits the owner's pace (D18). The coverage rule guarantees that every replay can show its teams. Embedding keeps the views and control with Pokémon's channel and follows YouTube's terms; loading on click protects privacy and speed. |
+| D105 | **Rillaboom presents the CIRCUS** as its herald, the *praeco* who announced the games and their winners to the crowd. Its personality is in the design spec §7. **Responsibility: announcing the big events** (CIR-F07), from Phase 3 and by code, from the event dates in the data, with no AI: before and during an event its door at the ATRIUM shows the event and when it airs, and while an event is live a small notice that can be dismissed appears in every hall. It passes D94's three tests: the notices stay on the site, it works at its own moment (each event's dates), and without it nobody would announce the events. From Phase 7 it is also the CIRCUS's assistant voice (D82). **Presenters are not meant to be Roman**, since no Pokémon is: each fits through its lore, personality and role, and a Roman link is a bonus, never a requirement. | Rillaboom joins the two sides of the analogy without leaning too far toward either. It is a face competitive players know: the most used Pokémon on the Champions ladder in Regulation M-C, and a VGC staple beside Incineroar for years. Its lore is a performance that decides who leads: a drumming battle chooses its troop's boss. As a drummer it suits an announcer more than a competitor. Horses (Rapidash) put racing ahead of competition and spectacle; spectacle alone (Meowscarada) leans to the modern circus; Charizard and other meta Pokémon are competitors, not announcers. |
 
 ## Assumptions
 
@@ -254,6 +265,8 @@ The two hard limits are zero budget and respect for Pokémon intellectual proper
 - A visible disclaimer states that the site is an unofficial fan project.
 - Pokémon artwork is never redrawn or imitated; it comes only from the sources we choose. Original work (UI, effects, academy art) is ours.
 
+**Players in the CIRCUS.** From Phase 3 the CIRCUS shows real players' names, countries, results and teams, only as official results publish them, and only adults of the Masters division (D104).
+
 **Users and their content.** From Phase 6 the FORUM hosts what users write. Personal data and user posts follow EU law: data protection (GDPR) and the duties of a hosting service (Digital Services Act). These, and a minimum age to sign up, are designed into the Phase 6 specification, not added later (D87, Q86).
 
 **Licenses:** data, image and library licenses were verified in [`03-data-strategy.md`](03-data-strategy.md). Every font, icon set and texture we add must still be checked when chosen (R18).
@@ -267,13 +280,13 @@ Approved with version 1. Milestones for each phase are in [`06-roadmap-and-miles
 1. **Phase 0: Foundations.** Angular project in `frontend/`, Spanish and English builds, design tokens with light and dark themes, layout shell, data pipeline producing static files, CI, and a first presenter.
 2. **Phase 1: MVP, the BIBLIOTHECA (Pokédex).** Pokédex (Pokémon, moves, abilities, and every item in the ARMAMENTARIUM) with the competitive and full views, forms, search and filters.
 3. **Phase 2: LEGIO (teams).** Team builder with Showdown import and export, PokéPaste links and the team sheet, local saving, the active team that follows you between halls, and team analysis (D13, D68, D95).
-4. **Phase 3: ABACUS and ATHENAEUM (calculator and metagame).** Damage calculator working from the active team first, then usage data and common sets, the threat list, speed benchmarks, trends.
+4. **Phase 3: ABACUS, ATHENAEUM and the CIRCUS (calculator, metagame and official competition).** Damage calculator working from the active team first, then usage data and common sets, the threat list, speed benchmarks, trends; then the CIRCUS, to watch the big official tournaments with the teams in play (D102).
 5. **Phase 4: The COLOSSEUM (battle stage).** Turn-by-turn testing of a team in doubles, resolved by Showdown's battle engine: damage matrix, chosen or real chance, history with branching; then the animated PixiJS and GSAP stage; then a real match mode against a simple rival (D73–D75). The largest phase.
 6. **Phase 5: Accounts.** Go backend with sign-in and team sync, layered on the local-first data.
 7. **Phase 6: The FORUM.** Reddit-style discussion: posts that open a topic, replies, votes, and optional attachments from the other halls, with moderation in layers (D85–D87). Needs the accounts of Phase 5 and a public deployment.
 8. **Phase 7: Extras.** Quiz or puzzle section, then the AI assistant, whose primary use is the turn advisor in the COLOSSEUM (D76).
 
-Why this order: the Pokédex's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the battle stage (D23). The COLOSSEUM comes last among the core phases, so it can use the data, assets and calculator already in place. The FORUM follows accounts directly, reusing the new backend while every hall it links to already exists (D86).
+Why this order: the Pokédex's data is the foundation everything else reads. The team builder gives the most value per hour. Competitive data builds directly on both and matters more than the battle stage (D23). The CIRCUS closes Phase 3: its data is small and static, and it opens teams in LEGIO (D102). The COLOSSEUM comes last among the core phases, so it can use the data, assets and calculator already in place. The FORUM follows accounts directly, reusing the new backend while every hall it links to already exists (D86).
 
 ## Glossary
 
@@ -306,6 +319,10 @@ Why this order: the Pokédex's data is the foundation everything else reads. The
 | *Historia Naturalis* | The Pokédex presented as one work in nine books (*libri*), one per region, plus appendices (D61). |
 | ARMAMENTARIUM | The BIBLIOTHECA's room for items, named after the Roman armoury; items stand in cabinets by category (D99). |
 | Battle item | An item present in Showdown's data, so it has a role in battle; it gets the full item page (D100). |
+| International Championships | The biggest official events after the World Championships: Latin America (LAIC), Europe (EUIC) and North America (NAIC). The CIRCUS covers them and Worlds (D102). |
+| Open team list | The team sheet players swap before an official match: each Pokémon's species, ability, item and moves, never its stats. The CIRCUS shows it beside each replay (D103). |
+| Championship Points (CP) | Points earned at official events through the season; the standings decide invitations to the World Championships. The CIRCUS's top players come from them (D103). |
+| *Praeco* | The Roman herald who announced the games and their winners; Rillaboom's role in the CIRCUS (D105). |
 
 ## Decision log
 
@@ -313,6 +330,7 @@ Newest first.
 
 | Date | Decision | Source |
 | --- | --- | --- |
+| 2026-11-24 | Version 1.31: R22 and D102–D105: the CIRCUS, a one-page hall for watching official VGC competition (Masters division; Internationals and Worlds) in Phase 3, after the ATHENAEUM; the page: YouTube player, event panel, past replays, both players' teams beside each replay opening in LEGIO, the season's top players; coverage only where every replay's teams are public, hand-curated data, videos only embedded; Rillaboom as presenter and herald, announcing the big events from Phase 3; presenters need not be Roman. U20–U22 added; closes Q94; modules v1.20 (M10), data strategy v1.7, architecture v1.13, design v1.17, roadmap v1.19 | Competition hall review |
 | 2026-11-21 | Version 1.30: D99 the ARMAMENTARIUM, a room of the BIBLIOTHECA for items (no new hall, no presenter of its own); D100 every item shown, battle items in full and the rest with encyclopedic data, opening on items available in the current game (revises D31); D101 item availability in the current game, with marks and warnings in the team editor; opens Q92 (item usage, Phase 3), Q93 (when each item entered Champions); modules v1.19, data strategy v1.6, architecture v1.12, design v1.16, roadmap v1.18 | Items review |
 | 2026-11-20 | Version 1.29: D98 security, low-cost measures only, built in as each phase arrives: imported text never rendered as HTML and validated, `npm audit` and Dependabot in CI, a Content Security Policy at the first deployment; opens Q91 (account security checklist, Phase 5); Q88 now weighs prompt injection; architecture v1.11, roadmap v1.17 | Security review |
 | 2026-11-20 | Version 1.28: D96 Roman civic life frames the FORUM: the rules as the LEX FORI in twelve tablets (with real-world politics off-topic), appeals as *provocatio*, the public ACTA log, votes as *suffragium* in texts; FOR-F15, FOR-F16 added. D97 every user looks the same: trust levels stay internal, never shown (revises D87); visible ranks parked as P4; modules v1.18, design v1.15, roadmap v1.16 | Roman politics review |

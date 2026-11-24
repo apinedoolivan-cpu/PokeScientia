@@ -1,15 +1,16 @@
 # Pokescientia — Data Strategy
 
-**Version 1.6 — approved 2026-11-21** · Owner: @Alex
+**Version 1.7 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.6, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.7, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
 - How the pipeline is built (scripts, folders, schedules) belongs to the architecture doc. This document covers **what** comes from **where**.
 - Version 1.5 adds PokéPaste (D95) as an external service for importing and exporting teams. It is not a data source: it carries the user's own teams, only when the user asks.
+- Version 1.7 adds official tournaments for the CIRCUS (D104), in section 15: hand-curated results and team lists, and videos embedded from Pokémon's YouTube channel.
 - Version 1.4 moves the AI assistant to Phase 7 (D86). What users write in the FORUM (Phase 6) is not game data: its storage and legal handling are specified with Phase 6 (Q86).
 
 ## Summary
@@ -23,6 +24,7 @@ Version 1.6, approved. Defines where every piece of data comes from, under which
 | Usage statistics (Phase 3) | Smogon's monthly statistics for Showdown's Champions VGC ladder | Aggregated stats: public domain | D41 |
 | Damage calculator (Phase 3) | `@smogon/calc` as the engine; our own calculator experience on top | MIT | D42 |
 | Browser storage (Phase 2) | localStorage for preferences, IndexedDB through Dexie for teams | Dexie: Apache-2.0 | D43 |
+| Official VGC tournaments (Phase 3): events, team lists, top players, videos | Hand-curated from official results (Play! Pokémon, RK9), cross-checked with community sources; videos embedded from Pokémon's official YouTube channel | Facts, credited; videos under YouTube's terms, never copied | D104 |
 
 ## 1. The current competitive context (Q22)
 
@@ -240,6 +242,8 @@ The About page (SHL-F06) credits:
 | `@smogon/calc` | MIT | Smogon |
 | Dexie | Apache-2.0 | Dexie.js |
 | PokéPaste (service used to import and export team links, D95) | Source code BSD-style; pastes are their authors' | PokéPaste, by Felix Friedlander |
+| Official results, team lists and Championship Points (D104) | Facts; no license published | Play! Pokémon (The Pokémon Company International); RK9 |
+| Tournament videos, through YouTube's embedded player (D104) | YouTube API Services Terms; videos are their owner's | The Pokémon Company, on YouTube |
 
 Plus the unofficial fan-project disclaimer (README, Constraints).
 
@@ -255,6 +259,9 @@ Plus the unofficial fan-project disclaimer (README, Constraints).
 | Usage data only covers Showdown's ladder | Common sets differ from in-game trends | Source and period always shown |
 | Takedown request from a rights holder | Content removed | Non-commercial, credited, disclaimer; comply promptly |
 | PokéPaste is down, changes its addresses or closes (its code was last changed in 2021) | Link import and export stop working | Pasting Showdown text always works (STR-F05, STR-F06); errors say so; tests use recorded responses (D95) |
+| Sources disagree on a result right after an event | A wrong winner or team in the CIRCUS | Wait for the official results; cross-check two sources before adding an event (D104) |
+| A tournament video is removed or can't be embedded | Empty player | A link to watch it on YouTube; the panel and the teams still show (CIR rules) |
+| A player asks to be removed from the CIRCUS | Personal data shown against their wish | Remove them promptly (D104) |
 
 ## 14. Approved proposals
 
@@ -273,6 +280,28 @@ All approved on 2026-11-04 and recorded in the vision document.
 | DS-8 | localStorage for preferences, IndexedDB via Dexie for teams, persistent storage requested | D43 | Q26 |
 | DS-9 | Hand-maintained Spanish overrides file; English fallback marked and reported | D44 | — |
 | — | Every item from PokéAPI, battle items marked and completed from Showdown; availability in the current game from the Champions mod (approved 2026-11-21) | D100, D101 | — |
+| — | Official tournaments hand-curated from official results, team lists from RK9, videos only embedded from Pokémon's YouTube channel; covered only where every replay's teams are public (approved 2026-11-24) | D104 | Q94 |
+
+## 15. Official tournaments (Phase 3, D104)
+
+The CIRCUS (M10) shows the big official VGC events. No source offers them as open data: official results and team lists are published as web pages, and community sites publish no license. So the data is **hand-curated**, a few events a season, in one file in `pipeline/manual/` that the pipeline validates (DAT-F16).
+
+| Data | Comes from | How it is used |
+| --- | --- | --- |
+| Event facts: name, dates, place, regulation, winner | Pokémon's official event pages, cross-checked with Victory Road or Liquipedia | Typed by hand, with a link to the source |
+| Team lists | RK9, the official registration and pairings system, which publishes the open team lists during the event | Copied by hand for the two players of each replay, with a link |
+| Top players | The official Championship Points standings, Masters division | The top of the standings, by hand after each big event, with its date and a link |
+| Videos | Pokémon's official YouTube channel (`@Pokemon`), which broadcasts VGC at every big event | Only the video ID is stored; the video plays in YouTube's embedded player |
+
+**Open team lists set the coverage.** TPCi events have used open team lists since the 2023 season, and the 2026 handbook keeps them for Pokémon Champions. A list shows each Pokémon's species, ability, item and moves (plus Tera Type in Scarlet and Violet), never its stats. Because an event is covered only when every replay can show both teams (D104), the archive starts at the 2023 season at most; earlier events come in only if their teams can be found complete (Q95).
+
+**Embedding.** YouTube's embedded player is governed by the YouTube API Services Terms. It is used in privacy-enhanced mode (`youtube-nocookie.com`), where views don't personalize the viewer's YouTube experience, and it loads only when the user presses play. YouTube requires the page to send its address (an HTTP Referer), or embedded videos refuse to play, and its minimum functionality rules forbid covering the player. The videos stay on Pokémon's channel: nothing is downloaded, re-uploaded or restreamed.
+
+**Live broadcasts.** The data holds each event's broadcast times; "live" means now falls within them. The live video's ID is added by hand when Pokémon publishes the stream; until then the player shows the latest replay and a link to the channel. Whether a channel-level live address can be embedded instead is checked in M3.7.
+
+**Facts, not content.** Results, rankings and team lists are facts. Only those are copied, always credited; never articles, reports, images or commentary from the sources.
+
+**People.** Only adults of the Masters division appear, with what the official results publish: name, country, results and teams. No photos and no personal details. A player who asks to be removed is removed.
 
 ## Sources
 
@@ -292,4 +321,5 @@ Opened on 2026-11-04.
 - [pkmn/smogon — Smogon data APIs](https://github.com/pkmn/smogon)
 - [jsDelivr terms of use](https://raw.githubusercontent.com/jsdelivr/jsdelivr/master/Terms%20of%20Use.md)
 - [About MunchStats](https://munchstats.com/about)
+- Opened on 2026-11-24, for official tournaments (D104): [2023 season — Victory Road](https://victoryroad.pro/2023-season) (open team lists in TPCi events), [VGC handbook update for Pokémon Champions — Bulbanews](https://www.bulbagarden.net/threads/pokemon-champions-axes-local-communication-options-new-information-released-in-vgc-handbook.310263/), [Pokémon Champions regulations — Victory Road](https://victoryroad.pro/champions-regulations/), [2026 LAIC broadcast — The Pokémon Company press release](https://press.pokemon.com/en/Tune-In-to-the-2026-Latin-America-International-Championships-Live-Nov), [Embed videos and playlists — YouTube Help](https://support.google.com/youtube/answer/171780), [YouTube API Services Required Minimum Functionality](https://developers.google.com/youtube/terms/required-minimum-functionality)
 - [NCP VGC Damage Calculator](https://nerd-of-now.github.io/NCP-VGC-Damage-Calculator/) and [its repository](https://github.com/nerd-of-now/NCP-VGC-Damage-Calculator) (MIT; commit `a2e408c`, 2026-10-24)

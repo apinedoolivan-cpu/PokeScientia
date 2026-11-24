@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.12 — approved 2026-11-21** · Owner: @Alex
+**Version 1.13 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.12, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.13, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -52,7 +52,7 @@ PokeScientia/
 ├── .nvmrc                        Node version (D54)
 ├── docs/                         planning documents
 ├── pipeline/                     data pipeline (D45), its own package.json
-│   ├── manual/                   hand-maintained files (D33, D35, D37, D44, DAT-F11, DAT-F13)
+│   ├── manual/                   hand-maintained files (D33, D35, D37, D44, D104, DAT-F11, DAT-F13)
 │   ├── src/                      pipeline code (TypeScript)
 │   └── test/                     validation tests
 ├── frontend/                     Angular application, its own package.json
@@ -83,6 +83,7 @@ frontend/src/app/
     ├── teams/        LEGIO: team library, editor, analysis, converter (M3)
     ├── calculator/   ABACUS: damage calculator (M4, Phase 3)
     ├── metagame/     ATHENAEUM: usage data and trends (M4, Phase 3)
+    ├── tournaments/  CIRCUS: player, event panel, replays, teams, top players (M10, Phase 3)
     ├── colosseum/    COLOSSEUM: turn-by-turn battle testing and stage (M5, Phase 4)
     ├── forum/        FORUM: categories, threads, moderation (M9, Phase 6)
     ├── quiz/         AENIGMA (M7, later)
@@ -156,8 +157,8 @@ TypeScript run directly by Node 26 (Node runs `.ts` files without a separate bui
 3. **Filter**: official content only. Showdown also contains fan-made "CAP" Pokémon, moves and items; these are excluded (`isNonstandard: "CAP"`).
 4. **Map IDs** between the sources (D37), using `manual/id-mapping` for exceptions. Unmatched entities stop the build.
 5. **Merge**, taking each field from its single master source (D36).
-6. **Apply manual files**: Spanish overrides (D44), middle evolutions (D33), doubles move categories (DAT-F11), regulation file (D35).
-7. **Validate**: every reference resolves, required fields exist, both languages present or reported (DAT acceptance criteria).
+6. **Apply manual files**: Spanish overrides (D44), middle evolutions (D33), doubles move categories (DAT-F11), regulation file (D35), and from Phase 3 the tournaments file (D104).
+7. **Validate**: every reference resolves, required fields exist, both languages present or reported (DAT acceptance criteria). In the tournaments file, every Pokémon, ability, item and move in a team list must resolve, and a replay without both team lists stops the build (DAT-F16).
 8. **Write** JSON to `frontend/public/data/` and a **build report** (fallbacks, warnings, counts).
 
 Running it twice with the same inputs gives identical files.
@@ -175,7 +176,8 @@ frontend/public/data/
 ├── items/index.json  items/<id>.json
 ├── types.json                 type chart (DAT-F06)
 ├── search.json                bilingual search index (DAT-F10)
-└── regulation.json            current regulation and rules (DAT-F08)
+├── regulation.json            current regulation and rules (DAT-F08)
+└── tournaments.json           CIRCUS: events, replays with both team lists, top players (DAT-F16, Phase 3)
 ```
 
 Both languages live in the same files; every name and description has `es` and `en`.
@@ -216,6 +218,7 @@ Path words are English and identical in both languages (D17). Hall names and Lat
 | `/teams`, `/teams/:teamId` | LEGIO: team library and editor (Phase 2) | Shell prerendered; content in the browser (teams live in IndexedDB) |
 | `/calculator` | ABACUS: calculator (Phase 3) | Prerendered shell |
 | `/metagame` | ATHENAEUM: usage data and trends (Phase 3) | Prerendered |
+| `/tournaments` | CIRCUS: official VGC tournaments (Phase 3) | Prerendered |
 | `/colosseum` | COLOSSEUM: turn-by-turn battle testing and stage (Phase 4) | Prerendered shell |
 | `/forum`, `/forum/:postId` | FORUM: categories and threads (Phase 6) | Shell prerendered; content loaded from the API in the browser |
 | `/quiz` | AENIGMA (later) | Prerendered shell |
@@ -397,7 +400,7 @@ On every push to `main`:
 5. End-to-end and accessibility tests against the built site.
 6. `npm audit --audit-level=high` (D98). Dependabot, enabled in the repository settings, proposes dependency updates; each is reviewed like any other change.
 
-A failure shows on the commit in GitHub. Deployment is added when hosting is chosen (Q7), with a Content Security Policy that allows only our own scripts and the sites we read from (image sources, `pokepast.es`) (D98).
+A failure shows on the commit in GitHub. Deployment is added when hosting is chosen (Q7), with a Content Security Policy that allows only our own scripts and the sites we read from (image sources, `pokepast.es`) (D98), plus, from Phase 3, YouTube's privacy-enhanced player (`youtube-nocookie.com`) and its video thumbnails for the CIRCUS (D104). The referrer policy must still send the site's address: YouTube's embedded player refuses to play without it.
 
 ## 13. Coding guidelines
 
@@ -486,6 +489,7 @@ Approved in review on 2026-11-04.
 | — | D98 | Low-cost security: imported text never rendered as HTML (guideline 10), `npm audit` in CI, a Content Security Policy at deployment; account checklist in Q91 (section 14) |
 | — | D99–D101 | Every item from PokéAPI, battle items completed from Showdown with their current-game availability (pipeline step 5); `/items` pages for every item, about 3,400 more prerendered pages (section 7) |
 | — | D95 | `PasteService` in `core/` reads PokéPaste's `/json` view and exports through its public form; parsing stays in `domain/` (section 3) |
+| — | D102–D105 | CIRCUS: `halls/tournaments/` and a prerendered `/tournaments` route; a hand-made tournaments file in `pipeline/manual/`, validated and written to `tournaments.json`; YouTube's player in privacy-enhanced mode, created only when the user presses play, and allowed by the Content Security Policy; the herald's notices live in `shell/` and read the same file (sections 3, 5, 7, 12) |
 
 ## Sources
 

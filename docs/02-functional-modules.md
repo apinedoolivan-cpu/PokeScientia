@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.19 — approved 2026-11-21** · Owner: @Alex
+**Version 1.20 — approved 2026-11-24** · Owner: @Alex
 
 ## Document status
 
-Version 1.19, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.20, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -35,11 +35,13 @@ Each module is presented as a hall of the Roman academy; the Latin hall names an
 | M7 | Quiz · AENIGMA | `QUZ` | 7 | M1, M2 |
 | M8 | AI assistant | `AIA` | 7 | M2, M3, M4 |
 | M9 | Forum · FORUM | `FOR` | 6 | M6 (attachments from M2–M5) |
+| M10 | Tournaments · CIRCUS | `CIR` | 3 | M0, M1, M3 |
 
 ```
 M1 Data pipeline ──► M2 Pokédex ──► M3 Teams ──► M4 Calculator & metagame
         │                 │                │                       │
-        │                 │                └──► M6 Accounts        └──► M5 Battle stage
+        │                 │                ├──► M10 Tournaments    └──► M5 Battle stage
+        │                 │                └──► M6 Accounts
         │                 │                      │
         │                 │                      └──► M9 Forum ◄── attachments from M2–M5
         │                 └──► M7 Quiz
@@ -127,7 +129,7 @@ Hosts every hall. Global search links into M2.
 
 ### Out of scope
 
-User accounts in the header (M6), notifications, and a site-wide settings page beyond language and theme.
+User accounts in the header (M6), notifications (except the herald's event notices, CIR-F07), and a site-wide settings page beyond language and theme.
 
 ---
 
@@ -154,6 +156,7 @@ User accounts in the header (M6), notifications, and a site-wide settings page b
 | DAT-F13 | **Type combination tiers** (D71): the owner's hand-made ranking of all 171 type combinations (18 single types, 153 pairs) in six tiers, S, A, B, C, D and F, kept in `pipeline/manual/type-tiers.csv`. | 0 |
 | DAT-F14 | **Smogon tiers** (D81, D83): for every Pokémon and form, read from Showdown's data: the Champions singles tier, the National Dex tier, and the Doubles tier from the most recent generation in which it was legal, with that generation. Nothing is maintained by hand; values change only when the `@pkmn` packages are updated. | 0 |
 | DAT-F15 | **VGC usage history** (D83): for every Pokémon and form, its best usage rank in any VGC format in Smogon's statistics archive, with the format and month, condensed by the pipeline into one small file. | 3 |
+| DAT-F16 | **Official tournaments** (D104): the hand-curated tournaments file for the CIRCUS (events, video IDs, the two players and their open team lists for each replay, the season's top players, a source link for every fact), validated like the other manual files: every Pokémon, ability, item and move resolves to our IDs, and a replay without both team lists stops the build. | 3 |
 
 ### Rules
 
@@ -564,6 +567,55 @@ Needs accounts (M6). Attachments open in LEGIO, BIBLIOTHECA, ABACUS and the COLO
 ### Out of scope (for now)
 
 Private messages, image uploads, custom avatars, real-time chat, email notifications, visible ranks or badges (D97, parked as P4).
+
+---
+
+## M10 — Tournaments · CIRCUS (`CIR`) · Phase 3
+
+**Purpose.** Watch official VGC competition (R22, D102): the current big tournament, past ones, and the season's best players, with the teams in play beside every replay. It is a place to watch, not a results database: full standings and brackets are linked, not copied. Medium detail; specified fully before Phase 3 starts, with the rest of the phase. Presenter: Rillaboom, the herald (D105).
+
+### Features
+
+| ID | Feature | Phase |
+| --- | --- | --- |
+| CIR-F01 | **The player** (D103). The centre of the page: Pokémon's official YouTube broadcast of the current or latest big event, live while it runs, otherwise its recorded matches. YouTube's embedded player in privacy-enhanced mode, loaded only when I press play (D104). | 3 |
+| CIR-F02 | **The event panel.** Beside the player: the event's name, dates, place, game, regulation and division, the winner when known, and links to the official results and to community sources for the full standings. | 3 |
+| CIR-F03 | **Past replays.** A row of recorded matches to choose from, mainly the top cut and finals of past Internationals and Worlds, grouped by season; choosing one loads it in the player and updates the panel. | 3 |
+| CIR-F04 | **Both teams beside the replay** (D103). The two players' open team lists, shown beside the video and never over it: species, ability, item and moves, plus Tera Type in Scarlet and Violet events. Each Pokémon links to its Pokédex entry. Source linked. | 3 |
+| CIR-F05 | **Open in LEGIO.** Each team opens in LEGIO with one click as a new, unsaved team: Free format with warnings for teams from earlier games (D27, D32); spreads, missing from the lists, get defaults marked as such. Nothing is saved until I save it. | 3 |
+| CIR-F06 | **The season's top players.** A short list, about the top ten of the Masters Championship Points standings: name, country and points, with the date of the standings and a link to the official standings. | 3 |
+| CIR-F07 | **The herald's notices** (D105). Rillaboom announces the big events, from the dates in the data: before and during an event, the CIRCUS door at the ATRIUM shows the event and when it airs; while it is live, a small notice that can be dismissed appears in every hall and leads to the CIRCUS. | 3 |
+
+### Rules (D102–D104)
+
+- **VGC only, Masters only,** and only the big events of the official circuit: the International Championships and the World Championships. Other tournaments wait for Q95, under the same coverage rule.
+- **Coverage rule:** an event is shown only when its data is complete and the teams of every replay shown are public (open team lists). In practice the archive starts at the 2023 season at most.
+- **Embed only:** videos come from Pokémon's official channel and are never downloaded, re-uploaded or restreamed. Nothing is drawn over the player. If a video is removed or can't be embedded, the panel offers a link to watch it on YouTube.
+- **Facts with sources:** every event, team and ranking shows where it comes from; nothing is copied from articles or reports.
+- **Players:** adults of the Masters division only; name, country, results and teams as the official results publish them; no profiles, photos or personal details. A player who asks to be removed is removed.
+- **No live detection:** "live" means the event's broadcast times in the data. The CIRCUS never reads any API.
+
+### Data
+
+Reads the tournaments file (DAT-F16). Stores nothing, apart from a dismissed herald notice in the browser.
+
+### Connections
+
+Teams open in LEGIO (M3) through the same import as Showdown text. Each Pokémon in a team list links to the BIBLIOTHECA (M2). The herald's notices appear in the shell (M0), on the CIRCUS door at the ATRIUM and in every hall. From Phase 7 Rillaboom is also the assistant's voice here (M8, D82).
+
+### Acceptance criteria (outline)
+
+- **CIR-F01** *Given* I open the CIRCUS, *then* no request goes to YouTube until I press play, and the video then plays in the embedded player.
+- **CIR-F04** *Given* a replay, *then* both players' teams are shown beside the video, and no element covers the player.
+- **CIR-F05** *Given* a team from a Scarlet and Violet event, *when* I open it in LEGIO, *then* it opens unsaved in the Free format, with warnings for anything not available in the current game and its spreads marked as defaults.
+- **DAT-F16** *Given* a replay in the tournaments file with only one team list, *then* the pipeline stops and names the replay.
+- **CIR-F07** *Given* an event's broadcast times include now, *when* I open any hall, *then* I see the herald's notice, and once dismissed it stays dismissed for that event.
+
+**Testing approach:** pipeline validation tests on the tournaments file; end-to-end tests of loading on click, opening a team in LEGIO and the herald's notice.
+
+### Out of scope
+
+Standings tables, brackets and player pages (linked instead), Twitch, live game data such as each game's four picks or HP (none is published, D103), statistics from tournaments (the ATHENAEUM covers usage), hosting events.
 
 ---
 
