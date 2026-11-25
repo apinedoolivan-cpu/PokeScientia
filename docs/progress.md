@@ -6,6 +6,21 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-25 · The PANTHEON (D108, D109)
+
+- **Done:**
+  - Reviewed the remaining Roman ideas. Set aside: TABULARIUM, ANNALES, FASTI, THERMAE, TRIUMPHUS, TABULAE, ACTA DIURNA, NUMISMATA and ITINERARIA (the last two are not covered by the Pokédex: locations and every game's sprites remain out of scope). Still to explore: the LARARIUM (a private page for settings and data) and the HORTUS (berries).
+  - Decided D108: the PANTHEON, a room of the BIBLIOTHECA for Legendary, Mythical, Ultra Beast and Paradox Pokémon (route `/legendaries`, Mew presents it). The Roman Pantheon took in other peoples' gods, so no Roman legendary is needed.
+  - Decided D109: one label per Pokémon from Showdown's tags: Legendary (Sub-legendary or Restricted), Mythical (separate from Legendary), Ultra Beast, Paradox; each group's legality from the regulation data. Myths are not included for now.
+  - Features ARC-F15, ARC-F16, DAT-F19, U25; new milestone M1.12, Phase 1 closes with M1.13.
+  - Docs updated: vision v1.33, modules v1.22, data strategy v1.9, architecture v1.15, design v1.19, roadmap v1.21, CLAUDE.md.
+- **Next:** explore the LARARIUM and the HORTUS; M0.1 when the owner is ready.
+- **Notes:**
+  - To check in M1.12: the official Spanish term for Restricted, and whether the Champions data carries every category tag.
+  - The two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-24 · The ATHENAEUM teaches (D106, D107)
 
 - **Done:**

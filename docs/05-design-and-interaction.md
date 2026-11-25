@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.18 — approved 2026-11-24** · Owner: @Alex
+**Version 1.19 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.18, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.19, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -53,7 +53,7 @@ Greek learning appears as **content, not as a second style**. Rome preserved and
 | Menu (es) | Menu (en) | Inscription | Purpose | Wing | Module | Phase | Route (D17) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Inicio | Home | **ATRIUM** | Entrance, the doors to every hall | — | M0 | 0 | `/` |
-| Pokédex | Pokédex | **BIBLIOTHECA** | The *Historia Naturalis*: every species, move and ability; its ARMAMENTARIUM holds every item (D99) | Knowledge | M2 | 1 | `/pokedex`… |
+| Pokédex | Pokédex | **BIBLIOTHECA** | The *Historia Naturalis*: every species, move and ability; its ARMAMENTARIUM holds every item (D99) and its PANTHEON the legendary and similar Pokémon (D108) | Knowledge | M2 | 1 | `/pokedex`… |
 | Equipos | Teams | **LEGIO** | Build a team of six and study its strengths and weaknesses | Strategy | M3 | 2 | `/teams` |
 | Calculadora | Calculator | **ABACUS** | Damage, rolls and KO probabilities | Strategy | M4 | 3 | `/calculator` |
 | Estrategia | Strategy | **ATHENAEUM** | How competitive play works and what is used: fundamentals, glossary, common sets, partners, trends | Strategy and knowledge | M4 | 3 | `/strategy` |
@@ -252,13 +252,14 @@ Ideas kept open: a **daily riddle** by Delphox (Q89), and a **hint mode** in eve
 - The **BIBLIOTHECA** keeps one work, the ***Historia Naturalis***, divided into **nine books (*libri*)**, one per region: LIBER I · KANTO … LIBER IX · PALDEA.
 - **Appendix books** hold moves, abilities, types and an A–Z index (D26 detail pages).
 - **Items** have a room of their own, the **ARMAMENTARIUM** (below).
+- **Legendary, Mythical, Ultra Beast and Paradox Pokémon** have the **PANTHEON** (below).
 - **Scrolls** appear only as ornament (shelf details, chapter title pages), never as the reading format.
 
 ### Views
 
 | View | What it shows | Feature |
 | --- | --- | --- |
-| **Shelf** | The *Historia Naturalis* on its shelf: nine books plus appendices, and the ARMAMENTARIUM's door beside the bookcase; choosing a book offers "Abrir el libro" or "Ver lista" | ARC-F01 entry point |
+| **Shelf** | The *Historia Naturalis* on its shelf: nine books plus appendices, and the doors of the ARMAMENTARIUM and the PANTHEON beside the bookcase; choosing a book offers "Abrir el libro" or "Ver lista" | ARC-F01 entry point |
 | **Codex** | One Pokémon per two-page spread (below) | ARC-F03, ARC-F04 |
 | **List** | The fast grid with filters and sorting, across all books | ARC-F01, ARC-F02 |
 
@@ -298,6 +299,14 @@ One page at a time: two tabs, "I · Identidad" and "II · Ciencia", with swipe b
 - **The item page** is a catalogue card, not a codex spread: icon, names, category and description for every item; battle items add the current-game mark and their links (Mega form, the Pokémon it works for).
 - The cabinets and the item card are designed in M1.7 (section 14).
 
+### The PANTHEON (D108, D109)
+
+- **A room of the library, not a hall.** The inscription PANTHEON is carved over its door, with "Legendarios y singulares" / "Legendaries and Mythicals" beside it. No menu entry, no door at the entrance; reached from the shelf, the global search, the category label on every entry and the glossary. The breadcrumb reads BIBLIOTHECA · PANTHEON. Mew presents it, a Mythical among its own kind.
+- **The temple to all the gods.** Rome took in gods from other peoples, so Pokémon of any mythology belong here. The room is a domed rotunda with **four groups of niches**: Legendary (its Sub-legendary and Restricted niches side by side), Mythical, Ultra Beast and Paradox. The last two carry the line "No son legendarios, aunque a menudo se confunden con ellos" / "Not legendaries, though often taken for them".
+- **Each group** shows its short text, whether it is allowed in the current regulation (an allowed/not-allowed mark with words, never color alone), and its members as small portraits opening their entries. A List view with the category filter is always available.
+- **The category label** (`ps-category-badge`) sits in the entry header next to the types: "Legendario · Restringido", "Singular", "Ultraente", "Paradoja".
+- The rotunda and the badge are designed in M1.12 (section 14).
+
 ## 9. Layout and page templates (Proposal DP-6)
 
 - **Grid:** 12 columns, maximum content width 1440 px, outer margin 48 px on desktop and 16 px on phones.
@@ -324,6 +333,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | `ps-button`, `ps-toggle-group` | Actions; segmented choices (Libros/Lista, format, stat system) |
 | `ps-search` | Search field with results list (global and per hall) |
 | `ps-type-badge` | Type name with its color (never color alone) |
+| `ps-category-badge` | A Pokémon's category and sublabel as text ("Legendario · Restringido"), linking to its PANTHEON group (ARC-F16, D109) |
 | `ps-tier-badge` | Type tier letter (S to F) with an accessible label ("Rango de tipos: B"); its color supports the letter, never replaces it |
 | `ps-stat-bar` | Labelled stat with value and bar |
 | `ps-inscription` | Cinzel heading for halls, plinths and running heads |
@@ -381,6 +391,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
 | ARMAMENTARIUM design (D99) | M1.7 | Cabinets by category, the item card, how the door sits beside the bookcase |
+| PANTHEON design (D108) | M1.12 | The rotunda and its four groups of niches, the allowed mark, the category badge in the entry header |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
 | CIRCUS design | M3.9 | The player area, the team lists beside it, the replay row, Rillaboom's frame and the herald's notice; the racetrack imagery |
 | ATHENAEUM design | M3.4–M3.5 | The two sides, what is used and how it works; the fundamentals page with its written part and live part; roles on usage pages; the glossary page. The term tooltip (`ps-term`) is designed earlier, in M1.10 (D106, D107) |
@@ -438,7 +449,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D99 | The ARMAMENTARIUM: the BIBLIOTHECA's room for items, with cabinets by category; no menu entry and no presenter of its own (Mew presents it) (section 8). |
 | D100 | Every item is shown: battle items with the full page, the rest with encyclopedic data; the list opens on items available in the current game (section 8). Revises D31. |
 
-### Approved (2026-11-24)
+### Approved (2026-11-24, 2026-11-25)
 
 | ID | Decision |
 | --- | --- |
@@ -446,6 +457,8 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D105 | CIRCUS presenter: Rillaboom, the herald (*praeco*), with announcing the big events as its responsibility from Phase 3. Presenters are not meant to be Roman (section 7). |
 | D106 | The ATHENAEUM teaches as well as showing the metagame: menu Estrategia / Strategy, route `/strategy`, two sides (what is used, how it works); Noctowl as the patient teacher (sections 3, 7). Revises the label in D60. |
 | D107 | Teaching content: fundamentals pages written once with a live part from data, roles on usage pages, a glossary with the `ps-term` tooltip from Phase 1 (sections 9, 10, 14). |
+| D108 | The PANTHEON: the BIBLIOTHECA's room for Legendary, Mythical, Ultra Beast and Paradox Pokémon, a rotunda of niches; no menu entry and no presenter of its own (Mew presents it) (section 8). |
+| D109 | Category labels: Legendary (Sub-legendary or Restricted), Mythical, Ultra Beast, Paradox, shown with `ps-category-badge` (sections 8, 10). |
 
 ### Proposals awaiting approval
 

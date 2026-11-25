@@ -1,10 +1,10 @@
 # Pokescientia — Data Strategy
 
-**Version 1.8 — approved 2026-11-24** · Owner: @Alex
+**Version 1.9 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.8, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.9, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
@@ -305,12 +305,16 @@ The CIRCUS (M10) shows the big official VGC events. No source offers them as ope
 
 ## 16. Our own texts (Phases 1 and 3, D107)
 
-The glossary (DAT-F17) and the fundamentals texts (DAT-F18) are not data from a source: the owner writes them, in Spanish and English, as hand-maintained files in `pipeline/manual/`. They belong to the project, so no license or credit is needed beyond the site's own.
+The glossary (DAT-F17), the fundamentals texts (DAT-F18) and the PANTHEON's group texts (DAT-F19) are not data from a source: the owner writes them, in Spanish and English, as hand-maintained files in `pipeline/manual/`. They belong to the project, so no license or credit is needed beyond the site's own.
 
 - **No translation from sources** (D2 is about game data): both languages are written, and the pipeline rejects a term or text missing either.
 - **What they may say:** mechanics only. Anything that changes with the regulation (who is popular, what is legal) is read from the usage and regulation data at build time, never written into the text, so a new regulation needs no rewriting.
 - **Review:** when a new game changes a mechanic, the affected texts are revised as part of that game's data milestone (section 6).
 - **Format:** chosen when M1.10 is built (for example one file for the glossary, and one Markdown file per concept and language for the fundamentals); the pipeline validates them and writes JSON like the rest of the data.
+
+## 17. Pokémon categories (Phase 1, D108, D109)
+
+Each Pokémon's category comes from **Showdown's tags** (MIT, like the rest of its data): Restricted Legendary, Sub-Legendary, Mythical, Ultra Beast and Paradox. The games' own legendary and mythical flags (in PokéAPI) are not used for the label, because the PANTHEON shows the competitive distinction; where the two disagree, the hand-written notes explain it. Whether each group is allowed comes from the regulation data (DAT-F08), so the PANTHEON follows each new regulation with no rewriting. Whether the Champions data carries the tags for every Pokémon, or they must be read from the national data, is checked in M1.12.
 
 ## Sources
 

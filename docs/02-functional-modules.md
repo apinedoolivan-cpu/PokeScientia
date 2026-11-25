@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.21 — approved 2026-11-24** · Owner: @Alex
+**Version 1.22 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.21, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.22, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -160,6 +160,7 @@ User accounts in the header (M6), notifications (except the herald's event notic
 | DAT-F16 | **Official tournaments** (D104): the hand-curated tournaments file for the CIRCUS (events, video IDs, the two players and their open team lists for each replay, the season's top players, a source link for every fact), validated like the other manual files: every Pokémon, ability, item and move resolves to our IDs, and a replay without both team lists stops the build. | 3 |
 | DAT-F17 | **Glossary** (D107): competitive terms with a short definition in Spanish and English, hand-written in `pipeline/manual/`, each with a stable ID and, from Phase 3, the fundamentals page it links to. | 1 |
 | DAT-F18 | **Fundamentals texts** (D107): one written explanation per concept in both languages, hand-written in `pipeline/manual/`, with the doubles category (DAT-F11) its live part reads. Mechanics only: no usage or regulation-specific claims. | 3 |
+| DAT-F19 | **Pokémon categories** (D109): each Pokémon's category and sublabel from Showdown's tags, written into the Pokédex data; the PANTHEON's group texts in both languages and the notes where lore differs, hand-written in `pipeline/manual/`. | 1 |
 
 ### Rules
 
@@ -169,7 +170,7 @@ User accounts in the header (M6), notifications (except the herald's event notic
 - Each field comes from exactly one source (D36). Spanish gaps are filled from the overrides file or fall back to English, and the build reports them (D44).
 - Refreshing the data is a single, documented command run by hand (D18). Running it twice with the same sources gives the same files.
 - Hand-maintained lists (DAT-F07, DAT-F08, DAT-F11, DAT-F13) live in the repository as small, readable files.
-- Our own texts (DAT-F17, DAT-F18) are written by the owner in both languages; they are not game data, so X-02's fallback to English never applies to them: both languages are required.
+- Our own texts (DAT-F17, DAT-F18, and the PANTHEON's texts in DAT-F19) are written by the owner in both languages; they are not game data, so X-02's fallback to English never applies to them: both languages are required.
 - The type tier file must contain every combination exactly once, with valid types and tiers; otherwise the build stops. Order doesn't matter: Fire/Flying and Flying/Fire are the same combination.
 
 ### Acceptance criteria
@@ -201,7 +202,7 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ID | Feature | Phase |
 | --- | --- | --- |
 | ARC-F01 | **Pokémon list.** Each item shows image, number, name and types. The competitive view is the default (D12); "Show all" reveals every Pokémon. | 1 |
-| ARC-F02 | **List filters and sorting.** Filter by type (one or two), generation and name; sort by number, name, each base stat and stat total. The view, filters and sort are kept in the URL. | 1 |
+| ARC-F02 | **List filters and sorting.** Filter by type (one or two), generation, name and category (D109); sort by number, name, each base stat and stat total. The view, filters and sort are kept in the URL. | 1 |
 | ARC-F03 | **Pokémon entry.** Independent sections (R16): header, base stats, abilities, type effectiveness, evolution chain, learnable moves (D10). | 1 |
 | ARC-F04 | **Form selector.** Switches all sections to the selected form; each form has its own URL (e.g. `/pokedex/ninetales-alola`). | 1 |
 | ARC-F05 | **Previous and next** entry by National Pokédex number. | 1 |
@@ -214,6 +215,8 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F12 | **VGC in the competitive section** (ARC-F14, D13, D83): current usage rank and percentage, best VGC record (DAT-F15) and common sets (CMP-F02), each with source and period. | 3 |
 | ARC-F13 | **Type tier** (D71): every entry shows the tier of its type combination (S to F) next to its types, with a short note that it is the site's own assessment, mixing competitive and general play. Each form shows the tier of its own types. | 1 |
 | ARC-F14 | **Competitive section** (D83): a section of its own in every entry, in three parts, in this order: **VGC** (ARC-F12, from Phase 3), **Doubles** (Smogon Doubles tier with its generation) and **Singles** (Champions and National Dex tiers). Plain text, credited to Smogon; "—" when a value is missing; each form shows its own values. Until Phase 3 the section shows Doubles and Singles only. | 1 |
+| ARC-F15 | **The PANTHEON** (D108): the room's page with four groups (Legendary, Mythical, Ultra Beast, Paradox), Legendary split into Sub-legendary and Restricted; for each, its written text, its members and whether it is allowed in the current regulation. | 1 |
+| ARC-F16 | **Category label** (D109): a badge in the entry header for every Pokémon with a category ("Legendario · Restringido", "Singular"…), linking to its PANTHEON group, with a short note where the lore differs from the label. | 1 |
 
 ### Entry sections (ARC-F03)
 
@@ -233,10 +236,11 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 - The competitive view contains fully evolved Pokémon plus the hand-maintained middle evolutions (D12, DAT-F07). The ARMAMENTARIUM's default view, likewise, contains the items available in the current game (D100).
 - Display names follow the active language; links always use English IDs (D17).
 - New sections can be added to the entry without changing existing ones (R16).
+- **Category labels come from the competitive data** (D109), never from the games' legendary flag; one label per Pokémon. Mythical is never shown as a kind of Legendary.
 
 ### Data
 
-Reads DAT-F01 to DAT-F07, DAT-F10, DAT-F13 and DAT-F14; from Phase 3, usage data (DAT-F12) and VGC usage history (DAT-F15). Writes nothing.
+Reads DAT-F01 to DAT-F08, DAT-F10, DAT-F13, DAT-F14 and DAT-F19; from Phase 3, usage data (DAT-F12) and VGC usage history (DAT-F15). Writes nothing.
 
 ### Connections
 
@@ -249,6 +253,8 @@ Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO
 - **ARC-F04** *Given* the Ninetales entry is open, *when* I select the Alolan form, *then* types, stats, abilities and moves change to Alolan Ninetales and the URL becomes `/pokedex/ninetales-alola`.
 - **ARC-F03** *Given* the Gengar entry, *then* the type effectiveness shows Ground as ×2 and Normal and Fighting as immune.
 - **ARC-F07** *Given* the Flamethrower page in Spanish, *then* it is titled "Lanzallamas" and lists Charizard among the Pokémon that learn it.
+- **ARC-F16** *Given* the entries of Zacian, Landorus, Mew, Nihilego and Flutter Mane, *then* they show "Legendary · Restricted", "Legendary · Sub-legendary", "Mythical", "Ultra Beast" and "Paradox", each linking to its PANTHEON group.
+- **ARC-F15** *Given* the current regulation bans Restricted Legendary and Mythical Pokémon, *when* I open the PANTHEON, *then* those groups are marked as not allowed and the others as allowed.
 - **ARC-F09** *Given* I open the ARMAMENTARIUM, *then* Choice Scarf appears and Choice Band doesn't; *when* I choose "Show all", *then* Choice Band appears, marked as not available in the current game. *Given* the Charizardite Y page, *then* it links to Mega Charizard Y. *Given* the Bicycle's page, *then* it shows its description and category in both languages, or the English text marked.
 - **ARC-F10** *Given* I pick Water and Ground as defending types, *then* Grass shows ×4 and Electric shows ×0.
 - **ARC-F13** *Given* the Gengar entry (Ghost/Poison), *then* its header shows tier B with the note that it is the site's own assessment. *Given* Alolan Ninetales (Ice/Fairy), *then* it shows tier D, while standard Ninetales (Fire) shows tier B.

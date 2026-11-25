@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.14 — approved 2026-11-24** · Owner: @Alex
+**Version 1.15 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.14, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.15, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -52,7 +52,7 @@ PokeScientia/
 ├── .nvmrc                        Node version (D54)
 ├── docs/                         planning documents
 ├── pipeline/                     data pipeline (D45), its own package.json
-│   ├── manual/                   hand-maintained files (D33, D35, D37, D44, D104, DAT-F11, DAT-F13, DAT-F17, DAT-F18)
+│   ├── manual/                   hand-maintained files (D33, D35, D37, D44, D104, DAT-F11, DAT-F13, DAT-F17, DAT-F18, DAT-F19)
 │   ├── src/                      pipeline code (TypeScript)
 │   └── test/                     validation tests
 ├── frontend/                     Angular application, its own package.json
@@ -79,7 +79,7 @@ frontend/src/app/
 ├── shell/         layout, header, navigation, global search, presenter area
 └── halls/
     ├── atrium/       ATRIUM: home and hall doors (SHL-F01)
-    ├── pokedex/      BIBLIOTHECA: shelf, codex, list, moves, abilities, items (the ARMAMENTARIUM, D99), types (M2)
+    ├── pokedex/      BIBLIOTHECA: shelf, codex, list, moves, abilities, items (the ARMAMENTARIUM, D99), the PANTHEON (D108), types (M2)
     ├── teams/        LEGIO: team library, editor, analysis, converter (M3)
     ├── calculator/   ABACUS: damage calculator (M4, Phase 3)
     ├── strategy/     ATHENAEUM: usage data and trends, fundamentals, glossary (M4, Phase 3; D106)
@@ -214,6 +214,7 @@ Path words are English and identical in both languages (D17). Hall names and Lat
 | `/moves`, `/moves/:id` | Moves | Prerendered, every ID |
 | `/abilities`, `/abilities/:id` | Abilities | Prerendered, every ID |
 | `/items`, `/items/:id` | ARMAMENTARIUM: every item, a room of the BIBLIOTHECA (D99, D100) | Prerendered, every ID |
+| `/legendaries` | PANTHEON: Legendary, Mythical, Ultra Beast and Paradox Pokémon, a room of the BIBLIOTHECA (D108, D109) | Prerendered |
 | `/types` | Type chart | Prerendered |
 | `/teams`, `/teams/:teamId` | LEGIO: team library and editor (Phase 2) | Shell prerendered; content in the browser (teams live in IndexedDB) |
 | `/calculator` | ABACUS: calculator (Phase 3) | Prerendered shell |
@@ -491,6 +492,7 @@ Approved in review on 2026-11-04.
 | — | D95 | `PasteService` in `core/` reads PokéPaste's `/json` view and exports through its public form; parsing stays in `domain/` (section 3) |
 | — | D102–D105 | CIRCUS: `halls/tournaments/` and a prerendered `/tournaments` route; a hand-made tournaments file in `pipeline/manual/`, validated and written to `tournaments.json`; YouTube's player in privacy-enhanced mode, created only when the user presses play, and allowed by the Content Security Policy; the herald's notices live in `shell/` and read the same file (sections 3, 5, 7, 12) |
 | — | D106, D107 | ATHENAEUM: `halls/strategy/` and prerendered `/strategy` routes (about 10 fundamentals pages per language at first); glossary and fundamentals texts in `pipeline/manual/`, validated for both languages and written to JSON; `ps-term` tooltip in `ui/` from Phase 1 |
+| — | D108, D109 | PANTHEON: in `halls/pokedex/`, a prerendered `/legendaries` route; each Pokémon's category from Showdown's tags written into the Pokédex data; group texts and notes in `pipeline/manual/` |
 
 ## Sources
 

@@ -60,6 +60,9 @@ when they choose. Small throwaway experiments outside the repository are welcome
 - Items (D99–D101): the ARMAMENTARIUM, a room of the BIBLIOTHECA (no menu entry, Mew presents it), shows every
   item from PokéAPI; battle items (those in Showdown's data) get the full page, with availability in the current game
   from the Champions mod. Opens on items available in the current game. LEGIO marks and warns about unavailable items.
+- PANTHEON (D108, D109, Phase 1): a room of the BIBLIOTHECA (route `/legendaries`, Mew presents it). Labels from
+  Showdown's tags, one per Pokémon: Legendary (Sub-legendary or Restricted), Mythical (never a kind of Legendary),
+  Ultra Beast, Paradox; each group's legality read from the regulation data.
 - Competitive section (D83): every entry shows Smogon data only, VGC first (current usage, best usage ever in any
   VGC format, common sets; Phase 3), then Smogon Doubles and singles tiers (Phase 1). No hand-made Pokémon ranking.
 - Persistence (D3, D4): local-first in the browser; accounts and sync later via the Go backend.
