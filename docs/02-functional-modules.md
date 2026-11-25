@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.22 — approved 2026-11-25** · Owner: @Alex
+**Version 1.23 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.22, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.23, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -161,6 +161,7 @@ User accounts in the header (M6), notifications (except the herald's event notic
 | DAT-F17 | **Glossary** (D107): competitive terms with a short definition in Spanish and English, hand-written in `pipeline/manual/`, each with a stable ID and, from Phase 3, the fundamentals page it links to. | 1 |
 | DAT-F18 | **Fundamentals texts** (D107): one written explanation per concept in both languages, hand-written in `pipeline/manual/`, with the doubles category (DAT-F11) its live part reads. Mechanics only: no usage or regulation-specific claims. | 3 |
 | DAT-F19 | **Pokémon categories** (D109): each Pokémon's category and sublabel from Showdown's tags, written into the Pokédex data; the PANTHEON's group texts in both languages and the notes where lore differs, hand-written in `pipeline/manual/`. | 1 |
+| DAT-F20 | **Berries** (D111): for every berry, PokéAPI's berry data (flavours, firmness, size, growth time, Natural Gift type and power), its chapter and its functions; chapters and functions start from PokéAPI's item categories and a short hand-maintained list in `pipeline/manual/` for the rest. | 1 |
 
 ### Rules
 
@@ -209,14 +210,15 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 | ARC-F06 | **Moves list** with filters (type, category, name, and a "spread moves" filter) and sorting. | 1 |
 | ARC-F07 | **Move detail page.** All move data and description, and the Pokémon that can learn it, marking those that learn it in the current game. | 1 |
 | ARC-F08 | **Abilities list and detail page.** Description and the Pokémon that have it (regular or hidden). | 1 |
-| ARC-F09 | **The ARMAMENTARIUM: items list and detail page** (D99, D100). The list opens on items available in the current game; "Show all" reveals every item, marking those not available in the current game; filters by category and name; view and filters are kept in the URL. A battle item's page shows its description, category, whether it is available in the current game, and the Mega form it unlocks or the Pokémon it works for, each linked. Any other item's page shows its description, category and icon. | 1 |
+| ARC-F09 | **The ARMAMENTARIUM: items list and detail page** (D99, D100). The list opens on items available in the current game; "Show all" reveals every item, marking those not available in the current game; filters by category and name; view and filters are kept in the URL. A battle item's page shows its description, category, whether it is available in the current game, and the Mega form it unlocks or the Pokémon it works for, each linked. Any other item's page shows its description, category and icon. Berries are in the HERBARIUM (ARC-F17), not among the ARMAMENTARIUM's chapters (D111). | 1 |
 | ARC-F10 | **Type chart page.** Full 18×18 chart; pick one or two defending types to see what hits them. | 1 |
 | ARC-F11 | **"Add to team" button** on a Pokémon entry (D28). | 2 |
 | ARC-F12 | **VGC in the competitive section** (ARC-F14, D13, D83): current usage rank and percentage, best VGC record (DAT-F15) and common sets (CMP-F02), each with source and period. | 3 |
 | ARC-F13 | **Type tier** (D71): every entry shows the tier of its type combination (S to F) next to its types, with a short note that it is the site's own assessment, mixing competitive and general play. Each form shows the tier of its own types. | 1 |
 | ARC-F14 | **Competitive section** (D83): a section of its own in every entry, in three parts, in this order: **VGC** (ARC-F12, from Phase 3), **Doubles** (Smogon Doubles tier with its generation) and **Singles** (Champions and National Dex tiers). Plain text, credited to Smogon; "—" when a value is missing; each form shows its own values. Until Phase 3 the section shows Doubles and Singles only. | 1 |
-| ARC-F15 | **The PANTHEON** (D108): the room's page with four groups (Legendary, Mythical, Ultra Beast, Paradox), Legendary split into Sub-legendary and Restricted; for each, its written text, its members and whether it is allowed in the current regulation. | 1 |
-| ARC-F16 | **Category label** (D109): a badge in the entry header for every Pokémon with a category ("Legendario · Restringido", "Singular"…), linking to its PANTHEON group, with a short note where the lore differs from the label. | 1 |
+| ARC-F15 | **The PANTHEON** (D108, D110): a book of four chapters (Legendary, Mythical, Ultra Beast, Paradox), Legendary split into Sub-legendary and Restricted; for each, its written text, its members and whether it is allowed in the current regulation. | 1 |
+| ARC-F16 | **Category label** (D109, D110): a bookmark on the entry of every Pokémon with a category ("Legendario · Restringido", "Singular"…), linking to its PANTHEON group, with a short note where the lore differs from the label. | 1 |
+| ARC-F17 | **The HERBARIUM** (D111): the book of berries, in chapters by battle use, opening on all berries; each berry page a two-page spread (names, flavours, firmness, size; battle effect, Natural Gift, Fling, availability in the current game), with bookmarks for its functions and, from Phase 3, "commonly used". | 1 |
 
 ### Entry sections (ARC-F03)
 
@@ -236,11 +238,12 @@ Live querying of external APIs from the browser (A4); data for spin-off games; a
 - The competitive view contains fully evolved Pokémon plus the hand-maintained middle evolutions (D12, DAT-F07). The ARMAMENTARIUM's default view, likewise, contains the items available in the current game (D100).
 - Display names follow the active language; links always use English IDs (D17).
 - New sections can be added to the entry without changing existing ones (R16).
+- **Every section of the BIBLIOTHECA is a book** (D110): opened the same way, with chapters, thumb index and the List view; labels are bookmarks.
 - **Category labels come from the competitive data** (D109), never from the games' legendary flag; one label per Pokémon. Mythical is never shown as a kind of Legendary.
 
 ### Data
 
-Reads DAT-F01 to DAT-F08, DAT-F10, DAT-F13, DAT-F14 and DAT-F19; from Phase 3, usage data (DAT-F12) and VGC usage history (DAT-F15). Writes nothing.
+Reads DAT-F01 to DAT-F08, DAT-F10, DAT-F13, DAT-F14, DAT-F19 and DAT-F20; from Phase 3, usage data (DAT-F12) and VGC usage history (DAT-F15). Writes nothing.
 
 ### Connections
 
@@ -253,6 +256,7 @@ Global search (M0) links here. ARC-F11 sends a Pokémon to the teams hall, LEGIO
 - **ARC-F04** *Given* the Ninetales entry is open, *when* I select the Alolan form, *then* types, stats, abilities and moves change to Alolan Ninetales and the URL becomes `/pokedex/ninetales-alola`.
 - **ARC-F03** *Given* the Gengar entry, *then* the type effectiveness shows Ground as ×2 and Normal and Fighting as immune.
 - **ARC-F07** *Given* the Flamethrower page in Spanish, *then* it is titled "Lanzallamas" and lists Charizard among the Pokémon that learn it.
+- **ARC-F17** *Given* I open the HERBARIUM, *then* every berry appears, including those not in the current game, each in one chapter; *given* a berry page, *then* its availability in the current game is shown as a fact and not as a bookmark.
 - **ARC-F16** *Given* the entries of Zacian, Landorus, Mew, Nihilego and Flutter Mane, *then* they show "Legendary · Restricted", "Legendary · Sub-legendary", "Mythical", "Ultra Beast" and "Paradox", each linking to its PANTHEON group.
 - **ARC-F15** *Given* the current regulation bans Restricted Legendary and Mythical Pokémon, *when* I open the PANTHEON, *then* those groups are marked as not allowed and the others as allowed.
 - **ARC-F09** *Given* I open the ARMAMENTARIUM, *then* Choice Scarf appears and Choice Band doesn't; *when* I choose "Show all", *then* Choice Band appears, marked as not available in the current game. *Given* the Charizardite Y page, *then* it links to Mega Charizard Y. *Given* the Bicycle's page, *then* it shows its description and category in both languages, or the English text marked.

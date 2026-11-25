@@ -1,10 +1,10 @@
 # Pokescientia — Data Strategy
 
-**Version 1.9 — approved 2026-11-25** · Owner: @Alex
+**Version 1.10 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.9, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
+Version 1.10, approved. Defines where every piece of data comes from, under which license, how it is kept current, and the risks. Research done on 2026-11-04; source versions checked that day are listed in [Sources](#sources).
 
 - Decisions (`D#`) and requirements (`R#`) live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md); feature IDs (`DAT-F05`…) in [`02-functional-modules.md`](02-functional-modules.md).
 - Proposals DS-1 to DS-9 were reviewed and approved on 2026-11-04 (some revised). Section 14 maps each one to its decision (`D35`–`D44`).
@@ -315,6 +315,10 @@ The glossary (DAT-F17), the fundamentals texts (DAT-F18) and the PANTHEON's grou
 ## 17. Pokémon categories (Phase 1, D108, D109)
 
 Each Pokémon's category comes from **Showdown's tags** (MIT, like the rest of its data): Restricted Legendary, Sub-Legendary, Mythical, Ultra Beast and Paradox. The games' own legendary and mythical flags (in PokéAPI) are not used for the label, because the PANTHEON shows the competitive distinction; where the two disagree, the hand-written notes explain it. Whether each group is allowed comes from the regulation data (DAT-F08), so the PANTHEON follows each new regulation with no rewriting. Whether the Champions data carries the tags for every Pokémon, or they must be read from the national data, is checked in M1.12.
+
+## 18. Berries (Phase 1, D111)
+
+PokéAPI (CC BY-SA 4.0 for its data, like the rest) has a berry resource beside the item: flavours, firmness, size, growth time, smoothness and Natural Gift type and power. The pipeline joins it to the berry's item (DAT-F04) by ID. Chapters and functions start from PokéAPI's item categories for berries (such as type protection, in a pinch, picky healing, effort drop); where they don't match the battle use, a short hand-maintained list in `pipeline/manual/` decides. Battle effects and availability come from Showdown's data, as for every battle item (D101). The exact categories and their match to the draft chapters are checked in M1.13.
 
 ## Sources
 

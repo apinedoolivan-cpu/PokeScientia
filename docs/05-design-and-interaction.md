@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.19 — approved 2026-11-25** · Owner: @Alex
+**Version 1.20 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.19, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.20, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -53,7 +53,7 @@ Greek learning appears as **content, not as a second style**. Rome preserved and
 | Menu (es) | Menu (en) | Inscription | Purpose | Wing | Module | Phase | Route (D17) |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Inicio | Home | **ATRIUM** | Entrance, the doors to every hall | — | M0 | 0 | `/` |
-| Pokédex | Pokédex | **BIBLIOTHECA** | The *Historia Naturalis*: every species, move and ability; its ARMAMENTARIUM holds every item (D99) and its PANTHEON the legendary and similar Pokémon (D108) | Knowledge | M2 | 1 | `/pokedex`… |
+| Pokédex | Pokédex | **BIBLIOTHECA** | The *Historia Naturalis*: every species, move and ability; with the ARMAMENTARIUM (items), the HERBARIUM (berries) and the PANTHEON (legendary and similar Pokémon) as books on its shelves (D110) | Knowledge | M2 | 1 | `/pokedex`… |
 | Equipos | Teams | **LEGIO** | Build a team of six and study its strengths and weaknesses | Strategy | M3 | 2 | `/teams` |
 | Calculadora | Calculator | **ABACUS** | Damage, rolls and KO probabilities | Strategy | M4 | 3 | `/calculator` |
 | Estrategia | Strategy | **ATHENAEUM** | How competitive play works and what is used: fundamentals, glossary, common sets, partners, trends | Strategy and knowledge | M4 | 3 | `/strategy` |
@@ -251,15 +251,16 @@ Ideas kept open: a **daily riddle** by Delphox (Q89), and a **hint mode** in eve
 
 - The **BIBLIOTHECA** keeps one work, the ***Historia Naturalis***, divided into **nine books (*libri*)**, one per region: LIBER I · KANTO … LIBER IX · PALDEA.
 - **Appendix books** hold moves, abilities, types and an A–Z index (D26 detail pages).
-- **Items** have a room of their own, the **ARMAMENTARIUM** (below).
-- **Legendary, Mythical, Ultra Beast and Paradox Pokémon** have the **PANTHEON** (below).
+- **The other books** (D110): the **ARMAMENTARIUM** (items), the **HERBARIUM** (berries) and the **PANTHEON** (Legendary, Mythical, Ultra Beast and Paradox Pokémon), below.
+- **One bookcase, three shelves** (D110): the *Historia Naturalis* on the top shelf, the appendices below it, the other books on the third. Every section is a book, opened the same way: codex, chapters, thumb index, page turns, and the List view always available. There are no rooms or doors in the library.
+- **Bookmarks** are the labels, in every book: ribbons on the page edge with a short word ("Restringido", "Resistencia"…), never color alone. Which bookmarks each book carries is settled when it is built.
 - **Scrolls** appear only as ornament (shelf details, chapter title pages), never as the reading format.
 
 ### Views
 
 | View | What it shows | Feature |
 | --- | --- | --- |
-| **Shelf** | The *Historia Naturalis* on its shelf: nine books plus appendices, and the doors of the ARMAMENTARIUM and the PANTHEON beside the bookcase; choosing a book offers "Abrir el libro" or "Ver lista" | ARC-F01 entry point |
+| **Shelf** | The bookcase (D110): the *Historia Naturalis*'s nine books, the appendices, and the ARMAMENTARIUM, HERBARIUM and PANTHEON; choosing a book offers "Abrir el libro" or "Ver lista" | ARC-F01 entry point |
 | **Codex** | One Pokémon per two-page spread (below) | ARC-F03, ARC-F04 |
 | **List** | The fast grid with filters and sorting, across all books | ARC-F01, ARC-F02 |
 
@@ -291,21 +292,31 @@ New sections (R16) are added as **extra pages** after the spread, reached by rib
 
 One page at a time: two tabs, "I · Identidad" and "II · Ciencia", with swipe between Pokémon.
 
-### The ARMAMENTARIUM (D99, D100)
+### The ARMAMENTARIUM (D99, D100, D110)
 
-- **A room of the library, not a hall.** The inscription ARMAMENTARIUM (the Roman armoury) is carved over its door, with the plain word "Objetos" / "Items" beside it. It has no menu entry and no door at the entrance; it is reached from the shelf, the global search and any link to an item. The breadcrumb reads BIBLIOTHECA · ARMAMENTARIUM. Mew presents it, in its usual voice.
-- **Cabinets by category.** Roman libraries kept their books in cabinets (*armaria*); here items stand in cabinets, one per category (Poké Balls, medicine, berries, held items, Mega Stones, evolution items and so on). Choosing a cabinet opens the list filtered to it.
-- **The list** opens on items available in the current game, with "Ver todos" for every item (ARC-F09). A List view across all cabinets is always available, as in the Pokédex.
-- **The item page** is a catalogue card, not a codex spread: icon, names, category and description for every item; battle items add the current-game mark and their links (Mega form, the Pokémon it works for).
-- The cabinets and the item card are designed in M1.7 (section 14).
+- **A book on the third shelf,** titled ARMAMENTARIUM (the Roman armoury) with "Objetos" / "Items" beside it. Roman libraries kept their books in cabinets (*armaria*), which the title recalls; the book itself opens like any other. Reached from the shelf, the global search and any link to an item. Mew presents it as part of the BIBLIOTHECA.
+- **Chapters by category** (Poké Balls, medicine, held items, Mega Stones, evolution items and so on), in the thumb index. Berries are not here: they have the HERBARIUM.
+- **The list** opens on items available in the current game, with "Ver todos" for every item (ARC-F09).
+- **Item pages are book pages.** Battle items get a two-page spread: icon, names, category and description on the left; the current-game mark and their links (Mega form, the Pokémon it works for) on the right. Other items get a single page.
+- Designed in M1.7 (section 14).
 
-### The PANTHEON (D108, D109)
+### The HERBARIUM (D111)
 
-- **A room of the library, not a hall.** The inscription PANTHEON is carved over its door, with "Legendarios y singulares" / "Legendaries and Mythicals" beside it. No menu entry, no door at the entrance; reached from the shelf, the global search, the category label on every entry and the glossary. The breadcrumb reads BIBLIOTHECA · PANTHEON. Mew presents it, a Mythical among its own kind.
-- **The temple to all the gods.** Rome took in gods from other peoples, so Pokémon of any mythology belong here. The room is a domed rotunda with **four groups of niches**: Legendary (its Sub-legendary and Restricted niches side by side), Mythical, Ultra Beast and Paradox. The last two carry the line "No son legendarios, aunque a menudo se confunden con ellos" / "Not legendaries, though often taken for them".
-- **Each group** shows its short text, whether it is allowed in the current regulation (an allowed/not-allowed mark with words, never color alone), and its members as small portraits opening their entries. A List view with the category filter is always available.
-- **The category label** (`ps-category-badge`) sits in the entry header next to the types: "Legendario · Restringido", "Singular", "Ultraente", "Paradoja".
-- The rotunda and the badge are designed in M1.12 (section 14).
+- **The book of plants,** titled HERBARIUM with "Bayas" / "Berries" beside it, after the herbals of the Roman era (Pliny's books on plants, Dioscorides's herbal). On the third shelf, beside the ARMAMENTARIUM.
+- **Chapters by battle use** (a draft, settled when built): resistance (the berries that halve a super-effective hit), healing (HP), cures (status), pinch (a stat raised at low HP), retaliation (hurting or reacting to the attacker), and training and others.
+- **Each berry is a two-page spread:** names, flavours, firmness and size on the left; battle effect, Natural Gift type and power, Fling and availability in the current game on the right. Availability is a fact on the page, not a bookmark.
+- **Bookmarks:** the berry's functions (several where they apply) and, from Phase 3, "commonly used".
+- **Opens on all berries.** Botanical illustration fits the book: line drawings in the ornament color, original, never copied from the games.
+- Designed in M1.13 (section 14).
+
+### The PANTHEON (D108, D109, D110)
+
+- **A book on the third shelf,** titled PANTHEON, with "Legendarios y singulares" / "Legendaries and Mythicals" beside it. Reached from the shelf, the global search, the category bookmark on every entry and the glossary. Mew presents it, a Mythical among its own kind.
+- **The temple to all the gods.** Rome took in gods from other peoples, so Pokémon of any mythology belong here; the dome can appear as the book's frontispiece, as ornament only.
+- **Four chapters:** Legendary (with two parts, Sub-legendary and Restricted), Mythical, Ultra Beast and Paradox. The last two carry the line "No son legendarios, aunque a menudo se confunden con ellos" / "Not legendaries, though often taken for them".
+- **Each chapter** opens with its short text and whether it is allowed in the current regulation (an allowed/not-allowed mark with words, never color alone); its pages list the members as small portraits that open their *Historia Naturalis* entries.
+- **The category bookmark** (`ps-bookmark`) on every entry's codex page: "Legendario · Restringido", "Singular", "Ultraente", "Paradoja", linking to its chapter.
+- Designed in M1.12 (section 14).
 
 ## 9. Layout and page templates (Proposal DP-6)
 
@@ -319,7 +330,7 @@ One page at a time: two tabs, "I · Identidad" and "II · Ciencia", with swipe b
 | **Entrance** | ATRIUM | Title, row of hall doors (arch, presenter, plinth, label, description, phase) |
 | **Hall header** | Every hall | Presenter niche, Latin inscription, one or two lines of introduction, hall controls on the right |
 | **Shelf** | BIBLIOTHECA | Hall header, bookcase with books and appendices, selected-book panel |
-| **Book** | Pokédex entries, appendix pages | Two-page spread, thumb index, previous/next |
+| **Book** | Every BIBLIOTHECA book: Pokédex entries, appendix pages, the ARMAMENTARIUM, HERBARIUM and PANTHEON (D110) | Two-page spread, thumb index, bookmarks, previous/next |
 | **List** | Pokédex list, moves, abilities, items | Filters, sortable grid or table |
 | **Tool** | LEGIO, ABACUS, ATHENAEUM, CIRCUS | Hall header, main work area (8 columns), analysis panels (4 columns); stacked on phones. In the CIRCUS the player is the main area, with the event panel and the two teams at the side and the row of replays and the top players below |
 | **Stage** | COLOSSEUM | Full-width PixiJS stage with playback controls, the turn matrix and the turn history with its branches (Phase 4); laid out when Phase 4 is specified |
@@ -333,7 +344,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | `ps-button`, `ps-toggle-group` | Actions; segmented choices (Libros/Lista, format, stat system) |
 | `ps-search` | Search field with results list (global and per hall) |
 | `ps-type-badge` | Type name with its color (never color alone) |
-| `ps-category-badge` | A Pokémon's category and sublabel as text ("Legendario · Restringido"), linking to its PANTHEON group (ARC-F16, D109) |
+| `ps-bookmark` | A label as a ribbon on the page edge with a short word ("Legendario · Restringido", "Resistencia"), linking to its chapter; used by every BIBLIOTHECA book (D110) |
 | `ps-tier-badge` | Type tier letter (S to F) with an accessible label ("Rango de tipos: B"); its color supports the letter, never replaces it |
 | `ps-stat-bar` | Labelled stat with value and bar |
 | `ps-inscription` | Cinzel heading for halls, plinths and running heads |
@@ -390,8 +401,10 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Final palette (D63) | After the first real pages (Phase 0–1) | Travertino is provisional (D88) |
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
-| ARMAMENTARIUM design (D99) | M1.7 | Cabinets by category, the item card, how the door sits beside the bookcase |
-| PANTHEON design (D108) | M1.12 | The rotunda and its four groups of niches, the allowed mark, the category badge in the entry header |
+| Bookcase and bookmarks (D110) | M1.5 | The three shelves, how a book is taken and opened, the bookmark ribbon; reused by every book |
+| ARMAMENTARIUM design (D99) | M1.7 | Its chapters and the item page as a book page (spread or single page) |
+| PANTHEON design (D108) | M1.12 | Its four chapters, the allowed mark, the frontispiece, the category bookmark on the entry |
+| HERBARIUM design (D111) | M1.13 | Its chapters, the berry spread, the bookmarks, the botanical line drawings |
 | COLOSSEUM design | Phase 4 specification | Includes Three.js exploration (Q63) |
 | CIRCUS design | M3.9 | The player area, the team lists beside it, the replay row, Rillaboom's frame and the herald's notice; the racetrack imagery |
 | ATHENAEUM design | M3.4–M3.5 | The two sides, what is used and how it works; the fundamentals page with its written part and live part; roles on usage pages; the glossary page. The term tooltip (`ps-term`) is designed earlier, in M1.10 (D106, D107) |
@@ -446,7 +459,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 
 | ID | Decision |
 | --- | --- |
-| D99 | The ARMAMENTARIUM: the BIBLIOTHECA's room for items, with cabinets by category; no menu entry and no presenter of its own (Mew presents it) (section 8). |
+| D99 | The ARMAMENTARIUM: the BIBLIOTHECA's room for items, with cabinets by category; no menu entry and no presenter of its own (Mew presents it) (section 8). Revised by D110: a book, not a room. |
 | D100 | Every item is shown: battle items with the full page, the rest with encyclopedic data; the list opens on items available in the current game (section 8). Revises D31. |
 
 ### Approved (2026-11-24, 2026-11-25)
@@ -457,8 +470,10 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D105 | CIRCUS presenter: Rillaboom, the herald (*praeco*), with announcing the big events as its responsibility from Phase 3. Presenters are not meant to be Roman (section 7). |
 | D106 | The ATHENAEUM teaches as well as showing the metagame: menu Estrategia / Strategy, route `/strategy`, two sides (what is used, how it works); Noctowl as the patient teacher (sections 3, 7). Revises the label in D60. |
 | D107 | Teaching content: fundamentals pages written once with a live part from data, roles on usage pages, a glossary with the `ps-term` tooltip from Phase 1 (sections 9, 10, 14). |
-| D108 | The PANTHEON: the BIBLIOTHECA's room for Legendary, Mythical, Ultra Beast and Paradox Pokémon, a rotunda of niches; no menu entry and no presenter of its own (Mew presents it) (section 8). |
-| D109 | Category labels: Legendary (Sub-legendary or Restricted), Mythical, Ultra Beast, Paradox, shown with `ps-category-badge` (sections 8, 10). |
+| D108 | The PANTHEON: the BIBLIOTHECA's room for Legendary, Mythical, Ultra Beast and Paradox Pokémon, a rotunda of niches; no menu entry and no presenter of its own (Mew presents it) (section 8). Revised by D110: a book, not a room. |
+| D109 | Category labels: Legendary (Sub-legendary or Restricted), Mythical, Ultra Beast, Paradox, shown as bookmarks (sections 8, 10). |
+| D110 | The BIBLIOTHECA is one bookcase of three shelves and every section is a book, opened the same way; labels are bookmarks (`ps-bookmark`). Revises the cabinets of D99, the item card and the PANTHEON's rotunda (section 8). |
+| D111 | The HERBARIUM, the book of berries: chapters by battle use (draft), berry spreads, bookmarks for functions; opens on all berries (section 8). |
 
 ### Proposals awaiting approval
 

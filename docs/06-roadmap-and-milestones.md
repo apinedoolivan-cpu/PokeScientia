@@ -1,10 +1,10 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.21 — approved 2026-11-25** · Owner: @Alex
+**Version 1.22 — approved 2026-11-25** · Owner: @Alex
 
 ## Document status
 
-Version 1.21, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.22, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
@@ -44,7 +44,7 @@ A milestone is done when all of these hold:
 | Phase | Hall(s) | Goal | Milestones | Rough effort | Tag |
 | --- | --- | --- | --- | --- | --- |
 | 0 | ATRIUM | Foundations: project, CI, design system, shell, data pipeline | 10 | 60–90 h | `v0.1.0` |
-| 1 | BIBLIOTHECA | The Pokédex as the *Historia Naturalis* with the PANTHEON, plus the glossary and music | 13 | 85–136 h | `v0.2.0` |
+| 1 | BIBLIOTHECA | The Pokédex as the *Historia Naturalis* with the PANTHEON and the HERBARIUM, plus the glossary and music | 14 | 89–142 h | `v0.2.0` |
 | 2 | LEGIO | Team building and analysis; the active team | 10 | 65–100 h | `v0.3.0` |
 | 3 | ABACUS, ATHENAEUM, CIRCUS | Calculator with your own team, then metagame and fundamentals, then official competition | 11 | 95–151 h | `v0.4.0` |
 | 4 | COLOSSEUM | Turn-by-turn battle testing, animated stage, real match | outline | 120–200 h (the largest phase) | `v0.5.0` |
@@ -169,7 +169,8 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 - [ ] M1.10 — Glossary and term tooltips
 - [ ] M1.11 — Music
 - [ ] M1.12 — The PANTHEON
-- [ ] M1.13 — Close Phase 1
+- [ ] M1.13 — The HERBARIUM
+- [ ] M1.14 — Close Phase 1
 
 ### M1.1 — Pokédex list · ~6–10 h
 
@@ -198,7 +199,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M1.5 — The book · ~10–14 h
 
-- BIBLIOTHECA shelf with nine books and appendices; codex spread; thumb index; Libros/Lista switch; one page at a time on phones (D61, design §8).
+- BIBLIOTHECA bookcase with its three shelves (D110): the nine books, the appendices and the place of the other books; codex spread; thumb index; bookmarks; Libros/Lista switch; one page at a time on phones (D61, design §8). The book components are built once, for every book.
 - **Design review:** decide **DP-5** (page turn) with the real animation.
 
 **Done when:** the same entry is reachable as a book page and from the list with the same URL; page turns work with keyboard, swipe and reduced motion; DP-5 is recorded.
@@ -212,8 +213,8 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 ### M1.7 — Abilities and the ARMAMENTARIUM · ~8–12 h
 
 - Abilities list and detail pages (ARC-F08), linked from the shelf's appendices.
-- The ARMAMENTARIUM (D99, D100): its door on the shelf, cabinets by category, the items list opening on items available in the current game with "Show all", and the item page in its two levels of detail (ARC-F09).
-- **Design review:** the cabinets and the item card (design §8, §14).
+- The ARMAMENTARIUM (D99, D100, D110): the book on the third shelf, its chapters by category, the items list opening on items available in the current game with "Show all", and the item page as a book page in its two levels of detail (ARC-F09).
+- **Design review:** the chapters and the item page (design §8, §14).
 
 **Done when:** every ability and every item has a page in both languages; ARC-F09 acceptance criteria pass.
 
@@ -245,12 +246,20 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 ### M1.12 — The PANTHEON · ~5–8 h
 
 - Categories from Showdown's tags in the Pokédex data, with the group texts and lore notes in `pipeline/manual/` (DAT-F19); confirm the official Spanish term for Restricted.
-- The category badge in the entry header and the category filter in the list (ARC-F16, ARC-F02); the PANTHEON with its four groups and the allowed mark from the regulation data (ARC-F15). Glossary terms for the categories link to it (DAT-F17).
-- **Design review:** the rotunda and the badge (design §8, §14).
+- The category bookmark on the entry and the category filter in the list (ARC-F16, ARC-F02); the PANTHEON book with its four chapters and the allowed mark from the regulation data (ARC-F15). Glossary terms for the categories link to it (DAT-F17).
+- **Design review:** the chapters and the bookmark (design §8, §14).
 
 **Done when:** ARC-F15 and ARC-F16 acceptance criteria pass in both languages.
 
-### M1.13 — Close Phase 1 · ~4–6 h
+### M1.13 — The HERBARIUM · ~4–6 h
+
+- PokéAPI's berry data joined to the berry items, with chapters and functions from its categories and a short hand-maintained list (DAT-F20); settle the draft chapters.
+- The HERBARIUM book, opening on all berries; the berry spread; the function bookmarks (ARC-F17). The ARMAMENTARIUM's chapters no longer list berries.
+- **Design review:** the chapters, the spread and the botanical drawings (design §8, §14).
+
+**Done when:** ARC-F17 acceptance criterion passes in both languages.
+
+### M1.14 — Close Phase 1 · ~4–6 h
 
 - End-to-end tests for the Pokédex flows; performance check of a large list and an entry; data refresh if a new regulation is out (section 10); tag `v0.2.0`.
 
@@ -432,5 +441,6 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D93 | The `/commit-message` Claude Code skill is added in M0.1 and drafts every commit message from then on. |
 | D102–D105 | The CIRCUS closes Phase 3, after the ATHENAEUM (M3.8, M3.9; renumbered by D107). Rillaboom's event notices come with it, built by code, without the assistant. |
 | D106, D107 | The glossary and term tooltips come in Phase 1 (M1.10, before music); the fundamentals pages, roles and glossary page in Phase 3 (M3.5, right after the ATHENAEUM's usage pages, which their live part needs). Later milestones are renumbered: Phase 1 closes with M1.12 (M1.13 since D108), Phase 3 with M3.11. |
-| D108, D109 | The PANTHEON and the category labels are built in Phase 1 (M1.12, about 5–8 h), after the glossary so its category terms can link to the room; Phase 1 closes with M1.13. |
+| D108, D109 | The PANTHEON and the category labels are built in Phase 1 (M1.12, about 5–8 h), after the glossary so its category terms can link to it; Phase 1 closes with M1.13 (M1.14 since D111). |
+| D110, D111 | The bookcase and the book components are built once in M1.5 and reused by every book; the HERBARIUM is built in Phase 1 (M1.13, about 4–6 h); Phase 1 closes with M1.14. |
 | D98 | `npm audit` and Dependabot join CI in M0.2; the first public deployment adds a Content Security Policy; the Phase 5 specification settles the account security checklist (Q91). |

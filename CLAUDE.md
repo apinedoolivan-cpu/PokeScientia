@@ -57,10 +57,14 @@ when they choose. Small throwaway experiments outside the repository are welcome
   under it. Default view: fully evolved plus relevant middle evolutions. Entry sections are independent and
   extensible. Learnsets cover every game, marking current-game moves; teams choose a Free or Current
   regulation format (D32). Team rules only warn, never block (D27).
-- Items (D99–D101): the ARMAMENTARIUM, a room of the BIBLIOTHECA (no menu entry, Mew presents it), shows every
+- BIBLIOTHECA (D110): one bookcase of three shelves (*Historia Naturalis*, appendices, other books); every section is a
+  book opened the same way (codex, chapters, thumb index, List view); no rooms or doors; labels are bookmarks.
+- Items (D99–D101): the ARMAMENTARIUM, a book of the BIBLIOTHECA (no menu entry, Mew presents it), shows every
   item from PokéAPI; battle items (those in Showdown's data) get the full page, with availability in the current game
   from the Champions mod. Opens on items available in the current game. LEGIO marks and warns about unavailable items.
-- PANTHEON (D108, D109, Phase 1): a room of the BIBLIOTHECA (route `/legendaries`, Mew presents it). Labels from
+- HERBARIUM (D111, Phase 1): the book of berries (route `/berries`, pages at `/items/:id`), chapters by battle use
+  (draft), bookmarks for functions; opens on all berries. Berries are not in the ARMAMENTARIUM.
+- PANTHEON (D108, D109, Phase 1): a book of the BIBLIOTHECA (route `/legendaries`, Mew presents it). Labels from
   Showdown's tags, one per Pokémon: Legendary (Sub-legendary or Restricted), Mythical (never a kind of Legendary),
   Ultra Beast, Paradox; each group's legality read from the regulation data.
 - Competitive section (D83): every entry shows Smogon data only, VGC first (current usage, best usage ever in any

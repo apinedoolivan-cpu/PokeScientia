@@ -6,6 +6,20 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-25 · One bookcase, and the HERBARIUM (D110, D111)
+
+- **Done:**
+  - Decided D110: the BIBLIOTHECA is one bookcase with three shelves: the *Historia Naturalis*, the appendices, and the other books (ARMAMENTARIUM, HERBARIUM, PANTHEON). Every section is a book opened the same way; there are no rooms, doors, cabinets or rotunda; labels are bookmarks. Revises D99 and D108 and the item card. Details at the Phase 1 design reviews.
+  - Decided D111: the HERBARIUM, the book of berries (route `/berries`). Chapters by battle use as a draft, berry spreads, bookmarks for functions and, from Phase 3, "commonly used"; availability is shown but is not a bookmark; opens on all berries.
+  - Features ARC-F17, DAT-F20, U26; new milestone M1.13, Phase 1 closes with M1.14.
+  - Docs updated: vision v1.34, modules v1.23, data strategy v1.10, architecture v1.16, design v1.20, roadmap v1.22, CLAUDE.md.
+- **Next:** explore the LARARIUM; M0.1 when the owner is ready.
+- **Notes:**
+  - The owner may want bookmarks in every book, the *Historia Naturalis* included; decided when each book is built.
+  - The two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-25 · The PANTHEON (D108, D109)
 
 - **Done:**
