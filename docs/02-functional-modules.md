@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.25 — approved 2026-11-26** · Owner: @Alex
+**Version 1.26 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.25, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.26, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -56,10 +56,10 @@ These rules apply to every module and are not repeated in module sections.
 
 | ID | Capability | Rule |
 | --- | --- | --- |
-| X-01 | Languages | The whole interface exists in Spanish (default) and English (D1). Switching language keeps the current page by swapping the `/es/` or `/en/` prefix (D17). |
+| X-01 | Languages | The whole interface exists in Spanish (primary, R9) and English (D1). With no saved choice, the site opens in the browser's language if it is Spanish or English, otherwise in English (D114). Switching language keeps the current page by swapping the `/es/` or `/en/` prefix (D17). |
 | X-02 | Game data language | Names and descriptions appear in the active language (D2). If a Spanish text is missing, the English text is shown and marked. |
 | X-03 | Bilingual search | Any search box matches names in **both** languages, ignoring accents and capitals, so "Lanzallamas", "flamethrower" and "lanzallamas" find the same move. Results show the active-language name with the other name beside it, and open the same page (D30). |
-| X-04 | Themes | Light and dark themes (D19). The default follows the operating system; a manual choice is remembered. |
+| X-04 | Themes | Light and dark themes (D19). With no choice made, the theme follows the browser's or device's setting; a manual choice, or the time-of-day mode once turned on, is remembered and respected (D62). |
 | X-05 | Accessibility | WCAG 2.2 AA (D20): full keyboard use, visible focus, labels for screen readers, 4.5:1 text contrast. **No information is shown by color alone** (D78): types and tiers show their name or letter, HP and stat bars show their value, coverage shows ×4, ×2, ×½, ×¼ and ×0, KO chances show percentages. |
 | X-06 | Reduced motion | With `prefers-reduced-motion` on, large motion becomes fades or is skipped; nothing essential depends on animation (D20). |
 | X-07 | Responsive | Desktop-first, fully usable from 360 px width (A1). |
@@ -76,6 +76,7 @@ These rules apply to every module and are not repeated in module sections.
 **Acceptance criteria (cross-cutting)**
 
 - *Given* I am on `/es/pokedex/charizard`, *when* I switch to English, *then* I land on `/en/pokedex/charizard` with all interface text in English.
+- **X-04** *Given* no saved theme and a dark browser or device setting, *when* I open the site, *then* it opens in Noche and the switch shows Lunatone; *when* I choose Día, *then* Día stays after reload, whatever the device setting.
 - *Given* reduced motion is enabled in my OS, *when* I open any hall, *then* no element moves more than a fade or a short opacity change.
 - *Given* I use only the keyboard, *when* I navigate any page, *then* I can reach and operate every control, and focus is always visible.
 - **X-12** *Given* team A is active, *when* I go from LEGIO to ABACUS and reload the page, *then* team A is still active and its six Pokémon appear in the strip.
@@ -95,7 +96,7 @@ These rules apply to every module and are not repeated in module sections.
 | SHL-F01 | **Academy entrance (home).** The site's features presented as halls of the academy, each with its presenter, name and a one-line description. Search is visible from the entrance. | 0 |
 | SHL-F02 | **Hall navigation.** Always available; shows which hall I am in. | 0 |
 | SHL-F03 | **Global search.** One search box in the header, searching Pokémon (with forms), moves, abilities and items; results grouped by kind; opens the detail page. | 1 |
-| SHL-F04 | **Language switch** (X-01). The last choice is remembered and used when visiting the site root. | 0 |
+| SHL-F04 | **Language switch** (X-01). The last choice is remembered and used when visiting the site root; with no choice, the browser's language decides, else English (D114). | 0 |
 | SHL-F05 | **Theme switch** (X-04, D113). In the top right of the header, showing the current theme: Solrock (Día) or Lunatone (Noche) as pixel sprites, with a plain sun and moon when official images are off (X-15). One click switches between Día and Noche; the other theme modes are in Settings (SHL-F10). | 0 |
 | SHL-F06 | **About and credits.** Purpose, unofficial disclaimer, every data and asset source with its license, and the data version (DAT-F09). | 0 |
 | SHL-F07 | **Not-found page**, in the academy style, with a way back. | 0 |
@@ -125,7 +126,7 @@ Hosts every hall. Global search links into M2.
 
 - **SHL-F01** *Given* I open the site root, *when* the page loads, *then* I see the available halls, each with presenter, name and description, and I can enter each one.
 - **SHL-F03** *Given* the Pokédex exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
-- **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`.
+- **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`. *Given* no saved choice, *then* a browser set to Spanish opens `/es/`, one set to English opens `/en/`, one set to French opens `/en/`, and one set to French then Spanish opens `/es/`.
 - **SHL-F05** *Given* Día is active, *then* the switch shows Solrock and its label says "Cambiar a Noche"; *when* I press it, *then* Noche applies, Lunatone shows, and the choice is remembered. *Given* official images are off, *then* the switch shows the plain sun or moon and works the same way.
 - **SHL-F07** *Given* I open a URL that doesn't exist, *then* I see the not-found page in my language, with a link to the entrance.
 - **SHL-F10** *Given* I change the theme in Settings, *then* the header's theme switch shows the same choice and it is remembered. *Given* I choose "clear local data" and confirm, *then* every preference returns to its default and, from Phase 2, every team is removed; *if* I cancel, nothing changes.

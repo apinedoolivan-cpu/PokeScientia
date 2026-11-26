@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.17 — approved 2026-11-26** · Owner: @Alex
+**Version 1.18 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.17, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.18, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -195,7 +195,7 @@ From `pipeline/`: `npm run build-data`. Then review the report and the changes i
 - **Translation file:** English, in **XLIFF** (`frontend/src/locale/messages.en.xlf`), extracted with `ng extract-i18n`. Each marked text carries a meaning and description (`i18n="meaning|description@@id"`) to give context when translating.
 - **Builds:** one per language. Both languages live in subdirectories: Spanish under `/es/` and English under `/en/` (the `subPath` of each locale in `angular.json`).
 - **Language switch:** a link to the same path in the other language (swap `/es/` and `/en/`). The choice is saved in localStorage.
-- **Root page (`/`):** static hosting can't choose a language. A tiny static `index.html` at the root sends visitors to their saved language, otherwise their browser's language if it's Spanish or English, otherwise Spanish. It's written into the build output by a small post-build step, because Angular only writes files inside each language folder.
+- **Root page (`/`):** static hosting can't choose a language. A tiny static `index.html` at the root sends visitors to their saved language, otherwise the first of the browser's preferred languages (`navigator.languages`) that is Spanish or English, otherwise English (D114). It's written into the build output by a small post-build step, because Angular only writes files inside each language folder.
 - **Game data:** names come from the data files (D2); the interface picks `es` or `en` based on the active build.
 
 ## 7. Rendering and routing (D16, D47)
@@ -477,7 +477,7 @@ Approved in review on 2026-11-04.
 | A4 | D48 | Domain logic lives in `frontend/src/app/domain/` and never imports Angular |
 | A5 | D49 | UI built from our own components on Angular CDK; pages use only our components (closes Q2) |
 | A6 | D50 | Translation files in XLIFF, with meaning and description for each text |
-| A7 | D51 | A static root page redirects to the saved language, else the browser's, else Spanish |
+| A7 | D51 | A static root page redirects to the saved language, else the browser's, else Spanish (revised by D114: else English) |
 | A8 | D52 | Zoneless change detection with OnPush (Angular 22 defaults) |
 | A9 | D53 | Conventional Commits with feature IDs (revised by D92) |
 | — | D92 | Commit message rules live only in section 12; `.github/commit-instructions.md` and Copilot's commit setting removed |
@@ -498,6 +498,7 @@ Approved in review on 2026-11-04.
 | — | D108, D109 | PANTHEON: in `halls/pokedex/`, a prerendered `/legendaries` route; each Pokémon's category from Showdown's tags written into the Pokédex data; group texts and notes in `pipeline/manual/` |
 | — | D110, D111 | Every BIBLIOTHECA section is a book: one book component set (`ps-book`, `ps-book-page`, `ps-thumb-index`, `ps-bookmark`) for all of them; HERBARIUM: a prerendered `/berries` route, berry pages at `/items/:id`, PokéAPI's berry data joined to items in the pipeline |
 | — | D112 | Settings: `halls/settings/` and a `/settings` route; it reads and writes through `PreferencesService` and `TeamRepository`, never storage directly; the backup format gains the preferences |
+| — | D114 | The root page's fallback language is English; Spanish stays the source language of the build |
 
 ## Sources
 

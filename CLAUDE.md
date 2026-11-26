@@ -44,7 +44,9 @@ when they choose. Small throwaway experiments outside the repository are welcome
 - Layout (D9): monorepo. Angular in `frontend/`; Go API in `backend/` and OpenAPI contract in `api/` from Phase 5.
 - i18n (D1, D17): `@angular/localize`, one build per language under `/es/` and `/en/`; Spanish is the source
   language. Path words are identical in both languages; resources use stable English IDs
-  (`/es/pokedex/charizard`). Localized names are display-only.
+  (`/es/pokedex/charizard`). Localized names are display-only. Default language (D114): saved choice, else the
+  browser's first preferred language that is Spanish or English, else English. Theme (D62): browser setting until
+  the user chooses.
 - Data (D2, D18, D36–D44): built at build time into split static files, refreshed by hand. Showdown data
   (`@pkmn`) is master for mechanics; PokéAPI raw files for names, descriptions and encyclopedic data; one master
   per field. Public IDs are PokéAPI-style (`ninetales-alola`). Missing Spanish comes from an overrides file, else

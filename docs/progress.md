@@ -6,6 +6,17 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-26 · Default language (D114)
+
+- **Done:**
+  - Checked the defaults: the theme already follows the browser until the user chooses (D62); the language fell back to Spanish (D51).
+  - Decided D114: with no saved choice, the site opens in the browser's first preferred language that is Spanish or English, otherwise in English. Spanish stays the primary language (R9, D1). Acceptance criteria added for a first visit (SHL-F04, X-04).
+  - Docs updated: vision v1.37, modules v1.26, architecture v1.18, CLAUDE.md.
+- **Next:** M0.1 when the owner is ready.
+- **Notes:** the two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-26 · The theme switch (D113)
 
 - **Done:**
