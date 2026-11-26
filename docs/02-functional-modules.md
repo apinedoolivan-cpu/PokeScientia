@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.23 — approved 2026-11-25** · Owner: @Alex
+**Version 1.24 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.23, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.24, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -101,6 +101,8 @@ These rules apply to every module and are not repeated in module sections.
 | SHL-F07 | **Not-found page**, in the academy style, with a way back. | 0 |
 | SHL-F08 | **Presenter area** in each hall (X-10). | 0 |
 | SHL-F09 | **Music** (D80). A small control in the header: play or pause, volume, track name. Off by default and remembered (X-14); files load only when played. Only free-licensed tracks in a style that fits the academy or Pokémon, credited on About; optionally a different track per hall. | 1 |
+| SHL-F10 | **Settings** (D112): a plain page at `/settings`, from a gear icon in the header. Preferences: language, theme (with the time-of-day mode), music, reduced motion (follows the device unless turned on here), official images (X-15), and restoring dismissed presenter introductions. **Clear local data**, after a confirmation that says what will be removed. | 1 |
+| SHL-F11 | **Full backup** (D112): in Settings, export everything (teams and preferences) to one file and import it back, and see the storage used. LEGIO's backup (STR-F07) uses the same file. | 2 |
 
 ### Rules
 
@@ -108,10 +110,12 @@ These rules apply to every module and are not repeated in module sections.
 - Global search shows at most a handful of results per kind, with a link to the full filtered list.
 - The global search needs the Pokédex's data, so it arrives with Phase 1. In Phase 0 the search box is not shown.
 - No copyrighted music is ever used, published or committed, including Pokémon songs (D80).
+- **Utility pages stay plain** (D112): Settings, About and the not-found page use the academy's fonts and colors, with no Latin inscription, no presenter and no lore.
+- Settings is private: it shows only the visitor's own preferences and data (D97).
 
 ### Data
 
-Reads the search index (DAT-F10) and the list of halls. Stores language and theme preferences in the browser.
+Reads the search index (DAT-F10) and the list of halls. Stores the preferences in the browser; from Phase 2, Settings reads and writes the teams for the full backup (SHL-F11).
 
 ### Connections
 
@@ -123,6 +127,8 @@ Hosts every hall. Global search links into M2.
 - **SHL-F03** *Given* the Pokédex exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
 - **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`.
 - **SHL-F07** *Given* I open a URL that doesn't exist, *then* I see the not-found page in my language, with a link to the entrance.
+- **SHL-F10** *Given* I change the theme in Settings, *then* the header's theme switch shows the same choice and it is remembered. *Given* I choose "clear local data" and confirm, *then* every preference returns to its default and, from Phase 2, every team is removed; *if* I cancel, nothing changes.
+- **SHL-F11** *Given* two teams and a chosen language, *when* I export from Settings and import the file in another browser, *then* both teams and the language are restored.
 - **SHL-F09** *Given* a first visit, *then* no music plays. *When* I press play and reload the page, *then* the music control remembers my choice and volume, and plays only after I interact with the page (browsers block sound before that).
 - **X-15** *Given* the official-images setting is off, *when* I open any page, *then* every Pokémon image shows the original fallback and nothing breaks.
 
@@ -130,7 +136,7 @@ Hosts every hall. Global search links into M2.
 
 ### Out of scope
 
-User accounts in the header (M6), notifications (except the herald's event notices, CIR-F07), and a site-wide settings page beyond language and theme.
+User accounts in the header (M6, from Phase 5 their section lives in Settings), notifications (except the herald's event notices, CIR-F07), a public profile page (D97, D112).
 
 ---
 
@@ -287,7 +293,7 @@ Pokédex flavor text, locations and encounter data (for Pokémon and for items),
 | STR-F04 | **Rule warnings** (D27). In every format: moves the Pokémon can never learn, impossible abilities and invalid spreads. In the regulation format only: duplicate species, duplicate items, and Pokémon, moves or items not legal in the current regulation (D101). Warnings never block editing or saving. | 2 |
 | STR-F05 | **Import from Showdown text.** Paste the text and the team is created. Lines that can't be read are reported; the rest is imported. Lines left out get the defaults stated in the rules below, and the import says what it assumed. EV spreads imported into a Stat Point team are converted (STR-F19), with a warning when the conversion isn't exact. Available from the team library and from the active-team strip; an imported team becomes the active team. | 2 |
 | STR-F06 | **Export to Showdown text**, with one-click copy. Every member includes `Level: 50`, so the text imports correctly anywhere. Author and notes are not part of Showdown text and are left out. | 2 |
-| STR-F07 | **Backup:** export all teams to a file and import them back. | 2 |
+| STR-F07 | **Backup:** export all teams to a file and import them back. The same file as the full backup in Settings (SHL-F11, D112). | 2 |
 | STR-F08 | **Defensive analysis.** For each of the 18 attacking types: how many members are weak, resistant or immune; shared weaknesses are highlighted. Abilities that grant immunity (e.g. Levitate, Flash Fire) are counted. Shown for the whole team, with each member's values side by side (D72). | 2 |
 | STR-F09 | **Offensive coverage.** Which types the team's damaging moves hit super-effectively, and which types nothing hits super-effectively. Shown for the whole team, with each member's contribution (D72). | 2 |
 | STR-F10 | **Speed tiers.** Each member's final Speed, ordered, with views for +1, −1, Tailwind and Choice Scarf, and a Trick Room view (reversed order). | 2 |
@@ -486,6 +492,7 @@ Receives the active team from M3 (X-12) and damage calculations from M4. A turn 
 - **ACC-F03** Conflicts between devices are shown to the user, never silently overwritten.
 - **ACC-F04** Delete my account and all my data.
 - **ACC-F05** Share a team by link.
+- **ACC-F06** The **Account** section of Settings (D112): account details, sync status, sign out, and account deletion (ACC-F04). The header's gear becomes the account menu.
 
 ---
 

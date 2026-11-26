@@ -6,6 +6,20 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-26 · Settings (D112)
+
+- **Done:**
+  - Explored a themed LARARIUM for the user's own space and set it aside: a settings page has no idea behind it for the theme to carry, and a Latin name would make it harder to recognise.
+  - Decided D112: a plain Settings page at `/settings`, from a gear at the right of the header, private. It grows with the phases: preferences and clearing local data (Phase 1, M1.11), the full backup of teams and preferences (Phase 2, M2.3), the Account section (Phase 5), the persona switch if Q82 adopts it (Phase 7). Utility pages (Settings, About, not-found) stay plain. A username route was rejected: it doesn't exist before accounts and reads as a public profile.
+  - Features SHL-F10, SHL-F11, ACC-F06, U27; STR-F07 shares the backup file.
+  - Docs updated: vision v1.35, modules v1.24, architecture v1.17, design v1.21, roadmap v1.23, decision map, CLAUDE.md.
+- **Next:** M0.1 when the owner is ready.
+- **Notes:**
+  - Personal bookmarks in Settings were suggested and not chosen.
+  - The two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-25 · One bookcase, and the HERBARIUM (D110, D111)
 
 - **Done:**

@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.20 — approved 2026-11-25** · Owner: @Alex
+**Version 1.21 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.20, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.21, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -68,8 +68,9 @@ Strategy and information get more halls than spectacle, on purpose: battles are 
 
 ### Navigation pattern (Proposal DP-1)
 
-- **Desktop:** a top bar with the wordmark, the menu, the language switch and the theme switch, followed by the ornament band.
+- **Desktop:** a top bar with the wordmark, the menu, the language switch, the theme switch and, at the far right, a gear icon for **Settings** (D112), followed by the ornament band. From Phase 5 the gear becomes the account menu.
 - **Phone:** the menu collapses into a "Salas" button that opens a full-screen list of halls, each with its inscription and one-line description.
+- **Utility pages stay plain (D112):** Settings, About and the not-found page use the academy's fonts, colors and ornament band, but no Latin inscription, no presenter and no lore. Settings is a simple page of sections (Preferences, Your data, and later Account), with plain labels.
 - **Within a hall:** the hall header shows the presenter, the inscription and a short introduction. A breadcrumb in small capitals (BIBLIOTHECA · HISTORIA NATURALIS · LIBER I) shows depth.
 
 ## 4. Color
@@ -462,7 +463,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D99 | The ARMAMENTARIUM: the BIBLIOTHECA's room for items, with cabinets by category; no menu entry and no presenter of its own (Mew presents it) (section 8). Revised by D110: a book, not a room. |
 | D100 | Every item is shown: battle items with the full page, the rest with encyclopedic data; the list opens on items available in the current game (section 8). Revises D31. |
 
-### Approved (2026-11-24, 2026-11-25)
+### Approved (2026-11-24 to 2026-11-26)
 
 | ID | Decision |
 | --- | --- |
@@ -474,6 +475,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D109 | Category labels: Legendary (Sub-legendary or Restricted), Mythical, Ultra Beast, Paradox, shown as bookmarks (sections 8, 10). |
 | D110 | The BIBLIOTHECA is one bookcase of three shelves and every section is a book, opened the same way; labels are bookmarks (`ps-bookmark`). Revises the cabinets of D99, the item card and the PANTHEON's rotunda (section 8). |
 | D111 | The HERBARIUM, the book of berries: chapters by battle use (draft), berry spreads, bookmarks for functions; opens on all berries (section 8). |
+| D112 | Settings: a plain page at `/settings` from a gear icon at the right of the header; utility pages (Settings, About, not-found) stay plain, without inscription or presenter (section 3). |
 
 ### Proposals awaiting approval
 

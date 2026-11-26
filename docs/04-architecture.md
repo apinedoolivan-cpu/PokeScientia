@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.16 — approved 2026-11-25** · Owner: @Alex
+**Version 1.17 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.16, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.17, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -87,6 +87,7 @@ frontend/src/app/
     ├── colosseum/    COLOSSEUM: turn-by-turn battle testing and stage (M5, Phase 4)
     ├── forum/        FORUM: categories, threads, moderation (M9, Phase 6)
     ├── quiz/         AENIGMA (M7, later)
+    ├── settings/     Settings: preferences, data, later the account (D112)
     └── about/        About and credits, not-found page
 ```
 
@@ -224,6 +225,7 @@ Path words are English and identical in both languages (D17). Hall names and Lat
 | `/colosseum` | COLOSSEUM: turn-by-turn battle testing and stage (Phase 4) | Prerendered shell |
 | `/forum`, `/forum/:postId` | FORUM: categories and threads (Phase 6) | Shell prerendered; content loaded from the API in the browser |
 | `/quiz` | AENIGMA (later) | Prerendered shell |
+| `/settings` | Settings: preferences, data and, from Phase 5, the account (D112) | Prerendered shell; content from the browser's storage |
 | `/about` | About and credits | Prerendered |
 | `/404` | Not-found page | Prerendered; the host serves it for unknown URLs |
 
@@ -264,7 +266,7 @@ Parameterized routes list their IDs at build time with `getPrerenderParams`, rea
 - Database schema has a **version number**; each change adds a migration so saved teams survive updates.
 - Every team stores its format (STR-F17) and stat system (STR-F18), plus an optional author and notes (STR-F25).
 - Persistent storage is requested on first save (D43).
-- **Backup format** (STR-F07): a JSON file with a format version, the export date and the teams.
+- **Backup format** (STR-F07, SHL-F11): a JSON file with a format version, the export date, the teams and, from the full backup in Settings, the preferences. Importing a file without preferences restores the teams only.
 - Preferences (language, theme, dismissed presenters, **active team ID**) use localStorage through a `PreferencesService`, with safe defaults if storage is unavailable. If the stored active team no longer exists, no team is active.
 
 ## 11. Testing
@@ -495,6 +497,7 @@ Approved in review on 2026-11-04.
 | — | D106, D107 | ATHENAEUM: `halls/strategy/` and prerendered `/strategy` routes (about 10 fundamentals pages per language at first); glossary and fundamentals texts in `pipeline/manual/`, validated for both languages and written to JSON; `ps-term` tooltip in `ui/` from Phase 1 |
 | — | D108, D109 | PANTHEON: in `halls/pokedex/`, a prerendered `/legendaries` route; each Pokémon's category from Showdown's tags written into the Pokédex data; group texts and notes in `pipeline/manual/` |
 | — | D110, D111 | Every BIBLIOTHECA section is a book: one book component set (`ps-book`, `ps-book-page`, `ps-thumb-index`, `ps-bookmark`) for all of them; HERBARIUM: a prerendered `/berries` route, berry pages at `/items/:id`, PokéAPI's berry data joined to items in the pipeline |
+| — | D112 | Settings: `halls/settings/` and a `/settings` route; it reads and writes through `PreferencesService` and `TeamRepository`, never storage directly; the backup format gains the preferences |
 
 ## Sources
 

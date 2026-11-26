@@ -1,10 +1,10 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.22 — approved 2026-11-25** · Owner: @Alex
+**Version 1.23 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.22, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.23, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
@@ -167,7 +167,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 - [ ] M1.8 — Type chart
 - [ ] M1.9 — Global search
 - [ ] M1.10 — Glossary and term tooltips
-- [ ] M1.11 — Music
+- [ ] M1.11 — Music and Settings
 - [ ] M1.12 — The PANTHEON
 - [ ] M1.13 — The HERBARIUM
 - [ ] M1.14 — Close Phase 1
@@ -237,11 +237,12 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 **Done when:** DAT-F17 acceptance criterion passes; a marked term shows its definition by mouse, keyboard, touch and screen reader, in both languages.
 
-### M1.11 — Music · ~4–8 h
+### M1.11 — Music and Settings · ~7–12 h
 
 - Choose free-licensed tracks that fit the academy or Pokémon (D80) and record their licenses for About; `AudioService` and `ps-music-control` (SHL-F09).
+- The Settings page (SHL-F10, D112): the gear in the header, the Preferences section (music included) and clearing local data.
 
-**Done when:** SHL-F09 acceptance criterion passes; every track's source and license appear on About.
+**Done when:** SHL-F09 and SHL-F10 acceptance criteria pass; every track's source and license appear on About.
 
 ### M1.12 — The PANTHEON · ~5–8 h
 
@@ -295,9 +296,9 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M2.3 — Saving and the team library · ~8–10 h
 
-- `TeamRepository` on Dexie with schema version 1, autosave, persistent storage (D43, STR-F14); team library with undo on delete (STR-F01); backup export and import (STR-F07).
+- `TeamRepository` on Dexie with schema version 1, autosave, persistent storage (D43, STR-F14); team library with undo on delete (STR-F01); backup export and import (STR-F07), and the full backup in Settings with the storage used (SHL-F11, D112).
 
-**Done when:** STR-F01 and STR-F14 acceptance criteria pass.
+**Done when:** STR-F01, STR-F14 and SHL-F11 acceptance criteria pass.
 
 ### M2.4 — Team editor · ~10–14 h
 
@@ -374,7 +375,7 @@ The phase starts with the calculator and the owner's own team (R20, D69), which 
 
 The smarter rival (LAB-F14) waits for Phase 7.
 
-**Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, and hosting for the backend (Q7). The specification settles the account security checklist (Q91, D98).
+**Phase 5 — Accounts (`v0.6.0`).** Specify accounts and sync first (ACC features, Q6, Q34). Then the OpenAPI contract, the Go service, sign-in, sync of local teams, account deletion, the Account section of Settings (ACC-F06, D112), and hosting for the backend (Q7). The specification settles the account security checklist (Q91, D98).
 
 **Phase 6 — FORUM (`v0.7.0`).** Needs a public deployment. Specify it fully first (FOR features): build or adopt (Q84), the legal requirements and minimum age (Q86), and free CAPTCHA and filter tools (Q87). The presenter is Braviary (D89). Then:
 
@@ -443,4 +444,5 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D106, D107 | The glossary and term tooltips come in Phase 1 (M1.10, before music); the fundamentals pages, roles and glossary page in Phase 3 (M3.5, right after the ATHENAEUM's usage pages, which their live part needs). Later milestones are renumbered: Phase 1 closes with M1.12 (M1.13 since D108), Phase 3 with M3.11. |
 | D108, D109 | The PANTHEON and the category labels are built in Phase 1 (M1.12, about 5–8 h), after the glossary so its category terms can link to it; Phase 1 closes with M1.13 (M1.14 since D111). |
 | D110, D111 | The bookcase and the book components are built once in M1.5 and reused by every book; the HERBARIUM is built in Phase 1 (M1.13, about 4–6 h); Phase 1 closes with M1.14. |
+| D112 | Settings grows with the phases: Preferences and clearing data in M1.11, the full backup in M2.3, the Account section in Phase 5 (ACC-F06), the persona switch in Phase 7 if Q82 adopts it. |
 | D98 | `npm audit` and Dependabot join CI in M0.2; the first public deployment adds a Content Security Policy; the Phase 5 specification settles the account security checklist (Q91). |
