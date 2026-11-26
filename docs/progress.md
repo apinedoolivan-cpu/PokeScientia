@@ -6,6 +6,17 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-26 · The theme switch (D113)
+
+- **Done:**
+  - Decided D113: the theme switch in the header shows the current theme as a pixel sprite, Solrock in Día and Lunatone in Noche, with a label saying what the click does and a plain sun and moon when official images are off. Built in M0.6 (plain) and M0.7 (sprites).
+  - Parked P5: official artwork as decoration (such as TCG Pocket's Solgaleo and Lunala painting in the library), and Solgaleo and Lunala for the switch, which the owner prefers; any readable way to use them is preferred over Solrock and Lunatone.
+  - Docs updated: vision v1.36, modules v1.25, design v1.22, roadmap v1.24, decision map, CLAUDE.md.
+- **Next:** M0.1 when the owner is ready.
+- **Notes:** the two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-26 · Settings (D112)
 
 - **Done:**

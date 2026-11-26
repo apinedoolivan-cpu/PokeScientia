@@ -62,6 +62,8 @@ when they choose. Small throwaway experiments outside the repository are welcome
 - Items (D99–D101): the ARMAMENTARIUM, a book of the BIBLIOTHECA (no menu entry, Mew presents it), shows every
   item from PokéAPI; battle items (those in Showdown's data) get the full page, with availability in the current game
   from the Champions mod. Opens on items available in the current game. LEGIO marks and warns about unavailable items.
+- Theme switch (D113): Solrock (Día) or Lunatone (Noche) as pixel sprites for the current theme, through the image
+  service with a plain sun and moon fallback. Solgaleo and Lunala preferred if a readable way is found (P5).
 - Settings (D112): a plain page at `/settings` from a gear in the header, private; Preferences (Phase 1), full backup
   (Phase 2), Account (Phase 5). Utility pages (Settings, About, not-found) stay plain: no inscription, presenter or lore.
 - HERBARIUM (D111, Phase 1): the book of berries (route `/berries`, pages at `/items/:id`), chapters by battle use

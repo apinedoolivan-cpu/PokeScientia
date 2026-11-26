@@ -1,10 +1,10 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.23 — approved 2026-11-26** · Owner: @Alex
+**Version 1.24 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.23, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.24, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
@@ -114,7 +114,7 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M0.6 — Academy shell · ~8–12 h
 
-- Header with wordmark, plain-label menu, language switch and theme switch; dentil band; footer with disclaimer (SHL-F02, SHL-F04, SHL-F05, X-11).
+- Header with wordmark, plain-label menu, language switch and theme switch (with the plain sun and moon, D113); dentil band; footer with disclaimer (SHL-F02, SHL-F04, SHL-F05, X-11).
 - Root redirect page as a post-build step (D51).
 - About and credits (SHL-F06), not-found page (SHL-F07).
 - **Design review:** decide **DP-1** (navigation, including the phone menu).
@@ -125,10 +125,10 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 - Entrance with doors for every hall: open or closed with its phase (SHL-F01, design §3).
 - `ps-presenter`: arch, plinth, dismissible introduction (SHL-F08, X-10). First presenter text.
-- `ImageService` and `ps-pokemon-image` with the original fallback and the switch for all official images (X-15, D79).
+- `ImageService` and `ps-pokemon-image` with the original fallback and the switch for all official images (X-15, D79). The theme switch gets its Solrock and Lunatone sprites through it (SHL-F05, D113).
 - **Design review:** decide **DP-3** (presenter frame) and **DP-4** (artwork treatment).
 
-**Done when:** SHL-F01 and X-15 acceptance criteria pass; the introduction stays dismissed after reload; DP-3 and DP-4 are recorded.
+**Done when:** SHL-F01, SHL-F05 and X-15 acceptance criteria pass; the introduction stays dismissed after reload; DP-3 and DP-4 are recorded.
 
 ### M0.8 — Pipeline foundation · ~8–12 h
 
@@ -445,4 +445,5 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D108, D109 | The PANTHEON and the category labels are built in Phase 1 (M1.12, about 5–8 h), after the glossary so its category terms can link to it; Phase 1 closes with M1.13 (M1.14 since D111). |
 | D110, D111 | The bookcase and the book components are built once in M1.5 and reused by every book; the HERBARIUM is built in Phase 1 (M1.13, about 4–6 h); Phase 1 closes with M1.14. |
 | D112 | Settings grows with the phases: Preferences and clearing data in M1.11, the full backup in M2.3, the Account section in Phase 5 (ACC-F06), the persona switch in Phase 7 if Q82 adopts it. |
+| D113 | The theme switch is built in M0.6 with a plain sun and moon, and gets its Solrock and Lunatone sprites in M0.7, once the image service exists. |
 | D98 | `npm audit` and Dependabot join CI in M0.2; the first public deployment adds a Content Security Policy; the Phase 5 specification settles the account security checklist (Q91). |

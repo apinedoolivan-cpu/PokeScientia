@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.24 — approved 2026-11-26** · Owner: @Alex
+**Version 1.25 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.24, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.25, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -96,7 +96,7 @@ These rules apply to every module and are not repeated in module sections.
 | SHL-F02 | **Hall navigation.** Always available; shows which hall I am in. | 0 |
 | SHL-F03 | **Global search.** One search box in the header, searching Pokémon (with forms), moves, abilities and items; results grouped by kind; opens the detail page. | 1 |
 | SHL-F04 | **Language switch** (X-01). The last choice is remembered and used when visiting the site root. | 0 |
-| SHL-F05 | **Theme switch** (X-04). | 0 |
+| SHL-F05 | **Theme switch** (X-04, D113). In the top right of the header, showing the current theme: Solrock (Día) or Lunatone (Noche) as pixel sprites, with a plain sun and moon when official images are off (X-15). One click switches between Día and Noche; the other theme modes are in Settings (SHL-F10). | 0 |
 | SHL-F06 | **About and credits.** Purpose, unofficial disclaimer, every data and asset source with its license, and the data version (DAT-F09). | 0 |
 | SHL-F07 | **Not-found page**, in the academy style, with a way back. | 0 |
 | SHL-F08 | **Presenter area** in each hall (X-10). | 0 |
@@ -126,6 +126,7 @@ Hosts every hall. Global search links into M2.
 - **SHL-F01** *Given* I open the site root, *when* the page loads, *then* I see the available halls, each with presenter, name and description, and I can enter each one.
 - **SHL-F03** *Given* the Pokédex exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
 - **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`.
+- **SHL-F05** *Given* Día is active, *then* the switch shows Solrock and its label says "Cambiar a Noche"; *when* I press it, *then* Noche applies, Lunatone shows, and the choice is remembered. *Given* official images are off, *then* the switch shows the plain sun or moon and works the same way.
 - **SHL-F07** *Given* I open a URL that doesn't exist, *then* I see the not-found page in my language, with a link to the entrance.
 - **SHL-F10** *Given* I change the theme in Settings, *then* the header's theme switch shows the same choice and it is remembered. *Given* I choose "clear local data" and confirm, *then* every preference returns to its default and, from Phase 2, every team is removed; *if* I cancel, nothing changes.
 - **SHL-F11** *Given* two teams and a chosen language, *when* I export from Settings and import the file in another browser, *then* both teams and the language are restored.

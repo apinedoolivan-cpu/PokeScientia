@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.21 — approved 2026-11-26** · Owner: @Alex
+**Version 1.22 — approved 2026-11-26** · Owner: @Alex
 
 ## Document status
 
-Version 1.21, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.22, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -68,7 +68,7 @@ Strategy and information get more halls than spectacle, on purpose: battles are 
 
 ### Navigation pattern (Proposal DP-1)
 
-- **Desktop:** a top bar with the wordmark, the menu, the language switch, the theme switch and, at the far right, a gear icon for **Settings** (D112), followed by the ornament band. From Phase 5 the gear becomes the account menu.
+- **Desktop:** a top bar with the wordmark, the menu, the language switch, the theme switch (Solrock or Lunatone, D113) and, at the far right, a gear icon for **Settings** (D112), followed by the ornament band. From Phase 5 the gear becomes the account menu.
 - **Phone:** the menu collapses into a "Salas" button that opens a full-screen list of halls, each with its inscription and one-line description.
 - **Utility pages stay plain (D112):** Settings, About and the not-found page use the academy's fonts, colors and ornament band, but no Latin inscription, no presenter and no lore. Settings is a simple page of sections (Preferences, Your data, and later Account), with plain labels.
 - **Within a hall:** the hall header shows the presenter, the inscription and a short introduction. A breadcrumb in small capitals (BIBLIOTHECA · HISTORIA NATURALIS · LIBER I) shows depth.
@@ -352,6 +352,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | `ps-presenter` | Arch, artwork, plinth and dismissible introduction |
 | `ps-term` | A competitive term with its glossary definition on hover, focus or tap, a dotted underline in the text color, never color alone (X-16, D107) |
 | `ps-pokemon-image` | Every Pokémon image: official image or the original fallback (a silhouette or type emblem drawn in the academy's line style), chosen by the image service (X-15) |
+| `ps-theme-switch` | The Día/Noche switch in the header: Solrock or Lunatone as a pixel sprite for the current theme (whole-step scaling, pixelated rendering), a plain sun or moon when official images are off; spoken label and tooltip with the action and the Pokémon's name (SHL-F05, D113) |
 | `ps-music-control` | Play or pause, volume and track name in the header; off by default (SHL-F09) |
 | `ps-hall-door` | Entrance door (open or closed) |
 | `ps-book`, `ps-book-page`, `ps-thumb-index` | The codex and its navigation |
@@ -373,7 +374,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Page turn | See section 8 | 500–700 ms |
 | Stat bars | Fill from zero on first view | 400 ms, staggered |
 | Team analysis update | Changed values highlight briefly | 300 ms |
-| Theme switch | Colors crossfade | 200 ms |
+| Theme switch | Colors crossfade; Solrock and Lunatone swap with a short spin (a fade only with reduced motion) | 200 ms |
 
 - Easing: smooth deceleration (GSAP `power2.out`); no elastic or bounce easings.
 - Animate only `transform` and `opacity` for performance.
@@ -402,6 +403,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Final palette (D63) | After the first real pages (Phase 0–1) | Travertino is provisional (D88) |
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
+| Theme switch (D113) | M0.6–M0.7 | The sprite's size and scale beside the header's fonts; whether the pixel style sits well with the academy; the place on phones |
 | Bookcase and bookmarks (D110) | M1.5 | The three shelves, how a book is taken and opened, the bookmark ribbon; reused by every book |
 | ARMAMENTARIUM design (D99) | M1.7 | Its chapters and the item page as a book page (spread or single page) |
 | PANTHEON design (D108) | M1.12 | Its four chapters, the allowed mark, the frontispiece, the category bookmark on the entry |
@@ -476,6 +478,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D110 | The BIBLIOTHECA is one bookcase of three shelves and every section is a book, opened the same way; labels are bookmarks (`ps-bookmark`). Revises the cabinets of D99, the item card and the PANTHEON's rotunda (section 8). |
 | D111 | The HERBARIUM, the book of berries: chapters by battle use (draft), berry spreads, bookmarks for functions; opens on all berries (section 8). |
 | D112 | Settings: a plain page at `/settings` from a gear icon at the right of the header; utility pages (Settings, About, not-found) stay plain, without inscription or presenter (section 3). |
+| D113 | The theme switch shows Solrock (Día) or Lunatone (Noche) as pixel sprites for the current theme, with a plain sun and moon fallback (sections 3, 10, 11). Solgaleo and Lunala preferred if a way is found (P5). |
 
 ### Proposals awaiting approval
 
