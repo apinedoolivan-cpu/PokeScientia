@@ -6,6 +6,17 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-27 · Milotic (P6)
+
+- **Done:**
+  - Explored Milotic as a link to Venus: Lucretius' opening (Venus calming Mars, as Milotic calms anger), the Pompeii Venus rising from the sea, and Ovid's *Metamorphoses* (Feebas to Milotic). Kept marginal, with no role or feature.
+  - Parked P6: a Milotic in an *impluvium* in the ATRIUM. To consider later: a brief mention when Mew's introductions are written, and a riddle when Delphox's are.
+  - Docs updated: decision map.
+- **Next:** M0.1 when the owner is ready.
+- **Notes:** the two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-27 · The builders (D115)
 
 - **Done:**
