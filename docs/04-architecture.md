@@ -1,10 +1,10 @@
 # Pokescientia — Technical Architecture
 
-**Version 1.18 — approved 2026-11-26** · Owner: @Alex
+**Version 1.19 — approved 2026-11-27** · Owner: @Alex
 
 ## Document status
 
-Version 1.18, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
+Version 1.19, approved. Describes **how** Pokescientia is built: structure, layers, rules and tools. It covers Phases 0–2 in detail and only reserves space for later phases. Versions were checked on 2026-11-04 ([Sources](#sources)).
 
 - Decisions (`D#`), requirements (`R#`) and features (`ARC-F03`…) are defined in docs 01–03.
 - Decisions A1–A12 from the review are recorded as **D45–D56** (section 16). Three.js is recorded as a Phase 4 exploration option (Q63).
@@ -499,6 +499,7 @@ Approved in review on 2026-11-04.
 | — | D110, D111 | Every BIBLIOTHECA section is a book: one book component set (`ps-book`, `ps-book-page`, `ps-thumb-index`, `ps-bookmark`) for all of them; HERBARIUM: a prerendered `/berries` route, berry pages at `/items/:id`, PokéAPI's berry data joined to items in the pipeline |
 | — | D112 | Settings: `halls/settings/` and a `/settings` route; it reads and writes through `PreferencesService` and `TeamRepository`, never storage directly; the backup format gains the preferences |
 | — | D114 | The root page's fallback language is English; Spanish stays the source language of the build |
+| — | D115 | The list of halls in `core/` gives each hall's phase; one current-phase constant, updated at each release, lets the entrance place the crew and choose each closed door's line |
 
 ## Sources
 

@@ -1,10 +1,10 @@
 # Pokescientia — Design and Interaction
 
-**Version 1.22 — approved 2026-11-26** · Owner: @Alex
+**Version 1.23 — approved 2026-11-27** · Owner: @Alex
 
 ## Document status
 
-Version 1.22, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
+Version 1.23, approved. Defines how Pokescientia looks, reads, moves and speaks. It applies the approved functional spec (`02`) and architecture (`04`); it does not add features.
 
 - **Approved decisions** from the design exploration are recorded as **D58–D64** (section 15) and in the vision document.
 - Items marked **Proposal DP-n** are still open: each is decided at its review point in the roadmap (D67) and then becomes a `D` entry. Approving this document does not approve them.
@@ -65,6 +65,16 @@ Greek learning appears as **content, not as a second style**. Rome preserved and
 Strategy and information get more halls than spectacle, on purpose: battles are one part of the academy, not its center. The FORUM is the one community hall (D85): the Roman forum was where citizens met and argued, so the name says what the hall does in both languages. *Forum* is the Latin word; *foro* is its Spanish descendant. The CIRCUS is the spectacle of other people's battles (D102): the Circus Maximus held Rome's chariot races, a different building and show from the Colosseum's gladiators, so the COLOSSEUM is where you fight and the CIRCUS is where you watch the champions. *Circus* appears only as the inscription, with the racetrack in its imagery; the menu says Torneos / Tournaments (D59).
 
 **Halls that don't exist yet** appear at the entrance as **closed doors** with their phase ("Fase 3"), and are not navigable (resolves the open point in SHL rules).
+
+**The builders (D115).** The closed doors are the academy's building site. **Conkeldurr**, the foreman, and a few **Timburrs** work together at the door of the hall being built now, the next to open; when it opens they move on. Every closed door carries a short line from Conkeldurr, warm and a little proud, whose tone shows how close the hall is:
+
+| Distance | Example (es) | Example (en) |
+| --- | --- | --- |
+| Being built now | «¡Casi está! Los Timburr colocan las últimas columnas. Abrimos en la Fase 2.» | "Almost there! The Timburr are setting the last columns. We open in Phase 2." |
+| The next one | «Ya tenemos los planos y la madera. Pronto empezamos.» | "We've got the plans and the timber. We start soon." |
+| Further away | «De momento, aquí solo hay terreno. Paciencia.» | "For now, there's only ground here. Be patient." |
+
+The lines are drafts, written in full when the ATRIUM is built. No Gurdurr: its steel beam is industrial, and timber and concrete are the Roman materials. The crew is not a presenter; when every hall is built it leaves the doors, and About may credit it.
 
 ### Navigation pattern (Proposal DP-1)
 
@@ -354,7 +364,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | `ps-pokemon-image` | Every Pokémon image: official image or the original fallback (a silhouette or type emblem drawn in the academy's line style), chosen by the image service (X-15) |
 | `ps-theme-switch` | The Día/Noche switch in the header: Solrock or Lunatone as a pixel sprite for the current theme (whole-step scaling, pixelated rendering), a plain sun or moon when official images are off; spoken label and tooltip with the action and the Pokémon's name (SHL-F05, D113) |
 | `ps-music-control` | Play or pause, volume and track name in the header; off by default (SHL-F09) |
-| `ps-hall-door` | Entrance door (open or closed) |
+| `ps-hall-door` | Entrance door (open or closed); a closed door carries its phase and Conkeldurr's line, and the door being built carries the crew (D115) |
 | `ps-book`, `ps-book-page`, `ps-thumb-index` | The codex and its navigation |
 | `ps-card` | Surfaces such as team slots and panels |
 | `ps-team-strip` | The active team (X-12): six small sprites with the team name, a switch and an import action; compact on phones. Placed by the shell in the halls that use teams; exact placement decided when built (M2.9) |
@@ -403,6 +413,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | Final palette (D63) | After the first real pages (Phase 0–1) | Travertino is provisional (D88) |
 | Presenter swaps (D84) | Before each hall is built | Cast decided; any presenter may still change |
 | Texture sources (Q29) | When textures are needed | Free-licensed only |
+| The builders (D115) | M0.7 | The crew's scene at the door being built, how several Timburrs sit together, the place of Conkeldurr's line, the scene on phones |
 | Theme switch (D113) | M0.6–M0.7 | The sprite's size and scale beside the header's fonts; whether the pixel style sits well with the academy; the place on phones |
 | Bookcase and bookmarks (D110) | M1.5 | The three shelves, how a book is taken and opened, the bookmark ribbon; reused by every book |
 | ARMAMENTARIUM design (D99) | M1.7 | Its chapters and the item page as a book page (spread or single page) |
@@ -465,7 +476,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D99 | The ARMAMENTARIUM: the BIBLIOTHECA's room for items, with cabinets by category; no menu entry and no presenter of its own (Mew presents it) (section 8). Revised by D110: a book, not a room. |
 | D100 | Every item is shown: battle items with the full page, the rest with encyclopedic data; the list opens on items available in the current game (section 8). Revises D31. |
 
-### Approved (2026-11-24 to 2026-11-26)
+### Approved (2026-11-24 to 2026-11-27)
 
 | ID | Decision |
 | --- | --- |
@@ -479,6 +490,7 @@ Built on Angular CDK, styled with tokens, prefixed `ps-`. Pages use only these.
 | D111 | The HERBARIUM, the book of berries: chapters by battle use (draft), berry spreads, bookmarks for functions; opens on all berries (section 8). |
 | D112 | Settings: a plain page at `/settings` from a gear icon at the right of the header; utility pages (Settings, About, not-found) stay plain, without inscription or presenter (section 3). |
 | D113 | The theme switch shows Solrock (Día) or Lunatone (Noche) as pixel sprites for the current theme, with a plain sun and moon fallback (sections 3, 10, 11). Solgaleo and Lunala preferred if a way is found (P5). |
+| D115 | The builders: Conkeldurr and his Timburrs work together at the door of the hall being built now; every closed door has Conkeldurr's line showing how close it is; no Gurdurr (section 3). |
 
 ### Proposals awaiting approval
 

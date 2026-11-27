@@ -6,6 +6,18 @@ Session log (D65). Newest entry first. Each session, in a chat or in Claude Code
 
 ---
 
+## 2026-11-27 · The builders (D115)
+
+- **Done:**
+  - Decided D115: Conkeldurr (who in its Pokédex taught humans to make concrete 2,000 years ago) is the foreman of the academy's building site, with a crew of Timburrs. The crew works together at the door of the hall being built now; every closed door has a short line from Conkeldurr whose tone shows how close it is. No Gurdurr (its steel beam is industrial), and no evolution used as a progress bar. Feature SHL-F12, built in M0.7.
+  - Docs updated: vision v1.38, modules v1.27, architecture v1.19, design v1.23, roadmap v1.25, CLAUDE.md.
+- **Next:** the owner has a second unused concept to explore; M0.1 when ready.
+- **Notes:**
+  - Conkeldurr's lines are drafts until the ATRIUM is built; the current-phase value is updated at each release.
+  - The two U19 entries are still to renumber.
+
+---
+
 ## 2026-11-26 · Default language (D114)
 
 - **Done:**

@@ -1,10 +1,10 @@
 # Pokescientia — Roadmap and Milestones
 
-**Version 1.24 — approved 2026-11-26** · Owner: @Alex
+**Version 1.25 — approved 2026-11-27** · Owner: @Alex
 
 ## Document status
 
-Version 1.24, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
+Version 1.25, approved. Turns the approved documents (`01`–`05`) into an ordered plan of small milestones. It adds no features: every milestone points to features, decisions and acceptance criteria already defined.
 
 - Phases 0–2 are planned in detail, Phase 3 in medium detail, Phases 4–7 as outlines. Later phases are detailed when they approach.
 - Progress is tracked **in this document** (milestone checkboxes) and in `docs/progress.md` (session log). GitHub Issues are not used for now (D65).
@@ -123,12 +123,12 @@ At around 14 hours a week, Phase 0 takes roughly a month. This is only a sizing 
 
 ### M0.7 — ATRIUM and the presenter · ~6–10 h
 
-- Entrance with doors for every hall: open or closed with its phase (SHL-F01, design §3).
+- Entrance with doors for every hall: open or closed with its phase (SHL-F01, design §3); the builders at the door being built and Conkeldurr's line on every closed door (SHL-F12, D115).
 - `ps-presenter`: arch, plinth, dismissible introduction (SHL-F08, X-10). First presenter text.
 - `ImageService` and `ps-pokemon-image` with the original fallback and the switch for all official images (X-15, D79). The theme switch gets its Solrock and Lunatone sprites through it (SHL-F05, D113).
 - **Design review:** decide **DP-3** (presenter frame) and **DP-4** (artwork treatment).
 
-**Done when:** SHL-F01, SHL-F05 and X-15 acceptance criteria pass; the introduction stays dismissed after reload; DP-3 and DP-4 are recorded.
+**Done when:** SHL-F01, SHL-F05, SHL-F12 and X-15 acceptance criteria pass; the introduction stays dismissed after reload; DP-3 and DP-4 are recorded.
 
 ### M0.8 — Pipeline foundation · ~8–12 h
 
@@ -398,6 +398,7 @@ The smarter rival (LAB-F14) waits for Phase 7.
 | **Dependency updates** | About once a month | `ng update` for Angular, `npm outdated` for the rest, and any Dependabot proposals; one commit per update, CI must stay green (D98) |
 | **Progress log** | End of every session | One entry in `docs/progress.md` |
 | **Accessibility check** | At each phase close | Use the main flows with the Orca screen reader (included in Ubuntu); when possible, ask a color-blind user to try the new screens (D78) |
+| **Builders' phase** | At each phase close | Update the current-phase value so Conkeldurr's crew moves to the next hall and the closed doors' lines change (D115) |
 | **Document upkeep** | When a decision changes | Vision, decision map and the affected document in the same commit |
 
 Before the pipeline exists (M0.9), a new regulation needs no work.
@@ -446,4 +447,5 @@ Recorded in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 | D110, D111 | The bookcase and the book components are built once in M1.5 and reused by every book; the HERBARIUM is built in Phase 1 (M1.13, about 4–6 h); Phase 1 closes with M1.14. |
 | D112 | Settings grows with the phases: Preferences and clearing data in M1.11, the full backup in M2.3, the Account section in Phase 5 (ACC-F06), the persona switch in Phase 7 if Q82 adopts it. |
 | D113 | The theme switch is built in M0.6 with a plain sun and moon, and gets its Solrock and Lunatone sprites in M0.7, once the image service exists. |
+| D115 | The builders are built with the ATRIUM in M0.7; at each release the current-phase value is updated, which moves the crew and changes the lines. |
 | D98 | `npm audit` and Dependabot join CI in M0.2; the first public deployment adds a Content Security Policy; the Phase 5 specification settles the account security checklist (Q91). |

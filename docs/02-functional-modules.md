@@ -1,10 +1,10 @@
 # Pokescientia — Functional Module Specification
 
-**Version 1.26 — approved 2026-11-26** · Owner: @Alex
+**Version 1.27 — approved 2026-11-27** · Owner: @Alex
 
 ## Document status
 
-Version 1.26, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
+Version 1.27, approved. Describes **what** each module does, from the user's point of view. It does not describe how it is built (architecture doc), where data comes from (data strategy), or how it looks (design spec).
 
 - Decisions referenced as `D#` and requirements as `R#` live in [`01-vision-and-requirements.md`](01-vision-and-requirements.md).
 - Open questions live in [`00-decision-map.md`](00-decision-map.md).
@@ -104,6 +104,7 @@ These rules apply to every module and are not repeated in module sections.
 | SHL-F09 | **Music** (D80). A small control in the header: play or pause, volume, track name. Off by default and remembered (X-14); files load only when played. Only free-licensed tracks in a style that fits the academy or Pokémon, credited on About; optionally a different track per hall. | 1 |
 | SHL-F10 | **Settings** (D112): a plain page at `/settings`, from a gear icon in the header. Preferences: language, theme (with the time-of-day mode), music, reduced motion (follows the device unless turned on here), official images (X-15), and restoring dismissed presenter introductions. **Clear local data**, after a confirmation that says what will be removed. | 1 |
 | SHL-F11 | **Full backup** (D112): in Settings, export everything (teams and preferences) to one file and import it back, and see the storage used. LEGIO's backup (STR-F07) uses the same file. | 2 |
+| SHL-F12 | **The builders** (D115): at the entrance, Conkeldurr and his Timburrs work together at the door of the hall being built now; every closed door shows a short line from Conkeldurr whose tone depends on how close the hall is (being built now, the next one, further away), in both languages, beside its phase. | 0 |
 
 ### Rules
 
@@ -116,7 +117,7 @@ These rules apply to every module and are not repeated in module sections.
 
 ### Data
 
-Reads the search index (DAT-F10) and the list of halls. Stores the preferences in the browser; from Phase 2, Settings reads and writes the teams for the full backup (SHL-F11).
+Reads the search index (DAT-F10), the list of halls with their phases and the current phase (D115). Stores the preferences in the browser; from Phase 2, Settings reads and writes the teams for the full backup (SHL-F11).
 
 ### Connections
 
@@ -128,6 +129,7 @@ Hosts every hall. Global search links into M2.
 - **SHL-F03** *Given* the Pokédex exists, *when* I type "char" in the global search, *then* I see Charmander, Charmeleon, Charizard and any moves, abilities or items matching, grouped by kind, and I can open any result with the keyboard.
 - **SHL-F04** *Given* I chose English last time, *when* I visit the site root, *then* I am sent to `/en/`. *Given* no saved choice, *then* a browser set to Spanish opens `/es/`, one set to English opens `/en/`, one set to French opens `/en/`, and one set to French then Spanish opens `/es/`.
 - **SHL-F05** *Given* Día is active, *then* the switch shows Solrock and its label says "Cambiar a Noche"; *when* I press it, *then* Noche applies, Lunatone shows, and the choice is remembered. *Given* official images are off, *then* the switch shows the plain sun or moon and works the same way.
+- **SHL-F12** *Given* the current phase is 1 and LEGIO opens in Phase 2, *then* the crew stands at LEGIO's door and its line says it is almost finished; *given* the FORUM (Phase 6), *then* its line says there is only ground for now; every closed door still shows its phase as text. *Given* official images are off, *then* the crew shows the original fallback and the lines are unchanged.
 - **SHL-F07** *Given* I open a URL that doesn't exist, *then* I see the not-found page in my language, with a link to the entrance.
 - **SHL-F10** *Given* I change the theme in Settings, *then* the header's theme switch shows the same choice and it is remembered. *Given* I choose "clear local data" and confirm, *then* every preference returns to its default and, from Phase 2, every team is removed; *if* I cancel, nothing changes.
 - **SHL-F11** *Given* two teams and a chosen language, *when* I export from Settings and import the file in another browser, *then* both teams and the language are restored.
